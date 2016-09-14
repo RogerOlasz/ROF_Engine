@@ -105,7 +105,6 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="glmath.cpp" />
-    <ClCompile Include="ImGui\extra_fonts\binary_to_compressed_c.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_demo.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
@@ -129,16 +128,6 @@
     <None Include="ImGui\.travis.yml" />
     <None Include="ImGui\LICENSE" />
     <None Include="ImGui\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="ImGui\extra_fonts\Cousine-Regular.ttf" />
-    <Font Include="ImGui\extra_fonts\DroidSans.ttf" />
-    <Font Include="ImGui\extra_fonts\Karla-Regular.ttf" />
-    <Font Include="ImGui\extra_fonts\ProggyClean.ttf" />
-    <Font Include="ImGui\extra_fonts\ProggyTiny.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ImGui\extra_fonts\README.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

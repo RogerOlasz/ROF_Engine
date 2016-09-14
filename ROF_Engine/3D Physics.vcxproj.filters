@@ -22,9 +22,6 @@
     <Filter Include="Sources\ImGui">
       <UniqueIdentifier>{074bf42e-78ca-4a25-8109-2c2a8e4af4bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\ImGui\ExtraFonts">
-      <UniqueIdentifier>{063974cf-e9c0-44db-8429-274cdce9148d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -173,9 +170,6 @@
     <ClCompile Include="ImGui\imgui_draw.cpp">
       <Filter>Sources\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\extra_fonts\binary_to_compressed_c.cpp">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ImGui\.travis.yml">
@@ -187,27 +181,5 @@
     <None Include="ImGui\README.md">
       <Filter>Sources\ImGui</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="ImGui\extra_fonts\Cousine-Regular.ttf">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Font>
-    <Font Include="ImGui\extra_fonts\DroidSans.ttf">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Font>
-    <Font Include="ImGui\extra_fonts\Karla-Regular.ttf">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Font>
-    <Font Include="ImGui\extra_fonts\ProggyClean.ttf">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Font>
-    <Font Include="ImGui\extra_fonts\ProggyTiny.ttf">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ImGui\extra_fonts\README.txt">
-      <Filter>Sources\ImGui\ExtraFonts</Filter>
-    </Text>
   </ItemGroup>
 </Project>
