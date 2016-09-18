@@ -19,8 +19,8 @@
     <Filter Include="Sources\Modules\Game">
       <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\ImGui">
-      <UniqueIdentifier>{074bf42e-78ca-4a25-8109-2c2a8e4af4bc}</UniqueIdentifier>
+    <Filter Include="Sources\Tools\ImGui">
+      <UniqueIdentifier>{506e6c78-cbb2-49f7-91f5-0d1708dbfa10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,22 +82,28 @@
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_sdl_gl3.h">
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_user.h">
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\stb_rect_pack.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\stb_textedit.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\stb_truetype.h">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,24 +156,19 @@
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Sources\ImGui</Filter>
+      <Filter>Sources\Tools\ImGui</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ImGui\.travis.yml">
-      <Filter>Sources\ImGui</Filter>
-    </None>
-    <None Include="ImGui\LICENSE">
-      <Filter>Sources\ImGui</Filter>
-    </None>
-    <None Include="ImGui\README.md">
-      <Filter>Sources\ImGui</Filter>
-    </None>
+    <ClCompile Include="ImGui\imgui_impl_sdl_gl3.cpp">
+      <Filter>Sources\Tools\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_user2.cpp">
+      <Filter>Sources\Tools\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
