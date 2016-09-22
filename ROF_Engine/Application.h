@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "Globals.h"
 #include "Timer.h"
+
 #include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -11,17 +12,29 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
+#include "ModuleEditor.h"
+
+//class Module;
+//class ModuleWindow;
+//class ModuleInput;
+//class ModuleAudio;
+//class ModuleSceneIntro;
+//class ModuleRenderer3D;
+//class ModuleCamera3D;
+//class ModulePhysics3D;
+//class ModuleEditor;
 
 class Application
 {
 public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleAudio* audio;
-	ModuleSceneIntro* scene_intro;
-	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
+	ModuleWindow* window = NULL;
+	ModuleInput* input = NULL;
+	ModuleAudio* audio = NULL;
+	ModuleSceneIntro* scene_intro = NULL;
+	ModuleRenderer3D* renderer3D = NULL;
+	ModuleCamera3D* camera = NULL;
+	ModulePhysics3D* physics = NULL;
+	ModuleEditor* editor = NULL;
 
 private:
 
@@ -38,9 +51,13 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void Log(const char* log);
+
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
 };
+
+extern Application* App;

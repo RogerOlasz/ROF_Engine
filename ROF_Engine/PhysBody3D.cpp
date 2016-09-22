@@ -1,4 +1,5 @@
 #include "PhysBody3D.h"
+#include "glmath.h"
 #include "Bullet\include\btBulletDynamicsCommon.h"
 
 // =================================================
@@ -75,13 +76,13 @@ void PhysBody3D::Stop_Motion()
 }
 
 //-----------------------------------------------------------------------------
-math::vec PhysBody3D::GetPos() const
+const vec3 PhysBody3D::GetPos() const
 {
-	math::vec ret;
+	btTransform trans = body->getWorldTransform();
+	btVector3 vec = trans.getOrigin();
+	vec3 ret;
 
-	ret.x = body->getWorldTransform().getOrigin().getX();
-	ret.y = body->getWorldTransform().getOrigin().getY();
-	ret.z = body->getWorldTransform().getOrigin().getZ();
+	ret.Set(vec.getX(), vec.getY(), vec.getZ());
 
 	return ret;
 }

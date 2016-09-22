@@ -1,4 +1,13 @@
 #include "Application.h"
+//#include "Module.h"
+//#include "ModuleWindow.h"
+//#include "ModuleInput.h"
+//#include "ModuleAudio.h"
+//#include "ModuleSceneIntro.h"
+//#include "ModuleRenderer3D.h"
+//#include "ModuleCamera3D.h"
+//#include "ModulePhysics3D.h"
+//#include "ModuleEditor.h"
 
 Application::Application()
 {
@@ -9,6 +18,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
+	editor = new ModuleEditor(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -20,6 +30,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);
+	AddModule(editor);
 	
 	// Scenes
 	AddModule(scene_intro);
@@ -123,6 +134,11 @@ bool Application::CleanUp()
 		item = item->prev;
 	}
 	return ret;
+}
+
+void Application::Log(const char* log)
+{
+	App->editor->Log(log);
 }
 
 void Application::AddModule(Module* mod)
