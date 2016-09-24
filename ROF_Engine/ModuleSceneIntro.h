@@ -1,6 +1,6 @@
 #pragma once
 #include "Module.h"
-#include "p2DynArray.h"
+#include <array>
 #include "Globals.h"
 #include "Primitive.h"
 
