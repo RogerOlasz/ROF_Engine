@@ -20,8 +20,8 @@ bool ModuleSceneIntro::Start()
 	//INITIALIZATION OF VARIABLES---------------------------------
 	bool ret = true;
 
-	App->camera->Move(vec3(5, 5, 5));
-	App->camera->LookAt(vec3(0, 0, 0));
+	App->camera->Move(vec(5, 5, 5));
+	App->camera->LookAt(vec(0, 0, 0));
 
 	return ret;
 }

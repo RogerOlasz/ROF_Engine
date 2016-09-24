@@ -183,7 +183,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere_P& sphere, float mass)
 	shapes.push_back(colShape);
 
 	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&sphere.transform);
+	startTransform.setFromOpenGLMatrix(*sphere.transform.v);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
@@ -210,7 +210,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube_P& cube, float mass)
 	shapes.push_back(colShape);
 
 	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cube.transform);
+	startTransform.setFromOpenGLMatrix(*cube.transform.v);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
@@ -236,7 +236,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder_P& cylinder, float mass)
 	shapes.push_back(colShape);
 
 	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cylinder.transform);
+	startTransform.setFromOpenGLMatrix(*cylinder.transform.v);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
@@ -256,7 +256,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cylinder_P& cylinder, float mass)
 }
 
 // ---------------------------------------------------------
-void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB)
+void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec& anchorA, const vec& anchorB)
 {
 	btTypedConstraint* p2p = new btPoint2PointConstraint(
 		*(bodyA.body),
@@ -269,7 +269,7 @@ void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, con
 	p2p->setDbgDrawSize(2.0f);
 }
 
-void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision)
+void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec& anchorA, const vec& anchorB, const vec& axisA, const vec& axisB, bool disable_collision)
 {
 	btHingeConstraint* hinge = new btHingeConstraint(
 		*(bodyA.body),
@@ -295,7 +295,7 @@ void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btV
 
 void DebugDrawer::drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color)
 {
-	point.transform.translate(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
+	point.transform.SetTranslatePart(PointOnB.getX(), PointOnB.getY(), PointOnB.getZ());
 	point.color.Set(color.getX(), color.getY(), color.getZ());
 	point.Render();
 }

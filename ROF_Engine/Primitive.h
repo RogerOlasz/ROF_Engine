@@ -1,6 +1,6 @@
 
 #pragma once
-#include "glmath.h"
+#include "MathGeoLib\include\MathGeoLib.h"
 #include "Color.h"
 
 enum PrimitiveTypes
@@ -22,14 +22,14 @@ public:
 	virtual void	Render() const;
 	virtual void	InnerRender() const;
 	void			SetPos(float x, float y, float z);
-	void			SetRotation(float angle, const vec3 &u);
+	void			SetRotation(float angle, const vec &u);
 	void			Scale(float x, float y, float z);
 	PrimitiveTypes	GetType() const;
 
 public:
 	
 	Color color;
-	mat4x4 transform;
+	float4x4 transform;
 	bool axis,wire;
 
 protected:
@@ -46,7 +46,7 @@ public :
 	void Create_Cube(float sizeX, float sizeY, float sizeZ, float pos_x, float pos_y, float pos_z);
 
 public:
-	vec3 size;
+	vec size;
 };
 
 // ============================================
@@ -80,8 +80,8 @@ public:
 	Line_P(float x, float y, float z);
 	void InnerRender() const;
 public:
-	vec3 origin;
-	vec3 destination;
+	vec origin;
+	vec destination;
 };
 
 // ============================================
@@ -92,6 +92,6 @@ public:
 	Plane_P(float x, float y, float z, float d);
 	void InnerRender() const;
 public:
-	vec3 normal;
+	vec normal;
 	float constant;
 };
