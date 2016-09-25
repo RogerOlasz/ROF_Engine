@@ -4,6 +4,7 @@
 #include "Module.h"
 
 class PanelConsole;
+class PanelConfiguration;
 
 class ModuleEditor : public Module
 {
@@ -19,8 +20,10 @@ public:
 	void Log(const char* log);
 
 private:
-	PanelConsole* Console = NULL;
+	bool config_on = false;
 
+	PanelConsole* Console = NULL;
+	PanelConfiguration* Config = NULL;
 };
 
 #endif // __ModuleEditor_H__
