@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "Glew\include\glew.h"
 #include "SDL\include\SDL_opengl.h"
+#include <vector>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
@@ -127,15 +128,93 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	
+	////Painting a cube
+	//glBegin(GL_TRIANGLES);
 
-	glLineWidth(3.0f);
+	//glColor3f(255.f, 0.f, 0.f);
 
-	glBegin(GL_LINES);
-	glVertex3f(0.f, 0.f, 0.f);
-	glVertex3f(0.f, 10.f, 0.f);
-	glEnd();
+	//glVertex3f(0.f, 0.f, 0.f);//A
+	//glVertex3f(5.f, 0.f, 0.f);//B
+	//glVertex3f(5.f, 5.f, 0.f);//C
 
-	glLineWidth(1.0f);
+	//glVertex3f(5.f, 5.f, 0.f);//C
+	//glVertex3f(0.f, 5.f, 0.f);//D
+	//glVertex3f(0.f, 0.f, 0.f);//A
+
+	//glColor3f(0.f, 255.f, 0.f);
+
+	//glVertex3f(5.f, 0.f, 0.f);//B
+	//glVertex3f(5.f, 0.f, -5.f);//E
+	//glVertex3f(5.f, 5.f, -5.f);//F
+
+	//glVertex3f(5.f, 5.f, -5.f);//F
+	//glVertex3f(5.f, 5.f, 0.f);//C
+	//glVertex3f(5.f, 0.f, 0.f);//B
+
+	//glColor3f(0.f, 0.f, 255.f);
+
+	//glVertex3f(5.f, 0.f, -5.f);//E
+	//glVertex3f(0.f, 0.f, -5.f);//G
+	//glVertex3f(5.f, 5.f, -5.f);//F
+
+	//glVertex3f(5.f, 5.f, -5.f);//F
+	//glVertex3f(0.f, 0.f, -5.f);//G
+	//glVertex3f(0.f, 5.f, -5.f);//H
+
+	//glColor3f(125.f, 125.f, 0.f);
+
+	//glVertex3f(0.f, 5.f, -5.f);//F
+	//glVertex3f(0.f, 0.f, -5.f);//E
+	//glVertex3f(0.f, 0.f, 0.f);//B
+
+	//glVertex3f(0.f, 0.f, 0.f);//B
+	//glVertex3f(0.f, 5.f, 0.f);//C
+	//glVertex3f(0.f, 5.f, -5.f);//F
+
+	//glColor3f(0.f, 125.f, 125.f);
+
+	//glVertex3f(0.f, 5.f, 0.f);//D
+	//glVertex3f(5.f, 5.f, 0.f);//C
+	//glVertex3f(5.f, 5.f, -5.f);//F
+
+	//glVertex3f(0.f, 5.f, 0.f);//D
+	//glVertex3f(5.f, 5.f, -5.f);//F
+	//glVertex3f(0.f, 5.f, -5.f);//H
+
+	//glColor3f(125.f, 0.f, 125.f);
+
+	//glVertex3f(0.f, 0.f, 0.f);//D
+	//glVertex3f(5.f, 0.f, -5.f);//F
+	//glVertex3f(5.f, 0.f, 0.f);//C
+
+	//glVertex3f(0.f, 0.f, 0.f);//D
+	//glVertex3f(0.f, 0.f, -5.f);//H
+	//glVertex3f(5.f, 0.f, -5.f);//F
+	//glEnd();
+
+	vector<vec> vertices;
+
+	//FRONT
+	vertices.push_back(vec(0.f, 0.f, 0.f));//A
+	vertices.push_back(vec(5.f, 0.f, 0.f));//B
+	glVertex3f(5.f, 5.f, 0.f);//C
+
+	glVertex3f(5.f, 5.f, 0.f);//C
+	glVertex3f(0.f, 5.f, 0.f);//D
+	glVertex3f(0.f, 0.f, 0.f);//A
+
+	uint my_id = 0;
+	glGenBuffers(1, (GLuint*) &(my_id));
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*vertices.size() * 3, &vertices, GL_STATIC_DRAW);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	// ... draw other buffers
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size() * 3);
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
