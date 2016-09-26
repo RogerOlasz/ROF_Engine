@@ -23,7 +23,7 @@ bool ModuleEditor::Init()
 
 update_status ModuleEditor::Update(float dt)
 {
-	//Creating an ImGui Simple UI
+	//Creating an ImGui UI
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))

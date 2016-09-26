@@ -22,8 +22,8 @@ public:
 private:
 	bool config_on = false;
 
-	PanelConsole* Console = NULL;
-	PanelConfiguration* Config = NULL;
+	PanelConsole* Console = nullptr;
+	PanelConfiguration* Config = nullptr;
 };
 
 #endif // __ModuleEditor_H__

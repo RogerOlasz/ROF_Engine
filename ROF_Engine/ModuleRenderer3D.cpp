@@ -128,6 +128,15 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
+	glLineWidth(3.0f);
+
+	glBegin(GL_LINES);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(0.f, 10.f, 0.f);
+	glEnd();
+
+	glLineWidth(1.0f);
+
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
@@ -168,7 +177,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	float n = 0.125f;
 	float f = 512.0f;
 
-	float coty = 1.0f / tan(20.0f * pi / 360.0f);
+	float coty = 1.0f / tan(60.0f * pi / 360.0f);
 
 	//Matrix
 	perspective[0][0] = coty / ((float)width / (float)height);
