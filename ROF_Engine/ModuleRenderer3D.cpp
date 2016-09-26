@@ -306,23 +306,77 @@ void ModuleRenderer3D::DrawCubeVertexArray(uint size)
 
 void ModuleRenderer3D::CubePaintIndices()
 {
+	vector<vec> vertex;
+
+	vertex.push_back(vec(5.f, 5.f, 0.f));//C
+	vertex.push_back(vec(0.f, 5.f, 0.f));//D
+	vertex.push_back(vec(0.f, 0.f, 0.f));//A
+	vertex.push_back(vec(5.f, 0.f, 0.f));//B
+	vertex.push_back(vec(5.f, 0.f, -5.f));//E
+	vertex.push_back(vec(5.f, 5.f, -5.f));//F
+	vertex.push_back(vec(0.f, 5.f, -5.f));//H
+	vertex.push_back(vec(0.f, 0.f, -5.f));//G
+
 	vector<vec> indices;
-	indices.push_back(vec(0.f, 0.f, 0.f));//A
-	indices.push_back(vec(5.f, 0.f, 0.f));//B
-	indices.push_back(vec(5.f, 5.f, 0.f));//C
-	indices.push_back(vec(0.f, 5.f, 0.f));//D
-	indices.push_back(vec(5.f, 0.f, -5.f));//E
-	indices.push_back(vec(5.f, 5.f, -5.f));//F
-	indices.push_back(vec(0.f, 0.f, -5.f));//G
-	indices.push_back(vec(0.f, 5.f, -5.f));//H
+
+	indices.push_back(vertex[0]);
+	indices.push_back(vertex[1]);
+	indices.push_back(vertex[2]);
+
+	indices.push_back(vertex[2]);
+	indices.push_back(vertex[3]);
+	indices.push_back(vertex[0]);
+
+	indices.push_back(vertex[0]);
+	indices.push_back(vertex[3]);
+	indices.push_back(vertex[4]);
+
+	indices.push_back(vertex[4]);
+	indices.push_back(vertex[5]);
+	indices.push_back(vertex[0]);
+
+	indices.push_back(vertex[0]);
+	indices.push_back(vertex[5]);
+	indices.push_back(vertex[6]);
+
+	indices.push_back(vertex[6]);
+	indices.push_back(vertex[1]);
+	indices.push_back(vertex[0]);
+
+	indices.push_back(vertex[1]);
+	indices.push_back(vertex[6]);
+	indices.push_back(vertex[7]);
+
+	indices.push_back(vertex[7]);
+	indices.push_back(vertex[2]);
+	indices.push_back(vertex[1]);
+
+	indices.push_back(vertex[7]);
+	indices.push_back(vertex[4]);
+	indices.push_back(vertex[3]);
+
+	indices.push_back(vertex[3]);
+	indices.push_back(vertex[2]);
+	indices.push_back(vertex[7]);
+
+	indices.push_back(vertex[4]);
+	indices.push_back(vertex[7]);
+	indices.push_back(vertex[6]);
+
+	indices.push_back(vertex[6]);
+	indices.push_back(vertex[5]);
+	indices.push_back(vertex[4]);
 
 	uint my_indices = 0;
 	glGenBuffers(1, (GLuint*) &(my_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*indices.size(), indices.data(), GL_STATIC_DRAW);
 
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glDrawElements(GL_TRIANGLES, my_indices, GL_UNSIGNED_INT, NULL);
+	glVertexPointer(3, GL_FLOAT, 0, vertex.data());
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void ModuleRenderer3D::OnResize(int width, int height)
