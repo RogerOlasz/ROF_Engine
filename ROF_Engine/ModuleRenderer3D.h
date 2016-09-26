@@ -19,6 +19,14 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CubePaintDirectMode();
+	uint CubeVertexArray();
+	void DrawCubeVertexArray(uint size);
+	void CubePaintIndices();
+	//void DrawCubeIndices();
+	uint vertex_size;
+	uint my_id = 0;
+
 	void OnResize(int width, int height);
 
 public:
