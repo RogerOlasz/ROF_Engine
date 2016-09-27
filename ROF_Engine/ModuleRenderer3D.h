@@ -22,8 +22,10 @@ public:
 	void CubePaintDirectMode();
 	uint CubeVertexArray();
 	void DrawCubeVertexArray(uint size);
-	void CubePaintIndices();
-	//void DrawCubeIndices();
+	uint CubeIndices();
+	void DrawCubeIndices(uint size);
+	uint indices_size;
+	uint my_indices = 0;
 	uint vertex_size;
 	uint my_id = 0;
 

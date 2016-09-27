@@ -115,7 +115,8 @@ bool ModuleRenderer3D::Init()
 	ImGui_ImplSdlGL3_Init(App->window->window);
 
 	//Load Vertex OpenGL
-	vertex_size = CubeVertexArray();
+	//vertex_size = CubeVertexArray();
+	indices_size = CubeIndices();
 
 	return ret;
 }
@@ -138,7 +139,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	//OpenGL cubepaint
 	//CubePaintDirectMode();
 	//DrawCubeVertexArray(vertex_size);
-	CubePaintIndices();
+	DrawCubeIndices(indices_size);
 
 	return UPDATE_CONTINUE;
 }
@@ -304,7 +305,7 @@ void ModuleRenderer3D::DrawCubeVertexArray(uint size)
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void ModuleRenderer3D::CubePaintIndices()
+uint ModuleRenderer3D::CubeIndices()
 {
 	vector<vec> vertex;
 
@@ -367,15 +368,19 @@ void ModuleRenderer3D::CubePaintIndices()
 	indices.push_back(5);
 	indices.push_back(4);
 
-	uint my_indices = 0;
 	glGenBuffers(1, (GLuint*) &(my_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*indices.size(), indices.data(), GL_STATIC_DRAW);
 
+	return indices.size();
+}
+
+void ModuleRenderer3D::DrawCubeIndices(uint size)
+{
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, my_indices, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
