@@ -308,64 +308,64 @@ void ModuleRenderer3D::CubePaintIndices()
 {
 	vector<vec> vertex;
 
-	vertex.push_back(vec(5.f, 5.f, 0.f));//C
-	vertex.push_back(vec(0.f, 5.f, 0.f));//D
-	vertex.push_back(vec(0.f, 0.f, 0.f));//A
-	vertex.push_back(vec(5.f, 0.f, 0.f));//B
-	vertex.push_back(vec(5.f, 0.f, -5.f));//E
-	vertex.push_back(vec(5.f, 5.f, -5.f));//F
-	vertex.push_back(vec(0.f, 5.f, -5.f));//H
-	vertex.push_back(vec(0.f, 0.f, -5.f));//G
+	vertex.push_back(vec(5.f, 5.f, 0.f));//C 0
+	vertex.push_back(vec(0.f, 5.f, 0.f));//D 1
+	vertex.push_back(vec(0.f, 0.f, 0.f));//A 2
+	vertex.push_back(vec(5.f, 0.f, 0.f));//B 3
+	vertex.push_back(vec(5.f, 0.f, -5.f));//E 4
+	vertex.push_back(vec(5.f, 5.f, -5.f));//F 5
+	vertex.push_back(vec(0.f, 5.f, -5.f));//H 6
+	vertex.push_back(vec(0.f, 0.f, -5.f));//G 7
 
-	vector<vec> indices;
+	vector<uint> indices;
 
-	indices.push_back(vertex[0]);
-	indices.push_back(vertex[1]);
-	indices.push_back(vertex[2]);
+	indices.push_back(0);
+	indices.push_back(1);
+	indices.push_back(2);
 
-	indices.push_back(vertex[2]);
-	indices.push_back(vertex[3]);
-	indices.push_back(vertex[0]);
+	indices.push_back(2);
+	indices.push_back(3);
+	indices.push_back(0);
 
-	indices.push_back(vertex[0]);
-	indices.push_back(vertex[3]);
-	indices.push_back(vertex[4]);
+	indices.push_back(0);
+	indices.push_back(3);
+	indices.push_back(4);
 
-	indices.push_back(vertex[4]);
-	indices.push_back(vertex[5]);
-	indices.push_back(vertex[0]);
+	indices.push_back(4);
+	indices.push_back(5);
+	indices.push_back(0);
 
-	indices.push_back(vertex[0]);
-	indices.push_back(vertex[5]);
-	indices.push_back(vertex[6]);
+	indices.push_back(0);
+	indices.push_back(5);
+	indices.push_back(6);
 
-	indices.push_back(vertex[6]);
-	indices.push_back(vertex[1]);
-	indices.push_back(vertex[0]);
+	indices.push_back(6);
+	indices.push_back(1);
+	indices.push_back(0);
 
-	indices.push_back(vertex[1]);
-	indices.push_back(vertex[6]);
-	indices.push_back(vertex[7]);
+	indices.push_back(1);
+	indices.push_back(6);
+	indices.push_back(7);
 
-	indices.push_back(vertex[7]);
-	indices.push_back(vertex[2]);
-	indices.push_back(vertex[1]);
+	indices.push_back(7);
+	indices.push_back(2);
+	indices.push_back(1);
 
-	indices.push_back(vertex[7]);
-	indices.push_back(vertex[4]);
-	indices.push_back(vertex[3]);
+	indices.push_back(7);
+	indices.push_back(4);
+	indices.push_back(3);
 
-	indices.push_back(vertex[3]);
-	indices.push_back(vertex[2]);
-	indices.push_back(vertex[7]);
+	indices.push_back(3);
+	indices.push_back(2);
+	indices.push_back(7);
 
-	indices.push_back(vertex[4]);
-	indices.push_back(vertex[7]);
-	indices.push_back(vertex[6]);
+	indices.push_back(4);
+	indices.push_back(7);
+	indices.push_back(6);
 
-	indices.push_back(vertex[6]);
-	indices.push_back(vertex[5]);
-	indices.push_back(vertex[4]);
+	indices.push_back(6);
+	indices.push_back(5);
+	indices.push_back(4);
 
 	uint my_indices = 0;
 	glGenBuffers(1, (GLuint*) &(my_indices));
@@ -375,7 +375,7 @@ void ModuleRenderer3D::CubePaintIndices()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, my_indices, GL_UNSIGNED_INT, NULL);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
