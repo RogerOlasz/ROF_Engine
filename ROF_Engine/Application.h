@@ -33,8 +33,14 @@ public:
 
 private:
 
+	Timer to_fps;
+	float fps;
+	float fps_last_sec;
 	Timer	ms_timer;
 	float	dt;
+	float max_fps = 40;
+	float capped_ms;
+
 	std::list<Module*> list_modules;
 
 public:

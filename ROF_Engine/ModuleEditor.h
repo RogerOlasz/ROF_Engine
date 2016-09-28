@@ -18,6 +18,7 @@ public:
 	update_status Update(float dt);
 
 	void Log(const char* log);
+	void LogFPS(const float* fps, const float ms);
 
 private:
 	bool config_on = false;

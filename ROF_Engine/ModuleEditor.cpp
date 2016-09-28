@@ -78,3 +78,8 @@ void ModuleEditor::Log(const char* log)
 	
 }
 
+void ModuleEditor::LogFPS(const float* fps, const float ms)
+{
+	Config->Log(fps, ms);
+}
+

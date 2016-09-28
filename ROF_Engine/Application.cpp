@@ -76,6 +76,8 @@ bool Application::Init()
 		item++;
 	}
 	
+	capped_ms = (1000.f / max_fps);
+	to_fps.Start();
 	ms_timer.Start();
 	return ret;
 }
@@ -90,6 +92,21 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	float frame_ms = ms_timer.Read();
+	if (frame_ms < capped_ms)
+	{
+		SDL_Delay(capped_ms - frame_ms);
+	}
+
+	fps++;
+	App->editor->LogFPS(&fps_last_sec, (float)ms_timer.Read());
+
+	if (to_fps.Read() >= 1000.f)
+	{
+		to_fps.Start();
+		fps_last_sec = fps;
+		fps = 0;
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
