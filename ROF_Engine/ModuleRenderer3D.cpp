@@ -318,6 +318,10 @@ uint ModuleRenderer3D::CubeIndices()
 	vertex.push_back(vec(0.f, 5.f, -5.f));//H 6
 	vertex.push_back(vec(0.f, 0.f, -5.f));//G 7
 
+	glGenBuffers(1, (GLuint*) &(my_id));
+	glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*vertex.size() * 3, vertex.data(), GL_STATIC_DRAW);
+
 	vector<uint> indices;
 
 	indices.push_back(0);
