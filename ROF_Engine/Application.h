@@ -1,42 +1,35 @@
-#pragma once
+#ifndef __Application_H__
+#define __Application_H__
 
 #include <list>
 #include "Globals.h"
 #include "Timer.h"
 
-#include "Module.h"
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleAudio.h"
-#include "ModuleSceneIntro.h"
-#include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
-#include "ModuleEditor.h"
-
-//class Module;
-//class ModuleWindow;
-//class ModuleInput;
-//class ModuleAudio;
-//class ModuleSceneIntro;
-//class ModuleRenderer3D;
-//class ModuleCamera3D;
-//class ModulePhysics3D;
-//class ModuleEditor;
+class Module;
+class ModuleWindow;
+class ModuleInput;
+class ModuleAudio;
+class ModuleSceneIntro;
+class ModuleRenderer3D;
+class ModuleCamera3D;
+class ModulePhysics3D;
+class ModuleEditor;
+class ModuleGeometry;
 
 using namespace std;
 
 class Application
 {
 public:
-	ModuleWindow* window = NULL;
-	ModuleInput* input = NULL;
-	ModuleAudio* audio = NULL;
-	ModuleSceneIntro* scene_intro = NULL;
-	ModuleRenderer3D* renderer3D = NULL;
-	ModuleCamera3D* camera = NULL;
-	ModulePhysics3D* physics = NULL;
-	ModuleEditor* editor = NULL;
+	ModuleWindow* window = nullptr;
+	ModuleInput* input = nullptr;
+	ModuleAudio* audio = nullptr;
+	ModuleSceneIntro* scene_intro = nullptr;
+	ModuleRenderer3D* renderer3D = nullptr;
+	ModuleCamera3D* camera = nullptr;
+	ModulePhysics3D* physics = nullptr;
+	ModuleEditor* editor = nullptr;
+	ModuleGeometry* geometry = nullptr;
 
 private:
 
@@ -63,3 +56,5 @@ private:
 };
 
 extern Application* App;
+
+#endif // __Application_H__

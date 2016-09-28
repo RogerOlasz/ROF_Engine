@@ -1,13 +1,14 @@
 #include "Application.h"
-//#include "Module.h"
-//#include "ModuleWindow.h"
-//#include "ModuleInput.h"
-//#include "ModuleAudio.h"
-//#include "ModuleSceneIntro.h"
-//#include "ModuleRenderer3D.h"
-//#include "ModuleCamera3D.h"
-//#include "ModulePhysics3D.h"
-//#include "ModuleEditor.h"
+#include "Module.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleEditor.h"
+#include "ModuleGeometry.h"
 
 Application::Application()
 {
@@ -19,6 +20,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
 	editor = new ModuleEditor(this);
+	geometry = new ModuleGeometry(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -31,6 +33,7 @@ Application::Application()
 	AddModule(audio);
 	AddModule(physics);
 	AddModule(editor);
+	AddModule(geometry);
 	
 	// Scenes
 	AddModule(scene_intro);

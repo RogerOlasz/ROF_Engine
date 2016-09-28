@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModulePhysics3D.h"
 #include "PhysBody3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleInput.h"
 #include "Primitive.h"
 
 #ifdef _DEBUG
