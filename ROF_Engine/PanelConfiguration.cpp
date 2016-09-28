@@ -22,6 +22,7 @@ void PanelConfiguration::Draw(bool* open)
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
+		ImGui::SliderInt("Max FPS", &max_fps, 0, 120);
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
@@ -45,4 +46,9 @@ void PanelConfiguration::Log(const float* fps, const float ms)
 		ms_log[i] = ms_log[i + 1];
 	}
 	ms_log[ms_log.size() - 1] = ms;
+}
+
+unsigned int PanelConfiguration::GetMaxFPS()
+{
+	return max_fps;
 }

@@ -10,6 +10,7 @@ class PanelConfiguration
 private:
 	std::vector<float> fps_log;
 	std::vector<float> ms_log;
+	int max_fps = 60;
 
 public:
 
@@ -18,6 +19,7 @@ public:
 
 	void Draw(bool* open);
 	void Log(const float* fps, const float ms);
+	unsigned int GetMaxFPS();
 
 public:
 	bool c_open = true;

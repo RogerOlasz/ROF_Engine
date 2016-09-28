@@ -19,6 +19,7 @@ public:
 
 	void Log(const char* log);
 	void LogFPS(const float* fps, const float ms);
+	uint MaxFPS();
 
 private:
 	bool config_on = false;

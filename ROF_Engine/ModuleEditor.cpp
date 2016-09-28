@@ -83,3 +83,8 @@ void ModuleEditor::LogFPS(const float* fps, const float ms)
 	Config->Log(fps, ms);
 }
 
+uint ModuleEditor::MaxFPS()
+{
+	return Config->GetMaxFPS();
+}
+

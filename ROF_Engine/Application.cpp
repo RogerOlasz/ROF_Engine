@@ -76,7 +76,6 @@ bool Application::Init()
 		item++;
 	}
 	
-	capped_ms = (1000.f / max_fps);
 	to_fps.Start();
 	ms_timer.Start();
 	return ret;
@@ -87,6 +86,8 @@ void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
+	capped_ms = (1000.f / max_fps);
+	max_fps = App->editor->MaxFPS();
 }
 
 // ---------------------------------------------
