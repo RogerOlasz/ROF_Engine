@@ -1,7 +1,8 @@
-#ifndef __ModuleGeometry_H__
-#define __ModuleGeometry_H__
+#ifndef __MODULEGEOMETRY_H__
+#define __MODULEGEOMETRY_H__
 
 #include "Module.h"
+#include "MathGeoLib\include\MathGeoLib.h"
 
 class ModuleGeometry : public Module
 {
@@ -11,10 +12,14 @@ public:
 	~ModuleGeometry();
 
 	bool Init();
+	update_status PreUpdate(float dt);
+	update_status Update(float dt);
+	update_status PostUpdate(float dt);
 	bool CleanUp();
 
 private:
+	void LoadGeometry(const char *file_name);
 
 };
 
-#endif // __ModuleGeometry_H__
+#endif // __MODULEGEOMETRY_H__

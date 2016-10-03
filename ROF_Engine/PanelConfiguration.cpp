@@ -16,9 +16,9 @@ PanelConfiguration::PanelConfiguration()
 PanelConfiguration::~PanelConfiguration()
 {}
 
-void PanelConfiguration::Draw(bool* open)
-{
-	ImGui::Begin("Configuration", open, ImVec2(500, 200));
+void PanelConfiguration::Draw()
+{	
+	ImGui::Begin("Configuration", &c_open, ImVec2(500, 150));
 
 	if (ImGui::CollapsingHeader("Application"))
 	{

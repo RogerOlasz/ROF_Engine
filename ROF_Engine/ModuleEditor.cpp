@@ -35,24 +35,20 @@ update_status ModuleEditor::Update(float dt)
 			}
 			if (ImGui::MenuItem("Configuration", "C"))
 			{
-				if (config_on != true)
-				{
-					config_on = true;
-				}
+				Config->Draw();
+			}
+			if (ImGui::MenuItem("Console", "CTR+C"))
+			{
+				
 			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
 	}
 	
-	if (config_on == true)
-	{
-		Config->Draw(&Config->c_open);
-	}
-
 	Console->Draw(&Console->c_open);
 
-	ImGui::ShowTestWindow();
+	//ImGui::ShowTestWindow();
 
 	return UPDATE_CONTINUE;
 }

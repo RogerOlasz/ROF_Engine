@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __PANELCONFIGURATION_H__
 #define __PANELCONFIGURATION_H__
 
@@ -17,12 +16,12 @@ public:
 	PanelConfiguration();
 	~PanelConfiguration();
 
-	void Draw(bool* open);
+	void Draw();
 	void Log(const float* fps, const float ms);
 	unsigned int GetMaxFPS();
 
 public:
-	bool c_open = true;
+	bool c_open = false;
 };
 
 #endif // __PANELCONFIGURATION_H__

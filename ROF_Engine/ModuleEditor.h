@@ -1,5 +1,5 @@
-#ifndef __ModuleEditor_H__
-#define __ModuleEditor_H__
+#ifndef __MODULEEDITOR_H__
+#define __MODULEEDITOR_H__
 
 #include "Module.h"
 
@@ -22,10 +22,9 @@ public:
 	uint MaxFPS();
 
 private:
-	bool config_on = false;
 
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
 };
 
-#endif // __ModuleEditor_H__
+#endif // __MODULEEDITOR_H__
