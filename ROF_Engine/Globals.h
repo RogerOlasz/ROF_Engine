@@ -22,6 +22,10 @@ enum update_status
 	UPDATE_ERROR
 };
 
+#define SHORT_STRING 128
+#define MEDIUM_STRING 256
+#define LONG_STRING 512
+
 // Configuration -----------
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 1024

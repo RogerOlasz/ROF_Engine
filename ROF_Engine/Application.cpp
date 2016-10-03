@@ -9,6 +9,7 @@
 #include "ModulePhysics3D.h"
 #include "ModuleEditor.h"
 #include "ModuleGeometry.h"
+#include "ModuleFileSystem.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ Application::Application()
 	physics = new ModulePhysics3D(this);
 	editor = new ModuleEditor(this);
 	geometry = new ModuleGeometry(this);
+	physfs = new ModuleFileSystem(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -36,12 +38,17 @@ Application::Application()
 	AddModule(physics);
 	AddModule(editor);
 	AddModule(geometry);
+	AddModule(physfs);
 	
 	// Scenes
 	AddModule(scene_intro);
 
 	// Renderer last!
 	AddModule(renderer3D);
+
+	// Strings
+	sprintf_s(app_name, SHORT_STRING, "ROF Engine");
+	sprintf_s(organization, SHORT_STRING, "CITM");
 }
 
 Application::~Application()
@@ -168,3 +175,6 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+const char *Application::GetAppName() { return app_name; }
+const char *Application::GetOrganization() { return organization; }

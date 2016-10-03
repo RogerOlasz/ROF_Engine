@@ -3,6 +3,7 @@
 #include "ModuleGeometry.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
+#include "ModuleFileSystem.h"
 #include "Mesh.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -63,7 +64,8 @@ bool ModuleGeometry::CleanUp()
 
 void ModuleGeometry::LoadGeometry(const char *file_path)
 {
-	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	//const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
 
 	if (scene != nullptr && scene->HasMeshes())
 	{

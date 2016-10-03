@@ -15,6 +15,7 @@ class ModuleCamera3D;
 class ModulePhysics3D;
 class ModuleEditor;
 class ModuleGeometry;
+class ModuleFileSystem;
 
 class Application
 {
@@ -28,6 +29,7 @@ public:
 	ModulePhysics3D* physics = nullptr;
 	ModuleEditor* editor = nullptr;
 	ModuleGeometry* geometry = nullptr;
+	ModuleFileSystem* physfs = nullptr;
 
 private:
 
@@ -39,6 +41,9 @@ private:
 	float max_fps;
 	float capped_ms;
 
+	char app_name[SHORT_STRING];
+	char organization[SHORT_STRING];
+
 	std::list<Module*> list_modules;
 
 public:
@@ -49,6 +54,9 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+	const char *GetAppName();
+	const char *GetOrganization();
 
 	void Log(const char* log);
 
