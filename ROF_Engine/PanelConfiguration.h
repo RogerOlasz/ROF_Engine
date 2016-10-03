@@ -21,7 +21,7 @@ public:
 	unsigned int GetMaxFPS();
 
 public:
-	bool c_open = false;
+	bool c_open = true;
 };
 
 #endif // __PANELCONFIGURATION_H__

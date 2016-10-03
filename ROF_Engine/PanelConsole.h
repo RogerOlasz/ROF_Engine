@@ -14,7 +14,7 @@ public:
 	~PanelConsole();
 
 	void AddLog(const char* log);
-	void Draw(bool* open);
+	void Draw();
 
 public:
 	bool c_open = true;

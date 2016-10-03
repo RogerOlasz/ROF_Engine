@@ -11,9 +11,9 @@ void PanelConsole::AddLog(const char* log)
 	Items.push_back(strdup(log));
 }
 
-void PanelConsole::Draw(bool* open)
+void PanelConsole::Draw()
 {
-	ImGui::Begin("Console", open, ImVec2(500, 200));
+	ImGui::Begin("Console", &c_open, ImVec2(500, 200));
 
 	for (int i = 0; i < Items.Size; i++)
 	{

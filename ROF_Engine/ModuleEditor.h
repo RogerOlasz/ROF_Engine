@@ -22,9 +22,11 @@ public:
 	uint MaxFPS();
 
 private:
-
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
+
+	bool console = false;
+	bool config = false;
 };
 
 #endif // __MODULEEDITOR_H__

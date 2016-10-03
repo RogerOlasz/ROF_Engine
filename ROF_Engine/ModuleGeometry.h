@@ -2,7 +2,6 @@
 #define __MODULEGEOMETRY_H__
 
 #include "Module.h"
-#include "MathGeoLib\include\MathGeoLib.h"
 
 class ModuleGeometry : public Module
 {
@@ -17,8 +16,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	std::vector<const Mesh*> meshes;
+
 private:
-	void LoadGeometry(const char *file_name);
+	void LoadGeometry(const char *file_path);
 
 };
 

@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "MathGeoLib\include\MathGeoLib.h"
 #include "Light.h"
+#include "Mesh.h"
 
 #define MAX_LIGHTS 8
 
@@ -28,6 +29,9 @@ public:
 	uint my_id = 0;
 
 	void OnResize(int width, int height);
+
+	bool LoadMeshBuffer(const Mesh *mesh);
+	void DrawMesh(const Mesh *mesh);
 
 public:
 
