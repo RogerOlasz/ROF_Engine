@@ -16,8 +16,6 @@ class ModulePhysics3D;
 class ModuleEditor;
 class ModuleGeometry;
 
-using namespace std;
-
 class Application
 {
 public:

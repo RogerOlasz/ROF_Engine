@@ -16,6 +16,8 @@
 #pragma comment (lib, "Bullet/libx86/LinearMath.lib")
 #endif
 
+using namespace std;
+
 ModulePhysics3D::ModulePhysics3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	debug = false;

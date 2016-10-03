@@ -6,8 +6,6 @@
 
 #define MAX_LIGHTS 8
 
-using namespace math;
-
 class ModuleRenderer3D : public Module
 {
 public:

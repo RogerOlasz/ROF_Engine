@@ -10,6 +10,8 @@
 #include "ModuleEditor.h"
 #include "ModuleGeometry.h"
 
+using namespace std;
+
 Application::Application()
 {
 	window = new ModuleWindow(this);
