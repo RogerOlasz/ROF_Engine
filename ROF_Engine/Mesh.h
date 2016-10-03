@@ -2,7 +2,6 @@
 #define __MESH_H__
 
 #include "Globals.h"
-#include "MathGeoLib\include\MathGeoLib.h"
 
 struct Mesh
 {
@@ -19,8 +18,7 @@ struct Mesh
 	// Indices
 	uint id_indices = 0; // id in VRAM
 	uint num_indices = 0;
-	uint* indices = nullptr;
-	
+	uint* indices = nullptr;	
 };
 
 #endif // __MESH_H__

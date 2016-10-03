@@ -2,8 +2,8 @@
 #include "Application.h"
 #include "ModuleGeometry.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleInput.h"
 #include "Mesh.h"
-#include "MathGeoLib/include/MathGeoLib.h"
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -25,13 +25,18 @@ bool ModuleGeometry::Init()
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-
+	
 	return true;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleGeometry::PreUpdate(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+	{
+		LoadGeometry("Assets/LamboMurcielago.fbx");
+	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -68,23 +73,23 @@ void ModuleGeometry::LoadGeometry(const char *file_path)
 			Mesh *mesh = new Mesh();
 			aiMesh *ai_mesh = scene->mMeshes[i];
 
-			// Copying vertices...
+			// Copying vertices
 			mesh->num_vertices = ai_mesh->mNumVertices;
 			mesh->vertices = new vec[mesh->num_vertices];
-			memcpy(mesh->vertices, ai_mesh->mVertices, sizeof(math::float3) * mesh->num_vertices);
+			memcpy(mesh->vertices, ai_mesh->mVertices, sizeof(vec) * mesh->num_vertices);
 			LOG("New mesh with %d vertices", mesh->num_vertices);
 
-			// Copying normals...
+			// Copying normals
 			mesh->num_normals = ai_mesh->mNumVertices;
 			mesh->normals = new vec[mesh->num_normals];
-			memcpy(mesh->normals, ai_mesh->mNormals, sizeof(math::float3) * mesh->num_vertices);
+			memcpy(mesh->normals, ai_mesh->mNormals, sizeof(vec) * mesh->num_vertices);
 			LOG("New mesh with %d normals", mesh->num_vertices);
 
 			// Copying indicies (faces on Assimp)
 			if (ai_mesh->HasFaces())
 			{
 				mesh->num_indices = ai_mesh->mNumFaces * 3;
-				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
+				mesh->indices = new uint[mesh->num_indices]; //Assume each face is a triangle
 				for (uint j = 0; j < ai_mesh->mNumFaces; ++j)
 				{
 					if (ai_mesh->mFaces[j].mNumIndices != 3)

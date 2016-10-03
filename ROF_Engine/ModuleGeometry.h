@@ -2,6 +2,9 @@
 #define __MODULEGEOMETRY_H__
 
 #include "Module.h"
+#include <vector>
+
+struct Mesh;
 
 class ModuleGeometry : public Module
 {

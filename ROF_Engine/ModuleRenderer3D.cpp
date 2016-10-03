@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
+#include "ModuleGeometry.h"
 #include "Glew\include\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <vector>
@@ -121,7 +122,7 @@ bool ModuleRenderer3D::Init()
 
 	//Load Vertex OpenGL
 	//vertex_size = CubeVertexArray();
-	indices_size = CubeIndices();
+	//indices_size = CubeIndices();
 
 	return ret;
 }
@@ -144,7 +145,18 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	//OpenGL cubepaint
 	//CubePaintDirectMode();
 	//DrawCubeVertexArray(vertex_size);
-	DrawCubeIndices(indices_size);
+	//DrawCubeIndices(indices_size);
+	
+	return UPDATE_CONTINUE;
+}
+
+//Update
+update_status ModuleRenderer3D::Update(float dt)
+{
+	for (int i = 0; i < App->geometry->meshes.size(); ++i)
+	{
+		DrawMesh(App->geometry->meshes[i]);
+	}
 
 	return UPDATE_CONTINUE;
 }
