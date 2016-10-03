@@ -35,7 +35,7 @@ update_status ModuleGeometry::PreUpdate(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
-		LoadGeometry("Assets/LamboMurcielago.fbx");
+		LoadGeometry("Assets/Models/LamboMurcielago.fbx");
 	}
 	
 	return UPDATE_CONTINUE;
