@@ -144,6 +144,8 @@ bool ModuleRenderer3D::Init()
 
 	ilutRenderer(ILUT_OPENGL);
 
+	lenna_texture = ilutGLLoadImage("Assets/Lenna.png");
+
 	return ret;
 }
 
@@ -612,7 +614,7 @@ void ModuleRenderer3D::DrawCubeTexture()
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, texture_index_id);
 
-	glBindTexture(GL_TEXTURE_2D, image_texture);
+	glBindTexture(GL_TEXTURE_2D, lenna_texture);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
