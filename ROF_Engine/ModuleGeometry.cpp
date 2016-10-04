@@ -88,11 +88,25 @@ void ModuleGeometry::LoadGeometry(const char *file_path)
 			memcpy(mesh->normals, ai_mesh->mNormals, sizeof(vec) * mesh->num_vertices);
 			LOG("New mesh with %d normals", mesh->num_vertices);
 
+			// Copying texture coords
+			uint UV_index = 0;
+			if (ai_mesh->HasTextureCoords(UV_index))
+			{
+				mesh->num_tex_coord = ai_mesh->mNumVertices;
+				mesh->tex_coord = new float2[mesh->num_tex_coord];
+				for (int l = 0; l < mesh->num_tex_coord; ++l)
+				{
+					mesh->tex_coord[l].x = ai_mesh->mTextureCoords[UV_index][l].x;
+					mesh->tex_coord[l].y = ai_mesh->mTextureCoords[UV_index][l].y;
+				}
+				LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
+			}
+
 			// Copying indicies (faces on Assimp)
 			if (ai_mesh->HasFaces())
 			{
 				mesh->num_indices = ai_mesh->mNumFaces * 3;
-				mesh->indices = new uint[mesh->num_indices]; //Assume each face is a triangle
+				mesh->indices = new uint[mesh->num_indices]; //Each face is a triangle
 				for (uint j = 0; j < ai_mesh->mNumFaces; ++j)
 				{
 					if (ai_mesh->mFaces[j].mNumIndices != 3)

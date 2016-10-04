@@ -120,6 +120,7 @@ bool ModuleRenderer3D::Init()
 		
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
+		glEnable(GL_TEXTURE_2D);
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
@@ -134,9 +135,9 @@ bool ModuleRenderer3D::Init()
 	//vertex_size = CubeVertexArray();
 	//indices_size = CubeIndices();
 
-	LoadTextureCube();
-	CreateDebugTexture();
-
+	//CreateDebugTexture();
+	//LoadTextureCube();
+	
 	//Initialize DevIL
 	ilInit();
 	iluInit();
@@ -168,8 +169,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	//CubePaintDirectMode();
 	//DrawCubeVertexArray(vertex_size);
 	//DrawCubeIndices(indices_size);
-	
-	DrawCubeTexture();
+
+	//DrawCubeTexture();
 
 	return UPDATE_CONTINUE;
 }
@@ -652,6 +653,19 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh *mesh)
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
 	}
 
+	// Texture coords
+	glGenBuffers(1, (GLuint*) &(mesh->id_tex_coord));
+	if (mesh->id_tex_coord == 0)
+	{
+		LOG("[error] Texture coordinates buffer has not been binded!");
+		ret = false;
+	}
+	else
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);
+	}
+
 	// Indices
 	glGenBuffers(1, (GLuint*) &(mesh->id_indices));
 	if (mesh->id_indices == 0)
@@ -672,6 +686,7 @@ void ModuleRenderer3D::DrawMesh(const Mesh *mesh)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -679,9 +694,18 @@ void ModuleRenderer3D::DrawMesh(const Mesh *mesh)
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
 	glNormalPointer(GL_FLOAT, 0, NULL);
 
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, image_texture);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 	glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
+	
+	glBindTexture(GL_TEXTURE_2D, 0);	
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }

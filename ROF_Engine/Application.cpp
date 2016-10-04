@@ -31,13 +31,13 @@ Application::Application()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	AddModule(editor);
 	AddModule(physfs);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(physics);
-	AddModule(editor);
+	AddModule(physics);	
 	AddModule(geometry);	
 	
 	// Scenes
