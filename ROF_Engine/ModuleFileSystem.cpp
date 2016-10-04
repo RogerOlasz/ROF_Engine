@@ -1,7 +1,5 @@
-#include "ModuleFileSystem.h"
-
 #include "Application.h"
-
+#include "ModuleFileSystem.h"
 #include "SDL\include\SDL.h"
 #include "PhysFS\include\physfs.h"
 
