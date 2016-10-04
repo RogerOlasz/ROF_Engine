@@ -4,6 +4,8 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGeometry.h"
+#include "Mesh.h"
+
 #include "Glew\include\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <vector>
@@ -14,8 +16,16 @@
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib") /* link Glew (ImGui) lib */
 
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
+
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
 
 using namespace std;
 using namespace math;
@@ -124,6 +134,16 @@ bool ModuleRenderer3D::Init()
 	//vertex_size = CubeVertexArray();
 	//indices_size = CubeIndices();
 
+	LoadTextureCube();
+	CreateDebugTexture();
+
+	//Initialize DevIL
+	ilInit();
+	iluInit();
+	ilutInit();
+
+	ilutRenderer(ILUT_OPENGL);
+
 	return ret;
 }
 
@@ -147,6 +167,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	//DrawCubeVertexArray(vertex_size);
 	//DrawCubeIndices(indices_size);
 	
+	DrawCubeTexture();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -434,6 +456,168 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+//Load a cube with his UV
+void ModuleRenderer3D::LoadTextureCube()
+{
+	//Loading vertex data
+	vector<vec> vertices;
+
+	vertices.push_back(vec(0.0f, 5.0f, 0.0f)); //0
+	vertices.push_back(vec(5.0f, 5.0f, 5.0f)); //1
+	vertices.push_back(vec(5.0f, 5.0f, 5.0f)); //2
+	vertices.push_back(vec(0.0f, 5.0f, 5.0f)); //3
+	vertices.push_back(vec(0.0f, 5.0f, 5.0f)); //4
+	vertices.push_back(vec(5.0f, 5.0f, 0.0f)); //5
+	vertices.push_back(vec(5.0f, 0.0f, 5.0f)); //6
+	vertices.push_back(vec(5.0f, 0.0f, 5.0f)); //7
+	vertices.push_back(vec(0.0f, 0.0f, 5.0f)); //8
+	vertices.push_back(vec(0.0f, 0.0f, 5.0f)); //9
+	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //10
+	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //11
+	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //12
+	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //13
+	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //14
+	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //15
+
+	glGenBuffers(1, (GLuint*)&texture_vertex_id);
+	glBindBuffer(GL_ARRAY_BUFFER, texture_vertex_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, vertices.data(), GL_STATIC_DRAW);
+
+	//Loading UV data
+	vector<float2> UV_texture;
+
+	UV_texture.push_back(float2(1.0f, 1.0f)); 
+	UV_texture.push_back(float2(0.0f, 0.0f));
+	UV_texture.push_back(float2(1.0f, 1.0f));
+	UV_texture.push_back(float2(1.0f, 0.0f));
+	UV_texture.push_back(float2(0.0f, 1.0f));
+	UV_texture.push_back(float2(0.0f, 1.0f));
+	UV_texture.push_back(float2(1.0f, 0.0f));
+	UV_texture.push_back(float2(0.0f, 0.0f));
+	UV_texture.push_back(float2(0.0f, 0.0f));
+	UV_texture.push_back(float2(1.0f, 0.0f));
+	UV_texture.push_back(float2(0.0f, 0.0f));
+	UV_texture.push_back(float2(1.0f, 1.0f));
+	UV_texture.push_back(float2(0.0f, 1.0f));
+	UV_texture.push_back(float2(0.0f, 1.0f));
+	UV_texture.push_back(float2(1.0f, 0.0f));
+	UV_texture.push_back(float2(1.0f, 1.0f));
+
+	glGenBuffers(1, (GLuint*)&texture_UV_id);
+	glBindBuffer(GL_ARRAY_BUFFER, texture_UV_id);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * UV_texture.size() * 2, UV_texture.data(), GL_STATIC_DRAW);
+
+	//Loading index data
+	vector<uint> indices_texture;
+
+	//Front 
+	indices_texture.push_back(10);
+	indices_texture.push_back(14);
+	indices_texture.push_back(0);
+
+	indices_texture.push_back(10);
+	indices_texture.push_back(0);
+	indices_texture.push_back(5);
+
+	//Right 
+	indices_texture.push_back(13);
+	indices_texture.push_back(8);
+	indices_texture.push_back(3);
+
+	indices_texture.push_back(13);
+	indices_texture.push_back(3);
+	indices_texture.push_back(0);
+
+	//Left 
+	indices_texture.push_back(6);
+	indices_texture.push_back(11);
+	indices_texture.push_back(5);
+
+	indices_texture.push_back(6);
+	indices_texture.push_back(5);
+	indices_texture.push_back(1);
+
+	//Back 
+	indices_texture.push_back(8);
+	indices_texture.push_back(6);
+	indices_texture.push_back(2);
+
+	indices_texture.push_back(8);
+	indices_texture.push_back(2);
+	indices_texture.push_back(4);
+
+	//Upper 
+	indices_texture.push_back(5);
+	indices_texture.push_back(3);
+	indices_texture.push_back(1);
+
+	indices_texture.push_back(5);
+	indices_texture.push_back(0);
+	indices_texture.push_back(3);
+
+	//Bottom 
+	indices_texture.push_back(15);
+	indices_texture.push_back(12);
+	indices_texture.push_back(7);
+
+	indices_texture.push_back(15);
+	indices_texture.push_back(7);
+	indices_texture.push_back(9);
+
+	glGenBuffers(1, (GLuint*)&texture_index_id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, texture_index_id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices_texture.size(), indices_texture.data(), GL_STATIC_DRAW);
+}
+
+//Create Black/White debug texture
+void ModuleRenderer3D::CreateDebugTexture() 
+{
+	GLubyte checkImage[40][40][4];
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &image_texture);
+	glBindTexture(GL_TEXTURE_2D, image_texture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 40, 40, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void ModuleRenderer3D::DrawCubeTexture()
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, texture_vertex_id);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindBuffer(GL_ARRAY_BUFFER, texture_UV_id);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, texture_index_id);
+
+	glBindTexture(GL_TEXTURE_2D, image_texture);
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 bool ModuleRenderer3D::LoadMeshBuffer(const Mesh *mesh)

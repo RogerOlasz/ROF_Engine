@@ -57,6 +57,7 @@ bool ModuleFileSystem::CleanUp()
 	return true;
 }
 
+//Add or search a path
 bool ModuleFileSystem::AddSearchPath(const char *path_or_zip, const char *mount_point)
 {
 	bool ret = true;
