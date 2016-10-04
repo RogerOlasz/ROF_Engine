@@ -111,6 +111,6 @@ void ModuleGeometry::LoadGeometry(const char *file_path)
 	}
 	else
 	{
-		LOG("Error loading scene %s: %s", file_path, aiGetErrorString());
+		LOG("[error] Error loading scene %s: %s", file_path, aiGetErrorString());
 	}
 }

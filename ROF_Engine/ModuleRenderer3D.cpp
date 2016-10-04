@@ -63,7 +63,7 @@ bool ModuleRenderer3D::Init()
 		GLenum error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("[error] Error Initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 
@@ -75,7 +75,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("[error] Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		
@@ -89,7 +89,7 @@ bool ModuleRenderer3D::Init()
 		error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
-			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			LOG("[error] Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
 		
