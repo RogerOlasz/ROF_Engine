@@ -94,10 +94,10 @@ void ModuleGeometry::LoadGeometry(const char* file_path)
 			{
 				mesh->num_tex_coord = ai_mesh->mNumVertices;
 				mesh->tex_coord = new float2[mesh->num_tex_coord];
-				for (int l = 0; l < mesh->num_tex_coord; ++l)
+				for (int k = 0; k < mesh->num_tex_coord; ++k)
 				{
-					mesh->tex_coord[l].x = ai_mesh->mTextureCoords[UV_index][l].x;
-					mesh->tex_coord[l].y = ai_mesh->mTextureCoords[UV_index][l].y;
+					mesh->tex_coord[k].x = ai_mesh->mTextureCoords[UV_index][k].x;
+					mesh->tex_coord[k].y = ai_mesh->mTextureCoords[UV_index][k].y;
 				}
 				LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 			}

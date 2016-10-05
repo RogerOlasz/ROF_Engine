@@ -135,7 +135,7 @@ bool ModuleRenderer3D::Init()
 	//vertex_size = CubeVertexArray();
 	//indices_size = CubeIndices();
 
-	//CreateDebugTexture();
+	CreateDebugTexture();
 	//LoadTextureCube();
 	
 	//Initialize DevIL
@@ -700,7 +700,7 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindTexture(GL_TEXTURE_2D, lenna_texture);
+	glBindTexture(GL_TEXTURE_2D, image_texture);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 	glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
