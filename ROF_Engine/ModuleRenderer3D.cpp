@@ -48,7 +48,7 @@ bool ModuleRenderer3D::Init()
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
 	{
-		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOG("[error] OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -56,14 +56,14 @@ bool ModuleRenderer3D::Init()
 
 	if (GLEW_OK != gl_enum)
 	{
-		LOG("Glew load filed.");
+		LOG("[error] Glew load filed.");
 	}
 	
 	if(ret == true)
 	{
 		//Use Vsync
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
-			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
+			LOG("[warning]: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -146,6 +146,7 @@ bool ModuleRenderer3D::Init()
 	ilutRenderer(ILUT_OPENGL);
 
 	lenna_texture = ilutGLLoadImage("Assets/Lenna.png");
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return ret;
 }
@@ -175,7 +176,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-//Update
+//Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
 	for (int i = 0; i < App->geometry->meshes.size(); ++i)
@@ -186,11 +187,12 @@ update_status ModuleRenderer3D::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-// PostUpdate present buffer to screen
+// PostUpdate: present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	ImGui::Render();
 	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -515,7 +517,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	//Loading index data
 	vector<uint> indices_texture;
 
-	//Front 
+	//FRONT 
 	indices_texture.push_back(10);
 	indices_texture.push_back(14);
 	indices_texture.push_back(0);
@@ -524,7 +526,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	indices_texture.push_back(0);
 	indices_texture.push_back(5);
 
-	//Right 
+	//RIGHT
 	indices_texture.push_back(13);
 	indices_texture.push_back(8);
 	indices_texture.push_back(3);
@@ -533,7 +535,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	indices_texture.push_back(3);
 	indices_texture.push_back(0);
 
-	//Left 
+	//LEFT
 	indices_texture.push_back(6);
 	indices_texture.push_back(11);
 	indices_texture.push_back(5);
@@ -542,7 +544,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	indices_texture.push_back(5);
 	indices_texture.push_back(1);
 
-	//Back 
+	//BACK
 	indices_texture.push_back(8);
 	indices_texture.push_back(6);
 	indices_texture.push_back(2);
@@ -551,7 +553,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	indices_texture.push_back(2);
 	indices_texture.push_back(4);
 
-	//Upper 
+	//TOP
 	indices_texture.push_back(5);
 	indices_texture.push_back(3);
 	indices_texture.push_back(1);
@@ -560,7 +562,7 @@ void ModuleRenderer3D::LoadTextureCube()
 	indices_texture.push_back(0);
 	indices_texture.push_back(3);
 
-	//Bottom 
+	//BOTTOM
 	indices_texture.push_back(15);
 	indices_texture.push_back(12);
 	indices_texture.push_back(7);
@@ -623,7 +625,7 @@ void ModuleRenderer3D::DrawCubeTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool ModuleRenderer3D::LoadMeshBuffer(const Mesh *mesh)
+bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 {
 	bool ret = true;
 
@@ -682,8 +684,8 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh *mesh)
 	return ret;
 }
 
-void ModuleRenderer3D::DrawMesh(const Mesh *mesh)
-{
+void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
+{	
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -698,12 +700,12 @@ void ModuleRenderer3D::DrawMesh(const Mesh *mesh)
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindTexture(GL_TEXTURE_2D, image_texture);
+	glBindTexture(GL_TEXTURE_2D, lenna_texture);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 	glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
-	
-	glBindTexture(GL_TEXTURE_2D, 0);	
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

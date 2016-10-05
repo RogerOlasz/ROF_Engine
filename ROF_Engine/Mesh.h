@@ -3,22 +3,24 @@
 
 #include "Globals.h"
 
+//VRAM is graphic target's RAM
+
 struct Mesh
 {
 	// Vertices
 	uint id_vertices = 0; // id in VRAM
 	uint num_vertices = 0;
-	vec *vertices = nullptr;
+	vec* vertices = nullptr;
 
-	// Tex coordinates
+	// Texture coords
 	uint id_tex_coord = 0; // id in VRAM
 	uint num_tex_coord = 0;
-	float2 *tex_coord = nullptr;
+	float2* tex_coord = nullptr;
 
 	// Normals
 	uint id_normals = 0; // id in VRAM
 	uint num_normals = 0;
-	vec *normals = nullptr;
+	vec* normals = nullptr;
 
 	// Indices
 	uint id_indices = 0; // id in VRAM

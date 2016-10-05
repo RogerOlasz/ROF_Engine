@@ -63,18 +63,18 @@ bool ModuleGeometry::CleanUp()
 	return true;
 }
 
-void ModuleGeometry::LoadGeometry(const char *file_path)
+void ModuleGeometry::LoadGeometry(const char* file_path)
 {
 	//const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		// For each mesh...
+		// For each mesh
 		for (uint i = 0; i < scene->mNumMeshes; ++i)
 		{
-			Mesh *mesh = new Mesh();
-			aiMesh *ai_mesh = scene->mMeshes[i];
+			Mesh* mesh = new Mesh();
+			aiMesh* ai_mesh = scene->mMeshes[i];
 
 			// Copying vertices
 			mesh->num_vertices = ai_mesh->mNumVertices;
@@ -111,17 +111,17 @@ void ModuleGeometry::LoadGeometry(const char *file_path)
 				{
 					if (ai_mesh->mFaces[j].mNumIndices != 3)
 					{
-						LOG("WARNING, geometry face with != 3 indices!");
+						LOG("[warning], geometry face without 3 indices!");
 					}
 					else
+					{
 						memcpy(&mesh->indices[j * 3], ai_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
+					}						
 				}
 			}
-
 			App->renderer3D->LoadMeshBuffer(mesh);
 			meshes.push_back(mesh);
 		}
-
 		aiReleaseImport(scene);
 	}
 	else

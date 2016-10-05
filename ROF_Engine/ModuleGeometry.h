@@ -22,7 +22,7 @@ public:
 	std::vector<const Mesh*> meshes;
 
 private:
-	void LoadGeometry(const char *file_path);
+	void LoadGeometry(const char* file_path);
 
 };
 
