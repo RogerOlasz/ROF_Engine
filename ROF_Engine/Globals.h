@@ -27,8 +27,8 @@ enum update_status
 #define LONG_STRING 512
 
 // Configuration -----------
-#define SCREEN_WIDTH 920
-#define SCREEN_HEIGHT 680
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 1024
 #define SCREEN_SIZE 1
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE true
