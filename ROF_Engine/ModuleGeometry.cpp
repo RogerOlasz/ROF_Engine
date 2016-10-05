@@ -36,7 +36,8 @@ update_status ModuleGeometry::PreUpdate(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
-		LoadGeometry("Assets/Models/LamboMurcielago.fbx");
+		//LoadGeometry("Assets/Models/LamboMurcielago.fbx");
+		LoadGeometry("Assets/Models/Tank.fbx");
 	}
 	
 	return UPDATE_CONTINUE;
@@ -126,6 +127,6 @@ void ModuleGeometry::LoadGeometry(const char* file_path)
 	}
 	else
 	{
-		LOG("[error] Error loading scene %s: %s", file_path, aiGetErrorString());
+		LOG("[error] Error loading scene %s %s", file_path, aiGetErrorString());
 	}
 }
