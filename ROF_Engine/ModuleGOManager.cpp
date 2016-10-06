@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleGOManager.h"
+#include "GameObject.h"
 
 ModuleGOManager::ModuleGOManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {}
@@ -34,4 +35,24 @@ update_status ModuleGOManager::PostUpdate(float dt)
 bool ModuleGOManager::CleanUp()
 {
 	return true;
+}
+
+//GameObject* ModuleGOManager::GetParent()
+//{
+//
+//}
+//
+//GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
+//{
+//
+//}
+
+void ModuleGOManager::RemoveGameObject(GameObject* to_delete)
+{
+
+}
+
+void ModuleGOManager::ChangeParent(GameObject* to_move, GameObject* new_parnet)
+{
+
 }
