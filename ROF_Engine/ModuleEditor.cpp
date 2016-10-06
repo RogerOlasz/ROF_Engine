@@ -2,8 +2,11 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "ImGui\imgui.h"
+#include "Panel.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
+
+using namespace std;
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {}
@@ -15,8 +18,9 @@ ModuleEditor::~ModuleEditor()
 // Called before render is available
 bool ModuleEditor::Init()
 {
+	//panels.push_back(Console = new PanelConsole);
+	panels.push_back(Config = new PanelConfiguration);
 	Console = new PanelConsole;
-	Config = new PanelConfiguration;
 
 	return true;
 }
@@ -33,13 +37,9 @@ update_status ModuleEditor::Update(float dt)
 				ImGui::EndMenu();
 				return UPDATE_STOP;
 			}
-			if (ImGui::MenuItem("Configuration", "C"))
-			{
-				if (config != true)
-				{
-					config = true;
-				}
-			}
+
+			if (ImGui::MenuItem("Configuration", "C", &Config->active));
+
 			if (ImGui::MenuItem("Console", "CTR+C"))
 			{
 				if (console != true)
@@ -57,9 +57,15 @@ update_status ModuleEditor::Update(float dt)
 		Console->Draw();
 	}
 
-	if (config == true)
+	//Draw all active panels
+	for (vector<Panel*>::iterator it = panels.begin(); it != panels.end(); ++it)
 	{
-		Config->Draw();
+		Panel* panel = (*it);
+
+		if (panel->IsActive())
+		{
+			panel->Draw();
+		}
 	}
 
 	//ImGui::ShowTestWindow();
@@ -70,11 +76,17 @@ update_status ModuleEditor::Update(float dt)
 // Called before quitting
 bool ModuleEditor::CleanUp()
 {	
+
+	for (vector<Panel*>::iterator it = panels.begin(); it != panels.end(); ++it)
+	{
+		RELEASE(*it);
+	}
+
+	panels.clear();
+
 	delete Console;
-	delete Config;
 
 	Console = NULL;
-	Config = NULL;
 
 	return true;
 }

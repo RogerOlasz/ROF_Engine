@@ -1,6 +1,8 @@
 #include "PanelConfiguration.h"
+#include "Application.h"
+#include "ImGui/imgui.h"
 
-PanelConfiguration::PanelConfiguration()
+PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 {
 	while (fps_log.size() <= 49)
 	{
@@ -17,12 +19,22 @@ PanelConfiguration::~PanelConfiguration()
 {}
 
 void PanelConfiguration::Draw()
-{	
-	ImGui::Begin("Configuration", &c_open, ImVec2(500, 150));
+{
+	ImGui::Begin("Configuration", &active);
 
+	DrawApplication();
+
+	ImGui::End();
+}
+
+void PanelConfiguration::DrawApplication()
+{	
 	if (ImGui::CollapsingHeader("Application"))
 	{
+		ImGui::Text("Limit Framerate:");
+		ImGui::TextColored(IMGUI_YELLOW, "%i", max_fps);
 		ImGui::SliderInt("Max FPS", &max_fps, 0, 120);
+
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
 		ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));

@@ -1,10 +1,10 @@
 #ifndef __PANELCONFIGURATION_H__
 #define __PANELCONFIGURATION_H__
 
-#include "ImGui\imgui.h"
+#include "Panel.h"
 #include <vector>
 
-class PanelConfiguration
+class PanelConfiguration : public Panel
 {
 private:
 	std::vector<float> fps_log;
@@ -14,9 +14,11 @@ private:
 public:
 
 	PanelConfiguration();
-	~PanelConfiguration();
+	virtual ~PanelConfiguration();
 
-	void Draw();
+	void Draw() override;
+
+	void DrawApplication();
 	void Log(const float* fps, const float ms);
 	unsigned int GetMaxFPS();
 

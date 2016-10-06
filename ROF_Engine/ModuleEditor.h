@@ -2,7 +2,9 @@
 #define __MODULEEDITOR_H__
 
 #include "Module.h"
+#include <vector>
 
+class Panel;
 class PanelConsole;
 class PanelConfiguration;
 
@@ -21,12 +23,16 @@ public:
 	void LogFPS(const float* fps, const float ms);
 	uint MaxFPS();
 
-private:
+public:
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
 
 	bool console = false;
 	bool config = false;
+
+private:
+	std::vector<Panel*> panels;
+
 };
 
 #endif // __MODULEEDITOR_H__

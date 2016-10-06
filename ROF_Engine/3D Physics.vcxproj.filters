@@ -312,6 +312,9 @@
     <ClInclude Include="ModuleFileSystem.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Sources\Panels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -496,6 +499,9 @@
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Sources\Panels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,16 @@ enum update_status
 #define MEDIUM_STRING 256
 #define LONG_STRING 512
 
+// Deletes a buffer
+#define RELEASE( x )\
+    {\
+       if( x != nullptr )\
+       {\
+         delete x;\
+	     x = nullptr;\
+       }\
+    }
+
 // Configuration -----------
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 1024
