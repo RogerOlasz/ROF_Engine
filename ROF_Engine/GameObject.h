@@ -34,6 +34,5 @@ public:
 
 };
 
-
 #endif // !__GAMEOBJECT_H__
 
