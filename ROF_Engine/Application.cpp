@@ -10,6 +10,7 @@
 #include "ModuleEditor.h"
 #include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
+#include "ModuleGOManager.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ Application::Application()
 	editor = new ModuleEditor(this);
 	geometry = new ModuleGeometry(this);
 	physfs = new ModuleFileSystem(this);
+	go_manager = new ModuleGOManager(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -33,6 +35,7 @@ Application::Application()
 	// Main Modules
 	AddModule(editor); //To recieve all module LOGs
 	AddModule(physfs);
+	AddModule(go_manager);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);

@@ -16,6 +16,7 @@ class ModulePhysics3D;
 class ModuleEditor;
 class ModuleGeometry;
 class ModuleFileSystem;
+class ModuleGOManager;
 
 class Application
 {
@@ -30,6 +31,7 @@ public:
 	ModuleEditor* editor = nullptr;
 	ModuleGeometry* geometry = nullptr;
 	ModuleFileSystem* physfs = nullptr;
+	ModuleGOManager* go_manager = nullptr;
 
 private:
 
