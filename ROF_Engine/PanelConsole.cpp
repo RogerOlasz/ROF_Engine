@@ -1,6 +1,6 @@
 #include "PanelConsole.h"
 
-PanelConsole::PanelConsole()
+PanelConsole::PanelConsole() : Panel("Console")
 {}
 
 PanelConsole::~PanelConsole()
@@ -13,7 +13,7 @@ void PanelConsole::AddLog(const char* log)
 
 void PanelConsole::Draw()
 {
-	ImGui::Begin("Console", &c_open, ImVec2(500, 200));
+	ImGui::Begin("Console", &active, ImVec2(500, 200));
 
 	for (int i = 0; i < Items.Size; i++)
 	{

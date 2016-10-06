@@ -16,7 +16,7 @@ public:
 	virtual void Draw() = 0;
 
 public:
-	bool active = true;
+	bool active = false;
 	int width, height, pos_x, pos_y;
 
 protected:

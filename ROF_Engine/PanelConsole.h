@@ -1,9 +1,10 @@
 #ifndef __PANELCONSOLE_H__
 #define __PANELCONSOLE_H__
 
-#include "ImGui\imgui.h"
+#include "ImGui/imgui.h"
+#include "Panel.h"
 
-class PanelConsole
+class PanelConsole : public Panel
 {
 private:
 	ImVector<char*> Items;
@@ -11,13 +12,10 @@ private:
 public:
 
 	PanelConsole();
-	~PanelConsole();
+	virtual ~PanelConsole();
 
 	void AddLog(const char* log);
 	void Draw();
-
-public:
-	bool c_open = true;
 };
 
 #endif // __PANELCONSOLE_H__

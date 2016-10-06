@@ -21,14 +21,11 @@ public:
 
 	void Log(const char* log);
 	void LogFPS(const float* fps, const float ms);
-	uint MaxFPS();
+	uint GetMaxFPS();
 
 public:
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
-
-	bool console = false;
-	bool config = false;
 
 private:
 	std::vector<Panel*> panels;

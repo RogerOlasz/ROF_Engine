@@ -22,8 +22,6 @@ public:
 	void Log(const float* fps, const float ms);
 	unsigned int GetMaxFPS();
 
-public:
-	bool c_open = true;
 };
 
 #endif // __PANELCONFIGURATION_H__
