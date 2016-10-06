@@ -1,6 +1,8 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
+class GameObject;
+
 class Component
 {
 public:
@@ -12,16 +14,21 @@ public:
 		Unknown
 	};
 
-
 public:
-	Component();
+	Component(GameObject* bearer, Types type);
 	virtual ~Component();
 
 	bool IsActive() const;
 	void SwitchActive(bool active);
+	void SetActive(bool active);
+
+	virtual void OnActivate() {};
+	virtual void OnDeActivate() {};
 
 private:
-	bool active = true;
+	bool active = false;
+	Types type = Types::Unknown;
+	GameObject* game_object = nullptr;
 
 };
 

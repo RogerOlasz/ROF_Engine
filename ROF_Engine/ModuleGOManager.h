@@ -18,8 +18,8 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	/*GameObject* GetParent();
-	GameObject* CreateGameObject(const char* name, GameObject* parent);*/
+	//GameObject* GetParent();
+	GameObject* CreateGameObject(const char* name, GameObject* parent);
 	void RemoveGameObject(GameObject* to_delete);
 	void ChangeParent(GameObject* to_move, GameObject* new_parnet); 
 

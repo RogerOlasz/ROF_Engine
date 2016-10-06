@@ -2,20 +2,18 @@
 #define __GAMEOBJECT_H__
 
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "Component.h"
 #include "Globals.h"
 #include <list>
 #include <vector>
 
-class Component;
-
 class GameObject
 {
 public:
-	GameObject(GameObject* parent, const char* name);
-	GameObject(GameObject* parent, const char* name, const float3& translation, const float3& scale, const Quat& rotation);
+	GameObject(const char* name, GameObject* parent);
 	virtual ~GameObject();
 
-	//Component* CreateComponent(Component::Types type);
+	Component* CreateComponent(Component::Types type);
 	void RemoveComponent(Component* to_delete);
 
 	bool IsActive() const;
@@ -23,13 +21,15 @@ public:
 
 	void Draw();
 
+	void SetNewParent(GameObject* new_parent);
+
 private:
 	bool active = true;
 	GameObject* parent = nullptr;
 
 public:
 	std::string name;
-	std::vector<GameObject*> childs;
+	std::list<GameObject*> childs;
 	std::list<Component*> components;
 
 };

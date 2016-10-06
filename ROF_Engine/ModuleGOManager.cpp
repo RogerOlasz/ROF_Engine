@@ -13,6 +13,8 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
+	root = new GameObject("Root", nullptr);
+
 	return true;
 }
 
@@ -41,11 +43,13 @@ bool ModuleGOManager::CleanUp()
 //{
 //
 //}
-//
-//GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
-//{
-//
-//}
+
+GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
+{
+	GameObject* new_go = new GameObject(name, parent);
+
+	return new_go;
+}
 
 void ModuleGOManager::RemoveGameObject(GameObject* to_delete)
 {
