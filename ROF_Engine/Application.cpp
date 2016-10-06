@@ -31,7 +31,7 @@ Application::Application()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
-	AddModule(editor);
+	AddModule(editor); //To recieve all module LOGs
 	AddModule(physfs);
 	AddModule(window);
 	AddModule(camera);

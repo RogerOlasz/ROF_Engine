@@ -1,10 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleEditor.h"
-#include "ImGui\imgui.h"
+#include "ModuleWindow.h"
 #include "Panel.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
+
+#include "ImGui\imgui.h"
+#include "ImGui\imgui_impl_sdl_gl3.h"
 
 using namespace std;
 
@@ -18,10 +21,19 @@ ModuleEditor::~ModuleEditor()
 // Called before render is available
 bool ModuleEditor::Init()
 {
+	ImGui_ImplSdlGL3_Init(App->window->window);
+
 	panels.push_back(Config = new PanelConfiguration);
 	panels.push_back(Console = new PanelConsole);
-
+	
 	return true;
+}
+
+update_status ModuleEditor::PreUpdate(float dt)
+{
+	ImGui_ImplSdlGL3_NewFrame(App->window->window);
+	
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update(float dt)
@@ -57,6 +69,13 @@ update_status ModuleEditor::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleEditor::PostUpdate(float dt)
+{
+	ImGui::Render();
+
+	return UPDATE_CONTINUE;
+}
+
 // Called before quitting
 bool ModuleEditor::CleanUp()
 {	
@@ -65,12 +84,9 @@ bool ModuleEditor::CleanUp()
 	{
 		RELEASE(*it);
 	}
-
 	panels.clear();
 
-	delete Console;
-
-	Console = NULL;
+	ImGui_ImplSdlGL3_Shutdown();
 
 	return true;
 }

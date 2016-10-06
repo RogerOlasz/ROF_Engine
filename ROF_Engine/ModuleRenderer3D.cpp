@@ -20,9 +20,6 @@
 #pragma comment (lib, "Devil/libx86/ILU.lib")
 #pragma comment (lib, "Devil/libx86/ILUT.lib")
 
-#include "ImGui\imgui.h"
-#include "ImGui\imgui_impl_sdl_gl3.h"
-
 #include "Devil/include/il.h"
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
@@ -52,13 +49,13 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 
+	//Glew init
 	GLenum gl_enum = glewInit();
-
 	if (GLEW_OK != gl_enum)
 	{
 		LOG("[error] Glew load filed.");
 	}
-	
+
 	if(ret == true)
 	{
 		//Use Vsync
@@ -129,8 +126,6 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	ImGui_ImplSdlGL3_Init(App->window->window);
-
 	//Load Vertex OpenGL
 	//vertex_size = CubeVertexArray();
 	//indices_size = CubeIndices();
@@ -190,7 +185,6 @@ update_status ModuleRenderer3D::Update(float dt)
 // PostUpdate: present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	ImGui::Render();
 	SDL_GL_SwapWindow(App->window->window);
 
 	return UPDATE_CONTINUE;
@@ -201,7 +195,6 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	ImGui_ImplSdlGL3_Shutdown();
 	SDL_GL_DeleteContext(context);
 
 	return true;

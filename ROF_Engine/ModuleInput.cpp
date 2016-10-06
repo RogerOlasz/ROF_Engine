@@ -124,8 +124,6 @@ update_status ModuleInput::PreUpdate(float dt)
 	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
 		return UPDATE_STOP;
 
-	ImGui_ImplSdlGL3_NewFrame(App->window->window);
-
 	return UPDATE_CONTINUE;
 }
 
