@@ -4,6 +4,8 @@
 #include "Module.h"
 
 class GameObject;
+struct aiNode;
+struct aiScene;
 
 class ModuleGOManager : public Module
 {
@@ -19,7 +21,10 @@ public:
 	update_status PostUpdate(float dt);
 
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
+	GameObject* LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void RemoveGameObjects(GameObject* go_to_delete);
+
+	GameObject* LoadFBX(const char* file_path);
 
 private:
 	GameObject* root;

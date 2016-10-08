@@ -5,6 +5,7 @@
 #include <vector>
 
 struct Mesh;
+struct aiMesh;
 class GameObject;
 
 class ModuleGeometry : public Module
@@ -21,11 +22,8 @@ public:
 	bool CleanUp();
 
 	std::vector<const Mesh*> meshes;
-
-private:
-	void LoadGeometry(const char* file_path);
-
-	GameObject* go_mesh = nullptr;
+	
+	Mesh* LoadGeometry(const aiMesh* ai_mesh);
 
 };
 
