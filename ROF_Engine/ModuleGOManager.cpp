@@ -44,8 +44,8 @@ update_status ModuleGOManager::Update(float dt)
 	{
 		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
 		//LoadFBX("Assets/Models/HierarchyScene.fbx");
-		LoadFBX("Assets/Models/Tank.fbx");
-		//LoadFBX("Assets/Models/HierarchyScene.fbx");
+		//LoadFBX("Assets/Models/Tank.fbx");
+		LoadFBX("Assets/Models/HierarchyScene.fbx");
 	}
 	return UPDATE_CONTINUE;
 }
@@ -101,7 +101,7 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	trans->SetScale(scale.x, scale.y, scale.z);
 	trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
 		
-	for (uint i = 1; i < scene->mNumMeshes; ++i)
+	for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 	{
 		Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
 		ret->CreateComponent(Component::Types::Geometry);
