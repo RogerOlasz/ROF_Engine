@@ -19,19 +19,23 @@ bool Component::IsActive() const
 	return active;
 }
 
-void Component::SwitchActive(bool active)
-{
-	active != active;
-}
-
 void Component::SetActive(bool active)
 {
 	if (this->active != active)
 	{
 		this->active = active;
 		if (active)
-			OnActivate();
+		{
+			Activate();
+		}			
 		else
-			OnDeActivate();
+		{
+			Desactivate();
+		}			
 	}
+}
+
+Component::Types Component::GetType() const
+{
+	return type;
 }

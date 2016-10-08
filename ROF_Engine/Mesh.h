@@ -2,6 +2,7 @@
 #define __MESH_H__
 
 #include "Globals.h"
+#include "MathGeoLib\include\MathGeoLib.h"
 
 //VRAM is graphic target's RAM
 

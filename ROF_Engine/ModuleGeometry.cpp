@@ -4,7 +4,11 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
+#include "ModuleGOManager.h"
 #include "Mesh.h"
+
+#include "GameObject.h"
+#include "ComponentMesh.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -28,6 +32,8 @@ bool ModuleGeometry::Init()
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 	
+	go_mesh = App->go_manager->CreateGameObject("Unnamed", NULL);
+
 	return true;
 }
 
@@ -74,6 +80,7 @@ void ModuleGeometry::LoadGeometry(const char* file_path)
 		// For each mesh
 		for (uint i = 0; i < scene->mNumMeshes; ++i)
 		{
+			LOG("[start] New mesh ----------------------------------------------------");
 			Mesh* mesh = new Mesh();
 			aiMesh* ai_mesh = scene->mMeshes[i];
 
@@ -121,7 +128,14 @@ void ModuleGeometry::LoadGeometry(const char* file_path)
 				}
 			}
 			App->renderer3D->LoadMeshBuffer(mesh);
+			go_mesh->CreateComponent(Component::Types::Geometry);
+			if (go_mesh->components.back()->GetType() == Component::Types::Geometry)
+			{
+				((ComponentMesh*)go_mesh->components.back())->LoadMesh(mesh);
+			}			
+			LOG("I have: %d mesh components.", go_mesh->components.size());
 			meshes.push_back(mesh);
+			LOG("[end] New mesh ------------------------------------------------------");
 		}
 		aiReleaseImport(scene);
 	}

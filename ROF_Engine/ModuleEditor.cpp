@@ -56,9 +56,9 @@ update_status ModuleEditor::Update(float dt)
 	}	
 
 	//Draw all active panels
-	for (vector<Panel*>::iterator it = panels.begin(); it != panels.end(); ++it)
+	for (vector<Panel*>::iterator tmp = panels.begin(); tmp != panels.end(); ++tmp)
 	{
-		Panel* panel = (*it);
+		Panel* panel = (*tmp);
 
 		if (panel->IsActive())
 		{
@@ -80,9 +80,9 @@ update_status ModuleEditor::PostUpdate(float dt)
 bool ModuleEditor::CleanUp()
 {	
 
-	for (vector<Panel*>::iterator it = panels.begin(); it != panels.end(); ++it)
+	for (vector<Panel*>::iterator tmp = panels.begin(); tmp != panels.end(); ++tmp)
 	{
-		RELEASE(*it);
+		RELEASE(*tmp);
 	}
 	panels.clear();
 

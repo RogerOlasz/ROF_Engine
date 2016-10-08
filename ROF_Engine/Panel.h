@@ -13,11 +13,10 @@ public:
 	void SwitchActive();
 	bool IsActive() const;
 
-	virtual void Draw() = 0;
+	virtual void Draw();
 
 public:
 	bool active = false;
-	int width, height, pos_x, pos_y;
 
 protected:
 	std::string name;

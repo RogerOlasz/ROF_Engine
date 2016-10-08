@@ -5,6 +5,7 @@
 #include <vector>
 
 struct Mesh;
+class GameObject;
 
 class ModuleGeometry : public Module
 {
@@ -23,6 +24,8 @@ public:
 
 private:
 	void LoadGeometry(const char* file_path);
+
+	GameObject* go_mesh = nullptr;
 
 };
 

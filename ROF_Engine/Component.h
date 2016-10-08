@@ -19,11 +19,12 @@ public:
 	virtual ~Component();
 
 	bool IsActive() const;
-	void SwitchActive(bool active);
 	void SetActive(bool active);
 
-	virtual void OnActivate() {};
-	virtual void OnDeActivate() {};
+	virtual void Activate() {};
+	virtual void Desactivate() {};
+
+	Types GetType() const;
 
 private:
 	bool active = false;

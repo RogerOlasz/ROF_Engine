@@ -4,11 +4,14 @@
 #include "GameObject.h"
 
 ModuleGOManager::ModuleGOManager(Application* app, bool start_enabled) : Module(app, start_enabled)
-{}
+{
 
-// Destructor
+}
+
 ModuleGOManager::~ModuleGOManager()
-{}
+{
+
+}
 
 // Called before render is available
 bool ModuleGOManager::Init()
@@ -30,6 +33,8 @@ update_status ModuleGOManager::Update(float dt)
 
 update_status ModuleGOManager::PostUpdate(float dt)
 {
+	//Here i have to delete all checked GOs with to_delete
+
 	return UPDATE_CONTINUE;
 }
 
@@ -39,24 +44,19 @@ bool ModuleGOManager::CleanUp()
 	return true;
 }
 
-//GameObject* ModuleGOManager::GetParent()
-//{
-//
-//}
-
 GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
 {
 	GameObject* new_go = new GameObject(name, parent);
+	
+	if (parent == NULL)
+	{
+		parent = root;
+	}
 
 	return new_go;
 }
 
-void ModuleGOManager::RemoveGameObject(GameObject* to_delete)
+void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 {
-
-}
-
-void ModuleGOManager::ChangeParent(GameObject* to_move, GameObject* new_parnet)
-{
-
+	go_to_delete->to_delete = true;
 }

@@ -1,7 +1,6 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-#include "MathGeoLib/include/MathGeoLib.h"
 #include "Component.h"
 #include "Globals.h"
 #include <list>
@@ -18,18 +17,24 @@ public:
 
 	bool IsActive() const;
 	void SwitchActive(bool active);
+	void EnableComponent();
+	void DisableComponent();
 
 	void Draw();
 
-	void SetNewParent(GameObject* new_parent);
+	GameObject* GetParent();
+	void SetParent(GameObject* new_parent);
+
+	bool Remove();
 
 private:
 	bool active = true;
 	GameObject* parent = nullptr;
 
 public:
+	bool to_delete;
 	std::string name;
-	std::list<GameObject*> childs;
+	std::list<GameObject*> children;
 	std::list<Component*> components;
 
 };
