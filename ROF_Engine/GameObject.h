@@ -25,15 +25,17 @@ public:
 	GameObject* GetParent();
 	void SetParent(GameObject* new_parent);
 
+	const char* GetName();
+
 	bool Remove();
 
 private:
 	bool active = true;
 	GameObject* parent = nullptr;
+	std::string name;
 
 public:
 	bool to_delete;
-	std::string name;
 	std::list<GameObject*> children;
 	std::list<Component*> components;
 

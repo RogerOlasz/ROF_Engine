@@ -80,6 +80,11 @@ GameObject* GameObject::GetParent()
 	return parent;
 }
 
+const char* GameObject::GetName()
+{
+	return name.c_str();
+}
+
 void GameObject::SetParent(GameObject* new_parent)
 {
 	if (new_parent == parent)

@@ -45,7 +45,8 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
 		//LoadFBX("Assets/Models/HierarchyScene.fbx");
 		//LoadFBX("Assets/Models/Tank.fbx");
-		LoadFBX("Assets/Models/HierarchyScene.fbx");
+		//LoadFBX("Assets/Models/HierarchyScene.fbx");
+		LoadFBX("Assets/Models/SimpleHierarchy.fbx");
 	}
 	return UPDATE_CONTINUE;
 }
@@ -83,14 +84,19 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
 	//Setting name of node
-	char tmp_name[LONG_STRING];
+	//MAXLEN stores 1024u
+	char tmp_name[MAXLEN];
 	memcpy(tmp_name, node_to_load->mName.data, node_to_load->mName.length + 1);
 
-	GameObject* ret = CreateGameObject(tmp_name, parent);
+	//LOG("Hello, i'm a aiNode and my name is: %s", node_to_load->mName.data);
 
-	ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
+	GameObject* ret = CreateGameObject(tmp_name, parent);
+	
+	//LOG("Hello, i'm a GameObject and my name is: %s", ret->GetName());
 
 	//Setting transformation
+	ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
+
 	aiVector3D position;
 	aiQuaternion rotation;
 	aiVector3D scale;
@@ -117,6 +123,7 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 		ret->children.push_back(LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret));
 	}
 
+	LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 	return ret;
 }
 

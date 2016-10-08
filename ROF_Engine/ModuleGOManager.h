@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+#define MAX_STR_LEN 1024
+
 class GameObject;
 struct aiNode;
 struct aiScene;
