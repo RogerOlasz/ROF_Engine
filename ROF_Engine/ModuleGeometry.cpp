@@ -121,7 +121,6 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh)
 		}
 	}
 	App->renderer3D->LoadMeshBuffer(mesh);
-	meshes.push_back(mesh);
 	LOG("[end] New mesh ------------------------------------------------------");
 
 	return mesh;

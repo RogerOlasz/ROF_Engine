@@ -174,10 +174,10 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	for (int i = 0; i < App->geometry->meshes.size(); ++i)
-	{
-		DrawMesh(App->geometry->meshes[i]);
-	}
+	//for (int i = 0; i < App->geometry->meshes.size(); ++i)
+	//{
+	//	DrawMesh(App->geometry->meshes[i]);
+	//}
 
 	return UPDATE_CONTINUE;
 }

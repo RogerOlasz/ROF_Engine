@@ -20,8 +20,6 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-
-	std::vector<const Mesh*> meshes;
 	
 	Mesh* LoadGeometry(const aiMesh* ai_mesh);
 

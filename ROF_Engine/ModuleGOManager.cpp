@@ -124,6 +124,8 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	}
 
 	LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
+	LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
+
 	return ret;
 }
 
