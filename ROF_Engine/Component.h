@@ -24,8 +24,6 @@ public:
 	virtual void Activate() {};
 	virtual void Desactivate() {};
 
-	virtual void Update() {};
-
 	Types GetType() const;
 
 private:

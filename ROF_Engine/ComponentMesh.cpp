@@ -13,11 +13,6 @@ ComponentMesh::~ComponentMesh()
 
 }
 
-void ComponentMesh::Update()
-{
-	Draw();
-}
-
 void ComponentMesh::LoadMesh(Mesh* recived_mesh)
 {
 	mesh = recived_mesh;

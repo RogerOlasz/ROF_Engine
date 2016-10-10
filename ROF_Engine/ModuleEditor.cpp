@@ -79,7 +79,6 @@ update_status ModuleEditor::PostUpdate(float dt)
 // Called before quitting
 bool ModuleEditor::CleanUp()
 {	
-
 	for (vector<Panel*>::iterator tmp = panels.begin(); tmp != panels.end(); ++tmp)
 	{
 		RELEASE(*tmp);
@@ -96,8 +95,7 @@ void ModuleEditor::Log(const char* log)
 	if (Console != NULL)
 	{
 		Console->AddLog(log);
-	}
-	
+	}	
 }
 
 void ModuleEditor::LogFPS(const float* fps, const float ms)

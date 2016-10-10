@@ -48,6 +48,12 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/City.fbx");
 		LoadFBX("Assets/Models/SimpleH2.fbx");
 	}
+
+	/*for (std::list<GameObject*>::iterator tmp = root->children.begin(); tmp != root->children.end(); tmp++)
+	{
+		(*tmp)->Draw();
+	}*/
+
 	return UPDATE_CONTINUE;
 }
 
@@ -68,6 +74,8 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 {
 	GameObject* new_go = new GameObject(name, parent);
 	
+	debug_go_counter++;
+
 	if (parent == nullptr)
 	{
 		parent = root;
@@ -109,6 +117,7 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 	{
 		Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
+
 		ret->CreateComponent(Component::Types::Geometry);
 		if (ret->components.back()->GetType() == Component::Types::Geometry)
 		{
@@ -120,7 +129,7 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	//Loading children nodes (do this in recursive to load all tree node)
 	for (int j = 0; j < node_to_load->mNumChildren; j++)
 	{
-		ret->children.push_back(LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret));
+		LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret);
 	}
 
 	LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
@@ -148,7 +157,7 @@ GameObject* ModuleGOManager::LoadFBX(const char* file_path)
 	{
 		LOG("[error] Error loading scene %s %s", file_path, aiGetErrorString());
 	}
-
+	LOG("[warning] Now i have %d GameObjects...", debug_go_counter);
 	return ret;
 }
 

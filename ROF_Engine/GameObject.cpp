@@ -72,7 +72,13 @@ void GameObject::DisableComponent()
 
 void GameObject::Draw()
 {
-
+	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+	{
+		if ((*tmp)->GetType() == Component::Types::Geometry)
+		{
+			((ComponentMesh*)(*tmp))->Draw();
+		}
+	}
 }
 
 GameObject* GameObject::GetParent()

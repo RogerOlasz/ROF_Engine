@@ -35,7 +35,7 @@ private:
 	std::string name;
 
 public:
-	bool to_delete;
+	bool to_delete = false;
 	std::list<GameObject*> children;
 	std::list<Component*> components;
 

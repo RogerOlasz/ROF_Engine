@@ -26,11 +26,14 @@ public:
 	GameObject* LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void RemoveGameObjects(GameObject* go_to_delete);
 
+	void ComponentMeshDraw();
+
 	GameObject* LoadFBX(const char* file_path);
 
 private:
 	GameObject* root;
 	
+	uint debug_go_counter = 0;
 };
 
 #endif // __MODULEGOMANAGER_H__
