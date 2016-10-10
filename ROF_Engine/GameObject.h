@@ -9,7 +9,7 @@
 class GameObject
 {
 public:
-	GameObject(const char* name, GameObject* parent);
+	GameObject(const char* name);
 	virtual ~GameObject();
 
 	Component* CreateComponent(Component::Types type);
@@ -23,7 +23,7 @@ public:
 	void Draw();
 
 	GameObject* GetParent();
-	void SetParent(GameObject* new_parent);
+	void SwitchParent(GameObject* new_parent);
 
 	const char* GetName();
 

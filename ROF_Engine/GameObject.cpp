@@ -4,9 +4,9 @@
 #include "ComponentTransformation.h"
 #include <list>
 
-GameObject::GameObject(const char* name, GameObject* parent) : name (name)
+GameObject::GameObject(const char* name) : name (name)
 {
-	SetParent(parent);
+
 }
 
 GameObject::~GameObject()
@@ -86,6 +86,7 @@ void GameObject::Draw()
 
 	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
+		ComponentMesh* debug = ((ComponentMesh*)(*tmp));
 		if ((*tmp)->GetType() == Component::Types::Geometry)
 		{
 			((ComponentMesh*)(*tmp))->Draw();
@@ -103,21 +104,16 @@ const char* GameObject::GetName()
 	return name.c_str();
 }
 
-void GameObject::SetParent(GameObject* new_parent)
+void GameObject::SwitchParent(GameObject* new_parent)
 {
-	if (new_parent == parent)
-		return;
-
-	if (parent)
+	if (new_parent != nullptr)
 	{
-		parent->children.remove(this);
-	}
-
-	parent = new_parent;
-
-	if (new_parent)
-	{
-		new_parent->children.push_back(this);
+		if (parent != nullptr)
+		{
+			parent->children.remove(this);
+		}
+		parent = new_parent;
+		parent->children.push_back(this);
 	}
 }
 

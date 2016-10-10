@@ -28,7 +28,7 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
-	root = new GameObject("Root", nullptr);
+	root = new GameObject("Root");
 
 	return true;
 }
@@ -69,8 +69,10 @@ bool ModuleGOManager::CleanUp()
 
 GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
 {
-	GameObject* new_go = new GameObject(name, parent);
+	GameObject* new_go = new GameObject(name);
 	
+	SetParent(new_go, parent);
+
 	debug_go_counter++;
 
 	return new_go;
@@ -116,12 +118,8 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
-
-			ret->CreateComponent(Component::Types::Geometry);
-			if (ret->components.back()->GetType() == Component::Types::Geometry)
-			{
-				((ComponentMesh*)ret->components.back())->LoadMesh(tmp);
-			}
+						
+			((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
 		}
 #pragma endregion
 	}
@@ -136,6 +134,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 	{
 		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
+		LOG("I'm %s and my parent is %s", ret->GetName(), ret->GetParent()->GetName());
 	}
 }
 
@@ -158,5 +157,17 @@ void ModuleGOManager::LoadFBX(const char* file_path)
 	}
 
 	LOG("[warning] Now i have %d GameObjects...", debug_go_counter);
+}
+
+void ModuleGOManager::SetParent(GameObject* me, GameObject* new_parent)
+{
+	if (new_parent == nullptr)
+	{
+		me->SwitchParent(root);
+	}
+	else
+	{
+		me->SwitchParent(new_parent);
+	}
 }
 
