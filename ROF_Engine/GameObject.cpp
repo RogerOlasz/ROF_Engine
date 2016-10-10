@@ -72,6 +72,18 @@ void GameObject::DisableComponent()
 
 void GameObject::Draw()
 {
+	if (children.size() == 1)
+	{
+		(*children.begin())->Draw();
+	}
+	else if(children.size() > 1)
+	{
+		for (std::list<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+		{
+			(*tmp)->Draw();
+		}
+	}
+
 	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		if ((*tmp)->GetType() == Component::Types::Geometry)
@@ -99,7 +111,7 @@ void GameObject::SetParent(GameObject* new_parent)
 	if (parent)
 	{
 		parent->children.remove(this);
-	}		
+	}
 
 	parent = new_parent;
 

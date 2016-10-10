@@ -49,10 +49,7 @@ update_status ModuleGOManager::Update(float dt)
 		LoadFBX("Assets/Models/SimpleH2.fbx");
 	}
 
-	/*for (std::list<GameObject*>::iterator tmp = root->children.begin(); tmp != root->children.end(); tmp++)
-	{
-		(*tmp)->Draw();
-	}*/
+	root->Draw();
 
 	return UPDATE_CONTINUE;
 }
@@ -76,11 +73,6 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 	
 	debug_go_counter++;
 
-	if (parent == nullptr)
-	{
-		parent = root;
-	}
-
 	return new_go;
 }
 
@@ -89,42 +81,50 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 	go_to_delete->to_delete = true;
 }
 
-GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
+void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
 	//Setting node names
 	//MAXLEN stores 1024u
 	char tmp_name[MAXLEN];
 	memcpy(tmp_name, node_to_load->mName.data, node_to_load->mName.length + 1);
 
-	GameObject* ret = CreateGameObject(tmp_name, parent);
+	GameObject* ret = nullptr;
 
+	if (node_to_load->mParent)
+	{
+		ret = CreateGameObject(tmp_name, parent);
+	}
+
+	if (ret != nullptr)
+	{
 #pragma region SetTransforms
-	//Setting transformation
-	ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
+		//Setting transformation
+		ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
 
-	aiVector3D position;
-	aiQuaternion rotation;
-	aiVector3D scale;
+		aiVector3D position;
+		aiQuaternion rotation;
+		aiVector3D scale;
 
-	node_to_load->mTransformation.Decompose(scale, rotation, position);
+		node_to_load->mTransformation.Decompose(scale, rotation, position);
 
-	trans->SetPos(position.x, position.y, position.z);
-	trans->SetScale(scale.x, scale.y, scale.z);
-	trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
+		trans->SetPos(position.x, position.y, position.z);
+		trans->SetScale(scale.x, scale.y, scale.z);
+		trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
 #pragma endregion
 
 #pragma region SetMeshes
-	for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
-	{
-		Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
-
-		ret->CreateComponent(Component::Types::Geometry);
-		if (ret->components.back()->GetType() == Component::Types::Geometry)
+		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
-			((ComponentMesh*)ret->components.back())->LoadMesh(tmp);
+			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
+
+			ret->CreateComponent(Component::Types::Geometry);
+			if (ret->components.back()->GetType() == Component::Types::Geometry)
+			{
+				((ComponentMesh*)ret->components.back())->LoadMesh(tmp);
+			}
 		}
-	}
 #pragma endregion
+	}
 
 	//Loading children nodes (do this in recursive to load all tree node)
 	for (int j = 0; j < node_to_load->mNumChildren; j++)
@@ -132,21 +132,20 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 		LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret);
 	}
 
-	LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
-	LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
-
-	return ret;	
+	if (ret != nullptr)
+	{
+		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
+		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
+	}
 }
 
-GameObject* ModuleGOManager::LoadFBX(const char* file_path)
+void ModuleGOManager::LoadFBX(const char* file_path)
 {
-	GameObject* ret = nullptr;
-
 	const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		ret = LoadGameObjectMesh(scene->mRootNode, scene, root);
+		LoadGameObjectMesh(scene->mRootNode, scene, root);
 
 		if (scene)
 		{
@@ -157,7 +156,7 @@ GameObject* ModuleGOManager::LoadFBX(const char* file_path)
 	{
 		LOG("[error] Error loading scene %s %s", file_path, aiGetErrorString());
 	}
+
 	LOG("[warning] Now i have %d GameObjects...", debug_go_counter);
-	return ret;
 }
 

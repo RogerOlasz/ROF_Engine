@@ -23,12 +23,10 @@ public:
 	update_status PostUpdate(float dt);
 
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
-	GameObject* LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
+	void LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void RemoveGameObjects(GameObject* go_to_delete);
 
-	void ComponentMeshDraw();
-
-	GameObject* LoadFBX(const char* file_path);
+	void LoadFBX(const char* file_path);
 
 private:
 	GameObject* root;
