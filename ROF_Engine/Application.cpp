@@ -42,12 +42,14 @@ Application::Application()
 	AddModule(audio);
 	AddModule(physics);	
 	AddModule(geometry);	
-	
+
 	// Scenes
 	AddModule(scene_intro);
 
 	// Renderer last!
 	AddModule(renderer3D);
+
+	
 
 	// Strings
 	sprintf_s(app_name, SHORT_STRING, "ROF Engine");

@@ -11,7 +11,10 @@ public:
 	ComponentMesh(GameObject* bearer);
 	~ComponentMesh();
 
+	void Update();
+
 	void LoadMesh(Mesh* recived_mesh);
+	void Draw();
 
 private:
 	Mesh* mesh;

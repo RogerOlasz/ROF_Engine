@@ -43,10 +43,10 @@ update_status ModuleGOManager::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
 		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
-		//LoadFBX("Assets/Models/HierarchyScene.fbx");
 		//LoadFBX("Assets/Models/Tank.fbx");
-		//LoadFBX("Assets/Models/HierarchyScene.fbx");
-		LoadFBX("Assets/Models/SimpleHierarchy.fbx");
+		//LoadFBX("Assets/Models/SimpleHierarchy.fbx");
+		//LoadFBX("Assets/Models/City.fbx");
+		LoadFBX("Assets/Models/SimpleH2.fbx");
 	}
 	return UPDATE_CONTINUE;
 }
@@ -83,17 +83,14 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 
 GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
-	//Setting name of node
+	//Setting node names
 	//MAXLEN stores 1024u
 	char tmp_name[MAXLEN];
 	memcpy(tmp_name, node_to_load->mName.data, node_to_load->mName.length + 1);
 
-	//LOG("Hello, i'm a aiNode and my name is: %s", node_to_load->mName.data);
-
 	GameObject* ret = CreateGameObject(tmp_name, parent);
-	
-	//LOG("Hello, i'm a GameObject and my name is: %s", ret->GetName());
 
+#pragma region SetTransforms
 	//Setting transformation
 	ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
 
@@ -106,7 +103,9 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	trans->SetPos(position.x, position.y, position.z);
 	trans->SetScale(scale.x, scale.y, scale.z);
 	trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
-		
+#pragma endregion
+
+#pragma region SetMeshes
 	for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 	{
 		Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
@@ -116,8 +115,9 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 			((ComponentMesh*)ret->components.back())->LoadMesh(tmp);
 		}
 	}
+#pragma endregion
 
-	//Loading children nodes (do this in recursive to load all node tree)
+	//Loading children nodes (do this in recursive to load all tree node)
 	for (int j = 0; j < node_to_load->mNumChildren; j++)
 	{
 		ret->children.push_back(LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret));
@@ -126,7 +126,7 @@ GameObject* ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, cons
 	LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 	LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
 
-	return ret;
+	return ret;	
 }
 
 GameObject* ModuleGOManager::LoadFBX(const char* file_path)
