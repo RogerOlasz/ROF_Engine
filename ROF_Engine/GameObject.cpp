@@ -72,6 +72,21 @@ void GameObject::DisableComponent()
 
 void GameObject::Draw()
 {
+	ComponentTransformation* tmp_t = nullptr;
+	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+	{
+		if ((*tmp)->GetType() == Component::Types::Transformation)
+		{
+			tmp_t = ((ComponentTransformation*)(*tmp));
+			tmp_t->PushMatrix();
+		}
+
+		if ((*tmp)->GetType() == Component::Types::Geometry)
+		{
+			((ComponentMesh*)(*tmp))->Draw();
+		}
+	}
+
 	if (children.size() == 1)
 	{
 		(*children.begin())->Draw();
@@ -82,16 +97,8 @@ void GameObject::Draw()
 		{
 			(*tmp)->Draw();
 		}
-	}
-
-	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
-	{
-		ComponentMesh* debug = ((ComponentMesh*)(*tmp));
-		if ((*tmp)->GetType() == Component::Types::Geometry)
-		{
-			((ComponentMesh*)(*tmp))->Draw();
-		}
-	}
+	}	
+	tmp_t->PopMatrix();
 }
 
 GameObject* GameObject::GetParent()

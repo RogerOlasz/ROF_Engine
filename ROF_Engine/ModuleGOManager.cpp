@@ -45,8 +45,11 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
 		//LoadFBX("Assets/Models/Tank.fbx");
 		//LoadFBX("Assets/Models/SimpleHierarchy.fbx");
-		//LoadFBX("Assets/Models/City.fbx");
-		LoadFBX("Assets/Models/SimpleH2.fbx");
+		LoadFBX("Assets/Models/City.fbx");
+		//LoadFBX("Assets/Models/SimpleH2.fbx");
+		//LoadFBX("Assets/Models/SimpleH3.fbx");
+		//LoadFBX("Assets/Models/SimpleH4.fbx");
+		//LoadFBX("Assets/Models/SimpleH5.fbx");
 	}
 
 	root->Draw();

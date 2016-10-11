@@ -679,30 +679,31 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 
 void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 {	
+	if (mesh != nullptr)
+	{
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+		glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+		glNormalPointer(GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-	glNormalPointer(GL_FLOAT, 0, NULL);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, image_texture);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+		glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindTexture(GL_TEXTURE_2D, image_texture);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-	glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
 }
