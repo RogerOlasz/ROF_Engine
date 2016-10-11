@@ -22,6 +22,8 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	GameObject* GetRootNode() const;
+
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
 	void LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void RemoveGameObjects(GameObject* go_to_delete);

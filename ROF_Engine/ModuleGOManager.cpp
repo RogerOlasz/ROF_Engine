@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "ComponentTransformation.h"
 #include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -45,7 +46,6 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
 		//LoadFBX("Assets/Models/Tank.fbx");
 		//LoadFBX("Assets/Models/SimpleHierarchy.fbx");
-		//LoadFBX("Assets/Models/City.fbx");
 		LoadFBX("Assets/Models/Street environment_V01.fbx");
 		//LoadFBX("Assets/Models/SimpleH2.fbx");
 		//LoadFBX("Assets/Models/SimpleH3.fbx");
@@ -53,7 +53,7 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/SimpleH5.fbx");
 	}
 
-	root->Draw();
+	root->Update();
 
 	return UPDATE_CONTINUE;
 }
@@ -69,6 +69,11 @@ update_status ModuleGOManager::PostUpdate(float dt)
 bool ModuleGOManager::CleanUp()
 {
 	return true;
+}
+
+GameObject* ModuleGOManager::GetRootNode() const
+{
+	return root;
 }
 
 GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
@@ -114,8 +119,12 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 		node_to_load->mTransformation.Decompose(scale, rotation, position);
 
 		trans->SetPos(position.x, position.y, position.z);
-		//trans->SetScale(scale.x, scale.y, scale.z);
+		trans->SetScale(scale.x, scale.y, scale.z);
 		trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
+#pragma endregion
+
+#pragma region SetMaterial
+		//ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
 #pragma endregion
 
 #pragma region SetMeshes

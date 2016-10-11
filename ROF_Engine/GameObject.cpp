@@ -70,7 +70,7 @@ void GameObject::DisableComponent()
 	}
 }
 
-void GameObject::Draw()
+void GameObject::Update()
 {
 	ComponentTransformation* tmp_t = nullptr;
 	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
@@ -89,13 +89,13 @@ void GameObject::Draw()
 
 	if (children.size() == 1)
 	{
-		(*children.begin())->Draw();
+		(*children.begin())->Update();
 	}
 	else if(children.size() > 1)
 	{
 		for (std::list<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
 		{
-			(*tmp)->Draw();
+			(*tmp)->Update();
 		}
 	}	
 	tmp_t->PopMatrix();
@@ -109,6 +109,16 @@ GameObject* GameObject::GetParent()
 const char* GameObject::GetName()
 {
 	return name.c_str();
+}
+
+void GameObject::HideFromHierarchy()
+{ 
+	hidden_on_hierarchy = true;
+}
+
+bool GameObject::HiddenFromHierarchy()
+{ 
+	return hidden_on_hierarchy;
 }
 
 void GameObject::SwitchParent(GameObject* new_parent)

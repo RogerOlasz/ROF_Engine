@@ -3,7 +3,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
-#include "ModuleGeometry.h"
 #include "Mesh.h"
 
 #include "Glew\include\glew.h"
@@ -19,10 +18,6 @@
 #pragma comment (lib, "Devil/libx86/DevIL.lib")
 #pragma comment (lib, "Devil/libx86/ILU.lib")
 #pragma comment (lib, "Devil/libx86/ILUT.lib")
-
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
 
 using namespace std;
 using namespace math;
@@ -131,17 +126,6 @@ bool ModuleRenderer3D::Init()
 	//indices_size = CubeIndices();
 
 	CreateDebugTexture();
-	//LoadTextureCube();
-	
-	//Initialize DevIL
-	ilInit();
-	iluInit();
-	ilutInit();
-
-	ilutRenderer(ILUT_OPENGL);
-
-	lenna_texture = ilutGLLoadImage("Assets/Lenna.png");
-	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return ret;
 }
@@ -161,24 +145,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	//OpenGL cubepaint
-	//CubePaintDirectMode();
-	//DrawCubeVertexArray(vertex_size);
-	//DrawCubeIndices(indices_size);
-
-	//DrawCubeTexture();
-
 	return UPDATE_CONTINUE;
 }
 
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	//for (int i = 0; i < App->geometry->meshes.size(); ++i)
-	//{
-	//	DrawMesh(App->geometry->meshes[i]);
-	//}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -198,231 +170,6 @@ bool ModuleRenderer3D::CleanUp()
 	SDL_GL_DeleteContext(context);
 
 	return true;
-}
-
-void ModuleRenderer3D::CubePaintDirectMode()
-{
-	//Painting a cube
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(255.f, 0.f, 0.f);
-
-	glVertex3f(0.f, 0.f, 0.f);//A
-	glVertex3f(5.f, 0.f, 0.f);//B
-	glVertex3f(5.f, 5.f, 0.f);//C
-
-	glVertex3f(5.f, 5.f, 0.f);//C
-	glVertex3f(0.f, 5.f, 0.f);//D
-	glVertex3f(0.f, 0.f, 0.f);//A
-
-	glColor3f(0.f, 255.f, 0.f);
-
-	glVertex3f(5.f, 0.f, 0.f);//B
-	glVertex3f(5.f, 0.f, -5.f);//E
-	glVertex3f(5.f, 5.f, -5.f);//F
-
-	glVertex3f(5.f, 5.f, -5.f);//F
-	glVertex3f(5.f, 5.f, 0.f);//C
-	glVertex3f(5.f, 0.f, 0.f);//B
-
-	glColor3f(0.f, 0.f, 255.f);
-
-	glVertex3f(5.f, 0.f, -5.f);//E
-	glVertex3f(0.f, 0.f, -5.f);//G
-	glVertex3f(5.f, 5.f, -5.f);//F
-
-	glVertex3f(5.f, 5.f, -5.f);//F
-	glVertex3f(0.f, 0.f, -5.f);//G
-	glVertex3f(0.f, 5.f, -5.f);//H
-
-	glColor3f(125.f, 125.f, 0.f);
-
-	glVertex3f(0.f, 5.f, -5.f);//F
-	glVertex3f(0.f, 0.f, -5.f);//E
-	glVertex3f(0.f, 0.f, 0.f);//B
-
-	glVertex3f(0.f, 0.f, 0.f);//B
-	glVertex3f(0.f, 5.f, 0.f);//C
-	glVertex3f(0.f, 5.f, -5.f);//F
-
-	glColor3f(0.f, 125.f, 125.f);
-
-	glVertex3f(0.f, 5.f, 0.f);//D
-	glVertex3f(5.f, 5.f, 0.f);//C
-	glVertex3f(5.f, 5.f, -5.f);//F
-
-	glVertex3f(0.f, 5.f, 0.f);//D
-	glVertex3f(5.f, 5.f, -5.f);//F
-	glVertex3f(0.f, 5.f, -5.f);//H
-
-	glColor3f(125.f, 0.f, 125.f);
-
-	glVertex3f(0.f, 0.f, 0.f);//D
-	glVertex3f(5.f, 0.f, -5.f);//F
-	glVertex3f(5.f, 0.f, 0.f);//C
-
-	glVertex3f(0.f, 0.f, 0.f);//D
-	glVertex3f(0.f, 0.f, -5.f);//H
-	glVertex3f(5.f, 0.f, -5.f);//F
-	glEnd();
-}
-
-uint ModuleRenderer3D::CubeVertexArray()
-{
-	vector<vec> vertices;
-
-	//FRONT
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-	vertices.push_back(vec(5.f, 0.f, 0.f));//B
-	vertices.push_back(vec(5.f, 5.f, 0.f));//C
-
-	vertices.push_back(vec(5.f, 5.f, 0.f));//C
-	vertices.push_back(vec(0.f, 5.f, 0.f));//D
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-
-	//RIGHT SIDE									   
-	vertices.push_back(vec(5.f, 0.f, 0.f));//B
-	vertices.push_back(vec(5.f, 0.f, -5.f));//E
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-	vertices.push_back(vec(5.f, 5.f, 0.f));//C
-	vertices.push_back(vec(5.f, 0.f, 0.f));//B
-										   
-	//BACK									   
-	vertices.push_back(vec(5.f, 0.f, -5.f));//E
-	vertices.push_back(vec(0.f, 0.f, -5.f));//G
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-	vertices.push_back(vec(0.f, 0.f, -5.f));//G
-	vertices.push_back(vec(0.f, 5.f, -5.f));//H
-
-	//LEFT SIDE										
-	vertices.push_back(vec(0.f, 5.f, -5.f));//H
-	vertices.push_back(vec(0.f, 0.f, -5.f));//G
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-	vertices.push_back(vec(0.f, 5.f, 0.f));//D
-	vertices.push_back(vec(0.f, 5.f, -5.f));//H
-
-	//TOP										
-	vertices.push_back(vec(0.f, 5.f, 0.f));//D
-	vertices.push_back(vec(5.f, 5.f, 0.f));//C
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-
-	vertices.push_back(vec(0.f, 5.f, 0.f));//D
-	vertices.push_back(vec(5.f, 5.f, -5.f));//F
-	vertices.push_back(vec(0.f, 5.f, -5.f));//H
-
-	//BOTTOM										
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-	vertices.push_back(vec(5.f, 0.f, -5.f));//E
-	vertices.push_back(vec(5.f, 0.f, 0.f));//B
-
-	vertices.push_back(vec(0.f, 0.f, 0.f));//A
-	vertices.push_back(vec(0.f, 0.f, -5.f));//G
-	vertices.push_back(vec(5.f, 0.f, -5.f));//E
-
-	glGenBuffers(1, (GLuint*) &(my_id));
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*vertices.size() * 3, vertices.data(), GL_STATIC_DRAW);
-
-	return vertices.size();
-}
-
-void ModuleRenderer3D::DrawCubeVertexArray(uint size)
-{
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	// ... draw other buffers
-	glDrawArrays(GL_TRIANGLES, 0, size * 3);
-	glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-uint ModuleRenderer3D::CubeIndices()
-{
-	vector<vec> vertex;
-
-	vertex.push_back(vec(5.f, 5.f, 0.f));//C 0
-	vertex.push_back(vec(0.f, 5.f, 0.f));//D 1
-	vertex.push_back(vec(0.f, 0.f, 0.f));//A 2
-	vertex.push_back(vec(5.f, 0.f, 0.f));//B 3
-	vertex.push_back(vec(5.f, 0.f, -5.f));//E 4
-	vertex.push_back(vec(5.f, 5.f, -5.f));//F 5
-	vertex.push_back(vec(0.f, 5.f, -5.f));//H 6
-	vertex.push_back(vec(0.f, 0.f, -5.f));//G 7
-
-	glGenBuffers(1, (GLuint*) &(my_id));
-	glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*vertex.size() * 3, vertex.data(), GL_STATIC_DRAW);
-
-	vector<uint> indices;
-
-	indices.push_back(0);
-	indices.push_back(1);
-	indices.push_back(2);
-
-	indices.push_back(2);
-	indices.push_back(3);
-	indices.push_back(0);
-
-	indices.push_back(0);
-	indices.push_back(3);
-	indices.push_back(4);
-
-	indices.push_back(4);
-	indices.push_back(5);
-	indices.push_back(0);
-
-	indices.push_back(0);
-	indices.push_back(5);
-	indices.push_back(6);
-
-	indices.push_back(6);
-	indices.push_back(1);
-	indices.push_back(0);
-
-	indices.push_back(1);
-	indices.push_back(6);
-	indices.push_back(7);
-
-	indices.push_back(7);
-	indices.push_back(2);
-	indices.push_back(1);
-
-	indices.push_back(7);
-	indices.push_back(4);
-	indices.push_back(3);
-
-	indices.push_back(3);
-	indices.push_back(2);
-	indices.push_back(7);
-
-	indices.push_back(4);
-	indices.push_back(7);
-	indices.push_back(6);
-
-	indices.push_back(6);
-	indices.push_back(5);
-	indices.push_back(4);
-
-	glGenBuffers(1, (GLuint*) &(my_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*indices.size(), indices.data(), GL_STATIC_DRAW);
-
-	return indices.size();
-}
-
-void ModuleRenderer3D::DrawCubeIndices(uint size)
-{
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void ModuleRenderer3D::OnResize(int width, int height)
@@ -456,119 +203,6 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
-//Load a cube with his UV
-void ModuleRenderer3D::LoadTextureCube()
-{
-	//Loading vertex data
-	vector<vec> vertices;
-
-	vertices.push_back(vec(0.0f, 5.0f, 0.0f)); //0
-	vertices.push_back(vec(5.0f, 5.0f, 5.0f)); //1
-	vertices.push_back(vec(5.0f, 5.0f, 5.0f)); //2
-	vertices.push_back(vec(0.0f, 5.0f, 5.0f)); //3
-	vertices.push_back(vec(0.0f, 5.0f, 5.0f)); //4
-	vertices.push_back(vec(5.0f, 5.0f, 0.0f)); //5
-	vertices.push_back(vec(5.0f, 0.0f, 5.0f)); //6
-	vertices.push_back(vec(5.0f, 0.0f, 5.0f)); //7
-	vertices.push_back(vec(0.0f, 0.0f, 5.0f)); //8
-	vertices.push_back(vec(0.0f, 0.0f, 5.0f)); //9
-	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //10
-	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //11
-	vertices.push_back(vec(5.0f, 0.0f, 0.0f)); //12
-	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //13
-	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //14
-	vertices.push_back(vec(0.0f, 0.0f, 0.0f)); //15
-
-	glGenBuffers(1, (GLuint*)&texture_vertex_id);
-	glBindBuffer(GL_ARRAY_BUFFER, texture_vertex_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size() * 3, vertices.data(), GL_STATIC_DRAW);
-
-	//Loading UV data
-	vector<float2> UV_texture;
-
-	UV_texture.push_back(float2(1.0f, 1.0f)); 
-	UV_texture.push_back(float2(0.0f, 0.0f));
-	UV_texture.push_back(float2(1.0f, 1.0f));
-	UV_texture.push_back(float2(1.0f, 0.0f));
-	UV_texture.push_back(float2(0.0f, 1.0f));
-	UV_texture.push_back(float2(0.0f, 1.0f));
-	UV_texture.push_back(float2(1.0f, 0.0f));
-	UV_texture.push_back(float2(0.0f, 0.0f));
-	UV_texture.push_back(float2(0.0f, 0.0f));
-	UV_texture.push_back(float2(1.0f, 0.0f));
-	UV_texture.push_back(float2(0.0f, 0.0f));
-	UV_texture.push_back(float2(1.0f, 1.0f));
-	UV_texture.push_back(float2(0.0f, 1.0f));
-	UV_texture.push_back(float2(0.0f, 1.0f));
-	UV_texture.push_back(float2(1.0f, 0.0f));
-	UV_texture.push_back(float2(1.0f, 1.0f));
-
-	glGenBuffers(1, (GLuint*)&texture_UV_id);
-	glBindBuffer(GL_ARRAY_BUFFER, texture_UV_id);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * UV_texture.size() * 2, UV_texture.data(), GL_STATIC_DRAW);
-
-	//Loading index data
-	vector<uint> indices_texture;
-
-	//FRONT 
-	indices_texture.push_back(10);
-	indices_texture.push_back(14);
-	indices_texture.push_back(0);
-
-	indices_texture.push_back(10);
-	indices_texture.push_back(0);
-	indices_texture.push_back(5);
-
-	//RIGHT
-	indices_texture.push_back(13);
-	indices_texture.push_back(8);
-	indices_texture.push_back(3);
-
-	indices_texture.push_back(13);
-	indices_texture.push_back(3);
-	indices_texture.push_back(0);
-
-	//LEFT
-	indices_texture.push_back(6);
-	indices_texture.push_back(11);
-	indices_texture.push_back(5);
-
-	indices_texture.push_back(6);
-	indices_texture.push_back(5);
-	indices_texture.push_back(1);
-
-	//BACK
-	indices_texture.push_back(8);
-	indices_texture.push_back(6);
-	indices_texture.push_back(2);
-
-	indices_texture.push_back(8);
-	indices_texture.push_back(2);
-	indices_texture.push_back(4);
-
-	//TOP
-	indices_texture.push_back(5);
-	indices_texture.push_back(3);
-	indices_texture.push_back(1);
-
-	indices_texture.push_back(5);
-	indices_texture.push_back(0);
-	indices_texture.push_back(3);
-
-	//BOTTOM
-	indices_texture.push_back(15);
-	indices_texture.push_back(12);
-	indices_texture.push_back(7);
-
-	indices_texture.push_back(15);
-	indices_texture.push_back(7);
-	indices_texture.push_back(9);
-
-	glGenBuffers(1, (GLuint*)&texture_index_id);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, texture_index_id);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indices_texture.size(), indices_texture.data(), GL_STATIC_DRAW);
-}
-
 //Create Black/White debug texture
 void ModuleRenderer3D::CreateDebugTexture() 
 {
@@ -595,26 +229,6 @@ void ModuleRenderer3D::CreateDebugTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 40, 40, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void ModuleRenderer3D::DrawCubeTexture()
-{
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, texture_vertex_id);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glBindBuffer(GL_ARRAY_BUFFER, texture_UV_id);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, texture_index_id);
-
-	glBindTexture(GL_TEXTURE_2D, lenna_texture);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

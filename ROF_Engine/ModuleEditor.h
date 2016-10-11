@@ -7,6 +7,7 @@
 class Panel;
 class PanelConsole;
 class PanelConfiguration;
+class PanelHierarchy;
 
 class ModuleEditor : public Module
 {
@@ -28,6 +29,7 @@ public:
 public:
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
+	PanelHierarchy* Hierarchy = nullptr;
 
 private:
 	std::vector<Panel*> panels;

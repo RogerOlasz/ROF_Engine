@@ -20,12 +20,14 @@ public:
 	void EnableComponent();
 	void DisableComponent();
 
-	void Draw();
+	void Update();
 
 	GameObject* GetParent();
 	void SwitchParent(GameObject* new_parent);
 
 	const char* GetName();
+	void HideFromHierarchy();
+	bool HiddenFromHierarchy();
 
 	bool Remove();
 
@@ -33,6 +35,8 @@ private:
 	bool active = true;
 	GameObject* parent = nullptr;
 	std::string name;
+
+	bool hidden_on_hierarchy = false;
 
 public:
 	bool to_delete = false;

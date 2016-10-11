@@ -5,6 +5,7 @@
 #include "Panel.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
+#include "PanelHierarchy.h"
 
 #include "ImGui\imgui.h"
 #include "ImGui\imgui_impl_sdl_gl3.h"
@@ -25,6 +26,7 @@ bool ModuleEditor::Init()
 
 	panels.push_back(Config = new PanelConfiguration);
 	panels.push_back(Console = new PanelConsole);
+	panels.push_back(Hierarchy = new PanelHierarchy);
 	
 	return true;
 }
@@ -52,6 +54,20 @@ update_status ModuleEditor::Update(float dt)
 
 		 ImGui::EndMenu();
 		}
+
+		if (ImGui::BeginMenu("Edit"))
+		{
+
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Window"))
+		{
+			if (ImGui::MenuItem("Hierarchy", "CTR+O", &Hierarchy->active));
+
+			ImGui::EndMenu();
+		}
+
 	 ImGui::EndMainMenuBar();
 	}	
 
