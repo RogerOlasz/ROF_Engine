@@ -112,7 +112,7 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh)
 		{
 			if (ai_mesh->mFaces[j].mNumIndices != 3)
 			{
-				LOG("[warning], geometry face without 3 indices!");
+				LOG("[warning] Geometry face without 3 indices!");
 			}
 			else
 			{

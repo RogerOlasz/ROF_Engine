@@ -649,6 +649,10 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 	}
 
 	// Texture coords
+	if (mesh->num_tex_coord <= 0)
+	{
+		LOG("[warning] This mesh have no UV coords.");
+	}
 	glGenBuffers(1, (GLuint*) &(mesh->id_tex_coord));
 	if (mesh->id_tex_coord == 0)
 	{
@@ -695,7 +699,10 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindTexture(GL_TEXTURE_2D, image_texture);
+		if (mesh->num_tex_coord > 0)
+		{
+			glBindTexture(GL_TEXTURE_2D, image_texture);
+		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 		glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
