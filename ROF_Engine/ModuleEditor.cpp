@@ -71,6 +71,9 @@ update_status ModuleEditor::Update(float dt)
 	 ImGui::EndMainMenuBar();
 	}	
 
+	//ROF Discomment it to edit ImGuiC Colors
+	//ImGui::ShowStyleEditor();
+
 	//Draw all active panels
 	for (vector<Panel*>::iterator tmp = panels.begin(); tmp != panels.end(); ++tmp)
 	{

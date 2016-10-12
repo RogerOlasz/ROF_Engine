@@ -60,7 +60,7 @@ update_status ModuleGOManager::Update(float dt)
 
 update_status ModuleGOManager::PostUpdate(float dt)
 {
-	//Here i have to delete all checked GOs with to_delete
+	//TODO Here i have to delete all checked GOs with to_delete
 
 	return UPDATE_CONTINUE;
 }
@@ -94,7 +94,7 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 
 void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
-	//If i have time i must change this method to filter assimp dummies and add their transformations to the correct game object and don't create a game object for each one
+	//TODO If i have time i must change this method to filter assimp dummies and add their transformations to the correct game object and don't create a game object for each one
 
 	//Setting node names
 	//MAXLEN stores 1024u

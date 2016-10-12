@@ -47,12 +47,10 @@ Application::Application()
 	AddModule(scene_intro);
 
 	// Renderer last!
-	AddModule(renderer3D);
-
-	
+	AddModule(renderer3D);	
 
 	// Strings
-	sprintf_s(app_name, SHORT_STRING, "ROF Engine");
+	sprintf_s(app_name, SHORT_STRING, TITLE);
 	sprintf_s(organization, SHORT_STRING, "CITM");
 }
 

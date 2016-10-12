@@ -37,7 +37,7 @@ private:
 	GameObject* parent = nullptr;
 	std::string name;
 
-	bool hidden_on_hierarchy = false;
+	bool is_on_hierarchy = false;
 
 public:
 	bool to_delete = false;

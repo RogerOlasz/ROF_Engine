@@ -118,12 +118,12 @@ std::string* GameObject::GetNameString()
 
 void GameObject::HideFromHierarchy()
 { 
-	hidden_on_hierarchy = true;
+	is_on_hierarchy = true;
 }
 
 bool GameObject::HiddenFromHierarchy()
 { 
-	return hidden_on_hierarchy;
+	return is_on_hierarchy;
 }
 
 void GameObject::SwitchParent(GameObject* new_parent)
@@ -143,9 +143,9 @@ bool GameObject::Remove()
 {
 	bool ret = false;
 
-	//Have to delete all component
+	//TODO Have to delete all component
 
-	//Have to delete all children
+	//TODO Have to delete all children
 
 	return ret;
 }
