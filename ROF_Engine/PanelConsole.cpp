@@ -17,7 +17,7 @@ void PanelConsole::AddLog(const char* log)
 
 void PanelConsole::Draw()
 {
-	ImGui::Begin("Console", &active, ImVec2(500, 200));
+	ImGui::Begin("Console", &active);
 
 	for (int i = 0; i < Items.Size; i++)
 	{

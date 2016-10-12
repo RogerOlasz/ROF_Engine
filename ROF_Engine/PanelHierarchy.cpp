@@ -50,6 +50,7 @@ void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 		{
 			node_flags += ImGuiTreeNodeFlags_Selected;
 		}
+			
 		if (node->children.empty())
 		{
 			//Leaf: The only reason we have a TreeNode at all is to allow selection of the leaf. Otherwise we can use BulletText() or TreeAdvanceToLabelPos()+Text().
