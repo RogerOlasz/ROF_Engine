@@ -4,6 +4,8 @@
 #include "Panel.h"
 #include <vector>
 
+class GameObject;
+
 class PanelHierarchy : public Panel
 {
 public:
@@ -12,6 +14,11 @@ public:
 	virtual ~PanelHierarchy();
 
 	void Draw() override;
+
+private:
+	void SceneTreeGameObject(GameObject* node);
+
+	GameObject* selected_go = nullptr;
 
 };
 
