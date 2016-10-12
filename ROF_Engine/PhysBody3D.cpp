@@ -1,6 +1,6 @@
 #include "PhysBody3D.h"
-#include "MathGeoLib\include\MathGeoLib.h"
-#include "Bullet\include\btBulletDynamicsCommon.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "Bullet/include/btBulletDynamicsCommon.h"
 
 // =================================================
 PhysBody3D::PhysBody3D(btRigidBody* body) : body(body)

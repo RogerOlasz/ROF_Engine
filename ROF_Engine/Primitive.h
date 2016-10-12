@@ -1,6 +1,7 @@
+#ifndef __PRIMITIVE_H__
+#define __PRIMITIVE_H__
 
-#pragma once
-#include "MathGeoLib\include\MathGeoLib.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include "Color.h"
 
 enum PrimitiveTypes
@@ -95,3 +96,5 @@ public:
 	vec normal;
 	float constant;
 };
+
+#endif // !__PRIMITIVE_H__

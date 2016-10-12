@@ -1,7 +1,9 @@
-#pragma once
+#ifndef __MODULERENDERER3D_H__
+#define __MODULEPHYSICS3D_H__
+
 #include "Module.h"
 #include "Globals.h"
-#include "MathGeoLib\include\MathGeoLib.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include "Light.h"
 
 struct Mesh;
@@ -37,3 +39,5 @@ public:
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 };
+
+#endif // !__MODULEPHYSICS3D_H__

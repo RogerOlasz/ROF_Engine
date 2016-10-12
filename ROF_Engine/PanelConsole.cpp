@@ -1,10 +1,14 @@
 #include "PanelConsole.h"
 
 PanelConsole::PanelConsole() : Panel("Console")
-{}
+{
+	active = true;
+}
 
 PanelConsole::~PanelConsole()
-{}
+{
+
+}
 
 void PanelConsole::AddLog(const char* log)
 {

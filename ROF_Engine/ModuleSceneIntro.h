@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __MODULESCENEINTRO_H__
+#define __MODULESCENEINTRO_H__
+
 #include "Module.h"
 #include <array>
 #include "Globals.h"
@@ -22,3 +24,5 @@ public:
 public:
 
 };
+
+#endif // !__MODULESCENEINTRO_H__

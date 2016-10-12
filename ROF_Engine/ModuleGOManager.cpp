@@ -94,6 +94,8 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 
 void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
+	//If i have time i must change this method to filter assimp dummies and add their transformations to the correct game object and don't create a game object for each one
+
 	//Setting node names
 	//MAXLEN stores 1024u
 	char tmp_name[MAXLEN];
@@ -124,13 +126,13 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 #pragma endregion
 
 #pragma region SetMaterial
-		//ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
+		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
 #pragma endregion
 
 #pragma region SetMeshes
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
-			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]]);
+			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 						
 			((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
 		}

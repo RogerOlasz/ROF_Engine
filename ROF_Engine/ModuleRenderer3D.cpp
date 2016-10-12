@@ -5,8 +5,8 @@
 #include "ModuleCamera3D.h"
 #include "Mesh.h"
 
-#include "Glew\include\glew.h"
-#include "SDL\include\SDL_opengl.h"
+#include "Glew/include/glew.h"
+#include "SDL/include/SDL_opengl.h"
 #include <vector>
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -313,9 +313,14 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+		//If mesh have UV coords...
 		if (mesh->num_tex_coord > 0)
 		{
-			glBindTexture(GL_TEXTURE_2D, image_texture);
+			//If mesh have any material...
+			if (mesh->tex_material != 0)
+			{
+				glBindTexture(GL_TEXTURE_2D, mesh->tex_material);
+			}
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);

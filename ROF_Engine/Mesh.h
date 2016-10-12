@@ -2,7 +2,7 @@
 #define __MESH_H__
 
 #include "Globals.h"
-#include "MathGeoLib\include\MathGeoLib.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 //VRAM is graphic target's RAM
 
@@ -18,6 +18,9 @@ struct Mesh
 	uint num_tex_coord = 0;
 	float2* tex_coord = nullptr;
 
+	//Material
+	uint tex_material;
+
 	// Normals
 	uint id_normals = 0; // id in VRAM
 	uint num_normals = 0;
@@ -27,6 +30,7 @@ struct Mesh
 	uint id_indices = 0; // id in VRAM
 	uint num_indices = 0;
 	uint* indices = nullptr;	
+
 };
 
 #endif // __MESH_H__

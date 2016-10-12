@@ -111,6 +111,11 @@ const char* GameObject::GetName()
 	return name.c_str();
 }
 
+std::string* GameObject::GetNameString()
+{
+	return &name;
+}
+
 void GameObject::HideFromHierarchy()
 { 
 	hidden_on_hierarchy = true;

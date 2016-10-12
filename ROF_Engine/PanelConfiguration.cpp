@@ -13,6 +13,8 @@ PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 	{
 		ms_log.push_back(0);
 	}
+
+	active = true;
 }
 
 PanelConfiguration::~PanelConfiguration()

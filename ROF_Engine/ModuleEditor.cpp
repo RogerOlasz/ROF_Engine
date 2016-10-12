@@ -7,8 +7,8 @@
 #include "PanelConfiguration.h"
 #include "PanelHierarchy.h"
 
-#include "ImGui\imgui.h"
-#include "ImGui\imgui_impl_sdl_gl3.h"
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_sdl_gl3.h"
 
 using namespace std;
 
@@ -49,9 +49,7 @@ update_status ModuleEditor::Update(float dt)
 			{
 				return UPDATE_STOP;
 			}
-			if (ImGui::MenuItem("Configuration", "C", &Config->active));
-			if (ImGui::MenuItem("Console", "CTR+C", &Console->active));
-
+			
 		 ImGui::EndMenu();
 		}
 
@@ -63,6 +61,8 @@ update_status ModuleEditor::Update(float dt)
 
 		if (ImGui::BeginMenu("Window"))
 		{
+			if (ImGui::MenuItem("Configuration", "C", &Config->active));
+			if (ImGui::MenuItem("Console", "CTR+C", &Console->active));
 			if (ImGui::MenuItem("Hierarchy", "CTR+O", &Hierarchy->active));
 
 			ImGui::EndMenu();

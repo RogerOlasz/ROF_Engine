@@ -26,6 +26,7 @@ public:
 	void SwitchParent(GameObject* new_parent);
 
 	const char* GetName();
+	std::string* GetNameString();
 	void HideFromHierarchy();
 	bool HiddenFromHierarchy();
 

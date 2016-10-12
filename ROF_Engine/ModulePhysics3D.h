@@ -1,10 +1,12 @@
-#pragma once
+#ifndef __MODULEPHYSICS_H__
+#define __MODULEPHYSICS_H__
+
 #include "Module.h"
 #include "Globals.h"
 #include <list>
 #include "Primitive.h"
 
-#include "Bullet\include\btBulletDynamicsCommon.h"
+#include "Bullet/include/btBulletDynamicsCommon.h"
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
@@ -68,3 +70,5 @@ public:
 	Line_P line;
 	Primitive point;
 };
+
+#endif // !__MODULEPHYSICS3D_H__

@@ -1,7 +1,7 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
-#include "SDL\include\SDL.h"
-#include "PhysFS\include\physfs.h"
+#include "SDL/include/SDL.h"
+#include "PhysFS/include/physfs.h"
 
 #pragma comment (lib, "PhysFS/libx86/physfs.lib")
 
@@ -41,11 +41,12 @@ bool ModuleFileSystem::Init()
 		LOG("%s %s", "Write directory is ", write_dir);
 		AddSearchPath(write_dir, GetSaveDirectory());
 		AddSearchPath("Assets/Models", "Models");
+		AddSearchPath("Assets/Materials", "Materials");
 	}
 
 	SDL_free(write_dir);
 
-	// Generate IO interfaces
+	// Generate assimp IO interfaces
 	CreateAssimpIO();
 	
 	return ret;
@@ -70,6 +71,35 @@ bool ModuleFileSystem::AddSearchPath(const char *path_or_zip, const char *mount_
 	}
 
 	return ret;
+}
+
+//Clean a path to return the file name 
+const char *ModuleFileSystem::GetFileNameFromDirPath(const char *path) const
+{
+	//Create an empty char
+	char* file = '\0';
+
+	if (path != nullptr)
+	{
+		while (*(path++) != '\0')
+		{
+			if (*path == '\\')
+			{
+				file = (char*)path;
+			}
+		}
+
+		if ((path++) != '\0')
+		{
+			++file;
+		}
+		else
+		{
+			file = '\0';
+		}			
+	}
+
+	return file;
 }
 
 bool ModuleFileSystem::RemoveAllSearchPaths()

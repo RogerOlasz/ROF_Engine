@@ -9,6 +9,7 @@
 
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -69,7 +70,7 @@ bool ModuleGeometry::CleanUp()
 	return true;
 }
 
-Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh)
+Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, ComponentMaterial* material)
 {
 	//const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	//const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
@@ -102,6 +103,9 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh)
 		}
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
+
+	//Adding texture to mesh struct 
+	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
 
 	// Copying indicies (faces on Assimp)
 	if (ai_mesh->HasFaces())

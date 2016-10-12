@@ -2,7 +2,7 @@
 #define __MODULEFILESYSTEM_H__
 
 #include "Module.h"
-#include "Assimp\include\cfileio.h"
+#include "Assimp/include/cfileio.h"
 
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops *rw);
@@ -18,6 +18,8 @@ public:
 	bool CleanUp();
 
 	bool AddSearchPath(const char *path_or_zip, const char *mount_point = NULL);
+	const char* GetFileNameFromDirPath(const char* path) const;
+
 	bool RemoveAllSearchPaths();
 	bool RemovePath(const char *path_or_zip);
 	uint Load(const char* file, char **buffer) const;

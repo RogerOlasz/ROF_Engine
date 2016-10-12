@@ -1,7 +1,7 @@
 #include "ComponentTransformation.h"
 #include "Globals.h"
 
-#include "SDL\include\SDL_opengl.h"
+#include "SDL/include/SDL_opengl.h"
 
 ComponentTransformation::ComponentTransformation(GameObject* bearer) : Component(bearer, Types::Transformation)
 {

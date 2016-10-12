@@ -6,7 +6,9 @@
 
 struct Mesh;
 struct aiMesh;
+struct aiScene;
 class GameObject;
+class ComponentMaterial;
 
 class ModuleGeometry : public Module
 {
@@ -21,7 +23,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 	
-	Mesh* LoadGeometry(const aiMesh* ai_mesh);
+	Mesh* LoadGeometry(const aiMesh* ai_mesh, const aiScene* ai_scene, ComponentMaterial* material);
 
 };
 
