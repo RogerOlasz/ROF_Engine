@@ -28,19 +28,24 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		if ((*tmp)->GetType() == Component::Types::Transformation)
 		{
+
+			vec pos(vec(((ComponentTransformation*)(*tmp))->GetPosition().x, ((ComponentTransformation*)(*tmp))->GetPosition().y, ((ComponentTransformation*)(*tmp))->GetPosition().z));
+			vec sca(vec(((ComponentTransformation*)(*tmp))->GetScale().x, ((ComponentTransformation*)(*tmp))->GetScale().y, ((ComponentTransformation*)(*tmp))->GetScale().z));
+			vec rot(vec(((ComponentTransformation*)(*tmp))->GetRotation().x, ((ComponentTransformation*)(*tmp))->GetRotation().y, ((ComponentTransformation*)(*tmp))->GetRotation().z));
+
 			if (ImGui::CollapsingHeader("Transform"))
 			{
-				if (ImGui::DragFloat3("Postion", ((ComponentTransformation*)(*tmp))->GetPosition().ptr()))
+				if (ImGui::DragFloat3("Postion", pos.ptr()))
 				{
-					((ComponentTransformation*)(*tmp))->BuildTransMatrix();
+					((ComponentTransformation*)(*tmp))->SetPos(pos.x, pos.y, pos.z);
 				}
-				if (ImGui::DragFloat3("Scale", ((ComponentTransformation*)(*tmp))->GetScale().ptr()))
+				if (ImGui::DragFloat3("Scale", sca.ptr()))
 				{
-					((ComponentTransformation*)(*tmp))->BuildTransMatrix();
+					((ComponentTransformation*)(*tmp))->SetScale(sca.x, sca.y, sca.z);
 				}
-				if (ImGui::DragFloat3("Rotation", ((ComponentTransformation*)(*tmp))->GetRotation().ptr()))
+				if (ImGui::DragFloat3("Rotation", rot.ptr()))
 				{
-					((ComponentTransformation*)(*tmp))->BuildTransMatrix();
+					((ComponentTransformation*)(*tmp))->SetRotEuler(rot.x, rot.y, rot.z);
 				}				
 			}
 		}

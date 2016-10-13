@@ -31,19 +31,23 @@ void ComponentTransformation::PopMatrix()
 	glPopMatrix();
 }
 
-vec ComponentTransformation::GetPosition()
+vec ComponentTransformation::GetPosition() const
 {
 	return position;
 }
 
-vec ComponentTransformation::GetScale()
+vec ComponentTransformation::GetScale() const
 {
 	return scale;
 }
 
-Quat ComponentTransformation::GetRotation()
+vec ComponentTransformation::GetRotation() const
 {
-	return rotation;
+	vec tmp;
+	tmp = rotation.ToEulerXYZ();
+	tmp = RadToDeg(tmp);
+
+	return tmp;
 }
 
 void ComponentTransformation::SetPos(float x, float y, float z)
@@ -59,6 +63,15 @@ void ComponentTransformation::SetRot(float x, float y, float z, float w)
 {
 	rotation.Set(x, y, z, w);
 
+	BuildTransMatrix();
+}
+
+void ComponentTransformation::SetRotEuler(float x, float y, float z)
+{
+	rotation_deg = vec(x, y, z);
+	rotation_rad = DegToRad(rotation_deg);
+	rotation = rotation.FromEulerXYX(rotation_rad.x, rotation_rad.y, rotation_rad.z);
+	
 	BuildTransMatrix();
 }
 

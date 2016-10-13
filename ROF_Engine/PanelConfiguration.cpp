@@ -23,8 +23,8 @@ PanelConfiguration::~PanelConfiguration()
 
 void PanelConfiguration::Draw()
 {
-	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - 335), (App->window->GetWindowSize().y - 385)));
-	ImGui::SetNextWindowSize(ImVec2(330, 380));
+	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - 335), (App->window->GetWindowSize().y - 380)));
+	ImGui::SetNextWindowSize(ImVec2(330, 375));
 	ImGui::Begin("Configuration", &active);
 	
 	DrawApplication();

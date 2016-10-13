@@ -17,6 +17,9 @@ private:
 	vec position = vec::zero;
 	vec scale = vec::one;
 
+	vec rotation_rad = vec::zero;
+	vec rotation_deg = vec::zero;
+
 	float4x4 transform_matrix = float4x4::identity;
 
 public:
@@ -24,12 +27,13 @@ public:
 	void PushMatrix();
 	void PopMatrix();
 
-	vec GetPosition();
-	vec GetScale();
-	Quat GetRotation();
+	vec GetPosition() const;
+	vec GetScale() const;
+	vec GetRotation() const;
 
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z, float w);
+	void SetRotEuler(float x, float y, float z);
 	void SetScale(float x, float y, float z);
 
 };
