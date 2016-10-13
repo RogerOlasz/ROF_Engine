@@ -1,4 +1,6 @@
 #include "PanelConsole.h"
+#include "Application.h"
+#include "ModuleWindow.h"
 
 PanelConsole::PanelConsole() : Panel("Console")
 {
@@ -17,6 +19,8 @@ void PanelConsole::AddLog(const char* log)
 
 void PanelConsole::Draw()
 {
+	ImGui::SetNextWindowPos(ImVec2(5, (App->window->GetWindowSize().y - 205)));
+	ImGui::SetNextWindowSize(ImVec2(935, 200));
 	ImGui::Begin("Console", &active);
 
 	for (int i = 0; i < Items.Size; i++)
