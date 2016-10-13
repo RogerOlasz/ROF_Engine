@@ -17,12 +17,16 @@ private:
 	vec position = vec::zero;
 	vec scale = vec::one;
 
-	float4x4 TransformMatrix = float4x4::identity;
+	float4x4 transform_matrix = float4x4::identity;
 
 public:
 	void BuildTransMatrix();
 	void PushMatrix();
 	void PopMatrix();
+
+	vec GetPosition();
+	vec GetScale();
+	Quat GetRotation();
 
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z, float w);

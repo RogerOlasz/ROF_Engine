@@ -15,19 +15,35 @@ ComponentTransformation::~ComponentTransformation()
 
 void ComponentTransformation::BuildTransMatrix()
 {
-	TransformMatrix = float4x4::FromTRS(position, rotation, scale);
-	TransformMatrix.Transpose();
+	transform_matrix = float4x4::FromTRS(position, rotation, scale);
+	LOG("Position after build matrix is %f", position.x);
+	transform_matrix.Transpose();
 }
 
 void ComponentTransformation::PushMatrix()
 {
 	glPushMatrix();
-	glMultMatrixf((float*)&TransformMatrix);
+	glMultMatrixf((float*)&transform_matrix);
 }
 
 void ComponentTransformation::PopMatrix()
 {
 	glPopMatrix();
+}
+
+vec ComponentTransformation::GetPosition()
+{
+	return position;
+}
+
+vec ComponentTransformation::GetScale()
+{
+	return scale;
+}
+
+Quat ComponentTransformation::GetRotation()
+{
+	return rotation;
 }
 
 void ComponentTransformation::SetPos(float x, float y, float z)

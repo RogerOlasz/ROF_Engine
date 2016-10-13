@@ -14,8 +14,6 @@ public:
 
 	void Draw(GameObject* selected_go);
 
-private:
-
 };
 
 #endif // !__PANELCOMPONENTS_H__

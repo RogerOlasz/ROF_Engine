@@ -121,12 +121,7 @@ void GameObject::SetName(const char* new_name)
 	name = new_name;
 }
 
-void GameObject::HideFromHierarchy()
-{ 
-	is_on_hierarchy = true;
-}
-
-bool GameObject::HiddenFromHierarchy()
+bool GameObject::GetHierarchyState()
 { 
 	return is_on_hierarchy;
 }

@@ -79,10 +79,7 @@ GameObject* ModuleGOManager::GetRootNode() const
 GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* parent)
 {
 	GameObject* new_go = new GameObject(name);
-	
 	SetParent(new_go, parent);
-
-	debug_go_counter++;
 
 	return new_go;
 }
@@ -183,8 +180,6 @@ void ModuleGOManager::LoadFBX(const char* file_path)
 	{
 		LOG("[error] Error loading scene %s %s", file_path, aiGetErrorString());
 	}
-
-	LOG("[warning] Now i have %d GameObjects...", debug_go_counter);
 }
 
 void ModuleGOManager::SetParent(GameObject* me, GameObject* new_parent)

@@ -34,8 +34,6 @@ private:
 	GameObject* root;
 	
 	void SetParent(GameObject* me, GameObject* new_parent);
-
-	uint debug_go_counter = 0;
 };
 
 #endif // __MODULEGOMANAGER_H__

@@ -28,8 +28,7 @@ public:
 	const char* GetName();
 	std::string* GetNameString();
 	void SetName(const char* new_name);
-	void HideFromHierarchy();
-	bool HiddenFromHierarchy();
+	bool GetHierarchyState();
 
 	bool Remove();
 
@@ -38,7 +37,7 @@ private:
 	GameObject* parent = nullptr;
 	std::string name;
 
-	bool is_on_hierarchy = false;
+	bool is_on_hierarchy = true;
 
 public:
 	bool to_delete = false;
