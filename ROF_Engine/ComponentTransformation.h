@@ -18,7 +18,6 @@ private:
 	vec scale = vec::one;
 
 	vec rotation_rad = vec::zero;
-	vec rotation_deg = vec::zero;
 
 	float4x4 transform_matrix = float4x4::identity;
 

@@ -16,7 +16,6 @@ ComponentTransformation::~ComponentTransformation()
 void ComponentTransformation::BuildTransMatrix()
 {
 	transform_matrix = float4x4::FromTRS(position, rotation, scale);
-	LOG("Position after build matrix is %f", position.x);
 	transform_matrix.Transpose();
 }
 
@@ -43,11 +42,14 @@ vec ComponentTransformation::GetScale() const
 
 vec ComponentTransformation::GetRotation() const
 {
-	vec tmp;
-	tmp = rotation.ToEulerXYZ();
-	tmp = RadToDeg(tmp);
+	vec ret;
+	ret = RadToDeg(rotation.ToEulerXYZ());
 
-	return tmp;
+	while (ret.x < 0) { ret.x += 360; }
+	while (ret.y < 0) { ret.y += 360; }
+	while (ret.z < 0) { ret.z += 360; }
+
+	return ret;
 }
 
 void ComponentTransformation::SetPos(float x, float y, float z)
@@ -68,10 +70,15 @@ void ComponentTransformation::SetRot(float x, float y, float z, float w)
 
 void ComponentTransformation::SetRotEuler(float x, float y, float z)
 {
-	rotation_deg = vec(x, y, z);
-	rotation_rad = DegToRad(rotation_deg);
-	rotation = rotation.FromEulerXYX(rotation_rad.x, rotation_rad.y, rotation_rad.z);
+	while (x < 0) { x += 360; }
+	while (y < 0) { y += 360; }
+	while (z < 0) { z += 360; }
+
+	rotation_rad = DegToRad(vec(x,y,z));
+	rotation = rotation.FromEulerXYZ(rotation_rad.x, rotation_rad.y, rotation_rad.z);
 	
+	//LOG("Quaternion is = X: %f Y: %f Z: %f W: %f", rotation.x, rotation.y, rotation.z, rotation.w);
+
 	BuildTransMatrix();
 }
 

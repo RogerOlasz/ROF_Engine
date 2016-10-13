@@ -41,7 +41,7 @@ bool ModuleFileSystem::Init()
 		LOG("%s %s", "Write directory is ", write_dir);
 		AddSearchPath(write_dir, GetSaveDirectory());
 		AddSearchPath("Assets/Models", "Models");
-		AddSearchPath("Assets/Materials", "Materials");
+		AddSearchPath("Assets/Textures", "Textures");
 	}
 
 	SDL_free(write_dir);

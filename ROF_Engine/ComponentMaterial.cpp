@@ -42,7 +42,7 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 		ilBindImage(mesh->tex_material);
 
 		char material_path[SHORT_STRING];
-		sprintf_s(material_path, SHORT_STRING, "%s%s", "Materials/", App->physfs->GetFileNameFromDirPath(path.C_Str()));
+		sprintf_s(material_path, SHORT_STRING, "%s%s", "Textures/", App->physfs->GetFileNameFromDirPath(path.C_Str()));
 		char *buff;
 		uint size = App->physfs->Load(material_path, &buff);
 
