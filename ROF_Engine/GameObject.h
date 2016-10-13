@@ -27,6 +27,7 @@ public:
 
 	const char* GetName();
 	std::string* GetNameString();
+	void SetName(const char* new_name);
 	void HideFromHierarchy();
 	bool HiddenFromHierarchy();
 

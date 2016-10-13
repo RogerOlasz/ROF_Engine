@@ -116,6 +116,11 @@ std::string* GameObject::GetNameString()
 	return &name;
 }
 
+void GameObject::SetName(const char* new_name)
+{
+	name = new_name;
+}
+
 void GameObject::HideFromHierarchy()
 { 
 	is_on_hierarchy = true;

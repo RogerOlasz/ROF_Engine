@@ -94,18 +94,13 @@ void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
 
 void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
-	//TODO If i have time i must change this method to filter assimp dummies and add their transformations to the correct game object and don't create a game object for each one
-
-	//Setting node names
-	//MAXLEN stores 1024u
-	char tmp_name[MAXLEN];
-	memcpy(tmp_name, node_to_load->mName.data, node_to_load->mName.length + 1);
-
+	
 	GameObject* ret = nullptr;
 
+	//Creating GameObject from aiNode
 	if (node_to_load->mParent)
 	{
-		ret = CreateGameObject(tmp_name, parent);
+		ret = CreateGameObject(node_to_load->mName.C_Str(), parent);
 	}
 
 	if (ret != nullptr)
@@ -120,9 +115,26 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 
 		node_to_load->mTransformation.Decompose(scale, rotation, position);
 
-		trans->SetPos(position.x, position.y, position.z);
-		trans->SetScale(scale.x, scale.y, scale.z);
-		trans->SetRot(rotation.x, rotation.y, rotation.z, rotation.w);
+		vec pos(position.x, position.y, position.z);
+		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
+		vec sca(scale.x, scale.y, scale.z);
+
+		while (ret->GetNameString()->find("$AssimpFbx$") != std::string::npos)
+		{
+			node_to_load = node_to_load->mChildren[0];
+
+			node_to_load->mTransformation.Decompose(scale, rotation, position);
+
+			pos += vec(position.x, position.y, position.z);
+			rot = rot * Quat(rotation.x, rotation.y, rotation.z, rotation.w);
+			sca = vec(scale.x * sca.x, scale.y * sca.y, scale.z * sca.z);
+
+			ret->SetName(node_to_load->mName.C_Str());
+		}
+
+		trans->SetPos(pos.x, pos.y, pos.z);
+		trans->SetScale(sca.x, sca.y, sca.z);
+		trans->SetRot(rot.x, rot.y, rot.z, rot.w);
 #pragma endregion
 
 #pragma region SetMaterial

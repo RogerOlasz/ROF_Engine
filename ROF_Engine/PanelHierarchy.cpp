@@ -26,12 +26,8 @@ void PanelHierarchy::Draw()
 	std::list<GameObject*>::iterator go_node = App->go_manager->GetRootNode()->children.begin();
 	while (go_node != App->go_manager->GetRootNode()->children.end())
 	{
-		std::list<GameObject*>::iterator child_node = (*go_node)->children.begin();
-		while (child_node != (*go_node)->children.end())
-		{
-			SceneTreeGameObject((*child_node));
-			child_node++;
-		}
+		SceneTreeGameObject((*go_node));
+
 		go_node++;
 	}
 
