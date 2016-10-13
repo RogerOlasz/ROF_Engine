@@ -6,6 +6,7 @@
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
 #include "PanelHierarchy.h"
+#include "PanelComponents.h"
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl_gl3.h"
@@ -27,6 +28,7 @@ bool ModuleEditor::Init()
 	panels.push_back(Config = new PanelConfiguration);
 	panels.push_back(Console = new PanelConsole);
 	panels.push_back(Hierarchy = new PanelHierarchy);
+	panels.push_back(Comp = new PanelComponents);
 	
 	return true;
 }
@@ -70,6 +72,11 @@ update_status ModuleEditor::Update(float dt)
 
 	 ImGui::EndMainMenuBar();
 	}	
+
+	if (Hierarchy->GetSelectedGO())
+	{
+		Comp->Draw(Hierarchy->GetSelectedGO());
+	}
 
 	//ROF Discomment it to edit ImGuiC Colors
 	//ImGui::ShowStyleEditor();

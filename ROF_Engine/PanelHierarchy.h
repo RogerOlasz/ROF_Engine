@@ -15,6 +15,8 @@ public:
 
 	void Draw() override;
 
+	GameObject* GetSelectedGO() const;
+
 private:
 	void SceneTreeGameObject(GameObject* node);
 

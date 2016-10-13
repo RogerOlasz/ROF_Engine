@@ -1,5 +1,6 @@
 #include "PanelHierarchy.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 #include <vector>
 #include <string>
 
@@ -20,6 +21,8 @@ PanelHierarchy::~PanelHierarchy()
 
 void PanelHierarchy::Draw()
 {
+	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - (App->window->GetWindowSize().x - 4)), (App->window->GetWindowSize().y - (App->window->GetWindowSize().y - 25))));
+	ImGui::SetNextWindowSize(ImVec2(250, 610));
 	ImGui::Begin("Hierarchy", &active);
 	
 	//Lets start iterating my root children nodes to creat the tree hierarchy
@@ -34,6 +37,11 @@ void PanelHierarchy::Draw()
 	ImGui::End();
 }
 
+GameObject* PanelHierarchy::GetSelectedGO() const
+{
+	return selected_go;
+}
+
 //Recursive method to create all game objects tree
 void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 {
@@ -42,11 +50,12 @@ void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 		//Disable the default open on single-click behavior and pass in Selected flag according to our selection state.
 		ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 
-		if (selected_go == node)
+		if (ImGui::IsItemClicked())
 		{
 			node_flags += ImGuiTreeNodeFlags_Selected;
+			selected_go = node;
+			LOG("Selected node is: %s", selected_go->GetName());
 		}
-			
 		if (node->children.empty())
 		{
 			//Leaf: The only reason we have a TreeNode at all is to allow selection of the leaf. Otherwise we can use BulletText() or TreeAdvanceToLabelPos()+Text().

@@ -1,5 +1,6 @@
 #include "PanelConfiguration.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 #include "ImGui/imgui.h"
 
 PanelConfiguration::PanelConfiguration() : Panel("Configuration")
@@ -31,6 +32,9 @@ void PanelConfiguration::Draw()
 
 void PanelConfiguration::DrawApplication()
 {	
+	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - (App->window->GetWindowSize().x - 4)), (App->window->GetWindowSize().y - (App->window->GetWindowSize().y - 25))));
+	ImGui::SetNextWindowSize(ImVec2(250, 610));
+
 	if (ImGui::CollapsingHeader("Application"))
 	{
 		ImGui::Text("Limit Framerate:");

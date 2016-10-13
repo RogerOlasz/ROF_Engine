@@ -119,6 +119,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 		vec sca(scale.x, scale.y, scale.z);
 
+		//Add transforms from assimp dummies nodes to the right node
 		while (ret->GetNameString()->find("$AssimpFbx$") != std::string::npos)
 		{
 			node_to_load = node_to_load->mChildren[0];

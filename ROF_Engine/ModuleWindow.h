@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
+#include "ImGui\imgui.h"
 
 class Application;
 
@@ -19,6 +20,8 @@ public:
 	bool CleanUp();
 
 	void SetTitle(const char* title);
+
+	ImVec2 GetWindowSize();
 
 public:
 	//The window we'll be rendering to
