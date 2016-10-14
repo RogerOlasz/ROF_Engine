@@ -2,6 +2,7 @@
 #define __MODULE_H__
 
 #include "Globals.h"
+#include <string>
 
 class Application;
 struct PhysBody3D;
@@ -10,6 +11,9 @@ class Module
 {
 private :
 	bool enabled;
+
+protected:
+	std::string name;
 
 public:
 	Application* App;

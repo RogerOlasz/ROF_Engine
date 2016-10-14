@@ -3,7 +3,6 @@
 
 #include "Component.h"
 #include "Globals.h"
-#include <list>
 #include <vector>
 
 class GameObject
@@ -41,9 +40,9 @@ private:
 
 public:
 	bool to_delete = false;
-	//TODO vectors pls
-	std::list<GameObject*> children;
-	std::list<Component*> components;
+
+	std::vector<GameObject*> children;
+	std::vector<Component*> components;
 
 };
 

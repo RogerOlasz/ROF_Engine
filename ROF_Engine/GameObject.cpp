@@ -56,7 +56,7 @@ void GameObject::SwitchActive(bool active)
 
 void GameObject::EnableComponent()
 {
-	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
+	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
 	{
 		(*tmp)->Activate();
 	}		
@@ -64,7 +64,7 @@ void GameObject::EnableComponent()
 
 void GameObject::DisableComponent()
 {
-	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
+	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
 	{
 		(*tmp)->Desactivate();
 	}
@@ -73,7 +73,7 @@ void GameObject::DisableComponent()
 void GameObject::Update()
 {
 	ComponentTransformation* tmp_t = nullptr;
-	for (std::list<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		if ((*tmp)->GetType() == Component::Types::Transformation)
 		{
@@ -93,7 +93,7 @@ void GameObject::Update()
 	}
 	else if(children.size() > 1)
 	{
-		for (std::list<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+		for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
 		{
 			(*tmp)->Update();
 		}
@@ -132,7 +132,13 @@ void GameObject::SwitchParent(GameObject* new_parent)
 	{
 		if (parent != nullptr)
 		{
-			parent->children.remove(this);
+			std::vector<GameObject*>::iterator it = parent->children.begin();
+			while ((*it) != this)
+			{
+				it++;
+			}
+			parent->children.erase(it);
+			
 		}
 		parent = new_parent;
 		parent->children.push_back(this);

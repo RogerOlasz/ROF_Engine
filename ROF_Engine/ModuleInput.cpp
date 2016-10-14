@@ -3,6 +3,8 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleGOManager.h"
+#include "ModuleFileSystem.h"
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl_gl3.h"
@@ -11,6 +13,8 @@
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name.assign("Input");
+
 	keyboard = new KEY_STATE[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KEY_STATE) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(KEY_STATE) * MAX_MOUSE_BUTTONS);
@@ -107,6 +111,15 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
 			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
+			break;
+
+			case SDL_DROPFILE:
+			{
+				char *dropped_filedir = e.drop.file;
+				//Must add any check to see if the dropped file is an .fbx
+				App->go_manager->LoadFBX(dropped_filedir, false);
+				SDL_free(dropped_filedir);    
+			}
 			break;
 
 			case SDL_QUIT:

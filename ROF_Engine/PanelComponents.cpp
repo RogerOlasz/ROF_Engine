@@ -28,7 +28,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 	ImGui::SameLine();
 	ImGui::Text(selected_go->GetName());
 
-	for (std::list<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
+	for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
 	{
 		if ((*tmp)->GetType() == Component::Types::Transformation)
 		{			
@@ -40,7 +40,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				rot.Set(((ComponentTransformation*)(*tmp))->GetRotation().x, ((ComponentTransformation*)(*tmp))->GetRotation().y, ((ComponentTransformation*)(*tmp))->GetRotation().z);
 			}
 
-			if (ImGui::CollapsingHeader("Transform"))
+			if (ImGui::CollapsingHeader(((ComponentTransformation*)(*tmp))->name.c_str()))
 			{
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: "); 
 				ImGui::SameLine();
@@ -78,7 +78,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 
 		if ((*tmp)->GetType() == Component::Types::Material)
 		{
-			if (ImGui::CollapsingHeader("Material"))
+			if (ImGui::CollapsingHeader(((ComponentMaterial*)(*tmp))->name.c_str()))
 			{
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();

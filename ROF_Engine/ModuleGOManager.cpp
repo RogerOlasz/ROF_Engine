@@ -18,7 +18,7 @@
 
 ModuleGOManager::ModuleGOManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
+	name.assign("GOManager");
 }
 
 ModuleGOManager::~ModuleGOManager()
@@ -47,10 +47,6 @@ update_status ModuleGOManager::Update(float dt)
 		//LoadFBX("Assets/Models/Tank.fbx");
 		//LoadFBX("Assets/Models/SimpleHierarchy.fbx");
 		LoadFBX("Assets/Models/Street environment_V01.fbx");
-		//LoadFBX("Assets/Models/SimpleH2.fbx");
-		//LoadFBX("Assets/Models/SimpleH3.fbx");
-		//LoadFBX("Assets/Models/SimpleH4.fbx");
-		//LoadFBX("Assets/Models/SimpleH5.fbx");
 	}
 
 	root->Update();
@@ -163,9 +159,18 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 	}
 }
 
-void ModuleGOManager::LoadFBX(const char* file_path)
+void ModuleGOManager::LoadFBX(const char* file_path, bool file_system)
 {
-	const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
+	const aiScene* scene;
+
+	if (file_system)
+	{
+		scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
+	}
+	else
+	{
+		scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	}
 
 	if (scene != nullptr && scene->HasMeshes())
 	{

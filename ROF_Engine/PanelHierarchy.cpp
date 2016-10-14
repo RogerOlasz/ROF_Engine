@@ -26,7 +26,7 @@ void PanelHierarchy::Draw()
 	ImGui::Begin("Hierarchy", &active);
 	
 	//Start iterating my root children nodes to creat the tree hierarchy
-	std::list<GameObject*>::iterator go_node = App->go_manager->GetRootNode()->children.begin();
+	std::vector<GameObject*>::iterator go_node = App->go_manager->GetRootNode()->children.begin();
 	while (go_node != App->go_manager->GetRootNode()->children.end())
 	{
 		SceneTreeGameObject((*go_node));
@@ -58,7 +58,7 @@ void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 
 		if (ImGui::TreeNodeEx(node->GetName(), node_flags))
 		{
-			std::list<GameObject*>::iterator it = node->children.begin();
+			std::vector<GameObject*>::iterator it = node->children.begin();
 			while (it != node->children.end())
 			{
 				SceneTreeGameObject((*it));

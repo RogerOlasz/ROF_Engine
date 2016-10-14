@@ -28,7 +28,7 @@ public:
 	void LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void RemoveGameObjects(GameObject* go_to_delete);
 
-	void LoadFBX(const char* file_path);
+	void LoadFBX(const char* file_path, bool file_system = true);
 
 private:
 	GameObject* root;

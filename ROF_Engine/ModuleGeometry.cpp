@@ -19,7 +19,9 @@
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 ModuleGeometry::ModuleGeometry(Application* app, bool start_enabled) : Module(app, start_enabled)
-{}
+{
+	name.assign("Geometry");
+}
 
 // Destructor
 ModuleGeometry::~ModuleGeometry()
@@ -72,25 +74,22 @@ bool ModuleGeometry::CleanUp()
 
 Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, ComponentMaterial* material)
 {
-	//const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
-	//const aiScene* scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
-
 	LOG("[start] New mesh ----------------------------------------------------");
 	Mesh* mesh = new Mesh();
 
-	// Copying vertices
+	// Copying vertices to mesh
 	mesh->num_vertices = ai_mesh->mNumVertices;
 	mesh->vertices = new vec[mesh->num_vertices];
 	memcpy(mesh->vertices, ai_mesh->mVertices, sizeof(vec) * mesh->num_vertices);
 	LOG("New mesh with %d vertices", mesh->num_vertices);
 
-	// Copying normals
+	// Copying normals to mesh
 	mesh->num_normals = ai_mesh->mNumVertices;
 	mesh->normals = new vec[mesh->num_normals];
 	memcpy(mesh->normals, ai_mesh->mNormals, sizeof(vec) * mesh->num_vertices);
 	LOG("New mesh with %d normals", mesh->num_vertices);
 
-	// Copying texture coords
+	// Copying texture coords to mesh
 	uint UV_index = 0;
 	if (ai_mesh->HasTextureCoords(UV_index))
 	{
@@ -107,11 +106,11 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	//Adding texture to mesh struct 
 	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
 
-	// Copying indicies (faces on Assimp)
+	// Copying indicies to mesh (faces on Assimp)
 	if (ai_mesh->HasFaces())
 	{
 		mesh->num_indices = ai_mesh->mNumFaces * 3;
-		mesh->indices = new uint[mesh->num_indices]; //Each face is a triangle
+		mesh->indices = new uint[mesh->num_indices]; 
 		for (uint j = 0; j < ai_mesh->mNumFaces; ++j)
 		{
 			if (ai_mesh->mFaces[j].mNumIndices != 3)

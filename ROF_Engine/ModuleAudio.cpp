@@ -7,7 +7,9 @@
 using namespace std;
 
 ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled), music(NULL)
-{}
+{
+	name.assign("Audio");
+}
 
 // Destructor
 ModuleAudio::~ModuleAudio()

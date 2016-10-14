@@ -7,6 +7,8 @@
 
 ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name.assign("FileSystem");
+
 	// PHYSFS must be initialized before other modules awake,
 	// because it will be used by them.
 	if (PHYSFS_isInit() == 0)
