@@ -29,7 +29,7 @@ public:
 	void SetName(const char* new_name);
 	bool GetHierarchyState();
 
-	bool Remove();
+	bool RemoveGameObject(GameObject* to_delete);
 
 private:
 	bool active = true;
@@ -39,8 +39,6 @@ private:
 	bool is_on_hierarchy = true;
 
 public:
-	bool to_delete = false;
-
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
 

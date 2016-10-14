@@ -61,6 +61,13 @@ update_status ModuleGOManager::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
+	aiDetachAllLogStreams();
+
+	if (root)
+	{
+		RELEASE(root);
+	}
+
 	return true;
 }
 

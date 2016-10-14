@@ -11,7 +11,35 @@ GameObject::GameObject(const char* name) : name (name)
 
 GameObject::~GameObject()
 {
+	if (parent != nullptr)
+	{
+		std::vector<GameObject*>::iterator it = parent->children.begin();
+		while ((*it) != this)
+		{
+			it++;
+		}
+		parent->children.erase(it);
+	}
+	
+	if (children.empty() != true)
+	{
+		std::vector<GameObject*>::iterator it = children.begin();
+		while (children.size() > 0 && it != children.end())
+		{
+			RELEASE(*it);
+			if (children.size() > 0)
+			{
+				it = children.begin();
+			}
+		}
+	}
 
+	std::vector<Component*>::iterator comp = components.begin();
+	while (comp != components.end())
+	{
+		RELEASE(*comp);
+		comp++;
+	}
 }
 
 Component* GameObject::CreateComponent(Component::Types type)
@@ -145,13 +173,15 @@ void GameObject::SwitchParent(GameObject* new_parent)
 	}
 }
 
-bool GameObject::Remove()
+bool GameObject::RemoveGameObject(GameObject* to_delete)
 {
 	bool ret = false;
 
-	//TODO Have to delete all component
-
-	//TODO Have to delete all children
+	if (to_delete)
+	{
+		RELEASE(to_delete);
+		ret = true;
+	}
 
 	return ret;
 }
