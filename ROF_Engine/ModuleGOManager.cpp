@@ -53,7 +53,6 @@ update_status ModuleGOManager::Update(float dt)
 
 update_status ModuleGOManager::PostUpdate(float dt)
 {
-	//TODO Here i have to delete all checked GOs with to_delete
 
 	return UPDATE_CONTINUE;
 }
@@ -82,11 +81,6 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 	SetParent(new_go, parent);
 
 	return new_go;
-}
-
-void ModuleGOManager::RemoveGameObjects(GameObject* go_to_delete)
-{
-	go_to_delete->to_delete = true;
 }
 
 void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
