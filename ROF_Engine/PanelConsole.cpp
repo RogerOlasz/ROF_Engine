@@ -5,6 +5,7 @@
 PanelConsole::PanelConsole() : Panel("Console")
 {
 	active = true;
+	set_size = true;
 }
 
 PanelConsole::~PanelConsole()
@@ -20,7 +21,13 @@ void PanelConsole::AddLog(const char* log)
 void PanelConsole::Draw()
 {
 	ImGui::SetNextWindowPos(ImVec2(5, (App->window->GetWindowSize().y - 205)));
-	ImGui::SetNextWindowSize(ImVec2(935, 200));
+
+	if (set_size == true)
+	{
+		ImGui::SetNextWindowSize(ImVec2(935, 200));
+		set_size = false;
+	}
+	
 	ImGui::Begin("Console", &active);
 
 	if (ImGui::SmallButton("Scroll to bottom"))

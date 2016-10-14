@@ -13,7 +13,7 @@ public:
 	PanelHierarchy();
 	virtual ~PanelHierarchy();
 
-	void Draw() override;
+	void Draw();
 
 	GameObject* GetSelectedGO() const;
 

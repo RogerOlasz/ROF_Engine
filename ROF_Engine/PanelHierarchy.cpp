@@ -12,6 +12,7 @@
 PanelHierarchy::PanelHierarchy() : Panel("Hierarchy")
 {
 	active = true;
+	set_size = true;
 }
 
 PanelHierarchy::~PanelHierarchy()
@@ -22,7 +23,13 @@ PanelHierarchy::~PanelHierarchy()
 void PanelHierarchy::Draw()
 {
 	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - (App->window->GetWindowSize().x - 4)), (App->window->GetWindowSize().y - (App->window->GetWindowSize().y - 25))));
-	ImGui::SetNextWindowSize(ImVec2(250, 610));
+
+	if (set_size == true)
+	{
+		ImGui::SetNextWindowSize(ImVec2(250, 610));
+		set_size = false;
+	}
+
 	ImGui::Begin("Hierarchy", &active);
 	
 	//Start iterating my root children nodes to creat the tree hierarchy

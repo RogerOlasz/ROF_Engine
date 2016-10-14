@@ -16,10 +16,7 @@ public:
 	PanelConfiguration();
 	virtual ~PanelConfiguration();
 
-	//In a member function declaration or definition, override ensures that the function is virtual and is overriding a virtual function 
-	//from the base class.The program is ill - formed(a compile - time error is generated) if this is not true. override is an identifier 
-	//with a special meaning when used after member function declarators : it's not a reserved keyword otherwise.
-	void Draw() override;
+	void Draw();
 
 	void DrawApplication();
 	void Log(const float* fps, const float ms);

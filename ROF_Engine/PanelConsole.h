@@ -15,6 +15,7 @@ public:
 	virtual ~PanelConsole();
 
 	void AddLog(const char* log);
+
 	void Draw();
 
 private:

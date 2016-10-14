@@ -43,9 +43,6 @@ update_status ModuleGOManager::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 	{
-		//LoadFBX("Assets/Models/LamboMurcielago.fbx");
-		//LoadFBX("Assets/Models/Tank.fbx");
-		//LoadFBX("Assets/Models/SimpleHierarchy.fbx");
 		LoadFBX("Assets/Models/Street environment_V01.fbx");
 	}
 

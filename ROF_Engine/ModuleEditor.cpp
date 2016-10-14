@@ -31,7 +31,7 @@ bool ModuleEditor::Init()
 	panels.push_back(Console = new PanelConsole);
 	panels.push_back(Hierarchy = new PanelHierarchy);
 	panels.push_back(Comp = new PanelComponents);
-	
+
 	return true;
 }
 

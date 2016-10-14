@@ -16,15 +16,24 @@ PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 	}
 
 	active = true;
+	set_size = true;
 }
 
 PanelConfiguration::~PanelConfiguration()
-{}
+{
+
+}
 
 void PanelConfiguration::Draw()
 {
 	ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x - 335), (App->window->GetWindowSize().y - 380)));
-	ImGui::SetNextWindowSize(ImVec2(330, 375));
+
+	if (set_size == true)
+	{
+		ImGui::SetNextWindowSize(ImVec2(330, 375));
+		set_size = false;
+	}
+	
 	ImGui::Begin("Configuration", &active);
 	
 	DrawApplication();

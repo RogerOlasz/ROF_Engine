@@ -17,6 +17,7 @@ public:
 
 public:
 	bool active = false;
+	bool set_size = false;
 
 protected:
 	std::string name;

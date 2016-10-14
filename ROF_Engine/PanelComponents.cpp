@@ -11,6 +11,7 @@
 PanelComponents::PanelComponents() : Panel("Components")
 {
 	active = false;
+	set_size = true;
 }
 
 PanelComponents::~PanelComponents()
@@ -21,7 +22,13 @@ PanelComponents::~PanelComponents()
 void PanelComponents::Draw(GameObject* selected_go)
 {	
 	ImGui::SetNextWindowPos(ImVec2(((App->window->GetWindowSize().x - 335)), 25));
-	ImGui::SetNextWindowSize(ImVec2(330, 610));
+
+	if (set_size == true)
+	{
+		ImGui::SetNextWindowSize(ImVec2(330, 610));
+		set_size = false;
+	}
+	
 	ImGui::Begin("Components", &active);
 
 	ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "GameObject: ");
