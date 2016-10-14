@@ -29,11 +29,16 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		if ((*tmp)->GetType() == Component::Types::Transformation)
 		{
-
-			vec pos(vec(((ComponentTransformation*)(*tmp))->GetPosition().x, ((ComponentTransformation*)(*tmp))->GetPosition().y, ((ComponentTransformation*)(*tmp))->GetPosition().z));
-			vec sca(vec(((ComponentTransformation*)(*tmp))->GetScale().x, ((ComponentTransformation*)(*tmp))->GetScale().y, ((ComponentTransformation*)(*tmp))->GetScale().z));
-			vec rot(vec(((ComponentTransformation*)(*tmp))->GetRotation().x, ((ComponentTransformation*)(*tmp))->GetRotation().y, ((ComponentTransformation*)(*tmp))->GetRotation().z));
-
+			//If actual game object is diferent of last one i must do it again
+			//Just get the init transform once
+			if (get_trans != true)
+			{
+				pos.Set(((ComponentTransformation*)(*tmp))->GetPosition().x, ((ComponentTransformation*)(*tmp))->GetPosition().y, ((ComponentTransformation*)(*tmp))->GetPosition().z);
+				sca.Set(((ComponentTransformation*)(*tmp))->GetScale().x, ((ComponentTransformation*)(*tmp))->GetScale().y, ((ComponentTransformation*)(*tmp))->GetScale().z);
+				rot.Set(((ComponentTransformation*)(*tmp))->GetRotation().x, ((ComponentTransformation*)(*tmp))->GetRotation().y, ((ComponentTransformation*)(*tmp))->GetRotation().z);
+				get_trans = true;
+			}
+			
 			if (ImGui::CollapsingHeader("Transform"))
 			{
 				if (ImGui::DragFloat3("Postion", pos.ptr()))
@@ -53,6 +58,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 
 		if ((*tmp)->GetType() == Component::Types::Geometry)
 		{
+			//TODO
 			if (ImGui::CollapsingHeader("Mesh"))
 			{
 

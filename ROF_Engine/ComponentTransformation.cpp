@@ -45,10 +45,6 @@ vec ComponentTransformation::GetRotation() const
 	vec ret;
 	ret = RadToDeg(rotation.ToEulerXYZ());
 
-	while (ret.x < 0) { ret.x += 360; }
-	while (ret.y < 0) { ret.y += 360; }
-	while (ret.z < 0) { ret.z += 360; }
-
 	return ret;
 }
 

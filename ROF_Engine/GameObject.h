@@ -41,6 +41,7 @@ private:
 
 public:
 	bool to_delete = false;
+	//TODO vectors pls
 	std::list<GameObject*> children;
 	std::list<Component*> components;
 
