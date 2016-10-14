@@ -8,11 +8,13 @@ struct Mesh;
 class ComponentMesh : public Component
 {
 public:
-	ComponentMesh(GameObject* bearer);
+	ComponentMesh(GameObject* bearer, int id);
 	~ComponentMesh();
 
 	void LoadMesh(Mesh* recived_mesh);
 	void Draw();
+
+	Mesh* GetMesh();
 
 private:
 	Mesh* mesh;

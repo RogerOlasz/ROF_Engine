@@ -3,9 +3,11 @@
 
 #include "SDL/include/SDL_opengl.h"
 
-ComponentTransformation::ComponentTransformation(GameObject* bearer) : Component(bearer, Types::Transformation)
+ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : Component(bearer, Types::Transformation, id)
 {
-
+	char tmp[SHORT_STRING];
+	sprintf(tmp, "Transformation##%i", id);
+	name = tmp;
 }
 
 ComponentTransformation::~ComponentTransformation()

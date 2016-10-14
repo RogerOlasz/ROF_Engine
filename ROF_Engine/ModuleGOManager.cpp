@@ -102,7 +102,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 
 	if (ret != nullptr)
 	{
-#pragma region SetTransforms
+#pragma region SetTransform
 		//Setting transformation
 		ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
 
@@ -139,7 +139,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
 #pragma endregion
 
-#pragma region SetMeshes
+#pragma region SetMeshe
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);

@@ -3,8 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
-#include <vector>
-#include <string>
+
 
 struct aiMaterial;
 struct Mesh;
@@ -12,16 +11,21 @@ struct Mesh;
 class ComponentMaterial : public Component
 {
 public:
-	ComponentMaterial(GameObject* bearer);
+	ComponentMaterial(GameObject* bearer, int id);
 	~ComponentMaterial();
 
 	void Init();
 
 	void LoadTexture(Mesh* mesh, aiMaterial* ai_material);
 
+	uint GetTexture() const;
+
+public:
+	char tex_path[SHORT_STRING];
+
 private:
-	std::vector<uint> textures;
-	std::vector<std::string> tex_paths;
+	uint texture;
+	
 
 };
 

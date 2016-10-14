@@ -9,7 +9,7 @@ using namespace math;
 class ComponentTransformation : public Component
 {
 public:
-	ComponentTransformation(GameObject* bearer);
+	ComponentTransformation(GameObject* bearer, int id);
 	~ComponentTransformation();
 
 private:

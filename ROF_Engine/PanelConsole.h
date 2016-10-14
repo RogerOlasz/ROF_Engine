@@ -16,6 +16,10 @@ public:
 
 	void AddLog(const char* log);
 	void Draw();
+
+private:
+	bool scroll_to_bottom = false;
+
 };
 
 #endif // __PANELCONSOLE_H__

@@ -2,6 +2,7 @@
 #define __PANELCOMPONENTS_H__
 
 #include "Panel.h"
+#include <string>
 #include "MathGeoLib/include/MathGeoLib.h"
 
 class GameObject;
@@ -16,7 +17,7 @@ public:
 	void Draw(GameObject* selected_go);
 
 private:
-	bool get_trans = false;
+	GameObject* last_go;
 
 	vec pos = vec::zero;
 	vec sca = vec::zero;

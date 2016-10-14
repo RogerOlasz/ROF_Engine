@@ -21,13 +21,13 @@ Component* GameObject::CreateComponent(Component::Types type)
 	switch (type)
 	{
 	case Component::Types::Transformation:
-		new_component = new ComponentTransformation(this);
+		new_component = new ComponentTransformation(this, components.size());
 		break;
 	case Component::Types::Geometry:
-		new_component = new ComponentMesh(this);
+		new_component = new ComponentMesh(this, components.size());
 		break;
 	case Component::Types::Material:
-		new_component = new ComponentMaterial(this);
+		new_component = new ComponentMaterial(this, components.size());
 		break;
 	}
 
