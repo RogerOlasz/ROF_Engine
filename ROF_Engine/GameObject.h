@@ -16,8 +16,6 @@ public:
 
 	bool IsActive() const;
 	void SwitchActive(bool active);
-	void EnableComponent();
-	void DisableComponent();
 
 	void Update();
 

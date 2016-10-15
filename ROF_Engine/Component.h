@@ -17,6 +17,7 @@ public:
 	};
 
 	std::string name;
+	bool active = false;
 
 public:
 	Component(GameObject* bearer, Types type, int id);
@@ -24,16 +25,12 @@ public:
 
 	bool IsActive() const;
 
-	virtual void Activate() {};
-	virtual void Desactivate() {};
-
 	virtual void CleanUp() {};
 
 	Types GetType() const;
 	int GetID() const;
 
 private:
-	bool active = false;
 	Types type = Types::Unknown;
 	GameObject* game_object = nullptr;
 

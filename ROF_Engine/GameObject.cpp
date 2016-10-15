@@ -83,22 +83,6 @@ void GameObject::SwitchActive(bool active)
 	active != active;
 }
 
-void GameObject::EnableComponent()
-{
-	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
-	{
-		(*tmp)->Activate();
-	}		
-}
-
-void GameObject::DisableComponent()
-{
-	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); ++tmp)
-	{
-		(*tmp)->Desactivate();
-	}
-}
-
 void GameObject::Update()
 {
 	ComponentTransformation* tmp_t = nullptr;

@@ -75,6 +75,10 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentMesh*)(*tmp))->GetID());
+				ImGui::SameLine(ImGui::GetWindowWidth() - 80);
+				ImGui::Text("Active: ");
+				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
+				ImGui::Checkbox("##ToActivate", &((ComponentMesh*)(*tmp))->active);
 				ImGui::Separator();
 				ImGui::Text("Number of vertex(Indices): %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_indices);
 				ImGui::Text("Number of vertex in memory: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_vertices);

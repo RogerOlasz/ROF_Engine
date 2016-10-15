@@ -5,6 +5,7 @@
 
 ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Types::Geometry, id)
 {
+	active = true;
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Mesh##%i", id);
 	name = tmp;
@@ -27,7 +28,10 @@ void ComponentMesh::LoadMesh(Mesh* recived_mesh)
 
 void ComponentMesh::Draw()
 {
-	App->renderer3D->DrawMesh(mesh);
+	if (active)
+	{
+		App->renderer3D->DrawMesh(mesh);
+	}
 }
 
 Mesh* ComponentMesh::GetMesh()
