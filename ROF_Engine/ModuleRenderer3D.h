@@ -32,7 +32,8 @@ public:
 
 	bool LoadMeshBuffer(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
-	void DrawMesh(const Mesh* mesh);
+	void DrawMesh(const Mesh* mesh, bool wireframe = false);
+	void DrawMeshWireframe(const Mesh* mesh);
 
 public:
 	//Save buffer ids into an array to do a faster cleanup

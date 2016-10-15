@@ -6,7 +6,7 @@
 ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : Component(bearer, Types::Transformation, id)
 {
 	char tmp[SHORT_STRING];
-	sprintf(tmp, "Transformation##%i", id);
+	sprintf(tmp, "Transformation##%d", id);
 	name = tmp;
 }
 

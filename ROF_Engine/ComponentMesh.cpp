@@ -7,7 +7,16 @@ ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Typ
 {
 	active = true;
 	char tmp[SHORT_STRING];
-	sprintf(tmp, "Mesh##%i", id);
+	sprintf(tmp, "Mesh##%d", id);
+
+	char tmp_2[SHORT_STRING];
+	sprintf(tmp_2, "ToWireframe##%d", id);
+
+	char tmp_3[SHORT_STRING];
+	sprintf(tmp_3, "Active##%d", id);
+
+	is_active = tmp_3;
+	wire = tmp_2;
 	name = tmp;
 }
 
@@ -30,7 +39,7 @@ void ComponentMesh::Draw()
 {
 	if (active)
 	{
-		App->renderer3D->DrawMesh(mesh);
+		App->renderer3D->DrawMesh(mesh, wirefr);
 	}
 }
 

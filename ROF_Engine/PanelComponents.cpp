@@ -78,7 +78,10 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::SameLine(ImGui::GetWindowWidth() - 80);
 				ImGui::Text("Active: ");
 				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
-				ImGui::Checkbox("##ToActivate", &((ComponentMesh*)(*tmp))->active);
+				ImGui::Checkbox(((ComponentMesh*)(*tmp))->is_active.c_str(), &((ComponentMesh*)(*tmp))->active);
+				ImGui::Text("Wireframe: ");
+				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
+				ImGui::Checkbox(((ComponentMesh*)(*tmp))->wire.c_str(), &((ComponentMesh*)(*tmp))->wirefr);
 				ImGui::Separator();
 				ImGui::Text("Number of vertex(Indices): %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_indices);
 				ImGui::Text("Number of vertex in memory: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_vertices);

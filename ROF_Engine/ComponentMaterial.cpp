@@ -12,7 +12,7 @@
 ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Types::Material, id)
 {
 	char tmp[SHORT_STRING];
-	sprintf(tmp, "Material##%i", id);
+	sprintf(tmp, "Material##%d", id);
 	name = tmp;
 
 	Init();

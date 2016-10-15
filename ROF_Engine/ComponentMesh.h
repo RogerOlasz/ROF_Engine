@@ -2,6 +2,7 @@
 #define __COMPONENTMESH_H__
 
 #include "Component.h"
+#include <string>
 
 struct Mesh;
 
@@ -17,6 +18,11 @@ public:
 	void CleanUp();
 
 	Mesh* GetMesh();
+
+public:
+	bool wirefr = false;
+	std::string wire;
+	std::string is_active;
 
 private:
 	Mesh* mesh;

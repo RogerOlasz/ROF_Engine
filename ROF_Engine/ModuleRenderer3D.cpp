@@ -373,7 +373,7 @@ void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
 	}
 }
 
-void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
+void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 {	
 	if (mesh != nullptr)
 	{
@@ -383,6 +383,17 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
 		glVertexPointer(3, GL_FLOAT, 0, NULL);
+		
+		if (wireframe)
+		{
+			glDisable(GL_LIGHTING);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glLineWidth(1.0f);
+		}	
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
 
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
 		glNormalPointer(GL_FLOAT, 0, NULL);
@@ -391,23 +402,39 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh)
 		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+
 		//If mesh have UV coords...
 		if (mesh->num_tex_coord > 0)
 		{
 			//If mesh have any material...
-			if (mesh->tex_material != 0)
+			if (mesh->tex_material != 0 && wireframe == false)
 			{
 				glBindTexture(GL_TEXTURE_2D, mesh->tex_material);
 			}
 		}
 
+		glColor3f(1.0f, 1.0f, 1.0f);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 		glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		glEnable(GL_LIGHTING);
 	}
+}
+
+void ModuleRenderer3D::DrawMeshWireframe(const Mesh* mesh)
+{
+	/*glDisable(GL_LIGHTING);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glLineWidth(1.0f);
+	glColor3f(0.0f, 0.8f, 0.8f);*/
+
+	//glEnable(GL_LIGHTING);
 }
