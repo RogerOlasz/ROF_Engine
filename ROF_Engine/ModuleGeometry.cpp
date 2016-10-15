@@ -66,7 +66,7 @@ update_status ModuleGeometry::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGeometry::CleanUp()
 {
-	// detach log stream
+	// Detach log stream
 	aiDetachAllLogStreams();
 
 	return true;

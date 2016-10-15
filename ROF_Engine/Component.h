@@ -27,6 +27,8 @@ public:
 	virtual void Activate() {};
 	virtual void Desactivate() {};
 
+	virtual void CleanUp() {};
+
 	Types GetType() const;
 	int GetID() const;
 

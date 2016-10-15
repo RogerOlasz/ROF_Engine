@@ -2,6 +2,7 @@
 #define __MODULEGOMANAGER_H__
 
 #include "Module.h"
+#include <vector>
 
 #define MAX_STR_LEN 1024
 
@@ -31,6 +32,7 @@ public:
 
 private:
 	GameObject* root;
+	std::vector<GameObject*> gos_array;
 	
 	void SetParent(GameObject* me, GameObject* new_parent);
 };

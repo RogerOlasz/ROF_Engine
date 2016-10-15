@@ -17,7 +17,7 @@ void log(const char file[], int line, const char* format, ...)
 
 	if (App)
 	{
-		App->Log(tmp_string);
+		App->Log(tmp_string);			
 	}
 	
 }

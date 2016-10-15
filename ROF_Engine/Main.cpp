@@ -99,9 +99,10 @@ int main(int argc, char ** argv)
 
 		}
 	}
-
-	LOG("Exiting game '%s'...\n", TITLE);
+	
 	delete App;
+	App = nullptr;
+	LOG("Exiting game '%s'...\n", TITLE);
 
 	return main_return;
 }

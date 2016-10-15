@@ -31,6 +31,15 @@ struct Mesh
 	uint num_indices = 0;
 	uint* indices = nullptr;	
 
+	// Delete mesh will call structure's destructor.
+	~Mesh()
+	{
+		RELEASE(vertices);
+		RELEASE(tex_coord);
+		RELEASE(normals);
+		RELEASE(indices);
+	}
+
 };
 
 #endif // __MESH_H__

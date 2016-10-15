@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include "Light.h"
+#include <vector>
 
 struct Mesh;
 
@@ -30,9 +31,15 @@ public:
 	void OnResize(int width, int height);
 
 	bool LoadMeshBuffer(const Mesh* mesh);
+	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh);
 
 public:
+	//Save buffer ids into an array to do a faster cleanup
+	std::vector<unsigned int> id_vertices_r;
+	std::vector<unsigned int> id_indices_r;
+	std::vector<unsigned int> id_normals_r;
+	std::vector<unsigned int> id_tex_coords_r;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

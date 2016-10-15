@@ -14,6 +14,8 @@ public:
 	void LoadMesh(Mesh* recived_mesh);
 	void Draw();
 
+	void CleanUp();
+
 	Mesh* GetMesh();
 
 private:

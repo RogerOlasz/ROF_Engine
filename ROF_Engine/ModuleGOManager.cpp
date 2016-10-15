@@ -62,10 +62,18 @@ bool ModuleGOManager::CleanUp()
 {
 	aiDetachAllLogStreams();
 
+	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
+	while(tmp != gos_array.rend())
+	{
+		RELEASE((*tmp));
+		tmp++;
+	}
+	gos_array.clear();
+
 	if (root)
 	{
 		RELEASE(root);
-	}
+	}	
 
 	return true;
 }
@@ -79,6 +87,8 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 {
 	GameObject* new_go = new GameObject(name);
 	SetParent(new_go, parent);
+
+	gos_array.push_back(new_go);
 
 	return new_go;
 }

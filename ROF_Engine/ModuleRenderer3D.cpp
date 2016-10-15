@@ -168,6 +168,53 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
+	std::vector<unsigned int>::iterator tmp = id_vertices_r.begin();
+	while (tmp != id_vertices_r.end())
+	{
+		if ((*tmp) != 0)
+		{
+			glDeleteBuffers(1, &(*tmp));
+		}	
+		tmp++;
+	}
+
+	id_vertices_r.clear();
+
+	tmp = id_indices_r.begin();
+	while (tmp != id_indices_r.end())
+	{
+		if ((*tmp) != 0)
+		{
+			glDeleteBuffers(1, &(*tmp));
+		}
+		tmp++;
+	}
+
+	id_indices_r.clear();
+
+	tmp = id_normals_r.begin();
+	while (tmp != id_normals_r.end())
+	{
+		if ((*tmp) != 0)
+		{
+			glDeleteBuffers(1, &(*tmp));
+		}
+		tmp++;
+	}
+
+	id_normals_r.clear();
+
+	tmp = id_tex_coords_r.begin();
+	while (tmp != id_tex_coords_r.end())
+	{
+		if ((*tmp) != 0)
+		{
+			glDeleteBuffers(1, &(*tmp));
+		}
+		tmp++;
+	}
+
+	id_tex_coords_r.clear();
 
 	SDL_GL_DeleteContext(context);
 
@@ -238,6 +285,12 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 {
 	bool ret = true;
 
+	//Load indices to renderer arrays
+	id_vertices_r.push_back(mesh->id_vertices);
+	id_indices_r.push_back(mesh->id_indices);
+	id_normals_r.push_back(mesh->id_normals);
+	id_tex_coords_r.push_back(mesh->id_tex_coord);
+
 	// Vertices
 	glGenBuffers(1, (GLuint*) &(mesh->id_vertices));
 	if (mesh->id_vertices == 0)
@@ -295,6 +348,29 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 	}
 
 	return ret;
+}
+
+void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
+{
+	if (mesh->id_indices != 0)
+	{
+		glDeleteBuffers(1, &mesh->id_indices);
+	}
+
+	if (mesh->id_normals != 0)
+	{
+		glDeleteBuffers(1, &mesh->id_normals);
+	}
+
+	if (mesh->id_tex_coord != 0)
+	{
+		glDeleteBuffers(1, &mesh->id_tex_coord);
+	}
+
+	if (mesh->id_vertices != 0)
+	{
+		glDeleteBuffers(1, &mesh->id_vertices);
+	}
 }
 
 void ModuleRenderer3D::DrawMesh(const Mesh* mesh)

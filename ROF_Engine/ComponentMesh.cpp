@@ -12,7 +12,12 @@ ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Typ
 
 ComponentMesh::~ComponentMesh()
 {
+	
+}
 
+void ComponentMesh::CleanUp()
+{
+	RELEASE(mesh);
 }
 
 void ComponentMesh::LoadMesh(Mesh* recived_mesh)

@@ -37,6 +37,7 @@ GameObject::~GameObject()
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())
 	{
+		(*comp)->CleanUp();
 		RELEASE(*comp);
 		comp++;
 	}

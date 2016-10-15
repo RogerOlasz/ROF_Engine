@@ -159,7 +159,7 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
-	list<Module*>::reverse_iterator item = list_modules.rend();
+	list<Module*>::reverse_iterator item = list_modules.rbegin();
 
 	while(item != list_modules.rend() && ret == true)
 	{
