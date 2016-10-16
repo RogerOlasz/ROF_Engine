@@ -10,7 +10,13 @@ PanelConsole::PanelConsole() : Panel("Console")
 
 PanelConsole::~PanelConsole()
 {
-
+	ImVector<char*>::iterator tmp = Items.begin();
+	while (tmp != Items.end())
+	{
+		RELEASE((*tmp));
+		tmp++;
+	}
+	Items.clear();
 }
 
 void PanelConsole::AddLog(const char* log)

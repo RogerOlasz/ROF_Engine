@@ -57,6 +57,8 @@ bool ModuleFileSystem::Init()
 bool ModuleFileSystem::CleanUp()
 {
 	RemoveAllSearchPaths();
+	RELEASE(AssimpIO);
+
 	return true;
 }
 
