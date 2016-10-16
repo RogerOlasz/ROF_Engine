@@ -1,7 +1,9 @@
 #include "PanelConfiguration.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
 #include "ImGui/imgui.h"
+#include "SDL/include/SDL_opengl.h"
 
 PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 {
@@ -37,8 +39,133 @@ void PanelConfiguration::Draw()
 	ImGui::Begin("Configuration", &active);
 	
 	DrawApplication();
+	DrawWindow();
+	DrawIlumination();
+	DrawTecnology();
 
 	ImGui::End();
+}
+
+void PanelConfiguration::DrawWindow()
+{
+	if (ImGui::CollapsingHeader("Window"))
+	{
+		if (ImGui::DragFloat("Brightness", &brightness, 0.01f, 0.1f))
+		{
+			SDL_SetWindowBrightness(App->window->window, brightness);
+		}		
+		
+		if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		{
+			SDL_SetWindowFullscreen(App->window->window, fullscreen);
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Resizable", &resizable))
+		{
+
+		}
+
+		if (ImGui::Checkbox("Borderless", &borderless))
+		{
+			SDL_SetWindowBordered(App->window->window, (SDL_bool)!borderless);
+		}
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Full desktop", &fullscreen_desktop))
+		{
+
+		}
+	}
+}
+
+void PanelConfiguration::DrawIlumination()
+{
+	if (ImGui::CollapsingHeader("Scene Lights"))
+	{
+		for (int num_light = 0; num_light < MAX_LIGHTS; num_light++)
+		{
+			char light_name[SHORT_STRING];
+			sprintf(light_name, "Light %d", num_light);
+
+			bool light_on = App->renderer3D->lights[num_light].on;
+
+			ImGui::Checkbox(light_name, &light_on);
+
+			if (light_on != App->renderer3D->lights[num_light].on)
+			{
+				App->renderer3D->lights[num_light].Active(light_on);
+			}
+
+			if (App->renderer3D->lights[num_light].on == true)
+			{
+				sprintf(light_name, "Light position##Light_%d", num_light);
+				ImGui::SameLine();
+
+				if (ImGui::TreeNode(light_name))
+				{
+					char tmp[SHORT_STRING];
+					sprintf(tmp, "X##light_%d", num_light);
+					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.x, 1.0f);
+
+					sprintf(tmp, "Y##light_%d", num_light);
+					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.y, 1.0f);
+
+					sprintf(tmp, "Z##light_%d", num_light);
+					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.z, 1.0f);
+
+					ImGui::TreePop();
+				}
+			}
+		}
+	}
+}
+
+void PanelConfiguration::DrawTecnology()
+{
+	if (ImGui::CollapsingHeader("Tecnology"))
+	{
+		ImGui::Separator();
+		ImGui::LabelText("", "%s", "Hardware");
+		ImGui::Separator();
+
+		//CPU count + cache
+		ImGui::Text("CPUs:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "%d (Cache: %dkb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+
+		//System RAM
+		ImGui::Text("System RAM:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "%dGb", (SDL_GetSystemRAM()/1000));
+
+		////Caps
+		//ImGui::Text("Caps:"); ImGui::SameLine();
+		//ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "%s, %s, %s, %s, %s, %s.", SDL_HasRDTSC(), SDL_HasMMX(), SDL_HasSSE(), SDL_HasSSE2(), SDL_HasSSE3(), SDL_HasSSE41(), SDL_HasSSE42(), SDL_HasAVX());
+
+		//GPU
+		ImGui::Text("\nGPU:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "\n%s", glGetString(GL_VENDOR));
+
+		//Brand
+		ImGui::Text("Brand:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "%s", glGetString(GL_RENDERER));
+
+		ImGui::Separator();
+		ImGui::LabelText("", "%s", "Software");
+		ImGui::Separator();
+
+		//SDL version
+		SDL_version ver; 
+		SDL_GetVersion(&ver);
+		ImGui::Text("SDL Version:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.5f, 1.0f), "%u.%u.%u", ver.major, ver.minor, ver.patch);
+
+		//OpenGL version
+		ImGui::Text("OpenGL Version:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.5f, 1.0f), "%s", glGetString(GL_VERSION));
+		
+		//ImGUI version
+		ImGui::Text("ImGUI Version:"); ImGui::SameLine();
+		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.5f, 1.0f), "%s", ImGui::GetVersion());
+
+	}
 }
 
 void PanelConfiguration::DrawApplication()

@@ -169,6 +169,13 @@ bool Application::CleanUp()
 	return ret;
 }
 
+bool Application::RequestBrowser(const char* link)
+{
+	ShellExecuteA(0, 0, "chrome.exe", link, 0, SW_SHOWMAXIMIZED);
+
+	return true;
+}
+
 void Application::Log(const char* log)
 {
 	App->editor->Log(log);

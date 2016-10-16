@@ -60,6 +60,7 @@ public:
 	const char *GetAppName();
 	const char *GetOrganization();
 
+	bool RequestBrowser(const char* link);
 	void Log(const char* log);
 
 private:

@@ -53,6 +53,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentTransformation*)(*tmp))->GetID());
 				ImGui::Separator();
+
 				if (ImGui::DragFloat3("Postion", pos.ptr()))
 				{
 					((ComponentTransformation*)(*tmp))->SetPos(pos.x, pos.y, pos.z);
@@ -75,14 +76,17 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentMesh*)(*tmp))->GetID());
+
 				ImGui::SameLine(ImGui::GetWindowWidth() - 80);
 				ImGui::Text("Active: ");
 				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->is_active.c_str(), &((ComponentMesh*)(*tmp))->active);
+
 				ImGui::Text("Wireframe: ");
 				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->wire.c_str(), &((ComponentMesh*)(*tmp))->wirefr);
 				ImGui::Separator();
+
 				ImGui::Text("Number of vertex(Indices): %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_indices);
 				ImGui::Text("Number of vertex in memory: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_vertices);
 				ImGui::Text("Number of normals: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_normals);
@@ -97,8 +101,9 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentMaterial*)(*tmp))->GetID());
+
 				ImGui::Separator();
-				ImGui::Image((void*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.5f, 0.5f, 1.0f));
+				ImGui::Image((void*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
 				ImGui::Text("%s%s", "Texture path: ", ((ComponentMaterial*)(*tmp))->tex_path);
 			}
 		}

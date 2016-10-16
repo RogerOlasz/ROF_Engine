@@ -5,6 +5,7 @@
 
 ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : Component(bearer, Types::Transformation, id)
 {
+	//Component names are to solve problems with ImGui same names
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Transformation##%d", id);
 	name = tmp;

@@ -72,6 +72,26 @@ update_status ModuleEditor::Update(float dt)
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("Download latest"))
+			{
+				App->RequestBrowser("https://github.com/RogerOlasz/ROF_Engine/releases");
+			}
+
+			if (ImGui::MenuItem("Report a bug"))
+			{
+				App->RequestBrowser("https://github.com/RogerOlasz/ROF_Engine/issues");
+			}
+
+			if (ImGui::MenuItem("Source code"))
+			{
+				App->RequestBrowser("https://github.com/RogerOlasz/ROF_Engine");
+			}
+
+			ImGui::EndMenu();
+		}
+
 	 ImGui::EndMainMenuBar();
 	}	
 

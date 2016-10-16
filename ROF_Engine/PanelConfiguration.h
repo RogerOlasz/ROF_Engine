@@ -11,6 +11,13 @@ private:
 	std::vector<float> ms_log;
 	int max_fps = 60;
 
+	float brightness = 1.0f;
+
+	bool fullscreen = false;
+	bool resizable = false;
+	bool borderless = false;
+	bool fullscreen_desktop = false;
+
 public:
 
 	PanelConfiguration();
@@ -18,7 +25,11 @@ public:
 
 	void Draw();
 
+	void DrawWindow();
+	void DrawIlumination();
+	void DrawTecnology();
 	void DrawApplication();
+	
 	void Log(const float* fps, const float ms);
 	unsigned int GetMaxFPS();
 

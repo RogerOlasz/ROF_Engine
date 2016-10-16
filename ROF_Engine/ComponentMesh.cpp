@@ -5,6 +5,7 @@
 
 ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Types::Geometry, id)
 {
+	//Component names are to solve problems with ImGui same names
 	active = true;
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Mesh##%d", id);

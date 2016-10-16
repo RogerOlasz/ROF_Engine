@@ -5,12 +5,17 @@
 
 #include "Assimp/include/material.h"
 
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
 #include "Devil/include/il.h"
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Types::Material, id)
 {
+	//Component names are to solve problems with ImGui same names
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Material##%d", id);
 	name = tmp;

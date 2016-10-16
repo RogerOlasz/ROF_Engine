@@ -15,10 +15,6 @@
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib") /* link Glew (ImGui) lib */
 
-#pragma comment (lib, "Devil/libx86/DevIL.lib")
-#pragma comment (lib, "Devil/libx86/ILU.lib")
-#pragma comment (lib, "Devil/libx86/ILUT.lib")
-
 using namespace std;
 using namespace math;
 
@@ -99,11 +95,25 @@ bool ModuleRenderer3D::Init()
 		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
+		//Create [MAX_LIGHTS] lights to chanege scene lighting debug
 		lights[0].ref = GL_LIGHT0;
-		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-		lights[0].SetPos(0.0f, 0.0f, 2.5f);
-		lights[0].Init();
+		lights[1].ref = GL_LIGHT1;
+		lights[2].ref = GL_LIGHT2;
+		lights[3].ref = GL_LIGHT3;
+		lights[4].ref = GL_LIGHT4;
+		lights[5].ref = GL_LIGHT5;
+		lights[6].ref = GL_LIGHT6;
+		lights[7].ref = GL_LIGHT7;
+
+		//Setting lights attributes
+		for (int i = 0; i < MAX_LIGHTS; i++)
+		{
+			//Lights code done by Ric
+			lights[i].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+			lights[i].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+			lights[i].SetPos(0.0f, 0.0f, 2.5f);
+			lights[i].Init();
+		}
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
@@ -118,6 +128,8 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 	}
+
+	
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
