@@ -6,7 +6,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
 #include "ModuleEditor.h"
 #include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
@@ -22,7 +21,6 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
-	physics = new ModulePhysics3D(this);
 	editor = new ModuleEditor(this);
 	geometry = new ModuleGeometry(this);
 	physfs = new ModuleFileSystem(this);
@@ -40,7 +38,6 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(physics);	
 	AddModule(geometry);	
 
 	// Scenes

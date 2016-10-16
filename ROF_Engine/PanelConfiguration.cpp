@@ -23,7 +23,8 @@ PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 
 PanelConfiguration::~PanelConfiguration()
 {
-
+	fps_log.clear();
+	ms_log.clear();
 }
 
 void PanelConfiguration::Draw()
