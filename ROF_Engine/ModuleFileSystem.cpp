@@ -24,7 +24,10 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 ModuleFileSystem::~ModuleFileSystem()
 {
 	if (PHYSFS_isInit() != 0)
+	{
 		PHYSFS_deinit();
+	}
+		
 }
 
 bool ModuleFileSystem::Init()
@@ -117,9 +120,10 @@ bool ModuleFileSystem::RemoveAllSearchPaths()
 	}
 
 	if (*(paths = PHYSFS_getSearchPath()) == NULL)
+	{
+		PHYSFS_freeList(paths);
 		ret = true;
-
-	PHYSFS_freeList(paths);
+	}	
 
 	return ret;
 }
@@ -154,7 +158,9 @@ uint ModuleFileSystem::Load(const char* file, char **buffer) const
 			{
 				LOG("[error] File system error while reading from file %s: %s", file, PHYSFS_getLastError());
 				if (buffer != nullptr)
+				{
 					delete buffer;
+				}					
 			}
 			else
 				ret = (uint)size;
@@ -177,7 +183,9 @@ SDL_RWops *ModuleFileSystem::Load(const char *file) const
 	{
 		ret = SDL_RWFromConstMem(buffer, size);
 		if (ret != NULL)
+		{
 			ret->close = close_sdl_rwops;
+		}			
 	}
 	
 	return ret;
@@ -186,7 +194,10 @@ SDL_RWops *ModuleFileSystem::Load(const char *file) const
 int close_sdl_rwops(SDL_RWops *rw)
 {
 	if (rw->hidden.mem.base != nullptr)
+	{
 		delete rw->hidden.mem.base;
+	}
+
 	SDL_FreeRW(rw);
 	return 0;
 }
@@ -204,13 +215,19 @@ uint ModuleFileSystem::Save(const char *file, const char *buffer, uint size) con
 			LOG("[error] Failure on writing %s. Error: %s", file, PHYSFS_getLastError());
 		}			
 		else
+		{
 			ret = (uint)size;
+		}	
 
 		if (PHYSFS_close(file_handle) == 0)
+		{
 			LOG("[error] File System can not close file %s. Error: %s", file, PHYSFS_getLastError());
+		}			
 	}
 	else
+	{
 		LOG("[error] File System failure while opening file %s. Error: %s", file, PHYSFS_getLastError());
+	}		
 	
 	return ret;
 }
@@ -238,7 +255,9 @@ size_t AssimpWrite(aiFile* file, const char* data, size_t size, size_t chunks)
 {
 	PHYSFS_sint64 ret = PHYSFS_write((PHYSFS_File*)file->UserData, (void*)data, size, chunks);
 	if (ret == -1)
+	{
 		LOG("[error] File System error while WRITE via assimp: %s", PHYSFS_getLastError());
+	}		
 
 	return (size_t)ret;
 }
@@ -247,7 +266,9 @@ size_t AssimpRead(aiFile* file, char* data, size_t size, size_t chunks)
 {
 	PHYSFS_sint64 ret = PHYSFS_read((PHYSFS_File*)file->UserData, (void*)data, size, chunks);
 	if (ret == -1)
+	{
 		LOG("[error] File System error while READ via assimp: %s", PHYSFS_getLastError());
+	}		
 
 	return (size_t)ret;
 }
@@ -256,7 +277,9 @@ size_t AssimpTell(aiFile* file)
 {
 	PHYSFS_sint64 ret = PHYSFS_tell((PHYSFS_File*)file->UserData);
 	if (ret == -1)
+	{
 		LOG("[error] File System error while TELL via assimp: %s", PHYSFS_getLastError());
+	}		
 
 	return (size_t)ret;
 }
@@ -265,7 +288,9 @@ size_t AssimpSize(aiFile* file)
 {
 	PHYSFS_sint64 ret = PHYSFS_fileLength((PHYSFS_File*)file->UserData);
 	if (ret == -1)
+	{
 		LOG("[error] File System error while SIZE via assimp: %s", PHYSFS_getLastError());
+	}		
 
 	return (size_t)ret;
 }
@@ -273,7 +298,9 @@ size_t AssimpSize(aiFile* file)
 void AssimpFlush(aiFile* file)
 {
 	if (PHYSFS_flush((PHYSFS_File*)file->UserData) == 0)
+	{
 		LOG("[error] File System error while FLUSH via assimp: %s", PHYSFS_getLastError());
+	}		
 }
 
 aiReturn AssimpSeek(aiFile* file, size_t pos, aiOrigin from)
@@ -294,7 +321,9 @@ aiReturn AssimpSeek(aiFile* file, size_t pos, aiOrigin from)
 	}
 
 	if (res == 0)
+	{
 		LOG("[error] File System error while SEEK via assimp: %s", PHYSFS_getLastError());
+	}		
 
 	return (res != 0) ? aiReturn_SUCCESS : aiReturn_FAILURE;
 }
@@ -317,15 +346,16 @@ aiFile* AssimpOpen(aiFileIO* io, const char* name, const char* format)
 void AssimpClose(aiFileIO* io, aiFile* file)
 {
 	if (PHYSFS_close((PHYSFS_File*)file->UserData) == 0)
-		LOG("[error] File System error while CLOSE via assimp: %s", PHYSFS_getLastError());
+	{
+		LOG("[error] File System error while CLOSE via assimp: %s", PHYSFS_getLastError()); 
+	}		
 }
 
 void ModuleFileSystem::CreateAssimpIO()
 {
 	if (AssimpIO)
 	{
-		delete AssimpIO;
-		AssimpIO = nullptr;
+		RELEASE(AssimpIO);
 	}
 
 	AssimpIO = new aiFileIO;

@@ -129,14 +129,8 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_COLOR_MATERIAL);
 	}
 
-	
-
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	//Load Vertex OpenGL
-	//vertex_size = CubeVertexArray();
-	//indices_size = CubeIndices();
 
 	CreateDebugTexture();
 
