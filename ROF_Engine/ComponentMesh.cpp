@@ -28,6 +28,8 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::CleanUp()
 {
+	//TODO i created this method so i can evade some arrays on renderer3D
+	//App->renderer3D->RemoveMeshBuffers(mesh);
 	RELEASE(mesh);
 }
 

@@ -353,6 +353,20 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
 	}
 
+	// Bounding Box
+	glGenBuffers(1, (GLuint*) &(mesh->id_aabb));
+	if (mesh->id_aabb == 0)
+	{
+		LOG("[error] Bounding box buffer has not been binded!");
+		ret = false;
+	}
+	else
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_aabb);
+		mesh->bounding_box.GetCornerPoints(mesh->corner_points);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->bounding_box.NumVertices() * 3, mesh->corner_points, GL_STATIC_DRAW);
+	}
+
 	return ret;
 }
 
@@ -435,12 +449,19 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 	}
 }
 
+void ModuleRenderer3D::DrawAABB(const Mesh* mesh)
+{
+	//TODO
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+	//// ... draw other buffers
+	//glDrawArrays(GL_TRIANGLES, 0, size * 3);
+	//glDisableClientState(GL_VERTEX_ARRAY);
+}
+
 void ModuleRenderer3D::DrawMeshWireframe(const Mesh* mesh)
 {
-	/*glDisable(GL_LIGHTING);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glLineWidth(1.0f);
-	glColor3f(0.0f, 0.8f, 0.8f);*/
 
-	//glEnable(GL_LIGHTING);
 }
+

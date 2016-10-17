@@ -18,7 +18,7 @@ struct Mesh
 	uint num_tex_coord = 0;
 	float2* tex_coord = nullptr;
 
-	//Material
+	// Material
 	uint tex_material;
 
 	// Normals
@@ -30,6 +30,11 @@ struct Mesh
 	uint id_indices = 0; // id in VRAM
 	uint num_indices = 0;
 	uint* indices = nullptr;	
+
+	// Linear bounding box 
+	AABB bounding_box;
+	uint id_aabb;
+	vec* corner_points;
 
 	// Delete mesh will call structure's destructor.
 	~Mesh()

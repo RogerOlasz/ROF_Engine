@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleGeometry.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
 #include "Mesh.h"
@@ -41,12 +40,6 @@ bool ModuleGeometry::Init()
 // PreUpdate: clear buffer
 update_status ModuleGeometry::PreUpdate(float dt)
 {
-	//if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	//{
-	//	//LoadGeometry("Assets/Models/LamboMurcielago.fbx");
-	//	LoadGeometry("Assets/Models/HierarchyScene.fbx");
-	//	//LoadGeometry("Assets/Models/Tank.fbx");
-	//}
 	
 	return UPDATE_CONTINUE;
 }
@@ -123,6 +116,11 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 			}						
 		}
 	}
+
+	//Setting bounding box
+	mesh->bounding_box.SetNegativeInfinity();
+	mesh->bounding_box.Enclose((float3*)mesh->vertices, mesh->num_vertices);
+
 	App->renderer3D->LoadMeshBuffer(mesh);
 	LOG("[end] New mesh ------------------------------------------------------");
 

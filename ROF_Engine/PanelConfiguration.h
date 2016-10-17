@@ -25,6 +25,7 @@ public:
 
 	void Draw();
 
+	//TODO may add a camera controller with three axis and some more features
 	void DrawWindow();
 	void DrawIlumination();
 	void DrawTecnology();

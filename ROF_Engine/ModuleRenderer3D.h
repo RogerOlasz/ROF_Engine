@@ -33,6 +33,7 @@ public:
 	bool LoadMeshBuffer(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, bool wireframe = false);
+	void DrawAABB(const Mesh* mesh);
 	void DrawMeshWireframe(const Mesh* mesh);
 
 public:
