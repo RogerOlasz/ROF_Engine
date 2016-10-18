@@ -37,12 +37,6 @@ public:
 	void DrawMeshWireframe(const Mesh* mesh);
 
 public:
-	//Save buffer ids into an array to do a faster cleanup
-	std::vector<unsigned int> id_vertices_r;
-	std::vector<unsigned int> id_indices_r;
-	std::vector<unsigned int> id_normals_r;
-	std::vector<unsigned int> id_tex_coords_r;
-
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	float3x3 NormalMatrix;

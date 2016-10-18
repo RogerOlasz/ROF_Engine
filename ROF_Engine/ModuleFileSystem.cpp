@@ -121,9 +121,10 @@ bool ModuleFileSystem::RemoveAllSearchPaths()
 
 	if (*(paths = PHYSFS_getSearchPath()) == NULL)
 	{
-		PHYSFS_freeList(paths);
 		ret = true;
 	}	
+
+	PHYSFS_freeList(paths);
 
 	return ret;
 }
