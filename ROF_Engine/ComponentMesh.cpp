@@ -35,9 +35,13 @@ void ComponentMesh::CleanUp()
 void ComponentMesh::LoadMesh(Mesh* recived_mesh)
 {
 	mesh = recived_mesh;
+
+	//Setting bounding box
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose(mesh->vertices, mesh->num_vertices);
 }
 
-void ComponentMesh::Draw()
+void ComponentMesh::Update()
 {
 	if (active)
 	{

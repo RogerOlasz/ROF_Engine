@@ -23,24 +23,27 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void DrawDebug();
+
 	//Texture debug mode
 	uint image_texture;
 	void CreateDebugTexture();
-	//--------------------------------
 
 	void OnResize(int width, int height);
 
 	bool LoadMeshBuffer(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, bool wireframe = false);
-	void DrawAABB(const Mesh* mesh);
-	void DrawMeshWireframe(const Mesh* mesh);
 
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	float4x4 transform = float4x4::identity;
+	//Understanding frustrum attributes
+	Frustum camera_frustum;
 };
 
 #endif // !__MODULEPHYSICS3D_H__

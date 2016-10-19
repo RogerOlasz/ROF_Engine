@@ -10,6 +10,7 @@
 #include "ComponentTransformation.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
+#include "ComponentCamera.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"

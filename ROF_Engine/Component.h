@@ -13,6 +13,7 @@ public:
 		Transformation,
 		Geometry,
 		Material,
+		Camera,
 		Unknown
 	};
 
@@ -25,6 +26,7 @@ public:
 
 	bool IsActive() const;
 
+	virtual void Update() {};
 	virtual void CleanUp() {};
 
 	Types GetType() const;

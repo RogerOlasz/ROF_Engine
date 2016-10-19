@@ -7,14 +7,14 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 {
 	name.assign("Camera3D");
 
-	CalculateViewMatrix();
-
 	X = vec(1.0f, 0.0f, 0.0f);
 	Y = vec(0.0f, 1.0f, 0.0f);
 	Z = vec(0.0f, 0.0f, 1.0f);
 
 	Position = vec(0.0f, 0.0f, 5.0f);
 	Reference = vec(0.0f, 0.0f, 0.0f);
+	
+	CalculateViewMatrix();
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -68,13 +68,13 @@ update_status ModuleCamera3D::Update(float dt)
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
-		float Sensitivity = 0.025f;
+		float sensitivity = 0.025f;
 
 		Position -= Reference;
 
 		if(dx != 0)
 		{
-			float DeltaX = (float)dx * Sensitivity;
+			float DeltaX = (float)dx * sensitivity;
 
 			Quat quaternion;
 			quaternion = quaternion.RotateAxisAngle(vec(0.0f, 1.0f, 0.0f), DeltaX);
@@ -85,7 +85,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		if(dy != 0)
 		{
-			float DeltaY = (float)dy * Sensitivity;
+			float DeltaY = (float)dy * sensitivity;
 
 			Quat quaternion2;
 			quaternion2 = quaternion2.RotateAxisAngle(X, DeltaY);

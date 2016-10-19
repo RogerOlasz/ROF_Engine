@@ -31,11 +31,6 @@ struct Mesh
 	uint num_indices = 0;
 	uint* indices = nullptr;	
 
-	// Linear bounding box 
-	AABB bounding_box;
-	uint id_aabb;
-	vec* corner_points;
-
 	// Delete mesh will call structure's destructor.
 	~Mesh()
 	{

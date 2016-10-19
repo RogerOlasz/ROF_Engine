@@ -2,6 +2,7 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 #include "ComponentTransformation.h"
+#include "ComponentCamera.h"
 #include <list>
 
 GameObject::GameObject(const char* name) : name (name)
@@ -58,6 +59,9 @@ Component* GameObject::CreateComponent(Component::Types type)
 	case Component::Types::Material:
 		new_component = new ComponentMaterial(this, components.size());
 		break;
+	case Component::Types::Camera:
+		new_component = new ComponentCamera(this, components.size());
+		break;
 	}
 
 	if (new_component != nullptr)
@@ -94,10 +98,8 @@ void GameObject::Update()
 			tmp_t->PushMatrix();
 		}
 
-		if ((*tmp)->GetType() == Component::Types::Geometry)
-		{
-			((ComponentMesh*)(*tmp))->Draw();
-		}
+		(*tmp)->Update();
+
 	}
 
 	if (children.size() == 1)

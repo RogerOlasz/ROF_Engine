@@ -2,6 +2,7 @@
 #define __COMPONENTMESH_H__
 
 #include "Component.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include <string>
 
 struct Mesh;
@@ -13,7 +14,7 @@ public:
 	~ComponentMesh();
 
 	void LoadMesh(Mesh* recived_mesh);
-	void Draw();
+	void Update();
 
 	void CleanUp();
 
@@ -26,6 +27,8 @@ public:
 
 private:
 	Mesh* mesh;
+	// Linear bounding box / Take a look: http://clb.demon.fi/MathGeoLib/nightly/docs/AABB_summary.php
+	AABB bounding_box;
 
 };
 

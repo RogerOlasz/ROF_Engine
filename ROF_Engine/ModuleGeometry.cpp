@@ -117,10 +117,6 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 		}
 	}
 
-	//Setting bounding box
-	mesh->bounding_box.SetNegativeInfinity();
-	mesh->bounding_box.Enclose((float3*)mesh->vertices, mesh->num_vertices);
-
 	App->renderer3D->LoadMeshBuffer(mesh);
 	LOG("[end] New mesh ------------------------------------------------------");
 

@@ -11,6 +11,8 @@
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
 
+#include "DebugPainter.h"
+
 using namespace std;
 
 Application::Application()
@@ -60,6 +62,14 @@ Application::~Application()
 		delete (*item);
 		item++;
 	}
+}
+
+void Application::DebugDraw()
+{
+	for (list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
+	{
+		(*it)->DrawDebug();
+	}			
 }
 
 bool Application::Init()

@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "Mesh.h"
+#include "DebugPainter.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
@@ -134,7 +135,25 @@ bool ModuleRenderer3D::Init()
 
 	CreateDebugTexture();
 
+	//Understanding frustrum attributes
+	camera_frustum.type = FrustumType::PerspectiveFrustum;
+
+	camera_frustum.pos = vec(0.0f, 10.0f, 0.0f);
+	camera_frustum.front = vec::unitZ;
+	camera_frustum.up = vec::unitY;
+
+	camera_frustum.nearPlaneDistance = 5.0f;
+	camera_frustum.farPlaneDistance = 15.0f;
+	camera_frustum.verticalFov = DEGTORAD * 60.0f;
+	camera_frustum.horizontalFov = DEGTORAD * 60.0f;
+
 	return ret;
+}
+
+void ModuleRenderer3D::DrawDebug()
+{
+	//Understanding frustrum attributes
+	DebugDraw(camera_frustum, Blue);
 }
 
 // PreUpdate: clear buffer
@@ -149,8 +168,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
+	{
 		lights[i].Render();
+	}
+
+	StartDebugDraw();
+	App->DebugDraw();
+	EndDebugDraw();
 
 	return UPDATE_CONTINUE;
 }
@@ -158,6 +183,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
+
 	return UPDATE_CONTINUE;
 }
 
@@ -299,20 +325,6 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
 	}
 
-	// Bounding Box
-	glGenBuffers(1, (GLuint*) &(mesh->id_aabb));
-	if (mesh->id_aabb == 0)
-	{
-		LOG("[error] Bounding box buffer has not been binded!");
-		ret = false;
-	}
-	else
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_aabb);
-		mesh->bounding_box.GetCornerPoints(mesh->corner_points);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->bounding_box.NumVertices() * 3, mesh->corner_points, GL_STATIC_DRAW);
-	}
-
 	return ret;
 }
 
@@ -354,6 +366,7 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		{
 			glDisable(GL_LIGHTING);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glColor3f(0.8f, 0.7f, 0.0f);
 			glLineWidth(1.0f);
 		}	
 		else
@@ -379,10 +392,10 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 			}
 		}
 
-		glColor3f(1.0f, 1.0f, 1.0f);
-
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 		glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
+		
+		glColor3f(1.0f, 1.0f, 1.0f);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -394,20 +407,3 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		glEnable(GL_LIGHTING);
 	}
 }
-
-void ModuleRenderer3D::DrawAABB(const Mesh* mesh)
-{
-	//TODO
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glBindBuffer(GL_ARRAY_BUFFER, my_id);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-	//// ... draw other buffers
-	//glDrawArrays(GL_TRIANGLES, 0, size * 3);
-	//glDisableClientState(GL_VERTEX_ARRAY);
-}
-
-void ModuleRenderer3D::DrawMeshWireframe(const Mesh* mesh)
-{
-
-}
-
