@@ -99,7 +99,6 @@ void GameObject::Update()
 		}
 
 		(*tmp)->Update();
-
 	}
 
 	if (children.size() == 1)

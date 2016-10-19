@@ -147,13 +147,16 @@ bool ModuleRenderer3D::Init()
 	camera_frustum.verticalFov = DEGTORAD * 60.0f;
 	camera_frustum.horizontalFov = DEGTORAD * 60.0f;
 
+	tmp_aabb = AABB(vec(0.0f, 0.0f, 0.0f), vec(20.0f, 20.0f, 20.0f));
+
 	return ret;
 }
 
 void ModuleRenderer3D::DrawDebug()
 {
 	//Understanding frustrum attributes
-	DebugDraw(camera_frustum, Blue);
+	//DebugDraw(camera_frustum, Blue);
+	//DebugDraw(tmp_aabb, Green);
 }
 
 // PreUpdate: clear buffer

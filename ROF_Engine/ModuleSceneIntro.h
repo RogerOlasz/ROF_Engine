@@ -8,6 +8,8 @@
 
 #define MAX_SNAKE 30
 
+class GameObject;
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -19,7 +21,7 @@ public:
 	bool CleanUp();
 
 public:
-
+	GameObject* camera01;
 };
 
 #endif // !__MODULESCENEINTRO_H__

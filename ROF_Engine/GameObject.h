@@ -28,7 +28,7 @@ public:
 	bool GetHierarchyState();
 
 	bool RemoveGameObject(GameObject* to_delete);
-
+	//TODO Must have a GetComponentByType
 private:
 	bool active = true;
 	GameObject* parent = nullptr;

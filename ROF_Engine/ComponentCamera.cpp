@@ -4,6 +4,7 @@
 #include "SDL/include/SDL_opengl.h"
 #include "Color.h"
 #include "GameObject.h"
+#include "DebugPainter.h"
 
 ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer, Types::Camera, id)
 {
@@ -30,7 +31,7 @@ ComponentCamera::~ComponentCamera()
 
 void ComponentCamera::Update()
 {
-	
+	DebugDraw(camera_frustum, Blue);
 }
 
 void ComponentCamera::LookAt(const vec& position)

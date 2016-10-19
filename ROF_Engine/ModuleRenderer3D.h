@@ -44,6 +44,7 @@ public:
 	float4x4 transform = float4x4::identity;
 	//Understanding frustrum attributes
 	Frustum camera_frustum;
+	AABB tmp_aabb;
 };
 
 #endif // !__MODULEPHYSICS3D_H__
