@@ -17,9 +17,16 @@ public:
 
 	void LookAt(const vec &position);
 
+	float GetFOV() const;
+
+	void SetFOV(float fov);
+	void SetAspectRatio(float aspect_ratio);
+
 public:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
+	float fov;
+	float aspect_ratio;
 
 	bool frustum_culling = false;
 

@@ -23,6 +23,8 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	void DrawDebug();
+
 	GameObject* GetRootNode() const;
 
 	GameObject* CreateGameObject(const char* name, GameObject* parent);

@@ -5,6 +5,7 @@
 #include "ComponentTransformation.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
+#include "ComponentCamera.h"
 #include "Mesh.h"
 #include "ImGui/imgui.h"
 
@@ -58,7 +59,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				{
 					((ComponentTransformation*)(*tmp))->SetPos(pos.x, pos.y, pos.z);
 				}
-				if (ImGui::DragFloat3("Scale", sca.ptr()))
+				if (ImGui::DragFloat3("Scale", sca.ptr(), 0.01f))
 				{
 					((ComponentTransformation*)(*tmp))->SetScale(sca.x, sca.y, sca.z);
 				}
@@ -105,6 +106,27 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::Separator();
 				ImGui::Image((void*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
 				ImGui::Text("%s%s", "Texture path: ", ((ComponentMaterial*)(*tmp))->tex_path);
+			}
+		}
+
+		if ((*tmp)->GetType() == Component::Types::Camera)
+		{
+			if (ImGui::CollapsingHeader(((ComponentCamera*)(*tmp))->name.c_str()))
+			{
+				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+				ImGui::SameLine();
+				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
+
+				ImGui::DragFloat("Near plane", &((ComponentCamera*)(*tmp))->camera_frustum.nearPlaneDistance, 0.1f);
+				ImGui::DragFloat("Far plane", &((ComponentCamera*)(*tmp))->camera_frustum.farPlaneDistance, 0.1f);
+				if (ImGui::DragFloat("Field of view", &((ComponentCamera*)(*tmp))->fov, 0.1f))
+				{
+					((ComponentCamera*)(*tmp))->SetFOV(((ComponentCamera*)(*tmp))->fov);
+				}
+				if (ImGui::DragFloat("Aspect ratio", &((ComponentCamera*)(*tmp))->aspect_ratio, 0.1f))
+				{
+					((ComponentCamera*)(*tmp))->SetAspectRatio(((ComponentCamera*)(*tmp))->aspect_ratio);
+				}
 			}
 		}
 	}

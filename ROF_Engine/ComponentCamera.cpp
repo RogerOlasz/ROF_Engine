@@ -11,6 +11,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	active = true;
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Camera##%d", id);
+	name = tmp;
 
 	camera_frustum.type = FrustumType::PerspectiveFrustum;
 
@@ -22,6 +23,9 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	camera_frustum.farPlaneDistance = 15.0f;
 	camera_frustum.verticalFov = DEGTORAD * 60.0f;
 	camera_frustum.horizontalFov = DEGTORAD * 60.0f;
+
+	aspect_ratio = camera_frustum.AspectRatio();
+	fov = GetFOV();
 }
 
 ComponentCamera::~ComponentCamera()
@@ -31,6 +35,7 @@ ComponentCamera::~ComponentCamera()
 
 void ComponentCamera::Update()
 {
+	//TODO This line here must be temporal to debug
 	DebugDraw(camera_frustum, Blue);
 }
 
@@ -42,5 +47,24 @@ void ComponentCamera::LookAt(const vec& position)
 
 	camera_frustum.front = matrix.MulDir(camera_frustum.front).Normalized();
 	camera_frustum.up = matrix.MulDir(camera_frustum.up).Normalized();
+}
+
+float ComponentCamera::GetFOV() const
+{
+	return camera_frustum.verticalFov * RADTODEG;
+}
+
+void ComponentCamera::SetFOV(float fov)
+{
+	aspect_ratio = camera_frustum.AspectRatio();
+
+	camera_frustum.verticalFov = DEGTORAD * fov;
+	SetAspectRatio(aspect_ratio);
+}
+
+void ComponentCamera::SetAspectRatio(float aspect_ratio)
+{
+	camera_frustum.horizontalFov = 2.0f * atanf(tanf(camera_frustum.verticalFov * 0.5f) * aspect_ratio);
+	aspect_ratio = camera_frustum.horizontalFov;
 }
 

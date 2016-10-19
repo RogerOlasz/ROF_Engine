@@ -58,6 +58,11 @@ update_status ModuleGOManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleGOManager::DrawDebug()
+{
+	
+}
+
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
