@@ -19,6 +19,8 @@ void EndDebugDraw()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 
+	glColor3f(1.0f, 1.0f, 1.0f);
+
 	glPopMatrix();
 }
 
