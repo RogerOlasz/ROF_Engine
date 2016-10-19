@@ -27,8 +27,9 @@ public:
 	void SetName(const char* new_name);
 	bool GetHierarchyState();
 
+	const Component* GetComponentByType(Component::Types type);
 	bool RemoveGameObject(GameObject* to_delete);
-	//TODO Must have a GetComponentByType
+	
 private:
 	bool active = true;
 	GameObject* parent = nullptr;

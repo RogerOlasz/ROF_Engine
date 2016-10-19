@@ -19,6 +19,9 @@ PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 
 	active = true;
 	set_size = true;
+
+	brightness = SDL_GetWindowBrightness(App->window->window);
+	gamma = SDL_GetWindowGammaRamp(App->window->window, nullptr, nullptr, nullptr);
 }
 
 PanelConfiguration::~PanelConfiguration()
@@ -56,8 +59,11 @@ void PanelConfiguration::DrawWindow()
 			SDL_SetWindowBrightness(App->window->window, brightness);
 		}		
 		
+		if (ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.1f))
+		{
+			SDL_SetWindowGammaRamp(App->window->window, nullptr, nullptr, nullptr);
+		}
 		//TODO Must add a dragfloat2 to change window resolution SDL_SetWindowResolution(w, h);
-		//TODO Window Gamma SDL_SetWindowGammaRamp()		
 
 		if (ImGui::Checkbox("Fullscreen", &fullscreen))
 		{

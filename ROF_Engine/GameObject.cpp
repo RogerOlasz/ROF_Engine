@@ -159,6 +159,19 @@ void GameObject::SwitchParent(GameObject* new_parent)
 	}
 }
 
+const Component* GameObject::GetComponentByType(Component::Types type)
+{
+	for (uint i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->GetType() == type)
+		{
+			return components[i];
+		}			
+	}
+
+	return nullptr;
+}
+
 bool GameObject::RemoveGameObject(GameObject* to_delete)
 {
 	bool ret = false;

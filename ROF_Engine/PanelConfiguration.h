@@ -11,7 +11,8 @@ private:
 	std::vector<float> ms_log;
 	int max_fps = 60;
 
-	float brightness = 1.0f;
+	float brightness;
+	float gamma;
 
 	bool fullscreen = false;
 	bool resizable = false;

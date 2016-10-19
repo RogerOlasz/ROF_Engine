@@ -23,7 +23,7 @@ PanelComponents::~PanelComponents()
 void PanelComponents::Draw(GameObject* selected_go)
 {	
 	ImGui::SetNextWindowPos(ImVec2(((App->window->GetWindowSize().x - 335)), 25));
-
+	
 	if (set_size == true)
 	{
 		ImGui::SetNextWindowSize(ImVec2(330, 610));
