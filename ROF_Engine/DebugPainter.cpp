@@ -24,15 +24,20 @@ void EndDebugDraw()
 	glPopMatrix();
 }
 
-void DebugDraw(const AABB &aabb, Color color, const float4x4& transform)
+void DebugDraw(const AABB &aabb, Color color)
 {
 	static vec vertices[8];
 	aabb.GetCornerPoints(vertices);
 
-	glPushMatrix();
-	glMultMatrixf((GLfloat*)transform.Transposed().ptr());
 	DebugDrawBox(vertices, color);
-	glPopMatrix();
+}
+
+void DebugDraw(const OBB& obb, Color color)
+{
+	static float3 corners[8];
+	obb.GetCornerPoints(corners);
+
+	DebugDrawBox(corners, color);
 }
 
 void DebugDrawBox(const vec* vertices, Color color)

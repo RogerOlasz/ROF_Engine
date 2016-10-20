@@ -19,6 +19,7 @@ public:
 	void CleanUp();
 
 	Mesh* GetMesh();
+	const AABB* GetBoundingBox() const;
 
 public:
 	bool wirefr = false;

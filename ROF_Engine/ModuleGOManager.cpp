@@ -35,6 +35,11 @@ bool ModuleGOManager::Init()
 	return true;
 }
 
+void ModuleGOManager::DrawDebug()
+{
+
+}
+
 update_status ModuleGOManager::PreUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
@@ -56,11 +61,6 @@ update_status ModuleGOManager::PostUpdate(float dt)
 {
 
 	return UPDATE_CONTINUE;
-}
-
-void ModuleGOManager::DrawDebug()
-{
-
 }
 
 // Called before quitting

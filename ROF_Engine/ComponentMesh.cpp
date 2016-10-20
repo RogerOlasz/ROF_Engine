@@ -54,4 +54,8 @@ Mesh* ComponentMesh::GetMesh()
 	return mesh;
 }
 
+const AABB* ComponentMesh::GetBoundingBox() const
+{
+	return &bounding_box;
+}
 

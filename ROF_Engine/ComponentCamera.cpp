@@ -12,7 +12,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Camera##%d", id);
 	name = tmp;
-
+	//TODO change it with setters
 	camera_frustum.type = FrustumType::PerspectiveFrustum;
 
 	camera_frustum.pos = vec(0.0f, 10.0f, 0.0f);

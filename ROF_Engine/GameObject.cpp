@@ -3,6 +3,7 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransformation.h"
 #include "ComponentCamera.h"
+#include "DebugPainter.h"
 #include <list>
 
 GameObject::GameObject(const char* name) : name(name)
@@ -42,6 +43,8 @@ GameObject::~GameObject()
 		RELEASE(*comp);
 		comp++;
 	}
+
+	RELEASE(transform);
 }
 
 Component* GameObject::CreateComponent(Component::Types type)
@@ -89,6 +92,7 @@ void GameObject::Update()
 	if (transform->global_matrix_changed)
 	{
 		UpdateGlobalMatrix();
+		UpdateAABB();
 	}
 
 	transform->PushMatrix();
@@ -96,6 +100,8 @@ void GameObject::Update()
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		(*tmp)->Update();
+		DebugDraw(bounding_box, Green);
+		DebugDraw(go_obb, Red);
 	}
 
 	transform->PopMatrix();
@@ -144,6 +150,22 @@ void GameObject::UpdateGlobalMatrix()
 	{
 		(*tmp)->transform->UpdateGMatrix();
 		(*tmp)->UpdateGlobalMatrix();
+	}
+}
+
+void GameObject::UpdateAABB()
+{
+	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+	{
+		if ((*tmp)->GetType() == Component::Types::Geometry)
+		{
+			const AABB aabb = *((ComponentMesh*)(*tmp))->GetBoundingBox();
+			go_obb = aabb;
+			go_obb.Transform(transform->GetGlobalMatrix());
+
+			bounding_box.SetNegativeInfinity();
+			bounding_box.Enclose(go_obb);
+		}
 	}
 }
 

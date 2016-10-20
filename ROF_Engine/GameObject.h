@@ -31,6 +31,7 @@ public:
 	bool GetHierarchyState();
 
 	void UpdateGlobalMatrix();
+	void UpdateAABB();
 
 	const Component* GetComponentByType(Component::Types type);
 	bool RemoveGameObject(GameObject* to_delete);
@@ -41,7 +42,7 @@ private:
 	std::string name;
 
 	AABB bounding_box;
-	OBB o_bb;
+	OBB go_obb;
 
 	bool is_on_hierarchy = true;
 
