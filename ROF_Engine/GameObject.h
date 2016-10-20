@@ -3,7 +3,10 @@
 
 #include "Component.h"
 #include "Globals.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include <vector>
+
+class ComponentTransformation;
 
 class GameObject
 {
@@ -27,17 +30,24 @@ public:
 	void SetName(const char* new_name);
 	bool GetHierarchyState();
 
+	void UpdateGlobalMatrix();
+
 	const Component* GetComponentByType(Component::Types type);
 	bool RemoveGameObject(GameObject* to_delete);
-	
+
 private:
 	bool active = true;
 	GameObject* parent = nullptr;
 	std::string name;
 
+	AABB bounding_box;
+	OBB o_bb;
+
 	bool is_on_hierarchy = true;
 
 public:
+	ComponentTransformation* transform = nullptr;
+
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
 

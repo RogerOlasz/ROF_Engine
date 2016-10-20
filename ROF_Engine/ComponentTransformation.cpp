@@ -1,5 +1,6 @@
 #include "ComponentTransformation.h"
 #include "Globals.h"
+#include "GameObject.h"
 
 #include "SDL/include/SDL_opengl.h"
 
@@ -9,6 +10,17 @@ ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : C
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Transformation##%d", id);
 	name = tmp;
+
+	if (game_object->GetParent())
+	{
+		global_transform_matrix = game_object->GetParent()->transform->global_transform_matrix * transform_matrix;
+	}
+	else
+	{
+		global_transform_matrix = transform_matrix;
+	}
+
+	global_transform_matrix_t = global_transform_matrix.Transposed();
 }
 
 ComponentTransformation::~ComponentTransformation()
@@ -19,23 +31,19 @@ ComponentTransformation::~ComponentTransformation()
 void ComponentTransformation::BuildTransMatrix()
 {
 	transform_matrix = float4x4::FromTRS(position, rotation, scale);
-	transform_matrix.Transpose();
+	global_matrix_changed = true;
+	UpdateGMatrix();
 }
 
 void ComponentTransformation::PushMatrix()
 {
 	glPushMatrix();
-	glMultMatrixf((float*)&transform_matrix);
+	glMultMatrixf((float*)&global_transform_matrix_t);
 }
 
 void ComponentTransformation::PopMatrix()
 {
 	glPopMatrix();
-}
-
-void ComponentTransformation::UpdateGlobalMatrix()
-{
-	
 }
 
 vec ComponentTransformation::GetPosition() const
@@ -66,6 +74,12 @@ float4x4 ComponentTransformation::GetLocalMatrix() const
 	return transform_matrix;
 }
 
+void ComponentTransformation::UpdateGMatrix()
+{
+	global_transform_matrix = game_object->GetParent()->transform->global_transform_matrix * transform_matrix;
+	global_transform_matrix_t = global_transform_matrix.Transposed();
+}
+
 void ComponentTransformation::SetPos(float x, float y, float z)
 {
 	position.x = x;
@@ -88,9 +102,9 @@ void ComponentTransformation::SetRotEuler(float x, float y, float z)
 	while (y < 0) { y += 360; }
 	while (z < 0) { z += 360; }
 
-	rotation_rad = DegToRad(vec(x,y,z));
+	rotation_rad = DegToRad(vec(x, y, z));
 	rotation = rotation.FromEulerXYZ(rotation_rad.x, rotation_rad.y, rotation_rad.z);
-	
+
 	//LOG("Quaternion is = X: %f Y: %f Z: %f W: %f", rotation.x, rotation.y, rotation.z, rotation.w);
 
 	BuildTransMatrix();

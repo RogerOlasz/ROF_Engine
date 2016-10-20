@@ -358,6 +358,8 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 {	
 	if (mesh != nullptr)
 	{
+		glColor3f(1.0f, 1.0f, 1.0f);
+
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -397,8 +399,6 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 		glDrawElements(GL_TRIANGLES, mesh->num_indices, GL_UNSIGNED_INT, NULL);
-		
-		glColor3f(1.0f, 1.0f, 1.0f);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

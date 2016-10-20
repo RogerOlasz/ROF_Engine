@@ -21,57 +21,54 @@ PanelComponents::~PanelComponents()
 }
 
 void PanelComponents::Draw(GameObject* selected_go)
-{	
+{
 	ImGui::SetNextWindowPos(ImVec2(((App->window->GetWindowSize().x - 335)), 25));
-	
+
 	if (set_size == true)
 	{
 		ImGui::SetNextWindowSize(ImVec2(330, 610));
 		set_size = false;
 	}
-	
+
 	ImGui::Begin("Components", &active);
 
 	ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "GameObject: ");
 	ImGui::SameLine();
 	ImGui::Text(selected_go->GetName());
 
+	//If actual game object is diferent of last one it must to set transformation
+	if (last_go != selected_go)
+	{
+		pos.Set(selected_go->transform->GetPosition().x, selected_go->transform->GetPosition().y, selected_go->transform->GetPosition().z);
+		sca.Set(selected_go->transform->GetScale().x, selected_go->transform->GetScale().y, selected_go->transform->GetScale().z);
+		rot.Set(selected_go->transform->GetRotation().x, selected_go->transform->GetRotation().y, selected_go->transform->GetRotation().z);
+	}
+
+	if (ImGui::CollapsingHeader(selected_go->transform->name.c_str()))
+	{
+		ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+		ImGui::SameLine();
+		ImGui::Text("%d", selected_go->transform->GetID());
+		ImGui::Separator();
+
+		if (ImGui::DragFloat3("Postion", pos.ptr()))
+		{
+			selected_go->transform->SetPos(pos.x, pos.y, pos.z);
+		}
+		if (ImGui::DragFloat3("Scale", sca.ptr(), 0.01f))
+		{
+			selected_go->transform->SetScale(sca.x, sca.y, sca.z);
+		}
+		if (ImGui::DragFloat3("Rotation", rot.ptr()))
+		{
+			selected_go->transform->SetRotEuler(rot.x, rot.y, rot.z);
+		}
+	}
+
 	for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
 	{
-		if ((*tmp)->GetType() == Component::Types::Transformation)
-		{			
-			//If actual game object is diferent of last one it must to set transformation
-			if (last_go != selected_go)
-			{
-				pos.Set(((ComponentTransformation*)(*tmp))->GetPosition().x, ((ComponentTransformation*)(*tmp))->GetPosition().y, ((ComponentTransformation*)(*tmp))->GetPosition().z);
-				sca.Set(((ComponentTransformation*)(*tmp))->GetScale().x, ((ComponentTransformation*)(*tmp))->GetScale().y, ((ComponentTransformation*)(*tmp))->GetScale().z);
-				rot.Set(((ComponentTransformation*)(*tmp))->GetRotation().x, ((ComponentTransformation*)(*tmp))->GetRotation().y, ((ComponentTransformation*)(*tmp))->GetRotation().z);
-			}
-
-			if (ImGui::CollapsingHeader(((ComponentTransformation*)(*tmp))->name.c_str()))
-			{
-				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: "); 
-				ImGui::SameLine();
-				ImGui::Text("%d", ((ComponentTransformation*)(*tmp))->GetID());
-				ImGui::Separator();
-
-				if (ImGui::DragFloat3("Postion", pos.ptr()))
-				{
-					((ComponentTransformation*)(*tmp))->SetPos(pos.x, pos.y, pos.z);
-				}
-				if (ImGui::DragFloat3("Scale", sca.ptr(), 0.01f))
-				{
-					((ComponentTransformation*)(*tmp))->SetScale(sca.x, sca.y, sca.z);
-				}
-				if (ImGui::DragFloat3("Rotation", rot.ptr()))
-				{
-					((ComponentTransformation*)(*tmp))->SetRotEuler(rot.x, rot.y, rot.z);
-				}				
-			}
-		}
-
 		if ((*tmp)->GetType() == Component::Types::Geometry)
-		{		
+		{
 			if (ImGui::CollapsingHeader(((ComponentMesh*)(*tmp))->name.c_str()))
 			{
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
@@ -92,7 +89,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::Text("Number of vertex in memory: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_vertices);
 				ImGui::Text("Number of normals: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_normals);
 				ImGui::Text("Number of texture coordinates: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_tex_coord);
-			}									
+			}
 		}
 
 		if ((*tmp)->GetType() == Component::Types::Material)
@@ -130,6 +127,6 @@ void PanelComponents::Draw(GameObject* selected_go)
 			}
 		}
 	}
- last_go = selected_go;
- ImGui::End();
+	last_go = selected_go;
+	ImGui::End();
 }

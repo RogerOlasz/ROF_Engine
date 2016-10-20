@@ -5,9 +5,9 @@
 #include "ComponentCamera.h"
 #include <list>
 
-GameObject::GameObject(const char* name) : name (name)
+GameObject::GameObject(const char* name) : name(name)
 {
-
+	transform = new ComponentTransformation(this, 00);
 }
 
 GameObject::~GameObject()
@@ -21,7 +21,7 @@ GameObject::~GameObject()
 		}
 		parent->children.erase(it);
 	}
-	
+
 	if (children.empty() != true)
 	{
 		std::vector<GameObject*>::iterator it = children.begin();
@@ -50,9 +50,6 @@ Component* GameObject::CreateComponent(Component::Types type)
 
 	switch (type)
 	{
-	case Component::Types::Transformation:
-		new_component = new ComponentTransformation(this, components.size());
-		break;
 	case Component::Types::Geometry:
 		new_component = new ComponentMesh(this, components.size());
 		break;
@@ -67,7 +64,7 @@ Component* GameObject::CreateComponent(Component::Types type)
 	if (new_component != nullptr)
 	{
 		components.push_back(new_component);
-	}		
+	}
 
 	return new_component;
 }
@@ -89,30 +86,31 @@ void GameObject::SwitchActive(bool active)
 
 void GameObject::Update()
 {
-	ComponentTransformation* tmp_t = nullptr;
+	if (transform->global_matrix_changed)
+	{
+		UpdateGlobalMatrix();
+	}
+
+	transform->PushMatrix();
+
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
-		if ((*tmp)->GetType() == Component::Types::Transformation)
-		{
-			tmp_t = ((ComponentTransformation*)(*tmp));
-			tmp_t->PushMatrix();
-		}
-
 		(*tmp)->Update();
 	}
+
+	transform->PopMatrix();
 
 	if (children.size() == 1)
 	{
 		(*children.begin())->Update();
 	}
-	else if(children.size() > 1)
+	else if (children.size() > 1)
 	{
 		for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
 		{
 			(*tmp)->Update();
 		}
-	}	
-	tmp_t->PopMatrix();
+	}
 }
 
 GameObject* GameObject::GetParent()
@@ -136,8 +134,17 @@ void GameObject::SetName(const char* new_name)
 }
 
 bool GameObject::GetHierarchyState()
-{ 
+{
 	return is_on_hierarchy;
+}
+
+void GameObject::UpdateGlobalMatrix()
+{
+	for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+	{
+		(*tmp)->transform->UpdateGMatrix();
+		(*tmp)->UpdateGlobalMatrix();
+	}
 }
 
 void GameObject::SwitchParent(GameObject* new_parent)
@@ -152,7 +159,7 @@ void GameObject::SwitchParent(GameObject* new_parent)
 				it++;
 			}
 			parent->children.erase(it);
-			
+
 		}
 		parent = new_parent;
 		parent->children.push_back(this);
@@ -166,7 +173,7 @@ const Component* GameObject::GetComponentByType(Component::Types type)
 		if (components[i]->GetType() == type)
 		{
 			return components[i];
-		}			
+		}
 	}
 
 	return nullptr;

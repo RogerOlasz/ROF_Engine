@@ -60,7 +60,7 @@ update_status ModuleGOManager::PostUpdate(float dt)
 
 void ModuleGOManager::DrawDebug()
 {
-	
+
 }
 
 // Called before quitting
@@ -69,7 +69,7 @@ bool ModuleGOManager::CleanUp()
 	aiDetachAllLogStreams();
 
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
-	while(tmp != gos_array.rend())
+	while (tmp != gos_array.rend())
 	{
 		RELEASE((*tmp));
 		tmp++;
@@ -79,7 +79,7 @@ bool ModuleGOManager::CleanUp()
 	if (root)
 	{
 		RELEASE(root);
-	}	
+	}
 
 	return true;
 }
@@ -101,7 +101,7 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 
 void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
-	
+
 	GameObject* ret = nullptr;
 
 	//Creating GameObject from aiNode
@@ -114,8 +114,6 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 	{
 #pragma region SetTransform
 		//Setting transformation
-		ComponentTransformation* trans = (ComponentTransformation*)ret->CreateComponent(Component::Types::Transformation);
-
 		aiVector3D position;
 		aiQuaternion rotation;
 		aiVector3D scale;
@@ -140,9 +138,9 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 			ret->SetName(node_to_load->mName.C_Str());
 		}
 
-		trans->SetPos(pos.x, pos.y, pos.z);
-		trans->SetScale(sca.x, sca.y, sca.z);
-		trans->SetRot(rot.x, rot.y, rot.z, rot.w);
+		ret->transform->SetPos(pos.x, pos.y, pos.z);
+		ret->transform->SetScale(sca.x, sca.y, sca.z);
+		ret->transform->SetRot(rot.x, rot.y, rot.z, rot.w);
 #pragma endregion
 
 #pragma region SetMaterial
@@ -153,7 +151,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
-						
+
 			((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
 		}
 #pragma endregion

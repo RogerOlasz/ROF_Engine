@@ -35,7 +35,7 @@ public:
 private:
 	GameObject* root;
 	std::vector<GameObject*> gos_array;
-	
+
 	void SetParent(GameObject* me, GameObject* new_parent);
 };
 

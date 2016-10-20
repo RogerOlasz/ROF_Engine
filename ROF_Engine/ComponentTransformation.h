@@ -12,6 +12,24 @@ public:
 	ComponentTransformation(GameObject* bearer, int id);
 	~ComponentTransformation();
 
+	void BuildTransMatrix();
+	void PushMatrix();
+	void PopMatrix();
+
+	vec GetPosition() const;
+	vec GetScale() const;
+	vec GetRotation() const;
+
+	float4x4 GetGlobalMatrix() const;
+	float4x4 GetLocalMatrix() const;
+
+	void UpdateGMatrix();
+
+	void SetPos(float x, float y, float z);
+	void SetRot(float x, float y, float z, float w);
+	void SetRotEuler(float x, float y, float z);
+	void SetScale(float x, float y, float z);
+
 private:
 	Quat rotation = Quat::identity;
 	vec position = vec::zero;
@@ -21,25 +39,10 @@ private:
 
 	float4x4 transform_matrix = float4x4::identity;
 	float4x4 global_transform_matrix = float4x4::identity;
+	float4x4 global_transform_matrix_t = float4x4::identity;
 
 public:
-	void BuildTransMatrix();
-	void PushMatrix();
-	void PopMatrix();
-
-	void UpdateGlobalMatrix();
-
-	vec GetPosition() const;
-	vec GetScale() const;
-	vec GetRotation() const;
-
-	float4x4 GetGlobalMatrix() const;
-	float4x4 GetLocalMatrix() const;
-
-	void SetPos(float x, float y, float z);
-	void SetRot(float x, float y, float z, float w);
-	void SetRotEuler(float x, float y, float z);
-	void SetScale(float x, float y, float z);
+	bool global_matrix_changed = false;
 
 };
 
