@@ -34,10 +34,10 @@ void DebugDraw(const AABB &aabb, Color color)
 
 void DebugDraw(const OBB& obb, Color color)
 {
-	static float3 corners[8];
-	obb.GetCornerPoints(corners);
+	static float3 vertices[8];
+	obb.GetCornerPoints(vertices);
 
-	DebugDrawBox(corners, color);
+	DebugDrawBox(vertices, color);
 }
 
 void DebugDrawBox(const vec* vertices, Color color)

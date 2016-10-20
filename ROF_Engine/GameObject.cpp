@@ -95,13 +95,15 @@ void GameObject::Update()
 		UpdateAABB();
 	}
 
+	DebugDraw(bounding_box, Green);
+	DebugDraw(go_obb, Red);
+
 	transform->PushMatrix();
 
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		(*tmp)->Update();
-		DebugDraw(bounding_box, Green);
-		DebugDraw(go_obb, Red);
+		
 	}
 
 	transform->PopMatrix();
