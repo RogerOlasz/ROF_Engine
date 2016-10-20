@@ -34,10 +34,11 @@ public:
 
 private:
 	Types type = Types::Unknown;
-	GameObject* game_object = nullptr;
-
 	int id;
 
+protected:
+	GameObject* game_object = nullptr;
+	
 };
 
 #endif // !__COMPONENT_H__

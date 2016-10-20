@@ -33,6 +33,11 @@ void ComponentTransformation::PopMatrix()
 	glPopMatrix();
 }
 
+void ComponentTransformation::UpdateGlobalMatrix()
+{
+	
+}
+
 vec ComponentTransformation::GetPosition() const
 {
 	return position;
@@ -49,6 +54,16 @@ vec ComponentTransformation::GetRotation() const
 	ret = RadToDeg(rotation.ToEulerXYZ());
 
 	return ret;
+}
+
+float4x4 ComponentTransformation::GetGlobalMatrix() const
+{
+	return global_transform_matrix;
+}
+
+float4x4 ComponentTransformation::GetLocalMatrix() const
+{
+	return transform_matrix;
 }
 
 void ComponentTransformation::SetPos(float x, float y, float z)

@@ -20,15 +20,21 @@ private:
 	vec rotation_rad = vec::zero;
 
 	float4x4 transform_matrix = float4x4::identity;
+	float4x4 global_transform_matrix = float4x4::identity;
 
 public:
 	void BuildTransMatrix();
 	void PushMatrix();
 	void PopMatrix();
 
+	void UpdateGlobalMatrix();
+
 	vec GetPosition() const;
 	vec GetScale() const;
 	vec GetRotation() const;
+
+	float4x4 GetGlobalMatrix() const;
+	float4x4 GetLocalMatrix() const;
 
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z, float w);
