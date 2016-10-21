@@ -35,6 +35,8 @@ bool ModuleEditor::Init()
 	panels.push_back(Hierarchy = new PanelHierarchy);
 	panels.push_back(Comp = new PanelComponents);
 
+	camera_id = 0;
+
 	return true;
 }
 
@@ -42,6 +44,11 @@ update_status ModuleEditor::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
 	
+	//TODO so temporal, is horrible have this here...
+	char tmp[SHORT_STRING];
+	sprintf(tmp, "Camera%d", camera_id);
+	camera_name = tmp;
+
 	return UPDATE_CONTINUE;
 }
 
@@ -65,8 +72,9 @@ update_status ModuleEditor::Update(float dt)
 			if (ImGui::MenuItem("Create Camera"))
 			{
 				GameObject* tmp_go;
-				tmp_go = App->go_manager->CreateGameObject("Camera", nullptr);
+				tmp_go = App->go_manager->CreateGameObject(camera_name.c_str(), nullptr);
 				tmp_go->CreateComponent(Component::Types::Camera);
+				camera_id++;
 			}
 			ImGui::EndMenu();
 		}

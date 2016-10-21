@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <vector>
+#include <string>
 
 class Panel;
 class PanelConsole;
@@ -35,6 +36,9 @@ public:
 
 private:
 	std::vector<Panel*> panels;
+
+	uint camera_id;
+	std::string camera_name;
 
 };
 

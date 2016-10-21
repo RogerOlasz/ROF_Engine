@@ -116,6 +116,8 @@ void PanelComponents::Draw(GameObject* selected_go)
 				field_of_view = ((ComponentCamera*)(*tmp))->GetFOV();
 				aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
 
+				ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
+
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());

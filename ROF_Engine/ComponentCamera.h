@@ -36,6 +36,7 @@ public:
 
 	bool proj_matrix_update = true;
 	bool frustum_culling = false;
+	bool debug_draw = true;
 
 };
 

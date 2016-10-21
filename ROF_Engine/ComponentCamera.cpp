@@ -33,7 +33,10 @@ ComponentCamera::~ComponentCamera()
 void ComponentCamera::Update()
 {
 	//TODO This line here must be temporal to debug
-	//DebugDraw(camera_frustum, Blue);
+	if (debug_draw)
+	{
+		DebugDraw(camera_frustum, Blue);
+	}	
 }
 
 void ComponentCamera::LookAt(const vec& position)
