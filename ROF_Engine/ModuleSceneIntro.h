@@ -19,9 +19,6 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-
-public:
-	GameObject* camera01;
 };
 
 #endif // !__MODULESCENEINTRO_H__

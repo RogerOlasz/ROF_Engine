@@ -49,6 +49,9 @@ private:
 public:
 	ComponentTransformation* transform = nullptr;
 
+	bool obb_debug = false;
+	bool aabb_debug = false;
+
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
 

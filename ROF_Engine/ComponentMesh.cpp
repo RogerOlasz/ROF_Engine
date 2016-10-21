@@ -11,10 +11,10 @@ ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Typ
 	sprintf(tmp, "Mesh##%d", id);
 
 	char tmp_2[SHORT_STRING];
-	sprintf(tmp_2, "ToWireframe##%d", id);
+	sprintf(tmp_2, "Wireframe##%d", id);
 
 	char tmp_3[SHORT_STRING];
-	sprintf(tmp_3, "Active##%d", id);
+	sprintf(tmp_3, "##Active%d", id);
 
 	is_active = tmp_3;
 	wire = tmp_2;

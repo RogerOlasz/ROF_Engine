@@ -80,9 +80,10 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->is_active.c_str(), &((ComponentMesh*)(*tmp))->active);
 
-				ImGui::Text("Wireframe: ");
-				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->wire.c_str(), &((ComponentMesh*)(*tmp))->wirefr);
+
+				ImGui::Checkbox("AABB", &selected_go->aabb_debug);
+				ImGui::Checkbox("OBB", &selected_go->obb_debug);
 				ImGui::Separator();
 
 				ImGui::Text("Number of vertex(Indices): %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_indices);
@@ -113,17 +114,6 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
-
-				ImGui::DragFloat("Near plane", &((ComponentCamera*)(*tmp))->camera_frustum.nearPlaneDistance, 0.1f);
-				ImGui::DragFloat("Far plane", &((ComponentCamera*)(*tmp))->camera_frustum.farPlaneDistance, 0.1f);
-				if (ImGui::DragFloat("Field of view", &((ComponentCamera*)(*tmp))->fov, 0.1f))
-				{
-					((ComponentCamera*)(*tmp))->SetFOV(((ComponentCamera*)(*tmp))->fov);
-				}
-				if (ImGui::DragFloat("Aspect ratio", &((ComponentCamera*)(*tmp))->aspect_ratio, 0.1f))
-				{
-					((ComponentCamera*)(*tmp))->SetAspectRatio(((ComponentCamera*)(*tmp))->aspect_ratio);
-				}
 			}
 		}
 	}

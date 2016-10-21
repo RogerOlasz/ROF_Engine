@@ -5,32 +5,24 @@
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
+class ComponentCamera;
+
 class ModuleCamera3D : public Module
 {
 public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 
+	bool Init();
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const vec &Position, const vec &Reference, bool RotateAroundReference = false);
-	void LookAt(const vec &Spot);
-	void Move(const vec &Movement);
-	float* GetViewMatrix();
+	void LookAt(const vec &position);
 
 private:
-
-	void CalculateViewMatrix();
-
-public:
+	ComponentCamera* camera = nullptr;
 	
-	vec X, Y, Z, Position, Reference;
-
-private:
-
-	float4x4 ViewMatrix, ViewMatrixInverse;
 };
 
 #endif // !__MODULECAMERA3D_H__

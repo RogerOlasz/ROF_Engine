@@ -5,6 +5,7 @@
 #include "ModuleCamera3D.h"
 #include "Mesh.h"
 #include "DebugPainter.h"
+#include "ComponentCamera.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
@@ -133,43 +134,32 @@ bool ModuleRenderer3D::Init()
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	CreateDebugTexture();
-
-	//Understanding frustrum attributes
-	camera_frustum.type = FrustumType::PerspectiveFrustum;
-
-	camera_frustum.pos = vec(0.0f, 10.0f, 0.0f);
-	camera_frustum.front = vec::unitZ;
-	camera_frustum.up = vec::unitY;
-
-	camera_frustum.nearPlaneDistance = 5.0f;
-	camera_frustum.farPlaneDistance = 15.0f;
-	camera_frustum.verticalFov = DEGTORAD * 60.0f;
-	camera_frustum.horizontalFov = DEGTORAD * 60.0f;
-
-	tmp_aabb = AABB(vec(0.0f, 0.0f, 0.0f), vec(20.0f, 20.0f, 20.0f));
+	//CreateDebugTexture();
 
 	return ret;
 }
 
 void ModuleRenderer3D::DrawDebug()
 {
-	//Understanding frustrum attributes
-	//DebugDraw(camera_frustum, Blue);
-	//DebugDraw(tmp_aabb, Green);
+
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	if (camera->proj_matrix_update)
+	{
+		UpdateProjectionMatrix();
+		camera->proj_matrix_update = false;
+	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(camera->GetOpenGLViewMatrix());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	//lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 	{
@@ -211,29 +201,15 @@ bool ModuleRenderer3D::CleanUp()
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
+	camera->SetAspectRatio(((float)width / (float)height));
+	UpdateProjectionMatrix();
+}
 
+void ModuleRenderer3D::UpdateProjectionMatrix()
+{
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	//Perspective
-	float4x4 perspective;
-	perspective.SetIdentity();
-
-	float n = 0.125f;
-	float f = 512.0f;
-
-	float coty = 1.0f / tan(60.0f * pi / 360.0f);
-
-	//Matrix
-	perspective[0][0] = coty / ((float)width / (float)height);
-	perspective[1][1] = coty;
-	perspective[2][2] = (n + f) / (n - f);
-	perspective[2][3] = -1.0f;
-	perspective[3][2] = 2.0f * n * f / (n - f);
-	perspective[3][3] = 0.0f;
-
-	ProjectionMatrix = perspective;
-	glLoadMatrixf(*ProjectionMatrix.v);	
+	glLoadMatrixf((GLfloat*)camera->GetOpenGLProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -22,13 +22,6 @@ bool ModuleSceneIntro::Start()
 	//INITIALIZATION OF VARIABLES---------------------------------
 	bool ret = true;
 
-	App->camera->Move(vec(5, 5, 5));
-	App->camera->LookAt(vec(0, 0, 0));
-
-	camera01 = App->go_manager->CreateGameObject("Camera01", nullptr);
-	camera01->CreateComponent(Component::Types::Transformation);
-	camera01->CreateComponent(Component::Types::Camera);
-
 	return ret;
 }
 

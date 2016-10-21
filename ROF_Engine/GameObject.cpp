@@ -95,8 +95,15 @@ void GameObject::Update()
 		UpdateAABB();
 	}
 
-	DebugDraw(bounding_box, Green);
-	DebugDraw(go_obb, Red);
+	if (aabb_debug)
+	{
+		DebugDraw(bounding_box, Green);
+	}
+	
+	if (obb_debug)
+	{
+		DebugDraw(go_obb, Red);
+	}
 
 	transform->PushMatrix();
 

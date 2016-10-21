@@ -7,9 +7,10 @@
 #include "Light.h"
 #include <vector>
 
-struct Mesh;
-
 #define MAX_LIGHTS 8
+
+struct Mesh;
+class ComponentCamera;
 
 class ModuleRenderer3D : public Module
 {
@@ -30,6 +31,7 @@ public:
 	void CreateDebugTexture();
 
 	void OnResize(int width, int height);
+	void UpdateProjectionMatrix();
 
 	bool LoadMeshBuffer(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
@@ -38,13 +40,10 @@ public:
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
-	float3x3 NormalMatrix;
-	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	float4x4 transform = float4x4::identity;
-	//Understanding frustrum attributes
-	Frustum camera_frustum;
-	AABB tmp_aabb;
+	ComponentCamera* camera = nullptr;
+	/*float3x3 NormalMatrix;
+	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;*/
 };
 
 #endif // !__MODULEPHYSICS3D_H__

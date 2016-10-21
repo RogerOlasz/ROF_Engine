@@ -17,17 +17,24 @@ public:
 
 	void LookAt(const vec &position);
 
-	float GetFOV() const;
+	float* GetOpenGLViewMatrix();
+	float* GetOpenGLProjectionMatrix();
 
+	float GetNearPlane() const;
+	float GetFarPlane() const;
+	float GetFOV() const;
+	float GetAspectRatio() const;
+
+	void SetNearPlane(float distance);
+	void SetFarPlane(float distance);
 	void SetFOV(float fov);
 	void SetAspectRatio(float aspect_ratio);
 
 public:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
-	float fov;
-	float aspect_ratio;
 
+	bool proj_matrix_update = true;
 	bool frustum_culling = false;
 
 };
