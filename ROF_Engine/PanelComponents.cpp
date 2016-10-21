@@ -111,9 +111,32 @@ void PanelComponents::Draw(GameObject* selected_go)
 		{
 			if (ImGui::CollapsingHeader(((ComponentCamera*)(*tmp))->name.c_str()))
 			{
+				near_plane = ((ComponentCamera*)(*tmp))->GetNearPlane();
+				far_plane = ((ComponentCamera*)(*tmp))->GetFarPlane();
+				field_of_view = ((ComponentCamera*)(*tmp))->GetFOV();
+				aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
+
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
+
+				if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
+				{
+					((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);
+				}
+				if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
+				{
+					((ComponentCamera*)(*tmp))->SetFarPlane(far_plane);
+				}
+				if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
+				{
+					((ComponentCamera*)(*tmp))->SetFOV(field_of_view);
+				}
+				if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
+				{
+					((ComponentCamera*)(*tmp))->SetAspectRatio(aspect_ratio);
+				}
+
 			}
 		}
 	}

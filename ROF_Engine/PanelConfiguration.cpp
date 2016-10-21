@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
 #include "ImGui/imgui.h"
 #include "SDL/include/SDL_opengl.h"
 
@@ -46,6 +48,7 @@ void PanelConfiguration::Draw()
 	DrawWindow();
 	DrawIlumination();
 	DrawTecnology();
+	DrawEditorCamera();
 
 	ImGui::End();
 }
@@ -175,6 +178,34 @@ void PanelConfiguration::DrawTecnology()
 		ImGui::Text("ImGUI Version:"); ImGui::SameLine();
 		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.5f, 1.0f), "%s", ImGui::GetVersion());
 
+	}
+}
+
+void PanelConfiguration::DrawEditorCamera()
+{
+	if (ImGui::CollapsingHeader("Editor's camera"))
+	{
+		near_plane = App->camera->GetCamera()->GetNearPlane();
+		far_plane = App->camera->GetCamera()->GetFarPlane();
+		field_of_view = App->camera->GetCamera()->GetFOV();
+		aspect_ratio = App->camera->GetCamera()->GetAspectRatio();
+
+		if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
+		{
+			App->camera->GetCamera()->SetNearPlane(near_plane);
+		}
+		if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
+		{
+			App->camera->GetCamera()->SetFarPlane(far_plane);
+		}
+		if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
+		{
+			App->camera->GetCamera()->SetFOV(field_of_view);
+		}
+		if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
+		{
+			App->camera->GetCamera()->SetAspectRatio(aspect_ratio);
+		}
 	}
 }
 

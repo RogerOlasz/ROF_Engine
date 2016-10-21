@@ -19,6 +19,11 @@ private:
 	bool borderless = false;
 	bool fullscreen_desktop = false;
 
+	float near_plane;
+	float far_plane;
+	float field_of_view;
+	float aspect_ratio;
+
 public:
 
 	PanelConfiguration();
@@ -26,11 +31,11 @@ public:
 
 	void Draw();
 
-	//TODO may add a camera controller with three axis and some more features
 	void DrawWindow();
 	void DrawIlumination();
 	void DrawTecnology();
-	void DrawApplication();
+	void DrawEditorCamera();
+	void DrawApplication();	
 	
 	void Log(const float* fps, const float ms);
 	unsigned int GetMaxFPS();

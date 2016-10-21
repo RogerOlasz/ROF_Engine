@@ -22,6 +22,11 @@ private:
 	vec pos = vec::zero;
 	vec sca = vec::zero;
 	vec rot = vec::zero;
+
+	float near_plane;
+	float far_plane;
+	float field_of_view;
+	float aspect_ratio;
 };
 
 #endif // !__PANELCOMPONENTS_H__

@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
+#include "ModuleGOManager.h"
+#include "GameObject.h"
+
 #include "Panel.h"
 #include "PanelConsole.h"
 #include "PanelConfiguration.h"
@@ -59,7 +62,12 @@ update_status ModuleEditor::Update(float dt)
 
 		if (ImGui::BeginMenu("Edit"))
 		{
-
+			if (ImGui::MenuItem("Create Camera"))
+			{
+				GameObject* tmp_go;
+				tmp_go = App->go_manager->CreateGameObject("Camera", nullptr);
+				tmp_go->CreateComponent(Component::Types::Camera);
+			}
 			ImGui::EndMenu();
 		}
 

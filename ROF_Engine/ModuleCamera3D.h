@@ -18,10 +18,15 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	ComponentCamera* GetCamera() const;
+
 	void LookAt(const vec &position);
+	void Move(float dt);
+	void Orbit();
 
 private:
 	ComponentCamera* camera = nullptr;
+	vec reference;
 	
 };
 

@@ -52,9 +52,15 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
-update_status ModuleCamera3D::Update(float dt)
+ComponentCamera* ModuleCamera3D::GetCamera() const
 {
-	
+	return camera;
+}
+
+update_status ModuleCamera3D::Update(float dt)
+{	
+	Move(dt);
+	Orbit();
 
 	return UPDATE_CONTINUE;
 }
@@ -62,5 +68,73 @@ update_status ModuleCamera3D::Update(float dt)
 void ModuleCamera3D::LookAt(const vec &position)
 {
 	camera->LookAt(position);
+	reference = position;
 }
 
+void ModuleCamera3D::Move(float dt)
+{
+	vec tmp(0.0f, 0.0f, 0.0f);
+	tmp = camera->camera_frustum.Pos();
+
+	float speed = 10.0f * dt;
+	
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	{
+		speed = 40.0f * dt;
+	}		
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+	{
+		tmp.y += speed;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
+	{
+		tmp.y -= speed;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		tmp += camera->camera_frustum.Front() * speed;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	{
+		tmp -= camera->camera_frustum.Front() * speed;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		tmp -= camera->camera_frustum.WorldRight() * speed;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		tmp += camera->camera_frustum.WorldRight() * speed;
+	}
+
+	reference += (tmp - camera->camera_frustum.Pos());
+	camera->camera_frustum.SetPos(tmp);
+}
+
+void ModuleCamera3D::Orbit()
+{
+	int dx = -App->input->GetMouseXMotion();
+	int dy = -App->input->GetMouseYMotion();
+
+	float sensitivity = 0.005f;
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && (dx != 0 || dy != 0))
+	{
+		vec position = camera->camera_frustum.Pos() - reference;
+
+		Quat y_quat(camera->camera_frustum.Up(), dx * sensitivity);
+		Quat x_quat(camera->camera_frustum.WorldRight(), dy * sensitivity);
+
+		position = x_quat.Transform(position);
+		position = y_quat.Transform(position);
+
+		camera->camera_frustum.SetPos(position + reference);
+		LookAt(reference);
+		//App->input->InfiniteHorizontal();
+	}
+
+	
+}
