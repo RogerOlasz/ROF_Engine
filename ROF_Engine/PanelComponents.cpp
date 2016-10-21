@@ -6,6 +6,7 @@
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 #include "ComponentCamera.h"
+#include "ModuleCamera3D.h"
 #include "Mesh.h"
 #include "ImGui/imgui.h"
 
@@ -35,6 +36,11 @@ void PanelComponents::Draw(GameObject* selected_go)
 	ImGui::TextColored(ImVec4(0.90f, 0.90f, 0.00f, 1.00f), "GameObject: ");
 	ImGui::SameLine();
 	ImGui::Text(selected_go->GetName());
+
+	if (ImGui::Button("Center view"))
+	{
+		App->camera->LookAt(selected_go->transform->GetPosition());
+	}
 
 	//If actual game object is diferent of last one it must to set transformation
 	if (last_go != selected_go)

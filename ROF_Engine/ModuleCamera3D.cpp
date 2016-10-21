@@ -76,11 +76,11 @@ void ModuleCamera3D::Move(float dt)
 	vec tmp(0.0f, 0.0f, 0.0f);
 	tmp = camera->camera_frustum.Pos();
 
-	float speed = 10.0f * dt;
+	float speed = 15.0f * dt;
 	
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
-		speed = 40.0f * dt;
+		speed = 45.0f * dt;
 	}		
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
