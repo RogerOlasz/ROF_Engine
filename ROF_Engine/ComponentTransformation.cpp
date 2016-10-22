@@ -82,40 +82,52 @@ void ComponentTransformation::UpdateGMatrix()
 
 void ComponentTransformation::SetPos(float x, float y, float z)
 {
-	position.x = x;
-	position.y = y;
-	position.z = z;
+	if (freeze == false)
+	{
+		position.x = x;
+		position.y = y;
+		position.z = z;
 
-	BuildTransMatrix();
+		BuildTransMatrix();
+	}	
 }
 
 void ComponentTransformation::SetRot(float x, float y, float z, float w)
 {
-	rotation.Set(x, y, z, w);
+	if (freeze == false)
+	{
+		rotation.Set(x, y, z, w);
 
-	BuildTransMatrix();
+		BuildTransMatrix();
+	}
 }
 
 void ComponentTransformation::SetRotEuler(float x, float y, float z)
 {
-	while (x < 0) { x += 360; }
-	while (y < 0) { y += 360; }
-	while (z < 0) { z += 360; }
+	if (freeze == false)
+	{
+		while (x < 0) { x += 360; }
+		while (y < 0) { y += 360; }
+		while (z < 0) { z += 360; }
 
-	rotation_rad = DegToRad(vec(x, y, z));
-	rotation = rotation.FromEulerXYZ(rotation_rad.x, rotation_rad.y, rotation_rad.z);
+		rotation_rad = DegToRad(vec(x, y, z));
+		rotation = rotation.FromEulerXYZ(rotation_rad.x, rotation_rad.y, rotation_rad.z);
 
-	//LOG("Quaternion is = X: %f Y: %f Z: %f W: %f", rotation.x, rotation.y, rotation.z, rotation.w);
+		//LOG("Quaternion is = X: %f Y: %f Z: %f W: %f", rotation.x, rotation.y, rotation.z, rotation.w);
 
-	BuildTransMatrix();
+		BuildTransMatrix();
+	}
 }
 
 void ComponentTransformation::SetScale(float x, float y, float z)
 {
-	if (x != 0 && y != 0 && z != 0)
+	if (freeze == false)
 	{
-		scale.Set(x, y, z);
-	}
+		if (x != 0 && y != 0 && z != 0)
+		{
+			scale.Set(x, y, z);
+		}
 
-	BuildTransMatrix();
+		BuildTransMatrix();
+	}
 }

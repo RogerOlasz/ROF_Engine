@@ -123,7 +123,7 @@ void ModuleCamera3D::Orbit()
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && (dx != 0 || dy != 0))
 	{
-		vec position = camera->camera_frustum.Pos() - reference;
+		vec position = (camera->camera_frustum.Pos() - reference);
 
 		Quat y_quat(camera->camera_frustum.Up(), dx * sensitivity);
 		Quat x_quat(camera->camera_frustum.WorldRight(), dy * sensitivity);
@@ -133,8 +133,18 @@ void ModuleCamera3D::Orbit()
 
 		camera->camera_frustum.SetPos(position + reference);
 		LookAt(reference);
-		//App->input->InfiniteHorizontal();
 	}
+}
 
-	
+vec ModuleCamera3D::GetPos() const
+{
+	return camera->camera_frustum.Pos();
+}
+
+void ModuleCamera3D::SetPos(vec position)
+{
+	vec dif = (position - camera->camera_frustum.Pos());
+	camera->camera_frustum.SetPos(position);
+
+	reference += dif;
 }

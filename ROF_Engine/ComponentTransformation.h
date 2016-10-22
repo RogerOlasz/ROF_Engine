@@ -43,6 +43,7 @@ private:
 
 public:
 	bool global_matrix_changed = false;
+	bool freeze = false;
 
 };
 

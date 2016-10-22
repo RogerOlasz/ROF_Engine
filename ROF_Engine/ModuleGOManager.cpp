@@ -54,6 +54,13 @@ update_status ModuleGOManager::Update(float dt)
 
 	root->Update();
 
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		(*tmp)->Update();
+		tmp++;
+	}
+
 	return UPDATE_CONTINUE;
 }
 

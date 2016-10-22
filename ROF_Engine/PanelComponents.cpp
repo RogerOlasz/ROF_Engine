@@ -41,9 +41,10 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		App->camera->LookAt(selected_go->transform->GetPosition());
 	}
+	ImGui::Checkbox("Static test", &selected_go->static_go);
 
 	//If actual game object is diferent of last one it must to set transformation
-	if (last_go != selected_go)
+	if (last_go != selected_go || selected_go->static_go == true)
 	{
 		pos.Set(selected_go->transform->GetPosition().x, selected_go->transform->GetPosition().y, selected_go->transform->GetPosition().z);
 		sca.Set(selected_go->transform->GetScale().x, selected_go->transform->GetScale().y, selected_go->transform->GetScale().z);
@@ -68,7 +69,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 		if (ImGui::DragFloat3("Rotation", rot.ptr()))
 		{
 			selected_go->transform->SetRotEuler(rot.x, rot.y, rot.z);
-		}
+		}	
 	}
 
 	for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)

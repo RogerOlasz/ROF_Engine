@@ -2,6 +2,7 @@
 #define __PANELCONFIGURATION_H__
 
 #include "Panel.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include <vector>
 
 class PanelConfiguration : public Panel
@@ -19,6 +20,7 @@ private:
 	bool borderless = false;
 	bool fullscreen_desktop = false;
 
+	vec cam_pos;
 	float near_plane;
 	float far_plane;
 	float field_of_view;

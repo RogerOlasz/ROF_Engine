@@ -7,6 +7,8 @@
 #include "ImGui/imgui.h"
 #include "SDL/include/SDL_opengl.h"
 
+#include "Globals.h"
+
 PanelConfiguration::PanelConfiguration() : Panel("Configuration")
 {
 	while (fps_log.size() <= 49)
@@ -185,26 +187,38 @@ void PanelConfiguration::DrawEditorCamera()
 {
 	if (ImGui::CollapsingHeader("Editor's camera"))
 	{
+		cam_pos = App->camera->GetPos();
 		near_plane = App->camera->GetCamera()->GetNearPlane();
 		far_plane = App->camera->GetCamera()->GetFarPlane();
 		field_of_view = App->camera->GetCamera()->GetFOV();
 		aspect_ratio = App->camera->GetCamera()->GetAspectRatio();
 
+		if (ImGui::DragFloat3("Position", cam_pos.ptr(), 0.1f))
+		{
+			App->camera->SetPos(cam_pos);
+		}
+
+		ImGui::Separator();
+
 		if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 		{
 			App->camera->GetCamera()->SetNearPlane(near_plane);
+			App->camera->GetCamera()->proj_matrix_update = true;
 		}
 		if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
 		{
 			App->camera->GetCamera()->SetFarPlane(far_plane);
+			App->camera->GetCamera()->proj_matrix_update = true;
 		}
 		if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
 		{
 			App->camera->GetCamera()->SetFOV(field_of_view);
+			App->camera->GetCamera()->proj_matrix_update = true;
 		}
 		if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
 		{
 			App->camera->GetCamera()->SetAspectRatio(aspect_ratio);
+			App->camera->GetCamera()->proj_matrix_update = true;
 		}
 	}
 }

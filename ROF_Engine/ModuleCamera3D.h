@@ -24,6 +24,9 @@ public:
 	void Move(float dt);
 	void Orbit();
 
+	vec GetPos() const;
+	void SetPos(vec position);
+
 private:
 	ComponentCamera* camera = nullptr;
 	vec reference;

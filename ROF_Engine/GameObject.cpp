@@ -89,6 +89,15 @@ void GameObject::SwitchActive(bool active)
 
 void GameObject::Update()
 {
+	if (static_go)
+	{
+		transform->freeze = true;
+	}
+	else
+	{
+		transform->freeze = false;
+	}
+
 	if (transform->global_matrix_changed)
 	{
 		UpdateGlobalMatrix();
@@ -98,34 +107,19 @@ void GameObject::Update()
 	if (aabb_debug)
 	{
 		DebugDraw(bounding_box, Green);
-	}
-	
+	}	
 	if (obb_debug)
 	{
 		DebugDraw(go_obb, Red);
 	}
 
 	transform->PushMatrix();
-
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		(*tmp)->Update();
 		
 	}
-
 	transform->PopMatrix();
-
-	if (children.size() == 1)
-	{
-		(*children.begin())->Update();
-	}
-	else if (children.size() > 1)
-	{
-		for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
-		{
-			(*tmp)->Update();
-		}
-	}
 }
 
 GameObject* GameObject::GetParent()

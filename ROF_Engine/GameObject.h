@@ -51,6 +51,7 @@ public:
 
 	bool obb_debug = false;
 	bool aabb_debug = false;
+	bool static_go = false;
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
