@@ -82,9 +82,9 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentMesh*)(*tmp))->GetID());
 
-				ImGui::SameLine(ImGui::GetWindowWidth() - 80);
-				ImGui::Text("Active: ");
-				ImGui::SameLine(ImGui::GetWindowWidth() - 25);
+				ImGui::SameLine(ImGui::GetWindowWidth() - 105);
+				ImGui::Text("Active:");
+				ImGui::SameLine(ImGui::GetWindowWidth() - 50);
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->is_active.c_str(), &((ComponentMesh*)(*tmp))->active);
 
 				ImGui::Checkbox(((ComponentMesh*)(*tmp))->wire.c_str(), &((ComponentMesh*)(*tmp))->wirefr);
@@ -129,6 +129,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
 
+				//On construction
 				if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);

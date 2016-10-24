@@ -4,14 +4,17 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
 #include "Mesh.h"
-#include "DebugPainter.h"
 #include "ComponentCamera.h"
+#include "ComponentMaterial.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
 #include <vector>
 #include <gl/GL.h>
 #include <gl/GLU.h>
+
+#include "Quadtree.h"
+#include "DebugPainter.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -99,23 +102,11 @@ bool ModuleRenderer3D::Init()
 		
 		//Create [MAX_LIGHTS] lights to chanege scene lighting debug
 		lights[0].ref = GL_LIGHT0;
-		lights[1].ref = GL_LIGHT1;
-		lights[2].ref = GL_LIGHT2;
-		lights[3].ref = GL_LIGHT3;
-		lights[4].ref = GL_LIGHT4;
-		lights[5].ref = GL_LIGHT5;
-		lights[6].ref = GL_LIGHT6;
-		lights[7].ref = GL_LIGHT7;
 
-		//Setting lights attributes
-		for (int i = 0; i < MAX_LIGHTS; i++)
-		{
-			//Lights code done by Ric
-			lights[i].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-			lights[i].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-			lights[i].SetPos(0.0f, 0.0f, 2.5f);
-			lights[i].Init();
-		}
+		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+		lights[0].SetPos(0.0f, 0.0f, 2.5f);
+		lights[0].Init();
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
@@ -136,12 +127,17 @@ bool ModuleRenderer3D::Init()
 
 	//CreateDebugTexture();
 
+	tree_test.SetNegativeInfinity();
+	tree_test.Enclose(vec(0, 0, 0), vec(50, 50, 50));
+
+	tree_test2.SetNegativeInfinity();
+	tree_test2.Enclose((tree_test.minPoint/2), (tree_test.maxPoint/2));
+
+	tree_test3.SetNegativeInfinity();
+	tree_test3.Enclose((tree_test.minPoint / 2), (tree_test.maxPoint / 2));
+	//debug_tree = new QuadTreee(tree_test);
+
 	return ret;
-}
-
-void ModuleRenderer3D::DrawDebug()
-{
-
 }
 
 // PreUpdate: clear buffer
@@ -156,19 +152,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(camera->GetOpenGLViewMatrix());
+	glLoadMatrixf(camera->GetViewMatrix());
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->GetCamera()->camera_frustum.Pos().x, App->camera->GetCamera()->camera_frustum.Pos().y, App->camera->GetCamera()->camera_frustum.Pos().z);
-
-	for (uint i = 0; i < MAX_LIGHTS; ++i)
-	{
-		lights[i].Render();
-	}
-
-	StartDebugDraw();
-	App->DebugDraw();
-	EndDebugDraw();
+	lights[0].Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -176,7 +164,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-
+	//debug_tree->DebugUpdate();
+	DebugDraw(tree_test, Green);
+	DebugDraw(tree_test2, Blue);
 	return UPDATE_CONTINUE;
 }
 
@@ -201,7 +191,6 @@ bool ModuleRenderer3D::CleanUp()
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
-	camera->SetAspectRatio(((float)width / (float)height));
 	UpdateProjectionMatrix();
 }
 
@@ -209,7 +198,7 @@ void ModuleRenderer3D::UpdateProjectionMatrix()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glLoadMatrixf((GLfloat*)camera->GetOpenGLProjectionMatrix());
+	glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -248,60 +237,60 @@ bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
 {
 	bool ret = true;
 
-	// Vertices
-	glGenBuffers(1, (GLuint*) &(mesh->id_vertices));
-	if (mesh->id_vertices == 0)
-	{
-		LOG("[error] Vertices buffer has not been binded!");
-		ret = false;
+	//Loading vertices
+	glGenBuffers(1, (GLuint*)&mesh->id_vertices);
+	if (mesh->id_vertices > 0)
+	{		
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);		
 	}
 	else
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+		LOG("[error] Vertices buffer has not been binded. Buffer: %d", mesh->id_vertices);
+		ret = false;
 	}
 
-	// Normals
-	glGenBuffers(1, (GLuint*) &(mesh->id_normals));
-	if (mesh->id_normals == 0)
-	{
-		LOG("[error] Normals buffer has not been binded!");
-		ret = false;
-	}
-	else
+	//Loading normals
+	glGenBuffers(1, (GLuint*)&mesh->id_normals);
+	if (mesh->id_normals > 0)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
+	}
+	else
+	{
+		LOG("[error] Normals buffer has not been binded. Buffer: %d", mesh->id_normals);
+		ret = false;		
 	}
 
-	// Texture coords
+	//Loading texture coords (texture buffer load on ComponentMaterial)
 	if (mesh->num_tex_coord <= 0)
 	{
 		LOG("[warning] This mesh have no UV coords.");
 	}
-	glGenBuffers(1, (GLuint*) &(mesh->id_tex_coord));
-	if (mesh->id_tex_coord == 0)
-	{
-		LOG("[error] Texture coordinates buffer has not been binded!");
-		ret = false;
-	}
-	else
+	glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
+	if (mesh->id_tex_coord > 0)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);
-	}
-
-	// Indices
-	glGenBuffers(1, (GLuint*) &(mesh->id_indices));
-	if (mesh->id_indices == 0)
-	{
-		LOG("[error] Indices buffer has not been binded!");
-		ret = false;
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
 	}
 	else
+	{
+		LOG("[error] Texture coordinates buffer has not been binded. Buffer: %d", mesh->id_tex_coord);
+		ret = false;
+	}
+
+	//Loading indices
+	glGenBuffers(1, (GLuint*)&mesh->id_indices);
+	if (mesh->id_indices > 0)
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+	}
+	else
+	{
+		LOG("[error] Indices buffer has not been binded. Buffer: %d", mesh->id_indices);
+		ret = false;		
 	}
 
 	return ret;
@@ -348,7 +337,6 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 			glDisable(GL_LIGHTING);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glColor3f(0.8f, 0.7f, 0.0f);
-			glLineWidth(1.0f);
 		}	
 		else
 		{
@@ -367,9 +355,9 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		if (mesh->num_tex_coord > 0)
 		{
 			//If mesh have any material...
-			if (mesh->tex_material != 0 && wireframe == false)
+			if (mesh->id_tex_material != 0 && wireframe == false)
 			{
-				glBindTexture(GL_TEXTURE_2D, mesh->tex_material);
+				glBindTexture(GL_TEXTURE_2D, mesh->id_tex_material);
 			}
 		}
 

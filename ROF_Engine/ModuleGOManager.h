@@ -23,14 +23,11 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	void DrawDebug();
-
 	GameObject* GetRootNode() const;
-
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
-	void LoadGameObjectMesh(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
-
+	
 	void LoadFBX(const char* file_path, bool file_system = true);
+	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 
 private:
 	GameObject* root;

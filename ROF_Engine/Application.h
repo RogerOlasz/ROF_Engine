@@ -51,8 +51,6 @@ public:
 	Application();
 	~Application();
 
-	void DebugDraw();
-
 	bool Init();
 	update_status Update();
 	bool CleanUp();

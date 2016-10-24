@@ -6,42 +6,36 @@
 
 class GameObject;
 
-template<class Type>
-class QuadTreeNode
+struct QuadTreeNode
 {
-public:
-	QuadTreeNode<Type>*			parent;
-	QuadTreeNode<Type>*			children[4];
-	std::vector<Type*> bucket;
-
-public:
+	QuadTreeNode* parent;
+	QuadTreeNode* children[4];
+	std::vector<GameObject*> bucket;
+	AABB partition;
 
 	QuadTreeNode();
-
 	~QuadTreeNode();
 
-	void Insert();
-	void CollectIntersections(std::vector<GameObject*> &objects, const Type &primitive) const;
+	void AddGO(GameObject* go);
 
 };
 
-template<class Type>
-class QuadTree
+class QuadTreee
 {
 public:
-	QuadTree();
-	~QuadTree();
+	QuadTreee(AABB limits);
+	~QuadTreee();
 
-	void Create(AABB limits);
 	void Clear();
+
+	void DebugUpdate();
 
 	void Insert(GameObject* go);
 	void Remove(GameObject* go_to_delete);
 
-	bool Intersect(std::vector<GameObject*> &objects, Type &primitive);
-
 public:
-	QuadTreeNode<Type>* root;
+	QuadTreeNode* root = nullptr;
+	AABB tree_limits;
 
 };
 

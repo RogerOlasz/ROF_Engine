@@ -19,7 +19,7 @@ struct Mesh
 	float2* tex_coord = nullptr;
 
 	// Material
-	uint tex_material;
+	uint id_tex_material;
 
 	// Normals
 	uint id_normals = 0; // id in VRAM

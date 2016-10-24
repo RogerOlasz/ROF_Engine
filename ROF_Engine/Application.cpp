@@ -64,14 +64,6 @@ Application::~Application()
 	}
 }
 
-void Application::DebugDraw()
-{
-	for (list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
-	{
-		(*it)->DrawDebug();
-	}			
-}
-
 bool Application::Init()
 {
 	bool ret = true;

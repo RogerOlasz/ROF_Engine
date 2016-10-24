@@ -23,7 +23,7 @@ public:
 	float4x4 GetGlobalMatrix() const;
 	float4x4 GetLocalMatrix() const;
 
-	void UpdateGMatrix();
+	void UpdateGlobalMatrix();
 
 	void SetPos(float x, float y, float z);
 	void SetRot(float x, float y, float z, float w);

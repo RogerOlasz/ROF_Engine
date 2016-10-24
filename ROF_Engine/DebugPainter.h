@@ -4,13 +4,12 @@
 #include "Color.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
-void StartDebugDraw();
-void EndDebugDraw();
+//Debug draw to print debug geometries from everywhere
 
 void DebugDraw(const AABB &aabb, Color color = White);
 void DebugDraw(const OBB& obb, Color color = White);
-void DebugDrawBox(const vec* vertices, Color color = White);
 void DebugDraw(const Frustum &frustum, Color color = White);
+void DebugDrawBox(const vec* vertices, Color color = White);
 
 #endif // !__DEBUGPAINTER_H__
 

@@ -32,7 +32,7 @@ void ComponentTransformation::BuildTransMatrix()
 {
 	transform_matrix = float4x4::FromTRS(position, rotation, scale);
 	global_matrix_changed = true;
-	UpdateGMatrix();
+	UpdateGlobalMatrix();
 }
 
 void ComponentTransformation::PushMatrix()
@@ -74,7 +74,8 @@ float4x4 ComponentTransformation::GetLocalMatrix() const
 	return transform_matrix;
 }
 
-void ComponentTransformation::UpdateGMatrix()
+//Update global matrix
+void ComponentTransformation::UpdateGlobalMatrix()
 {
 	global_transform_matrix = game_object->GetParent()->transform->global_transform_matrix * transform_matrix;
 	global_transform_matrix_t = global_transform_matrix.Transposed();

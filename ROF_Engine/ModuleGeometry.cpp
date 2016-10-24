@@ -59,7 +59,7 @@ update_status ModuleGeometry::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGeometry::CleanUp()
 {
-	// Detach log stream
+	//Detach log stream
 	aiDetachAllLogStreams();
 
 	return true;
@@ -70,28 +70,34 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	LOG("[start] New mesh ----------------------------------------------------");
 	Mesh* mesh = new Mesh();
 
-	// Copying vertices to mesh
+	//Copying vertices to mesh
 	mesh->num_vertices = ai_mesh->mNumVertices;
 	mesh->vertices = new vec[mesh->num_vertices];
-	memcpy(mesh->vertices, ai_mesh->mVertices, sizeof(vec) * mesh->num_vertices);
+
+	memcpy(mesh->vertices, ai_mesh->mVertices, sizeof(vec) * mesh->num_vertices); 
 	LOG("New mesh with %d vertices", mesh->num_vertices);
 
-	// Copying normals to mesh
-	mesh->num_normals = ai_mesh->mNumVertices;
-	mesh->normals = new vec[mesh->num_normals];
-	memcpy(mesh->normals, ai_mesh->mNormals, sizeof(vec) * mesh->num_vertices);
-	LOG("New mesh with %d normals", mesh->num_vertices);
+	if (ai_mesh->HasNormals())
+	{
+		//Copying normals to mesh
+		mesh->num_normals = ai_mesh->mNumVertices;
+		mesh->normals = new vec[mesh->num_normals];
 
-	// Copying texture coords to mesh
+		memcpy(mesh->normals, ai_mesh->mNormals, sizeof(vec) * mesh->num_vertices);
+		LOG("New mesh with %d normals", mesh->num_vertices);
+	}	
+
+	//Copying texture coords to mesh
 	uint UV_index = 0;
 	if (ai_mesh->HasTextureCoords(UV_index))
 	{
 		mesh->num_tex_coord = ai_mesh->mNumVertices;
 		mesh->tex_coord = new float2[mesh->num_tex_coord];
-		for (int k = 0; k < mesh->num_tex_coord; ++k)
+
+		for (int i = 0; i < mesh->num_tex_coord; i++)
 		{
-			mesh->tex_coord[k].x = ai_mesh->mTextureCoords[UV_index][k].x;
-			mesh->tex_coord[k].y = ai_mesh->mTextureCoords[UV_index][k].y;
+			mesh->tex_coord[i].x = ai_mesh->mTextureCoords[UV_index][i].x;
+			mesh->tex_coord[i].y = ai_mesh->mTextureCoords[UV_index][i].y;
 		}
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
@@ -99,25 +105,30 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	//Adding texture to mesh struct 
 	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
 
-	// Copying indicies to mesh (faces on Assimp)
+	//Copying indicies to mesh (HasFaces() on Assimp)
 	if (ai_mesh->HasFaces())
 	{
 		mesh->num_indices = ai_mesh->mNumFaces * 3;
 		mesh->indices = new uint[mesh->num_indices]; 
+
 		for (uint j = 0; j < ai_mesh->mNumFaces; ++j)
 		{
 			if (ai_mesh->mFaces[j].mNumIndices != 3)
 			{
-				LOG("[warning] Geometry face without 3 indices!");
+				LOG("[warning] Geometry face without 3 indices, it will return null.");
+				RELEASE(mesh);
+				mesh = nullptr;
 			}
 			else
 			{
-				memcpy(&mesh->indices[j * 3], ai_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
+				memcpy(&mesh->indices[j*3], ai_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
 			}						
 		}
 	}
-
-	App->renderer3D->LoadMeshBuffer(mesh);
+	if (mesh != nullptr)
+	{
+		App->renderer3D->LoadMeshBuffer(mesh);
+	}
 	LOG("[end] New mesh ------------------------------------------------------");
 
 	return mesh;

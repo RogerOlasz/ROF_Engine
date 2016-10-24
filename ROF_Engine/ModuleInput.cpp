@@ -115,7 +115,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 			{
-				char *dropped_filedir = e.drop.file;
+				char* dropped_filedir = e.drop.file;
 				//Must add any check to see if the dropped file is an .fbx
 				App->go_manager->LoadFBX(dropped_filedir, false);
 				SDL_free(dropped_filedir);    

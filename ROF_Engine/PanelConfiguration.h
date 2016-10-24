@@ -34,7 +34,6 @@ public:
 	void Draw();
 
 	void DrawWindow();
-	void DrawIlumination();
 	void DrawTecnology();
 	void DrawEditorCamera();
 	void DrawApplication();	

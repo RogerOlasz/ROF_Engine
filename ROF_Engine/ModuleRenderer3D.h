@@ -11,6 +11,8 @@
 
 struct Mesh;
 class ComponentCamera;
+class ComponentMaterial;
+class QuadTreee;
 
 class ModuleRenderer3D : public Module
 {
@@ -24,9 +26,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawDebug();
-
-	//Texture debug mode
+	//Debug texture mode
 	uint image_texture;
 	void CreateDebugTexture();
 
@@ -42,8 +42,11 @@ public:
 	SDL_GLContext context;
 
 	ComponentCamera* camera = nullptr;
-	/*float3x3 NormalMatrix;
-	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;*/
+
+	AABB tree_test;
+	AABB tree_test2;
+	AABB tree_test3;
+	QuadTreee* debug_tree = nullptr;
 };
 
 #endif // !__MODULEPHYSICS3D_H__

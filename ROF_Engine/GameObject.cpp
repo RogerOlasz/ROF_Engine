@@ -23,18 +23,7 @@ GameObject::~GameObject()
 		parent->children.erase(it);
 	}
 
-	if (children.empty() != true)
-	{
-		std::vector<GameObject*>::iterator it = children.begin();
-		while (children.size() > 0 && it != children.end())
-		{
-			RELEASE(*it);
-			if (children.size() > 0)
-			{
-				it = children.begin();
-			}
-		}
-	}
+	children.clear();
 
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())
@@ -142,16 +131,11 @@ void GameObject::SetName(const char* new_name)
 	name = new_name;
 }
 
-bool GameObject::GetHierarchyState()
-{
-	return is_on_hierarchy;
-}
-
 void GameObject::UpdateGlobalMatrix()
 {
 	for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
 	{
-		(*tmp)->transform->UpdateGMatrix();
+		(*tmp)->transform->UpdateGlobalMatrix();
 		(*tmp)->UpdateGlobalMatrix();
 	}
 }
@@ -163,6 +147,7 @@ void GameObject::UpdateAABB()
 		if ((*tmp)->GetType() == Component::Types::Geometry)
 		{
 			const AABB aabb = *((ComponentMesh*)(*tmp))->GetBoundingBox();
+
 			go_obb = aabb;
 			go_obb.Transform(transform->GetGlobalMatrix());
 
@@ -189,19 +174,6 @@ void GameObject::SwitchParent(GameObject* new_parent)
 		parent = new_parent;
 		parent->children.push_back(this);
 	}
-}
-
-const Component* GameObject::GetComponentByType(Component::Types type)
-{
-	for (uint i = 0; i < components.size(); ++i)
-	{
-		if (components[i]->GetType() == type)
-		{
-			return components[i];
-		}
-	}
-
-	return nullptr;
 }
 
 bool GameObject::RemoveGameObject(GameObject* to_delete)

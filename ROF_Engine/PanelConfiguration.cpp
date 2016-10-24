@@ -48,7 +48,6 @@ void PanelConfiguration::Draw()
 	
 	DrawApplication();
 	DrawWindow();
-	DrawIlumination();
 	DrawTecnology();
 	DrawEditorCamera();
 
@@ -63,7 +62,7 @@ void PanelConfiguration::DrawWindow()
 		{
 			SDL_SetWindowBrightness(App->window->window, brightness);
 		}		
-		
+		//Still not working
 		if (ImGui::DragFloat("Gamma", &gamma, 0.01f, 0.1f))
 		{
 			SDL_SetWindowGammaRamp(App->window->window, nullptr, nullptr, nullptr);
@@ -88,48 +87,6 @@ void PanelConfiguration::DrawWindow()
 		if (ImGui::Checkbox("Full desktop", &fullscreen_desktop))
 		{
 
-		}
-	}
-}
-
-void PanelConfiguration::DrawIlumination()
-{
-	if (ImGui::CollapsingHeader("Scene Lights"))
-	{
-		for (int num_light = 0; num_light < MAX_LIGHTS; num_light++)
-		{
-			char light_name[SHORT_STRING];
-			sprintf(light_name, "Light %d", num_light);
-
-			bool light_on = App->renderer3D->lights[num_light].on;
-
-			ImGui::Checkbox(light_name, &light_on);
-
-			if (light_on != App->renderer3D->lights[num_light].on)
-			{
-				App->renderer3D->lights[num_light].Active(light_on);
-			}
-
-			if (App->renderer3D->lights[num_light].on == true)
-			{
-				sprintf(light_name, "Light position##Light_%d", num_light);
-				ImGui::SameLine();
-
-				if (ImGui::TreeNode(light_name))
-				{
-					char tmp[SHORT_STRING];
-					sprintf(tmp, "X##light_%d", num_light);
-					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.x, 1.0f);
-
-					sprintf(tmp, "Y##light_%d", num_light);
-					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.y, 1.0f);
-
-					sprintf(tmp, "Z##light_%d", num_light);
-					ImGui::DragFloat(tmp, &App->renderer3D->lights[num_light].position.z, 1.0f);
-
-					ImGui::TreePop();
-				}
-			}
 		}
 	}
 }

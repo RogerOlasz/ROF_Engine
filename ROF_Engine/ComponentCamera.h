@@ -5,8 +5,6 @@
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
-class Color;
-
 class ComponentCamera : public Component
 {
 public:
@@ -17,8 +15,8 @@ public:
 
 	void LookAt(const vec &position);
 
-	float* GetOpenGLViewMatrix();
-	float* GetOpenGLProjectionMatrix();
+	float* GetViewMatrix();
+	float* GetProjectionMatrix();
 
 	float GetNearPlane() const;
 	float GetFarPlane() const;

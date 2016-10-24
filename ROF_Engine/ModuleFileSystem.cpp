@@ -80,7 +80,7 @@ bool ModuleFileSystem::AddSearchPath(const char *path_or_zip, const char *mount_
 	return ret;
 }
 
-//Clean a path to return the file name 
+//Clean a path to return the file name
 const char *ModuleFileSystem::GetFileNameFromDirPath(const char *path) const
 {
 	//Create an empty char
@@ -88,12 +88,13 @@ const char *ModuleFileSystem::GetFileNameFromDirPath(const char *path) const
 
 	if (path != nullptr)
 	{
-		while (*(path++) != '\0')
+		while (*path != '\0')
 		{
 			if (*path == '\\')
 			{
 				file = (char*)path;
 			}
+		 *path++;
 		}
 
 		if ((path++) != '\0')

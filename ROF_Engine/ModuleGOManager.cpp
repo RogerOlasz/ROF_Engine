@@ -35,11 +35,6 @@ bool ModuleGOManager::Init()
 	return true;
 }
 
-void ModuleGOManager::DrawDebug()
-{
-
-}
-
 update_status ModuleGOManager::PreUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
@@ -106,9 +101,8 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 	return new_go;
 }
 
-void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
+void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
-
 	GameObject* ret = nullptr;
 
 	//Creating GameObject from aiNode
@@ -151,15 +145,19 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 #pragma endregion
 
 #pragma region SetMaterial
+		//Still being bad, ComponentMaterial just loads and save textures (id) but i'm charging textures from struct Mesh
 		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
 #pragma endregion
 
-#pragma region SetMeshe
+#pragma region SetMesh
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 
-			((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
+			if (tmp != nullptr)
+			{
+				((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
+			}			
 		}
 #pragma endregion
 	}
@@ -167,7 +165,7 @@ void ModuleGOManager::LoadGameObjectMesh(const aiNode* node_to_load, const aiSce
 	//Loading children nodes (do this in recursive to load all tree node)
 	for (int j = 0; j < node_to_load->mNumChildren; j++)
 	{
-		LoadGameObjectMesh(node_to_load->mChildren[j], scene, ret);
+		LoadGameObjectFromFBX(node_to_load->mChildren[j], scene, ret);
 	}
 
 	if (ret != nullptr)
@@ -193,7 +191,7 @@ void ModuleGOManager::LoadFBX(const char* file_path, bool file_system)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		LoadGameObjectMesh(scene->mRootNode, scene, root);
+		LoadGameObjectFromFBX(scene->mRootNode, scene, root);
 
 		if (scene)
 		{

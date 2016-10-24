@@ -11,11 +11,9 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	name.assign("Camera3D");
 
 	camera = new ComponentCamera(nullptr, 0);
-
 	camera->camera_frustum.SetPos(vec(50.0f, 50.0f, 50.0f));
 	camera->camera_frustum.SetFront(vec::unitZ);
 	camera->camera_frustum.SetUp(vec::unitY);
-	
 	camera->camera_frustum.SetViewPlaneDistances(0.1f, 1000.0f);
 	camera->camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
 
@@ -125,11 +123,17 @@ void ModuleCamera3D::Orbit()
 	{
 		vec position = (camera->camera_frustum.Pos() - reference);
 
-		Quat y_quat(camera->camera_frustum.Up(), dx * sensitivity);
-		Quat x_quat(camera->camera_frustum.WorldRight(), dy * sensitivity);
-
-		position = x_quat.Transform(position);
-		position = y_quat.Transform(position);
+		if (dx != 0)
+		{
+			Quat x_quat(camera->camera_frustum.Up(), dx * sensitivity);
+			position = x_quat.Transform(position);
+		}
+		
+		if (dy != 0)
+		{
+			Quat y_quat(camera->camera_frustum.WorldRight(), dy * sensitivity);
+			position = y_quat.Transform(position);
+		}
 
 		camera->camera_frustum.SetPos(position + reference);
 		LookAt(reference);

@@ -28,12 +28,10 @@ public:
 	const char* GetName();
 	std::string* GetNameString();
 	void SetName(const char* new_name);
-	bool GetHierarchyState();
 
 	void UpdateGlobalMatrix();
 	void UpdateAABB();
 
-	const Component* GetComponentByType(Component::Types type);
 	bool RemoveGameObject(GameObject* to_delete);
 
 private:
@@ -42,9 +40,7 @@ private:
 	std::string name;
 
 	AABB bounding_box;
-	OBB go_obb;
-
-	bool is_on_hierarchy = true;
+	OBB go_obb;	
 
 public:
 	ComponentTransformation* transform = nullptr;

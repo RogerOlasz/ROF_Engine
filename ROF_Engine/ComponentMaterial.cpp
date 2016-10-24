@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "Mesh.h"
+#include <string>
 
 #include "Assimp/include/material.h"
 
@@ -20,6 +21,7 @@ ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bea
 	sprintf(tmp, "Material##%d", id);
 	name = tmp;
 
+	//Components must have one init, temporal solution
 	Init();
 }
 
@@ -47,22 +49,27 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 
 		//Adapt devIL to OpenGL buffer
 		ilutRenderer(ILUT_OPENGL);
-		ilGenImages(1, &mesh->tex_material);
-		ilBindImage(mesh->tex_material);
 
+		//Loading texture
+		ilGenImages(1, &mesh->id_tex_material);
+		ilBindImage(mesh->id_tex_material);
+
+		//Saving path for component info
 		sprintf_s(tex_path, SHORT_STRING, "%s%s", "Textures/", App->physfs->GetFileNameFromDirPath(path.C_Str()));
-		char *buff;
+
+		char *buff = nullptr;
 		uint size = App->physfs->Load(tex_path, &buff);
 
 		//devIL load from buffer (not from a path as ilutGLLoadImage(char* file_name))
 		ilLoadL(IL_TYPE_UNKNOWN, buff, size);
-		mesh->tex_material = ilutGLBindTexImage();
+		mesh->id_tex_material = ilutGLBindTexImage();
 
-		texture = mesh->tex_material;	
+		texture = mesh->id_tex_material;
 	}
 	else
 	{
-		mesh->tex_material = 0;
+		LOG("[error] aiMaterial couldn't be load.");
+		mesh->id_tex_material = 0;
 	}
 }
 

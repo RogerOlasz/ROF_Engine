@@ -14,11 +14,9 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	name = tmp;
 
 	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
-
 	camera_frustum.SetPos(vec(0.0f, 10.0f, 0.0f));
 	camera_frustum.SetFront(vec::unitZ);
 	camera_frustum.SetUp(vec::unitY);
-
 	//Set near and far planes
 	camera_frustum.SetViewPlaneDistances(5.0f, 15.0f);
 	//Set horizontalFov and verticalFov
@@ -43,30 +41,26 @@ void ComponentCamera::LookAt(const vec& position)
 {
 	vec dir = position - camera_frustum.Pos();
 
-	float3x3 matrix = float3x3::LookAt(camera_frustum.Front(), dir.Normalized(), camera_frustum.Up(), float3::unitY);
+	float3x3 lookat_matrix = float3x3::LookAt(camera_frustum.Front(), dir.Normalized(), camera_frustum.Up(), vec::unitY);
 
-	camera_frustum.SetFront(matrix.MulDir(camera_frustum.Front()).Normalized());
-	camera_frustum.SetUp(matrix.MulDir(camera_frustum.Up()).Normalized());
+	camera_frustum.SetFront(lookat_matrix.MulDir(camera_frustum.Front()).Normalized());
+	camera_frustum.SetUp(lookat_matrix.MulDir(camera_frustum.Up()).Normalized());
 }
 
-float* ComponentCamera::GetOpenGLViewMatrix()
+float* ComponentCamera::GetViewMatrix()
 {
-	static float4x4 tmp;
-
-	tmp = camera_frustum.ViewMatrix();
+	float4x4 tmp = camera_frustum.ViewMatrix();
 	tmp.Transpose();
 
-	return (float*)tmp.v;
+	return *tmp.v;
 }
 
-float* ComponentCamera::GetOpenGLProjectionMatrix()
+float* ComponentCamera::GetProjectionMatrix()
 {
-	static float4x4 tmp;
-
-	tmp = camera_frustum.ProjectionMatrix();
+	float4x4 tmp = camera_frustum.ProjectionMatrix();
 	tmp.Transpose();
 
-	return (float*)tmp.v;
+	return *tmp.v;
 }
 
 float ComponentCamera::GetNearPlane() const

@@ -53,9 +53,6 @@ public:
 		return true; 
 	}
 
-	virtual void DrawDebug()
-	{}
-
 };
 
 #endif // !__MODULE_H__
