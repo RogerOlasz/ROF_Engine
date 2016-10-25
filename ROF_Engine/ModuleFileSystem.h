@@ -2,11 +2,12 @@
 #define __MODULEFILESYSTEM_H__
 
 #include "Module.h"
-#include "Assimp/include/cfileio.h"
+#include <string>
 
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops *rw);
 
+//Module has been extracted from project 2 
 class ModuleFileSystem : public Module
 {
 public:
@@ -18,7 +19,7 @@ public:
 	bool CleanUp();
 
 	bool AddSearchPath(const char *path_or_zip, const char *mount_point = NULL);
-	const char* GetFileNameFromDirPath(const char* path) const;
+	const std::string GetFileNameFromDirPath(const std::string path) const;
 
 	bool RemoveAllSearchPaths();
 	bool RemovePath(const char *path_or_zip);
@@ -29,13 +30,6 @@ public:
 	const char *GetSaveDirectory() const;
 	bool IsDirectory(const char *dir) const;
 	bool Exists(const char *file) const;
-
-	aiFileIO * ModuleFileSystem::GetAssimpIO();
-
-private:
-
-	aiFileIO* AssimpIO = nullptr;	
-	void ModuleFileSystem::CreateAssimpIO();
 	
 };
 

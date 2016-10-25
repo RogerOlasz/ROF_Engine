@@ -14,7 +14,7 @@ public:
 	GameObject(const char* name);
 	virtual ~GameObject();
 
-	Component* CreateComponent(Component::Types type);
+	Component* CreateComponent(Component::Type type);
 	void RemoveComponent(Component* to_delete);
 
 	bool IsActive() const;

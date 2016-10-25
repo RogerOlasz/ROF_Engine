@@ -22,10 +22,7 @@ public:
 
 	void LookAt(const vec &position);
 	void Move(float dt);
-	void Orbit();
-
-	vec GetPos() const;
-	void SetPos(vec position);
+	void ReferenceOrbit();
 
 private:
 	ComponentCamera* camera = nullptr;

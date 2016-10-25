@@ -88,16 +88,16 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	}	
 
 	//Copying texture coords to mesh
-	uint UV_index = 0;
-	if (ai_mesh->HasTextureCoords(UV_index))
+	uint tmp_UV_index = 0;
+	if (ai_mesh->HasTextureCoords(tmp_UV_index))
 	{
 		mesh->num_tex_coord = ai_mesh->mNumVertices;
 		mesh->tex_coord = new float2[mesh->num_tex_coord];
 
 		for (int i = 0; i < mesh->num_tex_coord; i++)
 		{
-			mesh->tex_coord[i].x = ai_mesh->mTextureCoords[UV_index][i].x;
-			mesh->tex_coord[i].y = ai_mesh->mTextureCoords[UV_index][i].y;
+			mesh->tex_coord[i].x = ai_mesh->mTextureCoords[tmp_UV_index][i].x;
+			mesh->tex_coord[i].y = ai_mesh->mTextureCoords[tmp_UV_index][i].y;
 		}
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
@@ -111,9 +111,9 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 		mesh->num_indices = ai_mesh->mNumFaces * 3;
 		mesh->indices = new uint[mesh->num_indices]; 
 
-		for (uint j = 0; j < ai_mesh->mNumFaces; ++j)
+		for (uint i = 0; i < ai_mesh->mNumFaces; ++i)
 		{
-			if (ai_mesh->mFaces[j].mNumIndices != 3)
+			if (ai_mesh->mFaces[i].mNumIndices != 3)
 			{
 				LOG("[warning] Geometry face without 3 indices, it will return null.");
 				RELEASE(mesh);
@@ -121,13 +121,13 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 			}
 			else
 			{
-				memcpy(&mesh->indices[j*3], ai_mesh->mFaces[j].mIndices, 3 * sizeof(uint));
+				memcpy(&mesh->indices[i*3], ai_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
 			}						
 		}
 	}
 	if (mesh != nullptr)
 	{
-		App->renderer3D->LoadMeshBuffer(mesh);
+		App->renderer3D->LoadMeshBuffers(mesh);
 	}
 	LOG("[end] New mesh ------------------------------------------------------");
 

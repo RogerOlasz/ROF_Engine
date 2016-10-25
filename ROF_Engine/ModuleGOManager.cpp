@@ -146,7 +146,7 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 
 #pragma region SetMaterial
 		//Still being bad, ComponentMaterial just loads and save textures (id) but i'm charging textures from struct Mesh
-		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Types::Material);
+		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);
 #pragma endregion
 
 #pragma region SetMesh
@@ -156,7 +156,7 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 
 			if (tmp != nullptr)
 			{
-				((ComponentMesh*)ret->CreateComponent(Component::Types::Geometry))->LoadMesh(tmp);
+				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
 			}			
 		}
 #pragma endregion
@@ -182,7 +182,7 @@ void ModuleGOManager::LoadFBX(const char* file_path, bool file_system)
 
 	if (file_system)
 	{
-		scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
+		scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, nullptr);
 	}
 	else
 	{

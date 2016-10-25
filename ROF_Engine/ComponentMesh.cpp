@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "ModuleRenderer3D.h"
 
-ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Types::Geometry, id)
+ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Type::Geometry, id)
 {
 	//Component names are to solve problems with ImGui same names
 	active = true;

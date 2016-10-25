@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "Mesh.h"
-#include <string>
 
 #include "Assimp/include/material.h"
 
@@ -14,7 +13,7 @@
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
 
-ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Types::Material, id)
+ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Type::Material, id)
 {
 	//Component names are to solve problems with ImGui same names
 	char tmp[SHORT_STRING];
@@ -47,33 +46,31 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 		aiString path;
 		ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
 
+		tex_path.assign("Assets/Textures/");
+		tex_path.append(App->physfs->GetFileNameFromDirPath(path.data));
+		texture_id = mesh->id_tex_material;
+
 		//Adapt devIL to OpenGL buffer
 		ilutRenderer(ILUT_OPENGL);
+		ilGenImages(1, &texture_id);
+		ilBindImage(texture_id);
+		ilLoadImage(tex_path.c_str());
 
-		//Loading texture
-		ilGenImages(1, &mesh->id_tex_material);
-		ilBindImage(mesh->id_tex_material);
+		texture_id = ilutGLBindTexImage();
 
-		//Saving path for component info
-		sprintf_s(tex_path, SHORT_STRING, "%s%s", "Textures/", App->physfs->GetFileNameFromDirPath(path.C_Str()));
-
-		char *buff = nullptr;
-		uint size = App->physfs->Load(tex_path, &buff);
-
-		//devIL load from buffer (not from a path as ilutGLLoadImage(char* file_name))
-		ilLoadL(IL_TYPE_UNKNOWN, buff, size);
-		mesh->id_tex_material = ilutGLBindTexImage();
-
-		texture = mesh->id_tex_material;
+		mesh->id_tex_material = texture_id;
 	}
 	else
 	{
-		LOG("[error] aiMaterial couldn't be load.");
+		texture_id = 0;
 		mesh->id_tex_material = 0;
+		LOG("[error] aiMaterial couldn't be load.");		
 	}
+
+	tex_path = tex_path.substr(tex_path.find_first_of("/") + 1);
 }
 
 uint ComponentMaterial::GetTexture() const
 {
-	return texture;
+	return texture_id;
 }

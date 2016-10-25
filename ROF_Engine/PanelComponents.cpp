@@ -74,7 +74,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 
 	for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
 	{
-		if ((*tmp)->GetType() == Component::Types::Geometry)
+		if ((*tmp)->GetType() == Component::Type::Geometry)
 		{
 			if (ImGui::CollapsingHeader(((ComponentMesh*)(*tmp))->name.c_str()))
 			{
@@ -100,7 +100,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 			}
 		}
 
-		if ((*tmp)->GetType() == Component::Types::Material)
+		if ((*tmp)->GetType() == Component::Type::Material)
 		{
 			if (ImGui::CollapsingHeader(((ComponentMaterial*)(*tmp))->name.c_str()))
 			{
@@ -109,12 +109,12 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::Text("%d", ((ComponentMaterial*)(*tmp))->GetID());
 
 				ImGui::Separator();
-				ImGui::Image((void*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
-				ImGui::Text("%s%s", "Texture path: ", ((ComponentMaterial*)(*tmp))->tex_path);
+				ImGui::Image((ImTextureID*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
+				ImGui::Text("%s%s", "Texture path: ", ((ComponentMaterial*)(*tmp))->tex_path.c_str());
 			}
 		}
 
-		if ((*tmp)->GetType() == Component::Types::Camera)
+		if ((*tmp)->GetType() == Component::Type::Camera)
 		{
 			if (ImGui::CollapsingHeader(((ComponentCamera*)(*tmp))->name.c_str()))
 			{

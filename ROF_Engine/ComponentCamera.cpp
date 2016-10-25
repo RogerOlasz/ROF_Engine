@@ -1,20 +1,21 @@
 #include "ComponentCamera.h"
 #include "Application.h"
 #include "ModuleGOManager.h"
+#include "ModuleRenderer3D.h"
 #include "SDL/include/SDL_opengl.h"
 #include "Color.h"
 #include "GameObject.h"
 #include "DebugPainter.h"
 
-ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer, Types::Camera, id)
+ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer, Type::Camera, id)
 {
 	active = true;
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Camera##%d", id);
 	name = tmp;
 
-	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
-	camera_frustum.SetPos(vec(0.0f, 10.0f, 0.0f));
+	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded); //OpenGl works under right hand rules for normals
+	camera_frustum.SetPos(vec(10.0f, 10.0f, 10.0f));
 	camera_frustum.SetFront(vec::unitZ);
 	camera_frustum.SetUp(vec::unitY);
 	//Set near and far planes
@@ -37,13 +38,15 @@ void ComponentCamera::Update()
 	}	
 }
 
-void ComponentCamera::LookAt(const vec& position)
+void ComponentCamera::LookAt(const vec &position)
 {
 	vec dir = position - camera_frustum.Pos();
 
+	//Look at doc: http://clb.demon.fi/MathGeoLib/nightly/docs/float3x3_LookAt.php
 	float3x3 lookat_matrix = float3x3::LookAt(camera_frustum.Front(), dir.Normalized(), camera_frustum.Up(), vec::unitY);
 
 	camera_frustum.SetFront(lookat_matrix.MulDir(camera_frustum.Front()).Normalized());
+
 	camera_frustum.SetUp(lookat_matrix.MulDir(camera_frustum.Up()).Normalized());
 }
 

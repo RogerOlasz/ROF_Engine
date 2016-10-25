@@ -31,9 +31,8 @@ public:
 	void CreateDebugTexture();
 
 	void OnResize(int width, int height);
-	void UpdateProjectionMatrix();
 
-	bool LoadMeshBuffer(const Mesh* mesh);
+	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, bool wireframe = false);
 
@@ -42,6 +41,7 @@ public:
 	SDL_GLContext context;
 
 	ComponentCamera* camera = nullptr;
+	bool update_proj_matrix = true;
 
 	AABB tree_test;
 	AABB tree_test2;

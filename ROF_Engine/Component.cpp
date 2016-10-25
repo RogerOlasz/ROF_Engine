@@ -1,7 +1,7 @@
 #include "Component.h"
 #include "GameObject.h"
 
-Component::Component(GameObject* bearer, Component::Types type, int id) : game_object(bearer), type(type), id(id)
+Component::Component(GameObject* bearer, Component::Type type, int id) : game_object(bearer), type(type), id(id)
 {
 	name = "Empty component";
 }
@@ -16,7 +16,7 @@ bool Component::IsActive() const
 	return active;
 }
 
-Component::Types Component::GetType() const
+Component::Type Component::GetType() const
 {
 	return type;
 }

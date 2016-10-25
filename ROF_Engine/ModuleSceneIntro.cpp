@@ -18,8 +18,6 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
-
-	//INITIALIZATION OF VARIABLES---------------------------------
 	bool ret = true;
 
 	return ret;

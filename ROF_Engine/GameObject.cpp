@@ -36,19 +36,19 @@ GameObject::~GameObject()
 	RELEASE(transform);
 }
 
-Component* GameObject::CreateComponent(Component::Types type)
+Component* GameObject::CreateComponent(Component::Type type)
 {
 	Component* new_component = nullptr;
 
 	switch (type)
 	{
-	case Component::Types::Geometry:
+	case Component::Type::Geometry:
 		new_component = new ComponentMesh(this, components.size());
 		break;
-	case Component::Types::Material:
+	case Component::Type::Material:
 		new_component = new ComponentMaterial(this, components.size());
 		break;
-	case Component::Types::Camera:
+	case Component::Type::Camera:
 		new_component = new ComponentCamera(this, components.size());
 		break;
 	}
@@ -144,7 +144,7 @@ void GameObject::UpdateAABB()
 {
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
-		if ((*tmp)->GetType() == Component::Types::Geometry)
+		if ((*tmp)->GetType() == Component::Type::Geometry)
 		{
 			const AABB aabb = *((ComponentMesh*)(*tmp))->GetBoundingBox();
 

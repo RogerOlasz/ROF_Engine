@@ -143,13 +143,20 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	if (camera->proj_matrix_update)
-	{
-		UpdateProjectionMatrix();
-		camera->proj_matrix_update = false;
-	}
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
+
+	if (update_proj_matrix)
+	{
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
+		//How it works http://www.songho.ca/opengl/gl_transform.html#example1
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		update_proj_matrix = false;
+	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(camera->GetViewMatrix());
@@ -191,15 +198,10 @@ bool ModuleRenderer3D::CleanUp()
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
-	UpdateProjectionMatrix();
-}
 
-void ModuleRenderer3D::UpdateProjectionMatrix()
-{
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -233,67 +235,31 @@ void ModuleRenderer3D::CreateDebugTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool ModuleRenderer3D::LoadMeshBuffer(const Mesh* mesh)
+void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
 {
-	bool ret = true;
-
 	//Loading vertices
 	glGenBuffers(1, (GLuint*)&mesh->id_vertices);
-	if (mesh->id_vertices > 0)
-	{		
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);		
-	}
-	else
-	{
-		LOG("[error] Vertices buffer has not been binded. Buffer: %d", mesh->id_vertices);
-		ret = false;
-	}
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
 
 	//Loading normals
 	glGenBuffers(1, (GLuint*)&mesh->id_normals);
-	if (mesh->id_normals > 0)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
-	}
-	else
-	{
-		LOG("[error] Normals buffer has not been binded. Buffer: %d", mesh->id_normals);
-		ret = false;		
-	}
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
 
 	//Loading texture coords (texture buffer load on ComponentMaterial)
+	glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
 	if (mesh->num_tex_coord <= 0)
 	{
-		LOG("[warning] This mesh have no UV coords.");
-	}
-	glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
-	if (mesh->id_tex_coord > 0)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
-	}
-	else
-	{
-		LOG("[error] Texture coordinates buffer has not been binded. Buffer: %d", mesh->id_tex_coord);
-		ret = false;
+		LOG("[warning] This mesh have no UV coords. Buffer id texture coords from this mesh: %d", mesh->id_tex_coord);
 	}
 
 	//Loading indices
 	glGenBuffers(1, (GLuint*)&mesh->id_indices);
-	if (mesh->id_indices > 0)
-	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
-	}
-	else
-	{
-		LOG("[error] Indices buffer has not been binded. Buffer: %d", mesh->id_indices);
-		ret = false;		
-	}
-
-	return ret;
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
 }
 
 void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)

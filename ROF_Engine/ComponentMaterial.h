@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include <string>
 
 struct aiMaterial;
 struct Mesh;
@@ -20,10 +21,10 @@ public:
 	uint GetTexture() const;
 
 public:
-	char tex_path[SHORT_STRING];
+	std::string tex_path;
 
 private:
-	uint texture;
+	uint texture_id;
 	
 
 };

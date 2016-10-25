@@ -73,7 +73,7 @@ update_status ModuleEditor::Update(float dt)
 			{
 				GameObject* tmp_go;
 				tmp_go = App->go_manager->CreateGameObject(camera_name.c_str(), nullptr);
-				tmp_go->CreateComponent(Component::Types::Camera);
+				tmp_go->CreateComponent(Component::Type::Camera);
 				camera_id++;
 			}
 			ImGui::EndMenu();

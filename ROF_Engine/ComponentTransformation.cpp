@@ -4,7 +4,7 @@
 
 #include "SDL/include/SDL_opengl.h"
 
-ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : Component(bearer, Types::Transformation, id)
+ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : Component(bearer, Type::Transformation, id)
 {
 	//Component names are to solve problems with ImGui same names
 	char tmp[SHORT_STRING];

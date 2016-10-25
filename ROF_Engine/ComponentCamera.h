@@ -32,7 +32,6 @@ public:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
 
-	bool proj_matrix_update = true;
 	bool frustum_culling = false;
 	bool debug_draw = true;
 

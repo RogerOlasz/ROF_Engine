@@ -11,15 +11,9 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	name.assign("Camera3D");
 
 	camera = new ComponentCamera(nullptr, 0);
-	camera->camera_frustum.SetPos(vec(50.0f, 50.0f, 50.0f));
-	camera->camera_frustum.SetFront(vec::unitZ);
-	camera->camera_frustum.SetUp(vec::unitY);
-	camera->camera_frustum.SetViewPlaneDistances(0.1f, 1000.0f);
-	camera->camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
+	camera->camera_frustum.SetViewPlaneDistances(0.1f, 600.0f);
 
 	LookAt(vec(0, 0, 0));
-
-	camera->proj_matrix_update = true;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -58,7 +52,7 @@ ComponentCamera* ModuleCamera3D::GetCamera() const
 update_status ModuleCamera3D::Update(float dt)
 {	
 	Move(dt);
-	Orbit();
+	ReferenceOrbit();
 
 	return UPDATE_CONTINUE;
 }
@@ -112,14 +106,14 @@ void ModuleCamera3D::Move(float dt)
 	camera->camera_frustum.SetPos(tmp);
 }
 
-void ModuleCamera3D::Orbit()
+void ModuleCamera3D::ReferenceOrbit()
 {
 	int dx = -App->input->GetMouseXMotion();
 	int dy = -App->input->GetMouseYMotion();
 
 	float sensitivity = 0.005f;
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT && (dx != 0 || dy != 0))
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
 		vec position = (camera->camera_frustum.Pos() - reference);
 
@@ -138,17 +132,4 @@ void ModuleCamera3D::Orbit()
 		camera->camera_frustum.SetPos(position + reference);
 		LookAt(reference);
 	}
-}
-
-vec ModuleCamera3D::GetPos() const
-{
-	return camera->camera_frustum.Pos();
-}
-
-void ModuleCamera3D::SetPos(vec position)
-{
-	vec dif = (position - camera->camera_frustum.Pos());
-	camera->camera_frustum.SetPos(position);
-
-	reference += dif;
 }

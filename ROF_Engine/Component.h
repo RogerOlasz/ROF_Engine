@@ -8,7 +8,7 @@ class GameObject;
 class Component
 {
 public:
-	enum Types
+	enum Type
 	{
 		Transformation,
 		Geometry,
@@ -21,7 +21,7 @@ public:
 	bool active = false;
 
 public:
-	Component(GameObject* bearer, Types type, int id);
+	Component(GameObject* bearer, Type type, int id);
 	virtual ~Component();
 
 	bool IsActive() const;
@@ -29,11 +29,11 @@ public:
 	virtual void Update() {};
 	virtual void CleanUp() {};
 
-	Types GetType() const;
+	Type GetType() const;
 	int GetID() const;
 
 private:
-	Types type = Types::Unknown;
+	Type type = Type::Unknown;
 	int id;
 
 protected:
