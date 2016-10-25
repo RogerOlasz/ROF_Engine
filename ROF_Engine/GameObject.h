@@ -27,6 +27,9 @@ public:
 
 	const char* GetName();
 	std::string* GetNameString();
+	const Component* GetComponentByType(Component::Type type);
+	const AABB GetBoundingBox() const;
+
 	void SetName(const char* new_name);
 
 	void UpdateGlobalMatrix();
@@ -35,7 +38,7 @@ public:
 	bool RemoveGameObject(GameObject* to_delete);
 
 private:
-	bool active = true;
+	bool active = false;
 	GameObject* parent = nullptr;
 	std::string name;
 

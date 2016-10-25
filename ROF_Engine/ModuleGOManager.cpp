@@ -20,6 +20,8 @@
 ModuleGOManager::ModuleGOManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("GOManager");
+
+	root = new GameObject("Root");
 }
 
 ModuleGOManager::~ModuleGOManager()
@@ -30,13 +32,30 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
-	root = new GameObject("Root");
+	culling_debug = CreateGameObject("CameraCulling", nullptr);
+	to_debug_culling = (ComponentCamera*)culling_debug->CreateComponent(Component::Type::Camera);
+	to_debug_culling->frustum_culling = true;
 
 	return true;
 }
 
 update_status ModuleGOManager::PreUpdate(float dt)
 {
+	if (to_debug_culling->frustum_culling)
+	{
+		std::vector<GameObject*>::iterator tmp = gos_array.begin();
+		while (tmp != gos_array.end())
+		{
+			AABB aabb_tmp = (*tmp)->GetBoundingBox();
+			if (!to_debug_culling->Intersects(aabb_tmp))
+			{
+				(*tmp)->SwitchActive(false);
+			}
+
+			tmp++;
+		}
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -52,7 +71,11 @@ update_status ModuleGOManager::Update(float dt)
 	std::vector<GameObject*>::iterator tmp = gos_array.begin();
 	while (tmp != gos_array.end())
 	{
-		(*tmp)->Update();
+		if ((*tmp)->IsActive())
+		{
+			(*tmp)->Update();
+		}
+		
 		tmp++;
 	}
 

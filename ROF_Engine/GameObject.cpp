@@ -78,37 +78,44 @@ void GameObject::SwitchActive(bool active)
 
 void GameObject::Update()
 {
-	if (static_go)
+	if (active)
 	{
-		transform->freeze = true;
+		if (static_go)
+		{
+			transform->freeze = true;
+		}
+		else
+		{
+			transform->freeze = false;
+		}
+
+		if (transform->global_matrix_changed)
+		{
+			UpdateGlobalMatrix();
+			UpdateAABB();
+		}
+
+		if (aabb_debug)
+		{
+			DebugDraw(bounding_box, Green);
+		}
+		if (obb_debug)
+		{
+			DebugDraw(go_obb, Red);
+		}
+
+		transform->PushMatrix();
+		for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+		{
+			(*tmp)->Update();
+
+		}
+		transform->PopMatrix();
 	}
 	else
 	{
-		transform->freeze = false;
+		LOG("%s have active = false.", name.c_str());
 	}
-
-	if (transform->global_matrix_changed)
-	{
-		UpdateGlobalMatrix();
-		UpdateAABB();
-	}
-
-	if (aabb_debug)
-	{
-		DebugDraw(bounding_box, Green);
-	}	
-	if (obb_debug)
-	{
-		DebugDraw(go_obb, Red);
-	}
-
-	transform->PushMatrix();
-	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
-	{
-		(*tmp)->Update();
-		
-	}
-	transform->PopMatrix();
 }
 
 GameObject* GameObject::GetParent()
@@ -124,6 +131,25 @@ const char* GameObject::GetName()
 std::string* GameObject::GetNameString()
 {
 	return &name;
+}
+
+const Component* GameObject::GetComponentByType(Component::Type type)
+{
+	std::vector<Component*>::iterator comp = components.begin();
+	while (comp != components.end())
+	{
+		if ((*comp)->GetID() == type)
+		{
+			return (*comp);
+		}
+		comp++;
+	}
+	return nullptr;
+}
+
+const AABB GameObject::GetBoundingBox() const
+{
+	return bounding_box;
 }
 
 void GameObject::SetName(const char* new_name)

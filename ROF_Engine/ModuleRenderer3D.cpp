@@ -172,8 +172,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::Update(float dt)
 {
 	//debug_tree->DebugUpdate();
-	DebugDraw(tree_test, Green);
-	DebugDraw(tree_test2, Blue);
+	//DebugDraw(tree_test, Green);
+	//DebugDraw(tree_test2, Blue);
 	return UPDATE_CONTINUE;
 }
 

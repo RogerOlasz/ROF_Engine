@@ -7,6 +7,7 @@
 #define MAX_STR_LEN 1024
 
 class GameObject;
+class ComponentCamera;
 struct aiNode;
 struct aiScene;
 
@@ -30,9 +31,13 @@ public:
 	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 
 private:
-	GameObject* root;
+	GameObject* root = nullptr;
 	std::vector<GameObject*> gos_array;
 
+	GameObject* culling_debug = nullptr;
+	ComponentCamera* to_debug_culling = nullptr;
+
+private:
 	void SetParent(GameObject* me, GameObject* new_parent);
 };
 

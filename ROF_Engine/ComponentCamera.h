@@ -33,13 +33,15 @@ public:
 	void SetAspectRatio(float new_aspect_ratio);
 	void SetPos(vec new_position);
 
+	bool Intersects(AABB &aabb);
+
 private:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
-	bool frustum_culling = false;
 
 public:
 	bool debug_draw = true;
+	bool frustum_culling = false;
 
 };
 

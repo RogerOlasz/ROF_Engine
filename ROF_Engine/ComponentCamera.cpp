@@ -140,3 +140,13 @@ void ComponentCamera::SetPos(vec new_position)
 {
 	camera_frustum.SetPos(new_position);
 }
+
+bool ComponentCamera::Intersects(AABB &aabb)
+{
+	if (camera_frustum.Intersects(aabb))
+	{
+		return true;
+	}
+	
+	return false;
+}
