@@ -148,10 +148,10 @@ void GameObject::UpdateAABB()
 		{
 			const AABB aabb = *((ComponentMesh*)(*tmp))->GetBoundingBox();
 
-			go_obb = aabb;
+			go_obb = aabb.ToOBB();
 			go_obb.Transform(transform->GetGlobalMatrix());
 
-			bounding_box.SetNegativeInfinity();
+			bounding_box.SetNegativeInfinity(); //Must be called before Enclose() to ser box at null
 			bounding_box.Enclose(go_obb);
 		}
 	}

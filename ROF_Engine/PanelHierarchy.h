@@ -9,7 +9,6 @@ class GameObject;
 class PanelHierarchy : public Panel
 {
 public:
-
 	PanelHierarchy();
 	virtual ~PanelHierarchy();
 
@@ -18,7 +17,7 @@ public:
 	GameObject* GetSelectedGO() const;
 
 private:
-	void SceneTreeGameObject(GameObject* node);
+	void GameObjectsHierarchy(GameObject* node);
 
 	GameObject* selected_go = nullptr;
 

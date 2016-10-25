@@ -248,12 +248,15 @@ void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
 
 	//Loading texture coords (texture buffer load on ComponentMaterial)
-	glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
-	if (mesh->num_tex_coord <= 0)
+	if (mesh->num_tex_coord > 0)
 	{
-		LOG("[warning] This mesh have no UV coords. Buffer id texture coords from this mesh: %d", mesh->id_tex_coord);
+		glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
+	}	
+	else 
+	{
+		LOG("[warning] This mesh have no UV coords, buffer couldn't be load.");
 	}
 
 	//Loading indices

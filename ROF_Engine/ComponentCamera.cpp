@@ -26,7 +26,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 
 ComponentCamera::~ComponentCamera()
 {
-
+	
 }
 
 void ComponentCamera::Update()
@@ -50,6 +50,7 @@ void ComponentCamera::LookAt(const vec &position)
 	camera_frustum.SetUp(lookat_matrix.MulDir(camera_frustum.Up()).Normalized());
 }
 
+//Gets ------------------------------------------------------------------------------
 float* ComponentCamera::GetViewMatrix()
 {
 	float4x4 tmp = camera_frustum.ViewMatrix();
@@ -86,6 +87,12 @@ float ComponentCamera::GetAspectRatio() const
 	return camera_frustum.AspectRatio();
 }
 
+vec ComponentCamera::GetPos() const
+{
+	return camera_frustum.Pos();
+}
+
+//Sets-------------------------------------------------------------------------------------
 void ComponentCamera::SetNearPlane(float distance)
 {
 	if (distance > 0 && distance < camera_frustum.FarPlaneDistance())

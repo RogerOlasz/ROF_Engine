@@ -144,17 +144,17 @@ void PanelConfiguration::DrawEditorCamera()
 {
 	if (ImGui::CollapsingHeader("Editor's camera"))
 	{
-		cam_pos = App->camera->GetCamera()->camera_frustum.Pos();
+		cam_pos = App->camera->GetCamera()->GetPos();
 		near_plane = App->camera->GetCamera()->GetNearPlane();
 		far_plane = App->camera->GetCamera()->GetFarPlane();
 		field_of_view = App->camera->GetCamera()->GetFOV();
 		aspect_ratio = App->camera->GetCamera()->GetAspectRatio();
 
-		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "X: %d", cam_pos.x);
+		ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "X: %f", cam_pos.x);
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Y: %d", cam_pos.y);
+		ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Y: %f", cam_pos.y);
 		ImGui::SameLine();
-		ImGui::TextColored(ImVec4(0.0f, 0.0f, 1.0f, 1.0f), "Z: %d", cam_pos.z);
+		ImGui::TextColored(ImVec4(0.0f, 0.0f, 1.0f, 1.0f), "Z: %f", cam_pos.z);
 
 		ImGui::Separator();
 

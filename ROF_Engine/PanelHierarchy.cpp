@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include <vector>
-#include <string>
 
 #include "ModuleGOManager.h"
 #include "GameObject.h"
@@ -36,7 +35,7 @@ void PanelHierarchy::Draw()
 	std::vector<GameObject*>::iterator go_node = App->go_manager->GetRootNode()->children.begin();
 	while (go_node != App->go_manager->GetRootNode()->children.end())
 	{
-		SceneTreeGameObject((*go_node));
+		GameObjectsHierarchy((*go_node));
 
 		go_node++;
 	}
@@ -50,7 +49,7 @@ GameObject* PanelHierarchy::GetSelectedGO() const
 }
 
 //Recursive method to create all game objects tree
-void PanelHierarchy::SceneTreeGameObject(GameObject* node)
+void PanelHierarchy::GameObjectsHierarchy(GameObject* node)
 {
 	//Disable the default open on single-click behavior and pass in Selected flag according to our selection state.
 	ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
@@ -61,12 +60,17 @@ void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 		node_flags += ImGuiTreeNodeFlags_Leaf;
 	}
 
+	if (selected_go == node)
+	{
+		node_flags += ImGuiTreeNodeFlags_Selected;
+	}
+
 	if (ImGui::TreeNodeEx(node->GetName(), node_flags))
 	{
 		std::vector<GameObject*>::iterator it = node->children.begin();
 		while (it != node->children.end())
 		{
-			SceneTreeGameObject((*it));
+			GameObjectsHierarchy((*it));
 			it++;
 		}
 		ImGui::TreePop();
@@ -74,7 +78,6 @@ void PanelHierarchy::SceneTreeGameObject(GameObject* node)
 
 	if (ImGui::IsItemClicked())
 	{
-		node_flags += ImGuiTreeNodeFlags_Selected;
 		selected_go = node;
 	}
 }

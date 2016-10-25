@@ -120,9 +120,10 @@ update_status ModuleEditor::Update(float dt)
 	//ImGui::ShowStyleEditor();
 
 	//Draw all active panels
+	Panel* panel;
 	for (vector<Panel*>::iterator tmp = panels.begin(); tmp != panels.end(); ++tmp)
 	{
-		Panel* panel = (*tmp);
+		panel = (*tmp);
 
 		if (panel->IsActive())
 		{

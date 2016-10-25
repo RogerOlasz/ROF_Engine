@@ -10,10 +10,9 @@ public:
 	Panel(const char* name);
 	virtual ~Panel();
 
-	void SwitchActive();
-	bool IsActive() const;
-
 	virtual void Draw();
+
+	bool IsActive() const;
 
 public:
 	bool active = false;

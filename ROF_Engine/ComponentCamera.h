@@ -22,6 +22,7 @@ public:
 	float GetFarPlane() const;
 	float GetFOV() const;
 	float GetAspectRatio() const;
+	vec GetPos() const;
 
 	void SetNearPlane(float distance);
 	void SetFarPlane(float distance);

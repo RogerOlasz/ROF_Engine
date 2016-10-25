@@ -37,7 +37,7 @@ void ComponentMesh::LoadMesh(Mesh* recived_mesh)
 	mesh = recived_mesh;
 
 	//Setting bounding box
-	bounding_box.SetNegativeInfinity();
+	bounding_box.SetNegativeInfinity(); //Must be called before Enclose() to ser box at null
 	bounding_box.Enclose(mesh->vertices, mesh->num_vertices);
 }
 

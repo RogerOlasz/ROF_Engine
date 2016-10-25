@@ -10,18 +10,12 @@ Panel::~Panel()
 
 }
 
-void Panel::SwitchActive()
+void Panel::Draw()
 {
-	active = !active;
+
 }
 
 bool Panel::IsActive() const
 {
 	return active;
 }
-
-void Panel::Draw()
-{
-
-}
-

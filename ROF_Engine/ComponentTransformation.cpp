@@ -38,7 +38,7 @@ void ComponentTransformation::BuildTransMatrix()
 void ComponentTransformation::PushMatrix()
 {
 	glPushMatrix();
-	glMultMatrixf((float*)&global_transform_matrix_t);
+	glMultMatrixf((GLfloat*)&global_transform_matrix_t);
 }
 
 void ComponentTransformation::PopMatrix()
@@ -107,10 +107,6 @@ void ComponentTransformation::SetRotEuler(float x, float y, float z)
 {
 	if (freeze == false)
 	{
-		while (x < 0) { x += 360; }
-		while (y < 0) { y += 360; }
-		while (z < 0) { z += 360; }
-
 		rotation_rad = DegToRad(vec(x, y, z));
 		rotation = rotation.FromEulerXYZ(rotation_rad.x, rotation_rad.y, rotation_rad.z);
 
