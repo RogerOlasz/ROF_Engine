@@ -18,7 +18,7 @@ public:
 	void RemoveComponent(Component* to_delete);
 
 	bool IsActive() const;
-	void SwitchActive(bool active);
+	void SetActive(bool active);
 
 	void Update();
 

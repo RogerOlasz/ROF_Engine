@@ -9,6 +9,7 @@
 GameObject::GameObject(const char* name) : name(name)
 {
 	transform = new ComponentTransformation(this, 00);
+	active = true;
 }
 
 GameObject::~GameObject()
@@ -71,9 +72,9 @@ bool GameObject::IsActive() const
 	return active;
 }
 
-void GameObject::SwitchActive(bool active)
+void GameObject::SetActive(bool active)
 {
-	active != active;
+	this->active = active;
 }
 
 void GameObject::Update()

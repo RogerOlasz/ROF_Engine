@@ -19,7 +19,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	camera_frustum.SetFront(vec::unitZ);
 	camera_frustum.SetUp(vec::unitY);
 	//Set near and far planes
-	camera_frustum.SetViewPlaneDistances(5.0f, 15.0f);
+	camera_frustum.SetViewPlaneDistances(5.0f, 35.0f);
 	//Set horizontalFov and verticalFov
 	camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
 }
@@ -128,12 +128,14 @@ void ComponentCamera::SetFOV(float new_fov)
 {
 	//Should add some limits?
 	camera_frustum.SetVerticalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
+	camera_frustum.SetHorizontalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
 }
 
 void ComponentCamera::SetAspectRatio(float new_aspect_ratio)
 {
 	//Should add some limits?
 	camera_frustum.SetHorizontalFovAndAspectRatio(camera_frustum.HorizontalFov(), new_aspect_ratio);
+	camera_frustum.SetVerticalFovAndAspectRatio(camera_frustum.VerticalFov(), new_aspect_ratio);
 }
 
 void ComponentCamera::SetPos(vec new_position)

@@ -44,14 +44,11 @@ update_status ModuleGOManager::PreUpdate(float dt)
 	if (to_debug_culling->frustum_culling)
 	{
 		std::vector<GameObject*>::iterator tmp = gos_array.begin();
+		tmp++;
 		while (tmp != gos_array.end())
 		{
 			AABB aabb_tmp = (*tmp)->GetBoundingBox();
-			if (!to_debug_culling->Intersects(aabb_tmp))
-			{
-				(*tmp)->SwitchActive(false);
-			}
-
+			(*tmp)->SetActive(to_debug_culling->Intersects(aabb_tmp));
 			tmp++;
 		}
 	}
