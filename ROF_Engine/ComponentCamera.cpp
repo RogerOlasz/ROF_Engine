@@ -15,11 +15,11 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	name = tmp;
 
 	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded); //OpenGl works under right hand rules for normals
-	camera_frustum.SetPos(vec(10.0f, 10.0f, 10.0f));
+	camera_frustum.SetPos(vec(0.0f, 0.0f, 0.0f));
 	camera_frustum.SetFront(vec::unitZ);
 	camera_frustum.SetUp(vec::unitY);
 	//Set near and far planes
-	camera_frustum.SetViewPlaneDistances(5.0f, 35.0f);
+	camera_frustum.SetViewPlaneDistances(5.0f, 200.0f);
 	//Set horizontalFov and verticalFov
 	camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
 }

@@ -153,6 +153,20 @@ const AABB GameObject::GetBoundingBox() const
 	return bounding_box;
 }
 
+bool GameObject::HasComponentByType(Component::Type type)
+{
+	std::vector<Component*>::iterator comp = components.begin();
+	while (comp != components.end())
+	{
+		if ((*comp)->GetID() == type)
+		{
+			return true;
+		}
+		comp++;
+	}
+	return false;
+}
+
 void GameObject::SetName(const char* new_name)
 {
 	name = new_name;

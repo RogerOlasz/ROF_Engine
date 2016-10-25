@@ -57,7 +57,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 		ImGui::SameLine();
 		ImGui::Text("%d", selected_go->transform->GetID());
 		ImGui::Separator();
-
+		
 		if (ImGui::DragFloat3("Postion", pos.ptr()))
 		{
 			selected_go->transform->SetPos(pos.x, pos.y, pos.z);
@@ -70,6 +70,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 		{
 			selected_go->transform->SetRotEuler(rot.x, rot.y, rot.z);
 		}	
+		
 	}
 
 	for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
@@ -128,8 +129,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
-
-				//On construction
+				
 				if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);
@@ -146,7 +146,6 @@ void PanelComponents::Draw(GameObject* selected_go)
 				{
 					((ComponentCamera*)(*tmp))->SetAspectRatio(aspect_ratio);
 				}
-
 			}
 		}
 	}

@@ -29,6 +29,8 @@ public:
 	std::string* GetNameString();
 	const Component* GetComponentByType(Component::Type type);
 	const AABB GetBoundingBox() const;
+	
+	bool HasComponentByType(Component::Type type);
 
 	void SetName(const char* new_name);
 
