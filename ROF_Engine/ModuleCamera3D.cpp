@@ -11,7 +11,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	name.assign("Camera3D");
 
 	camera = new ComponentCamera(nullptr, 0);
-	camera->camera_frustum.SetViewPlaneDistances(0.1f, 600.0f);
+	camera->SetNearPlane(0.1f);
+	camera->SetFarPlane(600.0f);
 
 	LookAt(vec(0, 0, 0));
 }
@@ -66,7 +67,7 @@ void ModuleCamera3D::LookAt(const vec &position)
 void ModuleCamera3D::Move(float dt)
 {
 	vec tmp(0.0f, 0.0f, 0.0f);
-	tmp = camera->camera_frustum.Pos();
+	tmp = camera->GetPos();
 
 	float speed = 15.0f * dt;
 	
@@ -86,24 +87,24 @@ void ModuleCamera3D::Move(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
-		tmp += camera->camera_frustum.Front() * speed;
+		tmp += camera->GetFront() * speed;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
-		tmp -= camera->camera_frustum.Front() * speed;
+		tmp -= camera->GetFront()  * speed;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		tmp -= camera->camera_frustum.WorldRight() * speed;
+		tmp -= camera->GetWorldRight() * speed;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		tmp += camera->camera_frustum.WorldRight() * speed;
+		tmp += camera->GetWorldRight() * speed;
 	}
 
-	reference += (tmp - camera->camera_frustum.Pos());
-	camera->camera_frustum.SetPos(tmp);
+	reference += (tmp - camera->GetPos());
+	camera->SetPos(tmp);
 }
 
 void ModuleCamera3D::ReferenceOrbit()
@@ -115,21 +116,21 @@ void ModuleCamera3D::ReferenceOrbit()
 
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		vec position = (camera->camera_frustum.Pos() - reference);
+		vec position = (camera->GetPos() - reference);
 
 		if (dx != 0)
 		{
-			Quat x_quat(camera->camera_frustum.Up(), dx * sensitivity);
+			Quat x_quat(camera->GetUp(), dx * sensitivity);
 			position = x_quat.Transform(position);
 		}
 		
 		if (dy != 0)
 		{
-			Quat y_quat(camera->camera_frustum.WorldRight(), dy * sensitivity);
+			Quat y_quat(camera->GetWorldRight(), dy * sensitivity);
 			position = y_quat.Transform(position);
 		}
 
-		camera->camera_frustum.SetPos(position + reference);
+		camera->SetPos(position + reference);
 		LookAt(reference);
 	}
 }

@@ -9,6 +9,8 @@ class ComponentCamera;
 
 class ModuleCamera3D : public Module
 {
+friend class ComponentCamera;
+
 public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();

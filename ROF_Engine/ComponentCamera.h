@@ -15,25 +15,30 @@ public:
 
 	void LookAt(const vec &position);
 
-	float* GetViewMatrix();
-	float* GetProjectionMatrix();
+	float* GetViewMatrix() const;
+	float* GetProjectionMatrix() const;
 
-	float GetNearPlane() const;
-	float GetFarPlane() const;
-	float GetFOV() const;
-	float GetAspectRatio() const;
-	vec GetPos() const;
+	const float GetNearPlane() const;
+	const float GetFarPlane() const;
+	const float GetFOV() const;
+	const float GetAspectRatio() const;
+	const vec GetFront() const;
+	const vec GetWorldRight() const;
+	const vec GetUp() const;
+	const vec GetPos() const;
 
-	void SetNearPlane(float distance);
-	void SetFarPlane(float distance);
-	void SetFOV(float fov);
-	void SetAspectRatio(float aspect_ratio);
+	void SetNearPlane(float new_distance);
+	void SetFarPlane(float new_distance);
+	void SetFOV(float new_fov);
+	void SetAspectRatio(float new_aspect_ratio);
+	void SetPos(vec new_position);
 
-public:
+private:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
-
 	bool frustum_culling = false;
+
+public:
 	bool debug_draw = true;
 
 };

@@ -51,7 +51,7 @@ void ComponentCamera::LookAt(const vec &position)
 }
 
 //Gets ------------------------------------------------------------------------------
-float* ComponentCamera::GetViewMatrix()
+float* ComponentCamera::GetViewMatrix() const
 {
 	float4x4 tmp = camera_frustum.ViewMatrix();
 	tmp.Transpose();
@@ -59,7 +59,7 @@ float* ComponentCamera::GetViewMatrix()
 	return *tmp.v;
 }
 
-float* ComponentCamera::GetProjectionMatrix()
+float* ComponentCamera::GetProjectionMatrix() const
 {
 	float4x4 tmp = camera_frustum.ProjectionMatrix();
 	tmp.Transpose();
@@ -67,55 +67,76 @@ float* ComponentCamera::GetProjectionMatrix()
 	return *tmp.v;
 }
 
-float ComponentCamera::GetNearPlane() const
+const float ComponentCamera::GetNearPlane() const
 {
 	return camera_frustum.NearPlaneDistance();
 }
 
-float ComponentCamera::GetFarPlane() const
+const float ComponentCamera::GetFarPlane() const
 {
 	return camera_frustum.FarPlaneDistance();
 }
 
-float ComponentCamera::GetFOV() const
+const float ComponentCamera::GetFOV() const
 {
 	return camera_frustum.VerticalFov() * RADTODEG;
 }
 
-float ComponentCamera::GetAspectRatio() const
+const float ComponentCamera::GetAspectRatio() const
 {
 	return camera_frustum.AspectRatio();
 }
 
-vec ComponentCamera::GetPos() const
+const vec ComponentCamera::GetFront() const
+{
+	return camera_frustum.Front();
+}
+
+const vec ComponentCamera::GetWorldRight() const
+{
+	return camera_frustum.WorldRight();
+}
+
+const vec ComponentCamera::GetUp() const
+{
+	return camera_frustum.Up();
+}
+
+const vec ComponentCamera::GetPos() const
 {
 	return camera_frustum.Pos();
 }
 
 //Sets-------------------------------------------------------------------------------------
-void ComponentCamera::SetNearPlane(float distance)
+void ComponentCamera::SetNearPlane(float new_distance)
 {
-	if (distance > 0 && distance < camera_frustum.FarPlaneDistance())
+	if (new_distance != camera_frustum.NearPlaneDistance() && new_distance > 0 && new_distance < camera_frustum.FarPlaneDistance())
 	{
-		camera_frustum.SetViewPlaneDistances(distance, camera_frustum.FarPlaneDistance());
+		camera_frustum.SetViewPlaneDistances(new_distance, camera_frustum.FarPlaneDistance());
 	}		
 }
 
-void ComponentCamera::SetFarPlane(float distance)
+void ComponentCamera::SetFarPlane(float new_distance)
 {
-	if (distance > 0 && distance > camera_frustum.NearPlaneDistance())
+	if (new_distance != camera_frustum.FarPlaneDistance() && new_distance > 0 && new_distance > camera_frustum.NearPlaneDistance())
 	{
-		camera_frustum.SetViewPlaneDistances(camera_frustum.NearPlaneDistance(), distance);
+		camera_frustum.SetViewPlaneDistances(camera_frustum.NearPlaneDistance(), new_distance);
 	}		
 }
 
-void ComponentCamera::SetFOV(float fov)
+void ComponentCamera::SetFOV(float new_fov)
 {
-	camera_frustum.SetVerticalFovAndAspectRatio((fov * DEGTORAD), camera_frustum.AspectRatio());
+	//Should add some limits?
+	camera_frustum.SetVerticalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
 }
 
-void ComponentCamera::SetAspectRatio(float aspect_ratio)
+void ComponentCamera::SetAspectRatio(float new_aspect_ratio)
 {
-	camera_frustum.SetHorizontalFovAndAspectRatio(camera_frustum.HorizontalFov(), aspect_ratio);
+	//Should add some limits?
+	camera_frustum.SetHorizontalFovAndAspectRatio(camera_frustum.HorizontalFov(), new_aspect_ratio);
 }
 
+void ComponentCamera::SetPos(vec new_position)
+{
+	camera_frustum.SetPos(new_position);
+}
