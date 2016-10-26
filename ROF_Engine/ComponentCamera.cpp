@@ -19,7 +19,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	camera_frustum.SetFront(vec::unitZ);
 	camera_frustum.SetUp(vec::unitY);
 	//Set near and far planes
-	camera_frustum.SetViewPlaneDistances(5.0f, 200.0f);
+	camera_frustum.SetViewPlaneDistances(5.0f, 100.0f);
 	//Set horizontalFov and verticalFov
 	camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
 
@@ -132,7 +132,6 @@ void ComponentCamera::SetFOV(float new_fov)
 {
 	//Should add some limits?
 	camera_frustum.SetVerticalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
-	camera_frustum.SetHorizontalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
 	UpdatePlanes();
 }
 
@@ -140,7 +139,6 @@ void ComponentCamera::SetAspectRatio(float new_aspect_ratio)
 {
 	//Should add some limits?
 	camera_frustum.SetHorizontalFovAndAspectRatio(camera_frustum.HorizontalFov(), new_aspect_ratio);
-	camera_frustum.SetVerticalFovAndAspectRatio(camera_frustum.VerticalFov(), new_aspect_ratio);
 	UpdatePlanes();
 }
 
@@ -149,6 +147,7 @@ void ComponentCamera::SetPos(vec new_position)
 	camera_frustum.SetPos(new_position);
 }
 
+//ACTUALLY USELESS
 bool ComponentCamera::Intersects(AABB &aabb)
 {
 	bool ret = false;
@@ -158,11 +157,12 @@ bool ComponentCamera::Intersects(AABB &aabb)
 
 	for (uint i = 0; i < 6; i++)
 	{
-		uint count = 8;
-
-		for (uint j = 0; j < 8; i++)
+		for (uint j = 0; j < 8; j++)
 		{
-			//if()
+			if (f_planes[i].IsOnPositiveSide(vertex[j]) == false)
+			{
+				ret = true;
+			}
 		}
 	}
 
@@ -171,10 +171,10 @@ bool ComponentCamera::Intersects(AABB &aabb)
 
 void ComponentCamera::UpdatePlanes()
 {
-	f_planes[0] = &camera_frustum.NearPlane();
-	f_planes[1] = &camera_frustum.FarPlane();
-	f_planes[2] = &camera_frustum.LeftPlane();
-	f_planes[3] = &camera_frustum.RightPlane();
-	f_planes[4] = &camera_frustum.BottomPlane();
-	f_planes[5] = &camera_frustum.TopPlane();
+	f_planes[0] = camera_frustum.NearPlane();
+	f_planes[1] = camera_frustum.FarPlane();
+	f_planes[2] = camera_frustum.LeftPlane();
+	f_planes[3] = camera_frustum.RightPlane();
+	f_planes[4] = camera_frustum.BottomPlane();
+	f_planes[5] = camera_frustum.TopPlane();
 }

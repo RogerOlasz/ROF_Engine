@@ -43,7 +43,7 @@ private:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
 
-	Plane* f_planes[6];
+	Plane f_planes[6];
 
 public:
 	bool debug_draw = true;

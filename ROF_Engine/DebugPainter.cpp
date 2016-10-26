@@ -32,7 +32,7 @@ void DebugDrawBox(const vec* vertices, Color color)
 
 	glBegin(GL_LINES);
 
-	//Direct mode to boxes. 
+	//Direct mode as boxes.
 	glVertex3fv((GLfloat*)&vertices[1]);
 	glVertex3fv((GLfloat*)&vertices[5]);
 	glVertex3fv((GLfloat*)&vertices[7]);
