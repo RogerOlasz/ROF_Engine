@@ -13,7 +13,6 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-#include "Quadtree.h"
 #include "DebugPainter.h"
 
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
@@ -127,16 +126,6 @@ bool ModuleRenderer3D::Init()
 
 	//CreateDebugTexture();
 
-	tree_test.SetNegativeInfinity();
-	tree_test.Enclose(vec(0, 0, 0), vec(50, 50, 50));
-
-	tree_test2.SetNegativeInfinity();
-	tree_test2.Enclose((tree_test.minPoint/2), (tree_test.maxPoint/2));
-
-	tree_test3.SetNegativeInfinity();
-	tree_test3.Enclose((tree_test.minPoint / 2), (tree_test.maxPoint / 2));
-	//debug_tree = new QuadTreee(tree_test);
-
 	return ret;
 }
 
@@ -171,9 +160,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	//debug_tree->DebugUpdate();
-	//DebugDraw(tree_test, Green);
-	//DebugDraw(tree_test2, Blue);
 	return UPDATE_CONTINUE;
 }
 

@@ -9,7 +9,6 @@
 GameObject::GameObject(const char* name) : name(name)
 {
 	transform = new ComponentTransformation(this, 00);
-	active = true;
 }
 
 GameObject::~GameObject()
@@ -67,56 +66,39 @@ void GameObject::RemoveComponent(Component* to_delete)
 
 }
 
-bool GameObject::IsActive() const
-{
-	return active;
-}
-
-void GameObject::SetActive(bool active)
-{
-	this->active = active;
-}
-
 void GameObject::Update()
 {
-	if (active)
+	if (static_go)
 	{
-		if (static_go)
-		{
-			transform->freeze = true;
-		}
-		else
-		{
-			transform->freeze = false;
-		}
-
-		if (transform->global_matrix_changed)
-		{
-			UpdateGlobalMatrix();
-			UpdateAABB();
-		}
-
-		if (aabb_debug)
-		{
-			DebugDraw(bounding_box, Green);
-		}
-		if (obb_debug)
-		{
-			DebugDraw(go_obb, Red);
-		}
-
-		transform->PushMatrix();
-		for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
-		{
-			(*tmp)->Update();
-
-		}
-		transform->PopMatrix();
+		transform->freeze = true;
 	}
 	else
 	{
-		LOG("%s have active = false.", name.c_str());
+		transform->freeze = false;
 	}
+
+	if (transform->global_matrix_changed)
+	{
+		UpdateGlobalMatrix();
+		UpdateAABB();
+	}
+
+	if (aabb_debug)
+	{
+		DebugDraw(bounding_box, Green);
+	}
+	if (obb_debug)
+	{
+		DebugDraw(go_obb, Red);
+	}
+
+	transform->PushMatrix();
+	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
+	{
+		(*tmp)->Update();
+
+	}
+	transform->PopMatrix();
 }
 
 GameObject* GameObject::GetParent()

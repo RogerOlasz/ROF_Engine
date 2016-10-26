@@ -32,27 +32,11 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
-	culling_debug = CreateGameObject("CameraCulling", nullptr);
-	to_debug_culling = (ComponentCamera*)culling_debug->CreateComponent(Component::Type::Camera);
-	to_debug_culling->frustum_culling = true;
-
 	return true;
 }
 
 update_status ModuleGOManager::PreUpdate(float dt)
 {
-	if (to_debug_culling->frustum_culling)
-	{
-		std::vector<GameObject*>::iterator tmp = gos_array.begin();
-		tmp++;
-		while (tmp != gos_array.end())
-		{
-			AABB aabb_tmp = (*tmp)->GetBoundingBox();
-			(*tmp)->SetActive(to_debug_culling->Intersects(aabb_tmp));
-			tmp++;
-		}
-	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -68,10 +52,7 @@ update_status ModuleGOManager::Update(float dt)
 	std::vector<GameObject*>::iterator tmp = gos_array.begin();
 	while (tmp != gos_array.end())
 	{
-		if ((*tmp)->IsActive())
-		{
-			(*tmp)->Update();
-		}
+		(*tmp)->Update();
 		
 		tmp++;
 	}
@@ -198,7 +179,7 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 
 void ModuleGOManager::LoadFBX(const char* file_path, bool file_system)
 {
-	const aiScene* scene;
+	const aiScene* scene = nullptr;
 
 	if (file_system)
 	{

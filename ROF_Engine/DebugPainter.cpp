@@ -18,6 +18,14 @@ void DebugDraw(const OBB& obb, Color color)
 	DebugDrawBox(vertices, color);
 }
 
+void DebugDraw(const Frustum &frustum, Color color)
+{
+	float3 vertices[8];
+	frustum.GetCornerPoints(vertices);
+
+	DebugDrawBox(vertices, color);
+}
+
 void DebugDrawBox(const vec* vertices, Color color)
 {
 	glColor3f(color.r, color.g, color.b);
@@ -60,10 +68,3 @@ void DebugDrawBox(const vec* vertices, Color color)
 	glColor3f(1.0f, 1.0f, 1.0f);
 }
 
-void DebugDraw(const Frustum &frustum, Color color)
-{
-	float3 vertices[8];
-	frustum.GetCornerPoints(vertices);
-
-	DebugDrawBox(vertices, color);
-}

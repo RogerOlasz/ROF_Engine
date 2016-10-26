@@ -17,9 +17,6 @@ public:
 	Component* CreateComponent(Component::Type type);
 	void RemoveComponent(Component* to_delete);
 
-	bool IsActive() const;
-	void SetActive(bool active);
-
 	void Update();
 
 	GameObject* GetParent();
@@ -40,7 +37,6 @@ public:
 	bool RemoveGameObject(GameObject* to_delete);
 
 private:
-	bool active = false;
 	GameObject* parent = nullptr;
 	std::string name;
 

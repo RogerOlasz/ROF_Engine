@@ -42,11 +42,6 @@ public:
 
 	ComponentCamera* camera = nullptr;
 	bool update_proj_matrix = true;
-
-	AABB tree_test;
-	AABB tree_test2;
-	AABB tree_test3;
-	QuadTreee* debug_tree = nullptr;
 };
 
 #endif // !__MODULEPHYSICS3D_H__
