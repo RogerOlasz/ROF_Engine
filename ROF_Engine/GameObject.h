@@ -26,6 +26,7 @@ public:
 	std::string* GetNameString();
 	const Component* GetComponentByType(Component::Type type);
 	const AABB GetBoundingBox() const;
+	const float4x4* GetGlobalMatrixT() const;
 	
 	bool HasComponentByType(Component::Type type);
 

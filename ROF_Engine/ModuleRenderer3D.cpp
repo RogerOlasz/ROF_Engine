@@ -133,6 +133,10 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	mesh_to_draw.clear();
+	mesh_trans_matrix.clear();
+	is_wireframe.clear();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
@@ -161,6 +165,23 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
+	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
+	{
+		for (uint i = 0; i < mesh_to_draw.size(); i++)
+		{
+			glPushMatrix();
+			glMultMatrixf((GLfloat*)mesh_trans_matrix[i]);
+
+			DrawMesh(mesh_to_draw[i], is_wireframe[i]);
+
+			glPopMatrix();
+		}
+	}
+	else
+	{
+		LOG("[error] Meshes are outdated. Mesh size: %d  Transform matrix size: %d Wireframe size: %d", mesh_to_draw.size(), mesh_trans_matrix.size(), is_wireframe.size());
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -168,7 +189,7 @@ update_status ModuleRenderer3D::Update(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	SDL_GL_SwapWindow(App->window->window);
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -192,6 +213,13 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix)
+{
+	mesh_to_draw.push_back(mesh);
+	is_wireframe.push_back(wireframed);
+	mesh_trans_matrix.push_back(trans_matrix);
 }
 
 //Create Black/White debug texture

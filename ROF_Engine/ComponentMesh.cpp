@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Mesh.h"
 #include "ModuleRenderer3D.h"
+#include "GameObject.h"
 
 ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Type::Geometry, id)
 {
@@ -45,7 +46,7 @@ void ComponentMesh::Update()
 {
 	if (active)
 	{
-		App->renderer3D->DrawMesh(mesh, wirefr);
+		App->renderer3D->AddMeshToDraw(mesh, wirefr, game_object->GetGlobalMatrixT());
 	}
 }
 

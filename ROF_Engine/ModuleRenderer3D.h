@@ -30,9 +30,15 @@ public:
 
 	void OnResize(int width, int height);
 
+	void AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix);
 	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, bool wireframe = false);
+
+private:
+	std::vector<const Mesh*> mesh_to_draw;
+	std::vector<bool> is_wireframe;
+	std::vector<const float4x4*> mesh_trans_matrix;
 
 public:
 	Light lights[MAX_LIGHTS];

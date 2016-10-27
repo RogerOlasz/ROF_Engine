@@ -92,13 +92,10 @@ void GameObject::Update()
 		DebugDraw(go_obb, Red);
 	}
 
-	transform->PushMatrix();
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)
 	{
 		(*tmp)->Update();
-
 	}
-	transform->PopMatrix();
 }
 
 GameObject* GameObject::GetParent()
@@ -133,6 +130,11 @@ const Component* GameObject::GetComponentByType(Component::Type type)
 const AABB GameObject::GetBoundingBox() const
 {
 	return bounding_box;
+}
+
+const float4x4* GameObject::GetGlobalMatrixT() const
+{
+	return transform->GetGlobalMatrixT();
 }
 
 bool GameObject::HasComponentByType(Component::Type type)

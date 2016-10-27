@@ -69,6 +69,11 @@ float4x4 ComponentTransformation::GetGlobalMatrix() const
 	return global_transform_matrix;
 }
 
+const float4x4* ComponentTransformation::GetGlobalMatrixT() const
+{
+	return &global_transform_matrix_t;
+}
+
 float4x4 ComponentTransformation::GetLocalMatrix() const
 {
 	return transform_matrix;

@@ -21,6 +21,7 @@ public:
 	vec GetRotation() const;
 
 	float4x4 GetGlobalMatrix() const;
+	const float4x4* GetGlobalMatrixT() const;
 	float4x4 GetLocalMatrix() const;
 
 	void UpdateGlobalMatrix();
