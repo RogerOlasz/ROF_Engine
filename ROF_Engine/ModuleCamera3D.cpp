@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
-#include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 
 #include "ComponentCamera.h"
@@ -15,7 +14,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	camera->SetFarPlane(600.0f);
 	camera->SetPos(vec(10.0f, 10.0f, 10.0f));
 
-	LookAt(vec(0, 0, 0));
+	LookAt(vec(0.0f, 0.0f, 0.0f));
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -24,7 +23,6 @@ ModuleCamera3D::~ModuleCamera3D()
 bool ModuleCamera3D::Init()
 {
 	bool ret = true;
-	App->renderer3D->camera = camera;
 
 	return ret;
 }
@@ -40,7 +38,6 @@ bool ModuleCamera3D::CleanUp()
 {
 	LOG("Cleaning camera");
 
-	App->renderer3D->camera = nullptr;
 	RELEASE(camera);
 
 	return true;

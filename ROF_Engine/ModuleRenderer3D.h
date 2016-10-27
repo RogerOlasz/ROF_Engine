@@ -1,5 +1,5 @@
 #ifndef __MODULERENDERER3D_H__
-#define __MODULEPHYSICS3D_H__
+#define __MODULERENDERER3D_H__
 
 #include "Module.h"
 #include "Globals.h"
@@ -11,8 +11,6 @@
 
 struct Mesh;
 class ComponentCamera;
-class ComponentMaterial;
-class QuadTreee;
 
 class ModuleRenderer3D : public Module
 {
@@ -44,4 +42,4 @@ public:
 	bool update_proj_matrix = true;
 };
 
-#endif // !__MODULEPHYSICS3D_H__
+#endif // !__MODULERENDERER3D_H__

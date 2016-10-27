@@ -28,7 +28,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 
 ComponentCamera::~ComponentCamera()
 {
-	
+	//RELEASE(f_planes);
 }
 
 void ComponentCamera::Update()
