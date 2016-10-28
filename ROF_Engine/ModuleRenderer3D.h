@@ -46,6 +46,7 @@ public:
 
 	ComponentCamera* camera = nullptr;
 	bool update_proj_matrix = true;
+	bool camera_changed = false;
 };
 
 #endif // !__MODULERENDERER3D_H__

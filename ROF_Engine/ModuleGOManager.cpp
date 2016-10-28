@@ -32,21 +32,12 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
-	cam = new ComponentCamera(root, 0);
 
 	return true;
 }
 
 update_status ModuleGOManager::PreUpdate(float dt)
 {
-	std::vector<GameObject*>::iterator tmp = gos_array.begin();
-	while (tmp != gos_array.end())
-	{
-		AABB dbg_tmp = (*tmp)->GetBoundingBox();
-		bool b = cam->Intersects(dbg_tmp);
-
-		tmp++;
-	}
 
 	return UPDATE_CONTINUE;
 }
@@ -59,7 +50,7 @@ update_status ModuleGOManager::Update(float dt)
 	}
 
 	root->Update();
-	cam->Update();
+
 	std::vector<GameObject*>::iterator tmp = gos_array.begin();
 	while (tmp != gos_array.end())
 	{

@@ -140,6 +140,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	if (camera_changed)
+	{
+		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		update_proj_matrix = true;
+	}
+
 	if (update_proj_matrix)
 	{
 		glMatrixMode(GL_PROJECTION);

@@ -27,6 +27,8 @@ private:
 	float far_plane;
 	float field_of_view;
 	float aspect_ratio;
+
+	bool render_camera = false;
 };
 
 #endif // !__PANELCOMPONENTS_H__

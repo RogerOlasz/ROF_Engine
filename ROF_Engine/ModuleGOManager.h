@@ -34,8 +34,6 @@ private:
 	GameObject* root = nullptr;
 	std::vector<GameObject*> gos_array;
 
-	ComponentCamera* cam = nullptr;
-
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);
 };

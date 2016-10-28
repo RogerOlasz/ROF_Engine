@@ -10,7 +10,7 @@ void DebugDraw(const AABB &aabb, Color color)
 	DebugDrawBox(vertices, color);
 }
 
-void DebugDraw(const OBB& obb, Color color)
+void DebugDraw(const OBB &obb, Color color)
 {
 	vec vertices[8];
 	obb.GetCornerPoints(vertices);
@@ -32,6 +32,7 @@ void DebugDrawBox(const vec* vertices, Color color)
 
 	glBegin(GL_LINES);
 
+#pragma region CubeFaces
 	//Direct mode as boxes.
 	glVertex3fv((GLfloat*)&vertices[1]);
 	glVertex3fv((GLfloat*)&vertices[5]);
@@ -62,6 +63,7 @@ void DebugDrawBox(const vec* vertices, Color color)
 	glVertex3fv((GLfloat*)&vertices[7]);
 	glVertex3fv((GLfloat*)&vertices[4]);
 	glVertex3fv((GLfloat*)&vertices[6]);
+#pragma endregion
 
 	glEnd();
 

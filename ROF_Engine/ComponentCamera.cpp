@@ -147,7 +147,7 @@ void ComponentCamera::SetPos(vec new_position)
 	camera_frustum.SetPos(new_position);
 }
 
-//ACTUALLY USELESS
+//Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml
 bool ComponentCamera::Intersects(AABB &aabb)
 {
 	bool ret = false;
@@ -157,12 +157,19 @@ bool ComponentCamera::Intersects(AABB &aabb)
 
 	for (uint i = 0; i < 6; i++)
 	{
+		uint in_count = 8;
+
 		for (uint j = 0; j < 8; j++)
 		{
-			if (f_planes[i].IsOnPositiveSide(vertex[j]) == false)
+			if (f_planes[i].IsOnPositiveSide(vertex[j]) == true)
 			{
-				ret = true;
+				--in_count;				
 			}
+		}
+
+		if (in_count != 0)
+		{
+			ret = true;
 		}
 	}
 

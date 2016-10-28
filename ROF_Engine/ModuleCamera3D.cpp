@@ -50,8 +50,11 @@ ComponentCamera* ModuleCamera3D::GetCamera() const
 
 update_status ModuleCamera3D::Update(float dt)
 {	
-	Move(dt);
-	ReferenceOrbit();
+	if (controls_disabled == false)
+	{
+		Move(dt);
+		ReferenceOrbit();
+	}	
 
 	return UPDATE_CONTINUE;
 }

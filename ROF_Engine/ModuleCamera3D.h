@@ -29,6 +29,9 @@ public:
 private:
 	ComponentCamera* camera = nullptr;
 	vec reference;
+
+public:
+	bool controls_disabled = false;
 	
 };
 

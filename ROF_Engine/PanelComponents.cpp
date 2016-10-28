@@ -7,6 +7,7 @@
 #include "ComponentMaterial.h"
 #include "ComponentCamera.h"
 #include "ModuleCamera3D.h"
+#include "ModuleRenderer3D.h"
 #include "Mesh.h"
 #include "ImGui/imgui.h"
 
@@ -125,6 +126,19 @@ void PanelComponents::Draw(GameObject* selected_go)
 				aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
 
 				ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
+				
+				if(ImGui::Checkbox("Use camera", &render_camera))
+				{
+					App->renderer3D->camera = ((ComponentCamera*)(*tmp));
+					App->camera->controls_disabled = true;
+				}
+
+				if(render_camera == false)
+				{
+					App->renderer3D->camera = App->camera->GetCamera();
+					App->camera->controls_disabled = false;
+					App->renderer3D->update_proj_matrix = true;
+				}
 
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
@@ -133,18 +147,34 @@ void PanelComponents::Draw(GameObject* selected_go)
 				if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);
+					if (render_camera)
+					{
+						App->renderer3D->update_proj_matrix = true;
+					}
 				}
 				if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetFarPlane(far_plane);
+					if (render_camera)
+					{
+						App->renderer3D->update_proj_matrix = true;
+					}
 				}
 				if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetFOV(field_of_view);
+					if (render_camera)
+					{
+						App->renderer3D->update_proj_matrix = true;
+					}
 				}
 				if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
 				{
 					((ComponentCamera*)(*tmp))->SetAspectRatio(aspect_ratio);
+					if (render_camera)
+					{
+						App->renderer3D->update_proj_matrix = true;
+					}
 				}
 			}
 		}
