@@ -22,6 +22,7 @@ PanelConsole::~PanelConsole()
 void PanelConsole::AddLog(const char* log)
 {
 	Items.push_back(strdup(log));
+	scroll_to_bottom = true;
 }
 
 void PanelConsole::Draw()

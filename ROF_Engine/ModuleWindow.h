@@ -3,7 +3,7 @@
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
-#include "ImGui\imgui.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 
 class Application;
 
@@ -21,12 +21,12 @@ public:
 
 	void SetTitle(const char* title);
 
-	ImVec2 GetWindowSize();
+	float2 GetWindowSize();
 
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
-
+	float2 window_size;
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
 };

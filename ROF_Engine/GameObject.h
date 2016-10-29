@@ -51,6 +51,8 @@ public:
 	bool aabb_debug = false;
 	bool static_go = false;
 
+	bool have_camera = false;
+
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
 

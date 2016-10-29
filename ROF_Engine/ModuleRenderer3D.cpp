@@ -124,6 +124,8 @@ bool ModuleRenderer3D::Init()
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	last_frame_window_size.x = SCREEN_WIDTH;
+	last_frame_window_size.y = SCREEN_HEIGHT;
 
 	//CreateDebugTexture();
 
@@ -142,8 +144,16 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	if (camera_changed)
 	{
-		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		OnResize(App->window->window_size.x, App->window->window_size.y);
 		update_proj_matrix = true;
+	}
+
+	if (last_frame_window_size.x != App->window->window_size.x || last_frame_window_size.y != App->window->window_size.y)
+	{
+		OnResize(App->window->window_size.x, App->window->window_size.y);
+		update_proj_matrix = true;
+		last_frame_window_size.x = App->window->window_size.x;
+		last_frame_window_size.y = App->window->window_size.y;
 	}
 
 	if (update_proj_matrix)

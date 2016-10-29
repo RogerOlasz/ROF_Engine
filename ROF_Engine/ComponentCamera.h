@@ -33,6 +33,9 @@ public:
 	void SetFOV(float new_fov);
 	void SetAspectRatio(float new_aspect_ratio);
 	void SetPos(vec new_position);
+	void SetPos(float4x4* transform);
+	void SetFront(float4x4* transform);
+	void SetUp(float4x4* transform);
 
 	bool Intersects(AABB &aabb);
 
@@ -43,7 +46,7 @@ private:
 	//Help here: http://clb.demon.fi/MathGeoLib/nightly/docs/Frustum_summary.php
 	Frustum camera_frustum;
 
-	Plane f_planes[6];
+	Plane* f_planes[6];
 
 public:
 	bool debug_draw = true;

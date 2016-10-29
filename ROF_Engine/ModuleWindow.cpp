@@ -77,6 +77,8 @@ bool ModuleWindow::Init()
 		}
 	}
 
+	GetWindowSize();
+
 	return ret;
 }
 
@@ -101,10 +103,12 @@ void ModuleWindow::SetTitle(const char* title)
 	SDL_SetWindowTitle(window, title);
 }
 
-ImVec2 ModuleWindow::GetWindowSize()
+float2 ModuleWindow::GetWindowSize()
 {
 	int width, height;
 	SDL_GetWindowSize(window, &width, &height);
+	window_size.x = width;
+	window_size.y = height;
 
-	return ImVec2(width, height);
+	return window_size;
 }

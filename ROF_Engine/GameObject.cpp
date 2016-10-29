@@ -8,7 +8,8 @@
 
 GameObject::GameObject(const char* name) : name(name)
 {
-	transform = new ComponentTransformation(this, 00);
+	transform = new ComponentTransformation(this, 0);
+	have_camera = false;
 }
 
 GameObject::~GameObject()
@@ -50,6 +51,7 @@ Component* GameObject::CreateComponent(Component::Type type)
 		break;
 	case Component::Type::Camera:
 		new_component = new ComponentCamera(this, components.size());
+		this->have_camera = true;
 		break;
 	}
 
@@ -81,6 +83,13 @@ void GameObject::Update()
 	{
 		UpdateGlobalMatrix();
 		UpdateAABB();
+		//Mmmm must search other way to to this, this is so dirty
+		if (have_camera)
+		{
+			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetFront(&transform->GetGlobalMatrix());
+			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetUp(&transform->GetGlobalMatrix());
+			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetPos(&transform->GetGlobalMatrix());
+		}
 	}
 
 	if (aabb_debug)
@@ -118,7 +127,7 @@ const Component* GameObject::GetComponentByType(Component::Type type)
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())
 	{
-		if ((*comp)->GetID() == type)
+		if ((*comp)->GetType() == type)
 		{
 			return (*comp);
 		}
