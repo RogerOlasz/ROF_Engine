@@ -50,8 +50,15 @@ Component* GameObject::CreateComponent(Component::Type type)
 		new_component = new ComponentMaterial(this, components.size());
 		break;
 	case Component::Type::Camera:
-		new_component = new ComponentCamera(this, components.size());
-		this->have_camera = true;
+		if(this->GetComponentByType(Component::Type::Camera) == nullptr)
+		{
+			new_component = new ComponentCamera(this, components.size());
+			this->have_camera = true;
+		}
+		else
+		{
+			LOG("%s already have a camera.", GetName());
+		}
 		break;
 	}
 
@@ -83,7 +90,7 @@ void GameObject::Update()
 	{
 		UpdateGlobalMatrix();
 		UpdateAABB();
-		//Mmmm must search other way to to this, this is so dirty
+		//TODO Mmmm must search other way to to this, this is so dirty
 		if (have_camera)
 		{
 			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetFront(&transform->GetGlobalMatrix());
@@ -136,9 +143,9 @@ const Component* GameObject::GetComponentByType(Component::Type type)
 	return nullptr;
 }
 
-const AABB GameObject::GetBoundingBox() const
+const AABB* GameObject::GetBoundingBox() const
 {
-	return bounding_box;
+	return &bounding_box;
 }
 
 const float4x4* GameObject::GetGlobalMatrixT() const

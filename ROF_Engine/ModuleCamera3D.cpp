@@ -12,7 +12,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	camera = new ComponentCamera(nullptr, 0);
 	camera->SetNearPlane(0.1f);
 	camera->SetFarPlane(600.0f);
-	camera->SetPos(vec(10.0f, 10.0f, 10.0f));
+	camera->SetPos(vec(20.0f, 20.0f, 20.0f));
 
 	LookAt(vec(0.0f, 0.0f, 0.0f));
 }

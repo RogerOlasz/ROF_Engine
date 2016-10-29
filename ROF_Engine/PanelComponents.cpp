@@ -38,6 +38,17 @@ void PanelComponents::Draw(GameObject* selected_go)
 	ImGui::SameLine();
 	ImGui::Text(selected_go->GetName());
 
+	if (ImGui::BeginMenu("Add component"))
+	{
+		if (ImGui::MenuItem("Camera"))
+		{
+			//TODO Must add any update to their front/up values to game object
+			selected_go->CreateComponent(Component::Type::Camera);
+		}
+
+		ImGui::EndMenu();
+	}
+
 	if (ImGui::Button("Center view"))
 	{
 		App->camera->LookAt(selected_go->transform->GetPosition());
@@ -126,6 +137,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
 
 				ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
+				ImGui::Checkbox("Camera culling", &((ComponentCamera*)(*tmp))->frustum_culling);
 				
 				if(ImGui::Checkbox("Use camera", &render_camera))
 				{

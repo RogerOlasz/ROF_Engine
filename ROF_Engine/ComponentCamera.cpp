@@ -38,11 +38,6 @@ void ComponentCamera::Update()
 	{
 		DebugDraw(camera_frustum, Blue);
 	}	
-
-	if (frustum_culling)
-	{
-
-	}
 }
 
 void ComponentCamera::LookAt(const vec &position)
@@ -157,23 +152,26 @@ void ComponentCamera::SetPos(float4x4* transform)
 	vec new_pos = vec::zero;
 	new_pos = transform->TranslatePart();
 	camera_frustum.SetPos(new_pos);
+	UpdatePlanes();
 }
 
 void ComponentCamera::SetFront(float4x4* transform)
 {
 	camera_frustum.SetFront(transform->WorldZ());
+	UpdatePlanes();
 }
 
 void ComponentCamera::SetUp(float4x4* transform)
 {
 	camera_frustum.SetUp(transform->WorldY());
+	UpdatePlanes();
 }
 
 //Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml 
-bool ComponentCamera::Intersects(AABB &aabb)
-{
-	bool ret = false;
-	
+bool ComponentCamera::Intersects(const AABB &aabb)
+{	
+	bool ret = true;
+
 	vec vertex[8];
 	aabb.GetCornerPoints(vertex);
 
@@ -183,15 +181,16 @@ bool ComponentCamera::Intersects(AABB &aabb)
 
 		for (uint j = 0; j < 8; j++)
 		{
-			if (f_planes[i]->IsOnPositiveSide(vertex[j]) == true)
+			if (f_planes[i].IsOnPositiveSide(vertex[j]) == true)
 			{
-				--in_count;				
+				in_count--;				
 			}
 		}
 
-		if (in_count != 0)
+		if (in_count == 0)
 		{
-			ret = true;
+			ret = false;
+			return ret;
 		}
 	}
 
@@ -200,10 +199,10 @@ bool ComponentCamera::Intersects(AABB &aabb)
 
 void ComponentCamera::UpdatePlanes()
 {
-	f_planes[0] = &camera_frustum.NearPlane();
-	f_planes[1] = &camera_frustum.FarPlane();
-	f_planes[2] = &camera_frustum.LeftPlane();
-	f_planes[3] = &camera_frustum.RightPlane();
-	f_planes[4] = &camera_frustum.BottomPlane();
-	f_planes[5] = &camera_frustum.TopPlane();
+	f_planes[0] = camera_frustum.NearPlane();
+	f_planes[1] = camera_frustum.FarPlane();
+	f_planes[2] = camera_frustum.LeftPlane();
+	f_planes[3] = camera_frustum.RightPlane();
+	f_planes[4] = camera_frustum.BottomPlane();
+	f_planes[5] = camera_frustum.TopPlane();
 }

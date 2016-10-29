@@ -38,6 +38,7 @@ bool ModuleGOManager::Init()
 
 update_status ModuleGOManager::PreUpdate(float dt)
 {
+	CameraCulling();
 
 	return UPDATE_CONTINUE;
 }
@@ -176,6 +177,60 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
 		LOG("I'm %s and my parent is %s", ret->GetName(), ret->GetParent()->GetName());
+	}
+}
+
+void ModuleGOManager::CameraCulling()
+{
+	//It works with preferences so if there are more than one camera the first one added will determine the culling
+	//TODO please, delete it... most dirty method to do camera culling...
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	ComponentCamera* tmp_cam = nullptr;
+	while (tmp != gos_array.end())
+	{
+		std::vector<GameObject*>::iterator last_tmp = tmp;
+		if ((*tmp)->have_camera)
+		{
+			if (((ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera))->frustum_culling)
+			{
+				tmp_cam = (ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera);
+
+				tmp = gos_array.begin();
+				while (tmp != gos_array.end())
+				{
+					if (tmp_cam->Intersects(*(*tmp)->GetBoundingBox()) == false)
+					{
+						if ((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))
+						{
+							((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))->active = false;
+						}
+					}
+					else
+					{
+						if ((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))
+						{
+							((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))->active = true;
+						}
+					}
+					tmp++;
+				}
+				break;
+			}
+			else
+			{
+				tmp = gos_array.begin();
+				while (tmp != gos_array.end())
+				{
+					if ((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))
+					{
+						((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))->active = true;
+					}
+					tmp++;
+				}
+				tmp = last_tmp;
+			}
+		}
+		tmp++;
 	}
 }
 

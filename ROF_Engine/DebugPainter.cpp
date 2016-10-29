@@ -34,6 +34,15 @@ void DebugDrawBox(const vec* vertices, Color color)
 
 #pragma region CubeFaces
 	//Direct mode as boxes.
+	
+	//         4-----5
+	//        /|    /|
+	//       / |   / |
+	//		0--6--1  7
+	//		| /	  | /
+	//		|/    |/
+	//		2-----3
+	
 	glVertex3fv((GLfloat*)&vertices[1]);
 	glVertex3fv((GLfloat*)&vertices[5]);
 	glVertex3fv((GLfloat*)&vertices[7]);

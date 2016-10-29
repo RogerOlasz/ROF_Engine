@@ -270,14 +270,28 @@ void ModuleRenderer3D::CreateDebugTexture()
 void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
 {
 	//Loading vertices
-	glGenBuffers(1, (GLuint*)&mesh->id_vertices);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+	if (mesh->num_vertices > 0)
+	{
+		glGenBuffers(1, (GLuint*)&mesh->id_vertices);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+	}
+	else
+	{
+		LOG("[warning] This mesh have no vertices, buffer couldn't be load.");
+	}	
 
 	//Loading normals
-	glGenBuffers(1, (GLuint*)&mesh->id_normals);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
+	if (mesh->num_normals > 0)
+	{
+		glGenBuffers(1, (GLuint*)&mesh->id_normals);
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
+	}
+	else
+	{
+		LOG("[warning] This mesh have no normals, buffer couldn't be load.");
+	}
 
 	//Loading texture coords (texture buffer load on ComponentMaterial)
 	if (mesh->num_tex_coord > 0)
@@ -292,9 +306,16 @@ void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
 	}
 
 	//Loading indices
-	glGenBuffers(1, (GLuint*)&mesh->id_indices);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+	if (mesh->num_indices > 0)
+	{
+		glGenBuffers(1, (GLuint*)&mesh->id_indices);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+	}
+	else
+	{
+		LOG("[warning] This mesh have no indices (faces), buffer couldn't be load.");
+	}
 }
 
 void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
