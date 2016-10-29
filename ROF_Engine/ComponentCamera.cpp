@@ -169,7 +169,7 @@ void ComponentCamera::SetUp(float4x4* transform)
 	camera_frustum.SetUp(transform->WorldY());
 }
 
-//Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml
+//Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml 
 bool ComponentCamera::Intersects(AABB &aabb)
 {
 	bool ret = false;

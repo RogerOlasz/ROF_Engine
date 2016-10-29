@@ -13,8 +13,6 @@ public:
 	~ComponentTransformation();
 
 	void BuildTransMatrix();
-	void PushMatrix();
-	void PopMatrix();
 
 	vec GetPosition() const;
 	vec GetScale() const;

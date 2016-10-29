@@ -130,6 +130,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				if(ImGui::Checkbox("Use camera", &render_camera))
 				{
 					App->renderer3D->camera = ((ComponentCamera*)(*tmp));
+					App->renderer3D->update_proj_matrix = true;
 					App->camera->controls_disabled = true;
 				}
 

@@ -35,17 +35,6 @@ void ComponentTransformation::BuildTransMatrix()
 	UpdateGlobalMatrix();
 }
 
-void ComponentTransformation::PushMatrix()
-{
-	glPushMatrix();
-	glMultMatrixf((GLfloat*)&global_transform_matrix_t);
-}
-
-void ComponentTransformation::PopMatrix()
-{
-	glPopMatrix();
-}
-
 vec ComponentTransformation::GetPosition() const
 {
 	return position;
