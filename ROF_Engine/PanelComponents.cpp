@@ -94,6 +94,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
 				ImGui::SameLine();
 				ImGui::Text("%d", ((ComponentMesh*)(*tmp))->GetID());
+				ImGui::Separator();
 
 				ImGui::SameLine(ImGui::GetWindowWidth() - 105);
 				ImGui::Text("Active:");
@@ -135,28 +136,29 @@ void PanelComponents::Draw(GameObject* selected_go)
 				far_plane = ((ComponentCamera*)(*tmp))->GetFarPlane();
 				field_of_view = ((ComponentCamera*)(*tmp))->GetFOV();
 				aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
-
+								
+				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+				ImGui::SameLine();
+				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
+				ImGui::Separator();
+				
 				ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
 				ImGui::Checkbox("Camera culling", &((ComponentCamera*)(*tmp))->frustum_culling);
-				
-				if(ImGui::Checkbox("Use camera", &render_camera))
+
+				if (ImGui::Checkbox("Use camera", &render_camera))
 				{
 					App->renderer3D->camera = ((ComponentCamera*)(*tmp));
 					App->renderer3D->update_proj_matrix = true;
 					App->camera->controls_disabled = true;
 				}
 
-				if(render_camera == false)
+				if (render_camera == false)
 				{
 					App->renderer3D->camera = App->camera->GetCamera();
 					App->camera->controls_disabled = false;
 					App->renderer3D->update_proj_matrix = true;
 				}
 
-				ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
-				ImGui::SameLine();
-				ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
-				
 				if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 				{
 					((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);

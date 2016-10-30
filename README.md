@@ -18,4 +18,9 @@ Liscence: https://github.com/RogerOlasz/ROF_Engine/blob/master/LICENSE
 
 		- Press "M" to load a scene called "Street environment_V01.FBX".
 
+		- Create a camera on Edit options.
+
+		- Add a component camera on any game object on components panel.
+
+
 # Contact: rogerolasz96@gmail.com
