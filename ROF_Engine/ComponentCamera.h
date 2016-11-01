@@ -16,8 +16,8 @@ public:
 
 	void LookAt(const vec &position);
 
-	float* GetViewMatrix() const;
-	float* GetProjectionMatrix() const;
+	const float* GetViewMatrix() const;
+	const float* GetProjectionMatrix() const;
 
 	const float GetNearPlane() const;
 	const float GetFarPlane() const;

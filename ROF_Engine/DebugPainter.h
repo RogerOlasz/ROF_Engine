@@ -4,7 +4,8 @@
 #include "Color.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
-//Debug draw prints as wireframe some basic geometry
+//Helper to draw geometry as lines
+
 void DebugDraw(const AABB &aabb, Color color = White);
 void DebugDraw(const OBB &obb, Color color = White);
 void DebugDraw(const Frustum &frustum, Color color = White);

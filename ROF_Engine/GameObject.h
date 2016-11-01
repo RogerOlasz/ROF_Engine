@@ -12,7 +12,7 @@ class GameObject
 {
 public:
 	GameObject(const char* name);
-	virtual ~GameObject();
+	~GameObject();
 
 	Component* CreateComponent(Component::Type type);
 	void RemoveComponent(Component* to_delete);
@@ -27,8 +27,6 @@ public:
 	const Component* GetComponentByType(Component::Type type);
 	const AABB* GetBoundingBox() const;
 	const float4x4* GetGlobalMatrixT() const;
-	
-	bool HasComponentByType(Component::Type type);
 
 	void SetName(const char* new_name);
 

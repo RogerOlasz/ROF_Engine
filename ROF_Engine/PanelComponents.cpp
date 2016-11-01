@@ -42,7 +42,6 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		if (ImGui::MenuItem("Camera"))
 		{
-			//TODO Must add any update to their front/up values to game object
 			selected_go->CreateComponent(Component::Type::Camera);
 		}
 

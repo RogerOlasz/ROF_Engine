@@ -110,8 +110,26 @@ void ModuleCamera3D::Move(float dt)
 
 void ModuleCamera3D::ReferenceOrbit()
 {
-	int dx = -App->input->GetMouseXMotion();
-	int dy = -App->input->GetMouseYMotion();
+	int dx;
+	int dy;
+
+	if (invert_controls_x)
+	{
+		dx = -App->input->GetMouseXMotion();
+	}
+	else
+	{
+		dx = App->input->GetMouseXMotion();
+	}
+	
+	if (invert_controls_y)
+	{
+		dy = -App->input->GetMouseYMotion();
+	}
+	else
+	{
+		dy = App->input->GetMouseYMotion();
+	}
 
 	float sensitivity = 0.005f;
 

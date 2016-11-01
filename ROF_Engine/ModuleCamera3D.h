@@ -28,10 +28,13 @@ public:
 
 private:
 	ComponentCamera* camera = nullptr;
+	//Maybe could have reference on Comp Camera
 	vec reference;
 
 public:
 	bool controls_disabled = false;
+	bool invert_controls_x = true;
+	bool invert_controls_y = true;
 	
 };
 

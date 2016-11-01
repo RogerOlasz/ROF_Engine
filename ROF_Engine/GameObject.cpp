@@ -14,16 +14,6 @@ GameObject::GameObject(const char* name) : name(name)
 
 GameObject::~GameObject()
 {
-	if (parent != nullptr)
-	{
-		std::vector<GameObject*>::iterator it = parent->children.begin();
-		while ((*it) != this)
-		{
-			it++;
-		}
-		parent->children.erase(it);
-	}
-
 	children.clear();
 
 	std::vector<Component*>::iterator comp = components.begin();
@@ -153,20 +143,6 @@ const float4x4* GameObject::GetGlobalMatrixT() const
 	return transform->GetGlobalMatrixT();
 }
 
-bool GameObject::HasComponentByType(Component::Type type)
-{
-	std::vector<Component*>::iterator comp = components.begin();
-	while (comp != components.end())
-	{
-		if ((*comp)->GetID() == type)
-		{
-			return true;
-		}
-		comp++;
-	}
-	return false;
-}
-
 void GameObject::SetName(const char* new_name)
 {
 	name = new_name;
@@ -220,12 +196,6 @@ void GameObject::SwitchParent(GameObject* new_parent)
 bool GameObject::RemoveGameObject(GameObject* to_delete)
 {
 	bool ret = false;
-
-	if (to_delete)
-	{
-		RELEASE(to_delete);
-		ret = true;
-	}
 
 	return ret;
 }

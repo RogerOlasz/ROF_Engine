@@ -29,8 +29,8 @@ ModuleGeometry::~ModuleGeometry()
 // Called before render is available
 bool ModuleGeometry::Init()
 {
-	// Stream log messages to Debug window
-	struct aiLogStream stream;
+	//Log messages 
+	aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
@@ -39,8 +39,7 @@ bool ModuleGeometry::Init()
 
 // PreUpdate: clear buffer
 update_status ModuleGeometry::PreUpdate(float dt)
-{
-	
+{	
 	return UPDATE_CONTINUE;
 }
 
@@ -102,7 +101,7 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
 
-	//Adding texture to mesh struct 
+	//Adding texture to mesh struct (must change it to save tex only on comp material)
 	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
 
 	//Copying indicies to mesh (HasFaces() on Assimp)

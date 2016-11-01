@@ -14,10 +14,8 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	sprintf(tmp, "Camera##%d", id);
 	name = tmp;
 
-	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded); //OpenGl works under right hand rules for normals
-	camera_frustum.SetPos(vec(0.0f, 0.0f, 0.0f));
-	camera_frustum.SetFront(vec::unitZ);
-	camera_frustum.SetUp(vec::unitY);
+	camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded); //If a Frustum is right-handed, then the camera looks towards -Z, +Y is up, and +X is right. 
+	camera_frustum.SetFrame(vec(0.0f, 0.0f, 0.0f), vec::unitZ, vec::unitY); //Faster than set one by one (pos, front and up)
 	//Set near and far planes
 	camera_frustum.SetViewPlaneDistances(5.0f, 100.0f);
 	//Set horizontalFov and verticalFov
@@ -46,14 +44,12 @@ void ComponentCamera::LookAt(const vec &position)
 
 	//Look at doc: http://clb.demon.fi/MathGeoLib/nightly/docs/float3x3_LookAt.php
 	float3x3 lookat_matrix = float3x3::LookAt(camera_frustum.Front(), dir.Normalized(), camera_frustum.Up(), vec::unitY);
-
-	camera_frustum.SetFront(lookat_matrix.MulDir(camera_frustum.Front()).Normalized());
-
-	camera_frustum.SetUp(lookat_matrix.MulDir(camera_frustum.Up()).Normalized());
+	camera_frustum.SetFront(lookat_matrix.MulDir(camera_frustum.Front()).Normalized()); //Get front dir from matrix
+	camera_frustum.SetUp(lookat_matrix.MulDir(camera_frustum.Up()).Normalized()); //Get up dir from matrix
 }
 
 //Gets ------------------------------------------------------------------------------
-float* ComponentCamera::GetViewMatrix() const
+const float* ComponentCamera::GetViewMatrix() const
 {
 	float4x4 tmp = camera_frustum.ViewMatrix();
 	tmp.Transpose();
@@ -61,7 +57,7 @@ float* ComponentCamera::GetViewMatrix() const
 	return *tmp.v;
 }
 
-float* ComponentCamera::GetProjectionMatrix() const
+const float* ComponentCamera::GetProjectionMatrix() const
 {
 	float4x4 tmp = camera_frustum.ProjectionMatrix();
 	tmp.Transpose();
@@ -145,8 +141,10 @@ void ComponentCamera::SetAspectRatio(float new_aspect_ratio)
 void ComponentCamera::SetPos(vec new_position)
 {
 	camera_frustum.SetPos(new_position);
+	UpdatePlanes();
 }
 
+//Could add a SetFrame to optimize setpos setfront and setup
 void ComponentCamera::SetPos(float4x4* transform)
 {
 	vec new_pos = vec::zero;

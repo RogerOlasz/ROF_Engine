@@ -157,6 +157,9 @@ void PanelConfiguration::DrawEditorCamera()
 		ImGui::TextColored(ImVec4(0.0f, 0.0f, 1.0f, 1.0f), "Z: %f", cam_pos.z);
 
 		ImGui::Separator();
+		ImGui::Checkbox("Invert orbit (Axis X)", &App->camera->invert_controls_x);
+		ImGui::Checkbox("Invert orbit (Axis Y)", &App->camera->invert_controls_y);
+		ImGui::Separator();
 
 		if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
 		{
