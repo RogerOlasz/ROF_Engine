@@ -2,6 +2,7 @@
 #define __MODULE_H__
 
 #include "Globals.h"
+#include "PugiXML/src/pugixml.hpp"
 #include <string>
 
 class Application;
@@ -51,6 +52,16 @@ public:
 	virtual bool CleanUp() 
 	{ 
 		return true; 
+	}
+
+	virtual bool Load(pugi::xml_node&)
+	{
+		return true;
+	}
+
+	virtual bool Save(pugi::xml_node&) const
+	{
+		return true;
 	}
 
 };

@@ -2,6 +2,7 @@
 #define __Application_H__
 
 #include <list>
+#include <string>
 #include "Globals.h"
 #include "Timer.h"
 
@@ -44,6 +45,12 @@ private:
 	char app_name[SHORT_STRING];
 	char organization[SHORT_STRING];
 
+	bool want_to_save;
+	bool want_to_load;
+
+	std::string load_scene;
+	std::string save_scene;
+
 	std::list<Module*> list_modules;
 
 public:
@@ -61,11 +68,18 @@ public:
 	bool RequestBrowser(const char* link);
 	void Log(const char* log);
 
+	void LoadScene(const char* file);
+	void SaveScene(const char* file);
+
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	bool LoadSceneNow();
+	bool SaveSceneNow();	
+
 };
 
 extern Application* App;

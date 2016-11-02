@@ -185,5 +185,19 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
+void Application::LoadScene(const char* file)
+{
+	want_to_load = true;
+	char tmp[SHORT_STRING];
+	sprintf(tmp, "%s%s", physfs->GetSaveDirectory(), file);
+	load_scene.assign(tmp);
+}
+
+void Application::SaveScene(const char* file)
+{
+	want_to_save = true;
+	save_scene.assign(file);
+}
+
 const char *Application::GetAppName() { return app_name; }
 const char *Application::GetOrganization() { return organization; }

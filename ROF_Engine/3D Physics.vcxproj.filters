@@ -37,6 +37,9 @@
     <Filter Include="Sources\Components">
       <UniqueIdentifier>{20306411-a505-49a7-9c82-4bf39b664139}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Resources\PugiXML">
+      <UniqueIdentifier>{d8b58803-9a1d-44bc-9e8e-abca9b5fc1ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -345,6 +348,12 @@
     <ClInclude Include="Quadtree.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="PugiXML\src\pugiconfig.hpp">
+      <Filter>Sources\Resources\PugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="PugiXML\src\pugixml.hpp">
+      <Filter>Sources\Resources\PugiXML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -559,6 +568,9 @@
     </ClCompile>
     <ClCompile Include="Quadtree.cpp">
       <Filter>Sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="PugiXML\src\pugixml.cpp">
+      <Filter>Sources\Resources\PugiXML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

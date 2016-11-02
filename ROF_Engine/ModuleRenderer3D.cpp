@@ -195,7 +195,7 @@ update_status ModuleRenderer3D::Update(float dt)
 	}
 	else
 	{
-		LOG("[error] Meshes are outdated. Mesh size: %d  Transform matrix size: %d Wireframe size: %d", mesh_to_draw.size(), mesh_trans_matrix.size(), is_wireframe.size());
+		LOG("[error] Meshes are depracated. Mesh size: %d  Transform matrix size: %d Wireframe size: %d", mesh_to_draw.size(), mesh_trans_matrix.size(), is_wireframe.size());
 	}
 
 	return UPDATE_CONTINUE;
