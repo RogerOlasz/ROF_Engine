@@ -40,6 +40,9 @@
     <Filter Include="Sources\Resources\PugiXML">
       <UniqueIdentifier>{d8b58803-9a1d-44bc-9e8e-abca9b5fc1ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Importer">
+      <UniqueIdentifier>{0dfe3782-5df3-4839-b4cb-a20bf1849be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -354,6 +357,15 @@
     <ClInclude Include="PugiXML\src\pugixml.hpp">
       <Filter>Sources\Resources\PugiXML</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSceneImporter.h">
+      <Filter>Sources\Modules\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialImporter.h">
+      <Filter>Sources\Modules\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshImporter.h">
+      <Filter>Sources\Modules\Importer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -571,6 +583,15 @@
     </ClCompile>
     <ClCompile Include="PugiXML\src\pugixml.cpp">
       <Filter>Sources\Resources\PugiXML</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSceneImporter.cpp">
+      <Filter>Sources\Modules\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialImporter.cpp">
+      <Filter>Sources\Modules\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshImporter.cpp">
+      <Filter>Sources\Modules\Importer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

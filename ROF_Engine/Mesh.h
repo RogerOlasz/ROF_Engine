@@ -31,6 +31,9 @@ struct Mesh
 	uint num_indices = 0;
 	uint* indices = nullptr;	
 
+	// Colors
+	vec* colors = nullptr;
+
 	// Delete mesh will call structure's destructor.
 	~Mesh()
 	{

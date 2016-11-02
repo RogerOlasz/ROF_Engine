@@ -17,6 +17,7 @@ class ModuleEditor;
 class ModuleGeometry;
 class ModuleFileSystem;
 class ModuleGOManager;
+class ModuleSceneImporter;
 
 class Application
 {
@@ -31,6 +32,7 @@ public:
 	ModuleGeometry* geometry = nullptr;
 	ModuleFileSystem* physfs = nullptr;
 	ModuleGOManager* go_manager = nullptr;
+	ModuleSceneImporter* importer = nullptr;
 
 private:
 

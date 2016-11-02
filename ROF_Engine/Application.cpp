@@ -10,6 +10,7 @@
 #include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
+#include "ModuleSceneImporter.h"
 
 #include "DebugPainter.h"
 
@@ -27,6 +28,7 @@ Application::Application()
 	geometry = new ModuleGeometry(this);
 	physfs = new ModuleFileSystem(this);
 	go_manager = new ModuleGOManager(this);
+	importer = new ModuleSceneImporter(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -40,7 +42,8 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(geometry);	
+	AddModule(geometry);
+	AddModule(importer);
 
 	// Scenes
 	AddModule(scene_intro);
