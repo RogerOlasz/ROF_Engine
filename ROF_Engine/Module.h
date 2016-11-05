@@ -9,10 +9,10 @@ class Application;
 
 class Module
 {
-private :
+private:
 	bool enabled;
 
-protected:
+public:
 	std::string name;
 
 public:

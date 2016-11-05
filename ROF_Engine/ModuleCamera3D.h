@@ -20,11 +20,17 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	bool Load(pugi::xml_node &config);
+	bool Save(pugi::xml_node &config) const;
+
 	ComponentCamera* GetCamera() const;
 
 	void LookAt(const vec &position);
+
 	void Move(float dt);
 	void ReferenceOrbit();
+
+	void SetDefault();
 
 private:
 	ComponentCamera* camera = nullptr;

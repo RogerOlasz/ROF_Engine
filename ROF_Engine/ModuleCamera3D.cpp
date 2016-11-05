@@ -43,6 +43,31 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
+bool ModuleCamera3D::Load(pugi::xml_node &config)
+{
+	vec tmp;
+	tmp.x = config.child("Position").attribute("X").as_float(20.0f);
+	tmp.y = config.child("Position").attribute("Y").as_float(20.0f);
+	tmp.z = config.child("Position").attribute("Z").as_float(20.0f);
+
+	camera->SetPos(tmp);
+
+	return true;
+}
+
+bool ModuleCamera3D::Save(pugi::xml_node &config) const
+{
+	vec tmp = camera->GetPos();
+
+	pugi::xml_node tmp_pos = config.append_child("Position");
+
+	tmp_pos.append_attribute("X") = tmp.x;
+	tmp_pos.append_attribute("Y") = tmp.y;
+	tmp_pos.append_attribute("Z") = tmp.z;
+
+	return true;
+}
+
 ComponentCamera* ModuleCamera3D::GetCamera() const
 {
 	return camera;
@@ -152,4 +177,14 @@ void ModuleCamera3D::ReferenceOrbit()
 		camera->SetPos(position + reference);
 		LookAt(reference);
 	}
+}
+
+void ModuleCamera3D::SetDefault()
+{
+	camera->SetNearPlane(0.1f);
+	camera->SetFarPlane(600.0f);
+	camera->SetPos(vec(20.0f, 20.0f, 20.0f));
+	camera->SetFrame(vec(20.0f, 20.0f, 20.0f), vec::unitZ, vec::unitY);
+
+	LookAt(vec(0.0f, 0.0f, 0.0f));
 }

@@ -44,7 +44,8 @@ bool ModuleFileSystem::Init()
 	else
 	{
 		LOG("%s %s", "Write directory is ", write_dir);
-		AddSearchPath(write_dir, GetSaveDirectory());
+		//AddSearchPath(write_dir, GetSaveDirectory());
+		AddSearchPath(write_dir);
 		AddSearchPath("Assets/Models", "Models");
 	}
 
@@ -217,5 +218,5 @@ bool ModuleFileSystem::Exists(const char *file) const
 
 const char *ModuleFileSystem::GetSaveDirectory() const
 {
-	return "save/";
+	return "EditorConfig/";
 }

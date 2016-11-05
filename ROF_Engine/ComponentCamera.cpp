@@ -165,6 +165,11 @@ void ComponentCamera::SetUp(float4x4* transform)
 	UpdatePlanes();
 }
 
+void ComponentCamera::SetFrame(vec new_pos, vec front_dir, vec up_dir)
+{
+	camera_frustum.SetFrame(new_pos, front_dir, up_dir);
+}
+
 //Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml 
 bool ComponentCamera::Intersects(const AABB &aabb)
 {	

@@ -36,6 +36,7 @@ public:
 	void SetPos(float4x4* transform);
 	void SetFront(float4x4* transform);
 	void SetUp(float4x4* transform);
+	void SetFrame(vec new_pos, vec front_dir, vec up_dir);
 
 	bool Intersects(const AABB &aabb);
 

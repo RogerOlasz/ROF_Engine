@@ -1,5 +1,5 @@
-#ifndef __Application_H__
-#define __Application_H__
+#ifndef __APPLICATION_H__
+#define __APPLICATION_H__
 
 #include <list>
 #include <string>
@@ -47,11 +47,14 @@ private:
 	char app_name[SHORT_STRING];
 	char organization[SHORT_STRING];
 
-	bool want_to_save;
-	bool want_to_load;
+	bool want_to_save_scene;
+	bool want_to_load_scene;
 
 	std::string load_scene;
 	std::string save_scene;
+
+	std::string load_editor;
+	std::string save_editor;
 
 	std::list<Module*> list_modules;
 
@@ -73,17 +76,22 @@ public:
 	void LoadScene(const char* file);
 	void SaveScene(const char* file);
 
-private:
+	void LoadEditorConfig(const char* file);
+	void SaveEditorConfig(const char* file);
 
+private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
 
 	bool LoadSceneNow();
-	bool SaveSceneNow();	
+	bool SaveSceneNow();
+
+	bool LoadConfigNow();
+	bool SaveConfigNow();
 
 };
 
 extern Application* App;
 
-#endif // __Application_H__
+#endif // !__APPLICATION_H__

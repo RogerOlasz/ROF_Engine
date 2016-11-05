@@ -13,6 +13,8 @@
 #include "ModuleSceneImporter.h"
 
 #include "DebugPainter.h"
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -49,7 +51,7 @@ Application::Application()
 	AddModule(scene_intro);
 
 	// Renderer last!
-	AddModule(renderer3D);	
+	AddModule(renderer3D);
 
 	// Strings
 	sprintf_s(app_name, SHORT_STRING, TITLE);
@@ -60,7 +62,7 @@ Application::~Application()
 {
 	list<Module*>::reverse_iterator item = list_modules.rbegin();
 
-	while(item != list_modules.rend())
+	while (item != list_modules.rend())
 	{
 		delete (*item);
 		item++;
@@ -74,22 +76,25 @@ bool Application::Init()
 	// Call Init() in all modules
 	list<Module*>::iterator item = list_modules.begin();
 
-	while(item != list_modules.end() && ret == true)
+	while (item != list_modules.end() && ret == true)
 	{
 		ret = (*item)->Init();
 		item++;
 	}
 
+	LoadEditorConfig("Configuration.xml");
+	LoadConfigNow();
+
 	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = list_modules.begin();
 
-	while(item != list_modules.end() && ret == true)
+	while (item != list_modules.end() && ret == true)
 	{
 		ret = (*item)->Start();
 		item++;
 	}
-	
+
 	to_fps.Start();
 	ms_timer.Start();
 	return ret;
@@ -129,10 +134,10 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
-	
+
 	list<Module*>::iterator item = list_modules.begin();
-	
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+
+	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PreUpdate(dt);
 		item++;
@@ -140,7 +145,7 @@ update_status Application::Update()
 
 	item = list_modules.begin();
 
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->Update(dt);
 		item++;
@@ -148,7 +153,7 @@ update_status Application::Update()
 
 	item = list_modules.begin();
 
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	while (item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PostUpdate(dt);
 		item++;
@@ -163,7 +168,10 @@ bool Application::CleanUp()
 	bool ret = true;
 	list<Module*>::reverse_iterator item = list_modules.rbegin();
 
-	while(item != list_modules.rend() && ret == true)
+	SaveEditorConfig("Configuration.xml");
+	SaveConfigNow();
+
+	while (item != list_modules.rend() && ret == true)
 	{
 		ret = (*item)->CleanUp();
 		++item;
@@ -190,7 +198,7 @@ void Application::AddModule(Module* mod)
 
 void Application::LoadScene(const char* file)
 {
-	want_to_load = true;
+	want_to_load_scene = true;
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "%s%s", physfs->GetSaveDirectory(), file);
 	load_scene.assign(tmp);
@@ -198,8 +206,89 @@ void Application::LoadScene(const char* file)
 
 void Application::SaveScene(const char* file)
 {
-	want_to_save = true;
+	want_to_save_scene = true;
 	save_scene.assign(file);
+}
+
+void Application::LoadEditorConfig(const char* file)
+{
+	char tmp[SHORT_STRING];
+	sprintf(tmp, "%s%s", physfs->GetSaveDirectory(), file);
+	//load_editor.assign(tmp);
+	load_editor.assign(file);
+}
+
+void Application::SaveEditorConfig(const char* file)
+{
+	save_editor.assign(file);
+}
+
+bool Application::LoadSceneNow()
+{
+	return true;
+}
+
+bool Application::SaveSceneNow()
+{
+	return true;
+}
+
+bool Application::LoadConfigNow()
+{
+	bool ret = true;
+
+	char* buffer;
+	uint size = physfs->Load(load_editor.c_str(), &buffer);
+
+	if (size > 0)
+	{
+		pugi::xml_document data;
+		pugi::xml_node root;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != 0)
+		{
+			root = data.child("EditorConfig");
+
+			list<Module*>::iterator item = list_modules.begin();
+			while (item != list_modules.end() && ret == true)
+			{
+				ret = (*item)->Load(root.child((*item)->name.c_str()));
+				item++;
+			}
+		}
+	}
+
+	return ret;
+}
+
+bool Application::SaveConfigNow()
+{
+	bool ret = true;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("EditorConfig");
+
+	list<Module*>::iterator item = list_modules.begin();
+	while (item != list_modules.end() && ret == true)
+	{
+		ret = (*item)->Save(root.append_child((*item)->name.c_str()));
+		item++;
+	}
+
+	if (ret == true)
+	{
+		std::stringstream stream;
+		data.save(stream);
+
+		physfs->Save(load_editor.c_str(), stream.str().c_str(), stream.str().length());
+	}
+
+	return ret;
 }
 
 const char *Application::GetAppName() { return app_name; }
