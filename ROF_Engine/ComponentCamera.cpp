@@ -174,7 +174,7 @@ void ComponentCamera::SetFrame(vec new_pos, vec front_dir, vec up_dir)
 bool ComponentCamera::Intersects(const AABB &aabb)
 {	
 	bool ret = true;
-
+	
 	vec vertex[8];
 	aabb.GetCornerPoints(vertex);
 

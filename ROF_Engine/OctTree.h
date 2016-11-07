@@ -6,36 +6,35 @@
 
 class GameObject;
 
-struct QuadTreeNode
+struct OctTreeNode
 {
-	QuadTreeNode* parent;
-	QuadTreeNode* children[4];
+	OctTreeNode* parent;
+	OctTreeNode* children[8];
 	std::vector<GameObject*> bucket;
 	AABB partition;
 
-	QuadTreeNode();
-	~QuadTreeNode();
+	OctTreeNode();
+	~OctTreeNode();
+
+	void DebugUpdate();
 
 	void AddGO(GameObject* go);
 
 };
 
-class QuadTreee
+class OctTree
 {
 public:
-	QuadTreee(AABB limits);
-	~QuadTreee();
+	OctTree(AABB limits);
+	~OctTree();
 
 	void Clear();
-
-	void DebugUpdate();
 
 	void Insert(GameObject* go);
 	void Remove(GameObject* go_to_delete);
 
 public:
-	QuadTreeNode* root = nullptr;
-	AABB tree_limits;
+	OctTreeNode* root = nullptr;
 
 };
 

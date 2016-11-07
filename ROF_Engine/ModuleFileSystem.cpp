@@ -13,7 +13,7 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 	// because it will be used by them.
 	if (PHYSFS_isInit() == 0)
 	{
-		char *base_path = SDL_GetBasePath();
+		char* base_path = SDL_GetBasePath();
 		PHYSFS_init(base_path);
 		SDL_free(base_path);
 
@@ -34,7 +34,7 @@ bool ModuleFileSystem::Init()
 {
 	bool ret = true;
 
-	char *write_dir = SDL_GetPrefPath(App->GetAppName(), App->GetOrganization());
+	char* write_dir = SDL_GetPrefPath(App->GetAppName(), App->GetOrganization());
 
 	if (PHYSFS_setWriteDir(write_dir) == 0)
 	{

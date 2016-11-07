@@ -348,9 +348,6 @@
     <ClInclude Include="DebugPainter.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Quadtree.h">
-      <Filter>Sources\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="PugiXML\src\pugiconfig.hpp">
       <Filter>Sources\Resources\PugiXML</Filter>
     </ClInclude>
@@ -365,6 +362,9 @@
     </ClInclude>
     <ClInclude Include="MeshImporter.h">
       <Filter>Sources\Modules\Importer</Filter>
+    </ClInclude>
+    <ClInclude Include="OctTree.h">
+      <Filter>Sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,9 +578,6 @@
     <ClCompile Include="DebugPainter.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Quadtree.cpp">
-      <Filter>Sources\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="PugiXML\src\pugixml.cpp">
       <Filter>Sources\Resources\PugiXML</Filter>
     </ClCompile>
@@ -592,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="MeshImporter.cpp">
       <Filter>Sources\Modules\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="OctTree.cpp">
+      <Filter>Sources\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

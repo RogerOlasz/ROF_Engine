@@ -178,7 +178,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="PugiXML\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXML\src\pugixml.hpp" />
-    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="OctTree.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -255,7 +255,7 @@
     <ClCompile Include="PanelHierarchy.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="PugiXML\src\pugixml.cpp" />
-    <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
