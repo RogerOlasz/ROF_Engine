@@ -39,6 +39,7 @@ public:
 	void DrawApplication();	
 	
 	void Log(const float* fps, const float ms);
+	void SetMaxFPS(uint fps);
 	unsigned int GetMaxFPS();
 
 };

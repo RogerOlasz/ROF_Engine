@@ -141,6 +141,35 @@ update_status ModuleEditor::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+bool ModuleEditor::Load(pugi::xml_node &config)
+{
+	/*vec tmp;
+	tmp.x = config.child("Position").attribute("X").as_float(20.0f);
+	tmp.y = config.child("Position").attribute("Y").as_float(20.0f);
+	tmp.z = config.child("Position").attribute("Z").as_float(20.0f);
+
+	camera->SetPos(tmp);
+
+	tmp.x = config.child("Reference").attribute("X").as_float(0.0f);
+	tmp.y = config.child("Reference").attribute("Y").as_float(0.0f);
+	tmp.z = config.child("Reference").attribute("Z").as_float(0.0f);
+
+	LookAt(tmp);*/
+
+
+
+	return true;
+}
+
+bool ModuleEditor::Save(pugi::xml_node &config) const
+{
+	pugi::xml_node tmp_node = config.append_child("Framerate");
+
+	tmp_node.append_attribute("Cap_FPS") = GetMaxFPS();
+
+	return true;
+}
+
 // Called before quitting
 bool ModuleEditor::CleanUp()
 {	
@@ -168,7 +197,7 @@ void ModuleEditor::LogFPS(const float* fps, const float ms)
 	Config->Log(fps, ms);
 }
 
-uint ModuleEditor::GetMaxFPS()
+uint ModuleEditor::GetMaxFPS() const
 {
 	return Config->GetMaxFPS();
 }

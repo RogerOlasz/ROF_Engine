@@ -24,9 +24,12 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	bool Load(pugi::xml_node &config);
+	bool Save(pugi::xml_node &config) const;
+
 	void Log(const char* log);
 	void LogFPS(const float* fps, const float ms);
-	uint GetMaxFPS();
+	uint GetMaxFPS() const;
 
 public:
 	PanelConsole* Console = nullptr;
