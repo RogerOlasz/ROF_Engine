@@ -56,11 +56,6 @@ public:
 	AABB box3;
 	AABB box4;
 	AABB box5;
-
-	AABB box6;
-	AABB box7;
-	AABB box8;
-	AABB box9;
 };
 
 #endif // !__MODULERENDERER3D_H__

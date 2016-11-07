@@ -130,7 +130,7 @@ bool ModuleRenderer3D::Init()
 	//CreateDebugTexture();
 
 	box1.SetNegativeInfinity();
-	box1.Enclose(vec(0, 0, 0), vec(20, 20, 20));
+	box1.Enclose(vec(-20, -20, -20), vec(10, 10, 10));
 
 	vec half_box = ((box1.maxPoint - box1.minPoint) / 2.0f);
 
@@ -138,33 +138,33 @@ bool ModuleRenderer3D::Init()
 	box2.minPoint.y = box1.minPoint.y;
 	box2.minPoint.z = box1.minPoint.z;
 
-	box2.maxPoint.x = half_box.x;
-	box2.maxPoint.y = half_box.y;
-	box2.maxPoint.z = half_box.z;
+	box2.maxPoint.x = box1.maxPoint.x - half_box.x;
+	box2.maxPoint.y = box1.maxPoint.y - half_box.y;
+	box2.maxPoint.z = box1.maxPoint.z - half_box.z;
 
-	box3.minPoint.x = half_box.x*2;
+	box3.minPoint.x = box1.minPoint.x + half_box.x;
 	box3.minPoint.y = box1.minPoint.y;
 	box3.minPoint.z = box1.minPoint.z;
 
-	box3.maxPoint.x = half_box.x;
-	box3.maxPoint.y = half_box.y;
-	box3.maxPoint.z = half_box.z;
+	box3.maxPoint.x = box1.maxPoint.x;
+	box3.maxPoint.y = box1.maxPoint.y - half_box.y;
+	box3.maxPoint.z = box1.maxPoint.z - half_box.z;
 
-	box4.minPoint.x = half_box.x * 2;
+	box4.minPoint.x = box1.minPoint.x + half_box.x;
 	box4.minPoint.y = box1.minPoint.y;
-	box4.minPoint.z = half_box.z * 2;
+	box4.minPoint.z = box1.minPoint.z + half_box.z;
 
-	box4.maxPoint.x = half_box.x;
-	box4.maxPoint.y = half_box.y;
-	box4.maxPoint.z = half_box.z;
+	box4.maxPoint.x = box1.maxPoint.x;
+	box4.maxPoint.y = box1.maxPoint.y - half_box.y;
+	box4.maxPoint.z = box1.maxPoint.z;
 
 	box5.minPoint.x = box1.minPoint.x;
-	box5.minPoint.y = half_box.y * 2;
-	box5.minPoint.z = half_box.z * 2;
+	box5.minPoint.y = box1.minPoint.y;
+	box5.minPoint.z = box1.minPoint.z + half_box.z;
 
-	box5.maxPoint.x = half_box.x;
-	box5.maxPoint.y = half_box.y;
-	box5.maxPoint.z = half_box.z;
+	box5.maxPoint.x = box1.maxPoint.x - half_box.x;
+	box5.maxPoint.y = box1.maxPoint.y - half_box.y;
+	box5.maxPoint.z = box1.maxPoint.z;
 
 	return ret;
 }
@@ -218,12 +218,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	/*DebugDraw(box1, GreenYellow);
+	DebugDraw(box1, GreenYellow);
 
 	DebugDraw(box2, Green);
 	DebugDraw(box3, Red);
 	DebugDraw(box4, Yellow);
-	DebugDraw(box5, Orange);*/
+	DebugDraw(box5, Orange);
 
 	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
 	{

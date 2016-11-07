@@ -45,7 +45,7 @@ void OctTreeNode::AddGO(GameObject* go)
 				
 			children[1] = new OctTreeNode(this->belonging);
 
-			children[1]->partition.minPoint.x = half_box.x * 2;
+			children[1]->partition.minPoint.x = partition.minPoint.x + half_box.x;
 			children[1]->partition.minPoint.y = partition.minPoint.y;
 			children[1]->partition.minPoint.z = partition.minPoint.z;
 
