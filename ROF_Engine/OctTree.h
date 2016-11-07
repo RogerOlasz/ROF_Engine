@@ -5,15 +5,19 @@
 #include <vector>
 
 class GameObject;
+class OctTree;
 
 struct OctTreeNode
 {
-	OctTreeNode* parent;
+	OctTree* belonging = nullptr;
+
+	OctTreeNode* parent = nullptr;
 	OctTreeNode* children[8];
 	std::vector<GameObject*> bucket;
+	int max_bucket_capacity = 3;
 	AABB partition;
 
-	OctTreeNode();
+	OctTreeNode(OctTree* my_tree);
 	~OctTreeNode();
 
 	void DebugUpdate();
@@ -36,6 +40,7 @@ public:
 public:
 	OctTreeNode* root = nullptr;
 
+	std::vector<OctTreeNode*> tree_struct;
 };
 
 #endif // !__QUADTREE_H__

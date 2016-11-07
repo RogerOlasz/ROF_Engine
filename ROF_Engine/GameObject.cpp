@@ -95,7 +95,7 @@ void GameObject::Update()
 	}
 	if (obb_debug)
 	{
-		DebugDraw(go_obb, Red);
+		DebugDraw(go_obb, Turquoise);
 	}
 
 	for (std::vector<Component*>::iterator tmp = components.begin(); tmp != components.end(); tmp++)

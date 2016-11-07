@@ -30,6 +30,7 @@ void DebugDrawBox(const vec* vertices, Color color)
 {
 	glColor3f(color.r, color.g, color.b);
 
+	glDisable(GL_LIGHTING);
 	glBegin(GL_LINES);
 
 #pragma region CubeFaces
@@ -75,6 +76,7 @@ void DebugDrawBox(const vec* vertices, Color color)
 #pragma endregion
 
 	glEnd();
+	glEnable(GL_LIGHTING);
 
 	glColor3f(1.0f, 1.0f, 1.0f);
 }

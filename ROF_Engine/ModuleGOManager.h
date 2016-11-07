@@ -8,6 +8,7 @@
 
 class GameObject;
 class ComponentCamera;
+class OctTree;
 struct aiNode;
 struct aiScene;
 
@@ -30,11 +31,16 @@ public:
 	void LoadFBX(const char* file_path, bool file_system = true);
 	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 
+	void DoOctTree();
+	void ShowAABB(bool showing);
+
 	void CameraCulling();
 
 private:
 	GameObject* root = nullptr;
 	std::vector<GameObject*> gos_array;
+
+	OctTree* go_tree = nullptr;
 
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);

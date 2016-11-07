@@ -88,6 +88,16 @@ update_status ModuleEditor::Update(float dt)
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Debug Tools"))
+		{
+			if (ImGui::MenuItem("Show AABB", "B", &aabb_debug))
+			{
+				App->go_manager->ShowAABB(aabb_debug);
+			}
+
+			ImGui::EndMenu();
+		}
+
 		if (ImGui::BeginMenu("Help"))
 		{
 			if (ImGui::MenuItem("Download latest"))

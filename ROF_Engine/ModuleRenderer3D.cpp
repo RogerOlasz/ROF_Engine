@@ -99,7 +99,7 @@ bool ModuleRenderer3D::Init()
 		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
-		//Create [MAX_LIGHTS] lights to chanege scene lighting debug
+		//Create lights
 		lights[0].ref = GL_LIGHT0;
 
 		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
@@ -128,6 +128,43 @@ bool ModuleRenderer3D::Init()
 	last_frame_window_size.y = SCREEN_HEIGHT;
 
 	//CreateDebugTexture();
+
+	box1.SetNegativeInfinity();
+	box1.Enclose(vec(0, 0, 0), vec(20, 20, 20));
+
+	vec half_box = ((box1.maxPoint - box1.minPoint) / 2.0f);
+
+	box2.minPoint.x = 0;
+	box2.minPoint.y = 0;
+	box2.minPoint.z = 0;
+
+	box2.maxPoint.x = half_box.x;
+	box2.maxPoint.y = half_box.y;
+	box2.maxPoint.z = half_box.z;
+
+	box3.minPoint.x = half_box.x*2;
+	box3.minPoint.y = 0;
+	box3.minPoint.z = 0;
+
+	box3.maxPoint.x = half_box.x;
+	box3.maxPoint.y = half_box.y;
+	box3.maxPoint.z = half_box.z;
+
+	box4.minPoint.x = half_box.x * 2;
+	box4.minPoint.y = 0;
+	box4.minPoint.z = half_box.z * 2;
+
+	box4.maxPoint.x = half_box.x;
+	box4.maxPoint.y = half_box.y;
+	box4.maxPoint.z = half_box.z;
+
+	box5.minPoint.x = 0;
+	box5.minPoint.y = half_box.y * 2;
+	box5.minPoint.z = half_box.z * 2;
+
+	box5.maxPoint.x = half_box.x;
+	box5.maxPoint.y = half_box.y;
+	box5.maxPoint.z = half_box.z;
 
 	return ret;
 }
@@ -181,6 +218,13 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
+	/*DebugDraw(box1, GreenYellow);
+
+	DebugDraw(box2, Green);
+	DebugDraw(box3, Red);
+	DebugDraw(box4, Yellow);
+	DebugDraw(box5, Orange);*/
+
 	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
 	{
 		for (uint i = 0; i < mesh_to_draw.size(); i++)
@@ -362,6 +406,7 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		}	
 		else
 		{
+			glEnable(GL_LIGHTING);
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
 
@@ -392,7 +437,5 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-		glEnable(GL_LIGHTING);
 	}
 }

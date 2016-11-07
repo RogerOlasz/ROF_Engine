@@ -12,6 +12,8 @@
 #include "ComponentMaterial.h"
 #include "ComponentCamera.h"
 
+#include "OctTree.h"
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -50,6 +52,11 @@ update_status ModuleGOManager::Update(float dt)
 		LoadFBX("Assets/Models/Street environment_V01.fbx");
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		DoOctTree();
+	}
+
 	root->Update();
 
 	std::vector<GameObject*>::iterator tmp = gos_array.begin();
@@ -60,6 +67,17 @@ update_status ModuleGOManager::Update(float dt)
 		tmp++;
 	}
 
+	if (go_tree != nullptr)
+	{
+		std::vector<OctTreeNode*>::iterator tmp_t = go_tree->tree_struct.begin();
+		while (tmp_t != go_tree->tree_struct.end())
+		{
+			(*tmp_t)->DebugUpdate();
+
+			tmp_t++;
+		}
+	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -177,6 +195,28 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
 		LOG("I'm %s and my parent is %s", ret->GetName(), ret->GetParent()->GetName());
+	}
+}
+
+void ModuleGOManager::DoOctTree() 
+{
+	go_tree = new OctTree(AABB(vec(-40, -40, -40), vec(40, 40, 40)));
+
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		go_tree->Insert((*tmp));
+		tmp++;
+	}
+}
+
+void ModuleGOManager::ShowAABB(bool showing)
+{
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		(*tmp)->aabb_debug = showing;
+		tmp++;
 	}
 }
 

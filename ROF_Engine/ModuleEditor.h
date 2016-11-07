@@ -43,6 +43,8 @@ private:
 	uint camera_id;
 	std::string camera_name;
 
+	bool aabb_debug = false;
+
 };
 
 #endif // __MODULEEDITOR_H__

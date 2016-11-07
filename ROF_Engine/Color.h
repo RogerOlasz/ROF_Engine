@@ -30,5 +30,9 @@ extern Color Green;
 extern Color Blue;
 extern Color Black;
 extern Color White;
+extern Color Yellow;
+extern Color Orange;
+extern Color Turquoise;
+extern Color GreenYellow;
 
 #endif // !__COLOR_H__
