@@ -134,31 +134,31 @@ bool ModuleRenderer3D::Init()
 
 	vec half_box = ((box1.maxPoint - box1.minPoint) / 2.0f);
 
-	box2.minPoint.x = 0;
-	box2.minPoint.y = 0;
-	box2.minPoint.z = 0;
+	box2.minPoint.x = box1.minPoint.x;
+	box2.minPoint.y = box1.minPoint.y;
+	box2.minPoint.z = box1.minPoint.z;
 
 	box2.maxPoint.x = half_box.x;
 	box2.maxPoint.y = half_box.y;
 	box2.maxPoint.z = half_box.z;
 
 	box3.minPoint.x = half_box.x*2;
-	box3.minPoint.y = 0;
-	box3.minPoint.z = 0;
+	box3.minPoint.y = box1.minPoint.y;
+	box3.minPoint.z = box1.minPoint.z;
 
 	box3.maxPoint.x = half_box.x;
 	box3.maxPoint.y = half_box.y;
 	box3.maxPoint.z = half_box.z;
 
 	box4.minPoint.x = half_box.x * 2;
-	box4.minPoint.y = 0;
+	box4.minPoint.y = box1.minPoint.y;
 	box4.minPoint.z = half_box.z * 2;
 
 	box4.maxPoint.x = half_box.x;
 	box4.maxPoint.y = half_box.y;
 	box4.maxPoint.z = half_box.z;
 
-	box5.minPoint.x = 0;
+	box5.minPoint.x = box1.minPoint.x;
 	box5.minPoint.y = half_box.y * 2;
 	box5.minPoint.z = half_box.z * 2;
 

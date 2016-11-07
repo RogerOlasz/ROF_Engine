@@ -131,11 +131,11 @@ void OctTreeNode::AddGO(GameObject* go)
 			for (uint i = 0; i < max_bucket_capacity - 1; i++)
 			{
 				const AABB* to_test = bucket.at(i)->GetBoundingBox();
-				for (uint i = 0; i < 8; i++)
+				for (uint j = 0; j < 8; j++)
 				{
-					if (children[i]->partition.Intersects(*to_test))
+					if (children[j]->partition.Intersects(*to_test))
 					{
-						children[i]->AddGO(bucket.at(i));
+						children[j]->AddGO(bucket.at(i));
 					}
 				}
 			}
@@ -151,7 +151,7 @@ void OctTreeNode::AddGO(GameObject* go)
 
 			bucket.clear();
 		}
-		/*else
+		else
 		{
 			const AABB* to_test_actual = go->GetBoundingBox();
 			for (uint i = 0; i < 8; i++)
@@ -161,7 +161,7 @@ void OctTreeNode::AddGO(GameObject* go)
 					children[i]->AddGO(go);
 				}
 			}
-		}		*/
+		}		
 	}
 }
 
