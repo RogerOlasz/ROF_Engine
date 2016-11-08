@@ -67,13 +67,27 @@ void GameObject::RemoveComponent(Component* to_delete)
 
 void GameObject::Update()
 {
-	if (static_go)
+	if (static_go == true)
 	{
 		transform->freeze = true;
+		if (children.size() != 0)
+		{
+			for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+			{
+				(*tmp)->static_go = true;
+			}
+		}
 	}
 	else
 	{
 		transform->freeze = false;
+		if (parent != nullptr && children.size() != 0)
+		{
+			for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+			{
+				(*tmp)->static_go = false;
+			}
+		}
 	}
 
 	if (transform->global_matrix_changed)

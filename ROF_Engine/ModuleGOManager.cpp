@@ -207,7 +207,10 @@ void ModuleGOManager::DoOctTree()
 		std::vector<GameObject*>::iterator tmp = gos_array.begin();
 		while (tmp != gos_array.end())
 		{
-			go_tree->Insert((*tmp));
+			if ((*tmp)->static_go)
+			{
+				go_tree->Insert((*tmp));
+			}			
 			tmp++;
 		}
 	}
@@ -231,7 +234,6 @@ void ModuleGOManager::ShowAABB(bool showing)
 void ModuleGOManager::CameraCulling()
 {
 	//It works with preferences so if there are more than one camera the first one added will determine the culling
-	//TODO please, delete it... most dirty method to do camera culling...
 	std::vector<GameObject*>::iterator tmp = gos_array.begin();
 	ComponentCamera* tmp_cam = nullptr;
 	while (tmp != gos_array.end())
@@ -263,6 +265,41 @@ void ModuleGOManager::CameraCulling()
 					tmp++;
 				}
 				break;
+			}
+			else
+			{
+				tmp = gos_array.begin();
+				while (tmp != gos_array.end())
+				{
+					if ((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))
+					{
+						((ComponentMesh*)(*tmp)->GetComponentByType(Component::Type::Geometry))->active = true;
+					}
+					tmp++;
+				}
+				tmp = last_tmp;
+			}
+		}
+		tmp++;
+	}
+}
+
+void ModuleGOManager::OctTreeCulling()
+{
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	ComponentCamera* tmp_cam = nullptr;
+	while (tmp != gos_array.end())
+	{
+		std::vector<GameObject*>::iterator last_tmp = tmp;
+		if ((*tmp)->have_camera)
+		{
+			if (((ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera))->frustum_culling)
+			{
+				tmp_cam = (ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera);
+
+
+
+				break; //To works just with the upper hierarchy camera
 			}
 			else
 			{

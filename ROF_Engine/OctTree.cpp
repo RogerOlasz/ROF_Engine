@@ -7,6 +7,8 @@ OctTreeNode::OctTreeNode(OctTree* my_tree)
 	belonging = my_tree;
 	belonging->tree_struct.push_back(this);
 
+	max_bucket_capacity = 3;
+
 	for (uint i = 0; i < 8; i++)
 	{
 		children[i] = nullptr;
@@ -31,6 +33,7 @@ void OctTreeNode::AddGO(GameObject* go)
 	if (bucket.size() < max_bucket_capacity && children[0] == nullptr)
 	{
 		bucket.push_back(go);
+		LOG("Bucket size: %d", bucket.size());
 	}
 	else
 	{

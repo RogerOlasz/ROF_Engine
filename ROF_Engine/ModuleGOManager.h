@@ -35,6 +35,7 @@ public:
 	void ShowAABB(bool showing);
 
 	void CameraCulling();
+	void OctTreeCulling();
 
 private:
 	GameObject* root = nullptr;
