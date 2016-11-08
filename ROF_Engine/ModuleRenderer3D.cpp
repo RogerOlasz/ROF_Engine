@@ -218,12 +218,12 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	DebugDraw(box1, GreenYellow);
+	/*DebugDraw(box1, GreenYellow);
 
 	DebugDraw(box2, Green);
 	DebugDraw(box3, Red);
 	DebugDraw(box4, Yellow);
-	DebugDraw(box5, Orange);
+	DebugDraw(box5, Orange);*/
 
 	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
 	{

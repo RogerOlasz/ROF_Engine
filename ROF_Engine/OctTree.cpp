@@ -37,9 +37,9 @@ void OctTreeNode::AddGO(GameObject* go)
 			children[0]->partition.minPoint.y = partition.minPoint.y;
 			children[0]->partition.minPoint.z = partition.minPoint.z;
 
-			children[0]->partition.maxPoint.x = half_box.x;
-			children[0]->partition.maxPoint.y = half_box.y;
-			children[0]->partition.maxPoint.z = half_box.z;
+			children[0]->partition.maxPoint.x = partition.maxPoint.x - half_box.x;
+			children[0]->partition.maxPoint.y = partition.maxPoint.y - half_box.y;
+			children[0]->partition.maxPoint.z = partition.maxPoint.z - half_box.z;
 
 			children[0]->parent = this;
 				
@@ -49,21 +49,21 @@ void OctTreeNode::AddGO(GameObject* go)
 			children[1]->partition.minPoint.y = partition.minPoint.y;
 			children[1]->partition.minPoint.z = partition.minPoint.z;
 
-			children[1]->partition.maxPoint.x = half_box.x;
-			children[1]->partition.maxPoint.y = half_box.y;
-			children[1]->partition.maxPoint.z = half_box.z;
+			children[1]->partition.maxPoint.x = partition.maxPoint.x;
+			children[1]->partition.maxPoint.y = partition.maxPoint.y - half_box.y;
+			children[1]->partition.maxPoint.z = partition.maxPoint.z - half_box.z;
 
 			children[1]->parent = this;
 
 			children[2] = new OctTreeNode(this->belonging);
 
-			children[2]->partition.minPoint.x = half_box.x * 2;
+			children[2]->partition.minPoint.x = partition.minPoint.x + half_box.x;
 			children[2]->partition.minPoint.y = partition.minPoint.y;
-			children[2]->partition.minPoint.z = half_box.z * 2;
+			children[2]->partition.minPoint.z = partition.minPoint.z + half_box.z;
 
-			children[2]->partition.maxPoint.x = half_box.x;
-			children[2]->partition.maxPoint.y = half_box.y;
-			children[2]->partition.maxPoint.z = half_box.z;
+			children[2]->partition.maxPoint.x = partition.maxPoint.x;
+			children[2]->partition.maxPoint.y = partition.maxPoint.y - half_box.y;
+			children[2]->partition.maxPoint.z = partition.maxPoint.z;
 
 			children[2]->parent = this;
 
@@ -71,11 +71,11 @@ void OctTreeNode::AddGO(GameObject* go)
 
 			children[3]->partition.minPoint.x = partition.minPoint.x;
 			children[3]->partition.minPoint.y = partition.minPoint.y;
-			children[3]->partition.minPoint.z = half_box.z * 2;
+			children[3]->partition.minPoint.z = partition.minPoint.z + half_box.z;
 
-			children[3]->partition.maxPoint.x = half_box.x;
-			children[3]->partition.maxPoint.y = half_box.y;
-			children[3]->partition.maxPoint.z = half_box.z;
+			children[3]->partition.maxPoint.x = partition.maxPoint.x - half_box.x;
+			children[3]->partition.maxPoint.y = partition.maxPoint.y - half_box.y;
+			children[3]->partition.maxPoint.z = partition.maxPoint.z;
 
 			children[3]->parent = this;
 
@@ -83,48 +83,48 @@ void OctTreeNode::AddGO(GameObject* go)
 			children[4] = new OctTreeNode(this->belonging);
 
 			children[4]->partition.minPoint.x = partition.minPoint.x;
-			children[4]->partition.minPoint.y = half_box.y * 2;
+			children[4]->partition.minPoint.y = partition.minPoint.y + half_box.y;
 			children[4]->partition.minPoint.z = partition.minPoint.z;
 
-			children[4]->partition.maxPoint.x = half_box.x;
-			children[4]->partition.maxPoint.y = half_box.y;
-			children[4]->partition.maxPoint.z = half_box.z;
+			children[4]->partition.maxPoint.x = partition.maxPoint.x - half_box.x;
+			children[4]->partition.maxPoint.y = partition.maxPoint.y;
+			children[4]->partition.maxPoint.z = partition.maxPoint.z - half_box.z;
 
 			children[4]->parent = this;
 
 			children[5] = new OctTreeNode(this->belonging);
 
-			children[5]->partition.minPoint.x = half_box.x * 2;
-			children[5]->partition.minPoint.y = half_box.y * 2;
+			children[5]->partition.minPoint.x = partition.minPoint.x + half_box.x;
+			children[5]->partition.minPoint.y = partition.minPoint.y + half_box.y;
 			children[5]->partition.minPoint.z = partition.minPoint.z;
 
-			children[5]->partition.maxPoint.x = half_box.x;
-			children[5]->partition.maxPoint.y = half_box.y;
-			children[5]->partition.maxPoint.z = half_box.z;
+			children[5]->partition.maxPoint.x = partition.maxPoint.x;
+			children[5]->partition.maxPoint.y = partition.maxPoint.y;
+			children[5]->partition.maxPoint.z = partition.maxPoint.z - half_box.z;
 
 			children[5]->parent = this;
 
 			children[6] = new OctTreeNode(this->belonging);
 
-			children[6]->partition.minPoint.x = half_box.x * 2;
-			children[6]->partition.minPoint.y = half_box.y * 2;
-			children[6]->partition.minPoint.z = half_box.z * 2;
+			children[6]->partition.minPoint.x = partition.minPoint.x;
+			children[6]->partition.minPoint.y = partition.minPoint.y + half_box.y;
+			children[6]->partition.minPoint.z = partition.minPoint.z + half_box.z;
 
-			children[6]->partition.maxPoint.x = half_box.x;
-			children[6]->partition.maxPoint.y = half_box.y;
-			children[6]->partition.maxPoint.z = half_box.z;
+			children[6]->partition.maxPoint.x = partition.maxPoint.x - half_box.x;
+			children[6]->partition.maxPoint.y = partition.maxPoint.y;
+			children[6]->partition.maxPoint.z = partition.maxPoint.z;
 
 			children[6]->parent = this;
 
 			children[7] = new OctTreeNode(this->belonging);
+			
+			children[7]->partition.minPoint.x = partition.minPoint.x + half_box.x;
+			children[7]->partition.minPoint.y = partition.minPoint.y + half_box.y;
+			children[7]->partition.minPoint.z = partition.minPoint.z + half_box.z;
 
-			children[7]->partition.minPoint.x = partition.minPoint.x;
-			children[7]->partition.minPoint.y = half_box.y * 2;
-			children[7]->partition.minPoint.z = half_box.z * 2;
-
-			children[7]->partition.maxPoint.x = half_box.x;
-			children[7]->partition.maxPoint.y = half_box.y;
-			children[7]->partition.maxPoint.z = half_box.z;
+			children[7]->partition.maxPoint.x = partition.maxPoint.x;
+			children[7]->partition.maxPoint.y = partition.maxPoint.y;
+			children[7]->partition.maxPoint.z = partition.maxPoint.z;
 
 			children[7]->parent = this;
 
