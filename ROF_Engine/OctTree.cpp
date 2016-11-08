@@ -15,7 +15,15 @@ OctTreeNode::OctTreeNode(OctTree* my_tree)
 
 OctTreeNode::~OctTreeNode()
 {
+	bucket.clear();
 
+	for (uint i = 0; i < 8; i++)
+	{
+		children[i] = nullptr;
+	}
+
+	belonging = nullptr;
+	parent = nullptr;
 }
 
 void OctTreeNode::AddGO(GameObject* go)
@@ -198,6 +206,16 @@ OctTree::OctTree(AABB limit)
 OctTree::~OctTree()
 {
 
+}
+
+void OctTree::Clear()
+{
+	std::vector<OctTreeNode*>::iterator it = tree_struct.begin();
+	while (it != tree_struct.end())
+	{
+		RELEASE((*it));
+		it++;
+	}
 }
 
 void OctTree::Insert(GameObject* go)

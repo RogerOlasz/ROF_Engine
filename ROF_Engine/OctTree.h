@@ -35,7 +35,6 @@ public:
 	void Clear();
 
 	void Insert(GameObject* go);
-	void Remove(GameObject* go_to_delete);
 
 public:
 	OctTreeNode* root = nullptr;

@@ -200,14 +200,22 @@ void ModuleGOManager::LoadGameObjectFromFBX(const aiNode* node_to_load, const ai
 
 void ModuleGOManager::DoOctTree() 
 {
-	go_tree = new OctTree(AABB(vec(-50, -50, -50), vec(50, 50, 50)));
-
-	std::vector<GameObject*>::iterator tmp = gos_array.begin();
-	while (tmp != gos_array.end())
+	if (go_tree == nullptr)
 	{
-		go_tree->Insert((*tmp));
-		tmp++;
+		go_tree = new OctTree(AABB(vec(-50, -50, -50), vec(50, 50, 50)));
+
+		std::vector<GameObject*>::iterator tmp = gos_array.begin();
+		while (tmp != gos_array.end())
+		{
+			go_tree->Insert((*tmp));
+			tmp++;
+		}
 	}
+	else
+	{
+		go_tree->Clear();
+		go_tree = nullptr;
+	}	
 }
 
 void ModuleGOManager::ShowAABB(bool showing)
