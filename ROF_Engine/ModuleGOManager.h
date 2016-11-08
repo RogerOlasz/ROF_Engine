@@ -42,6 +42,9 @@ private:
 
 	OctTree* go_tree = nullptr;
 
+public:
+	bool show_tree = false;
+
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);
 };

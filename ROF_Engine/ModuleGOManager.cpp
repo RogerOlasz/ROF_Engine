@@ -67,7 +67,7 @@ update_status ModuleGOManager::Update(float dt)
 		tmp++;
 	}
 
-	if (go_tree != nullptr)
+	if (go_tree != nullptr && show_tree == true)
 	{
 		std::vector<OctTreeNode*>::iterator tmp_t = go_tree->tree_struct.begin();
 		while (tmp_t != go_tree->tree_struct.end())

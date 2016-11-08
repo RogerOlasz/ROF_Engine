@@ -44,6 +44,7 @@ private:
 	std::string camera_name;
 
 	bool aabb_debug = false;
+	bool octtree_debug = false;
 
 };
 

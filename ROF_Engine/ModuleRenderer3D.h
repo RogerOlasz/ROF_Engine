@@ -49,13 +49,6 @@ public:
 	ComponentCamera* camera = nullptr;
 	bool update_proj_matrix = true;
 	bool camera_changed = false;
-
-	AABB box1;
-
-	AABB box2;
-	AABB box3;
-	AABB box4;
-	AABB box5;
 };
 
 #endif // !__MODULERENDERER3D_H__

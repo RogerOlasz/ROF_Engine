@@ -95,6 +95,11 @@ update_status ModuleEditor::Update(float dt)
 				App->go_manager->ShowAABB(aabb_debug);
 			}
 
+			if (ImGui::MenuItem("Show GO OctTree", "T", &octtree_debug))
+			{
+				App->go_manager->show_tree = octtree_debug;
+			}
+
 			ImGui::EndMenu();
 		}
 

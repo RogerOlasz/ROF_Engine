@@ -147,6 +147,7 @@ void OctTreeNode::AddGO(GameObject* go)
 					}
 				}
 			}
+			bucket.clear();
 
 			const AABB* to_test_actual = go->GetBoundingBox();
 			for (uint i = 0; i < 8; i++)
@@ -155,9 +156,7 @@ void OctTreeNode::AddGO(GameObject* go)
 				{
 					children[i]->AddGO(go);
 				}
-			}
-
-			bucket.clear();
+			}			
 		}
 		else
 		{
