@@ -33,6 +33,7 @@ public:
 	void UpdateGlobalMatrix();
 	void UpdateAABB();
 
+	void SetChildrenStatic(bool static_go);
 	bool RemoveGameObject(GameObject* to_delete);
 
 private:

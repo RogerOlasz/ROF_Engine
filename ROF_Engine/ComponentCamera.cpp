@@ -20,8 +20,6 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 	camera_frustum.SetViewPlaneDistances(5.0f, 100.0f);
 	//Set horizontalFov and verticalFov
 	camera_frustum.SetPerspective(DEGTORAD * 60.0f, DEGTORAD * 60.0f);
-
-	UpdatePlanes();
 }
 
 ComponentCamera::~ComponentCamera()
@@ -111,7 +109,6 @@ void ComponentCamera::SetNearPlane(float new_distance)
 	if (new_distance != camera_frustum.NearPlaneDistance() && new_distance > 0 && new_distance < camera_frustum.FarPlaneDistance())
 	{
 		camera_frustum.SetViewPlaneDistances(new_distance, camera_frustum.FarPlaneDistance());
-		UpdatePlanes();
 	}		
 }
 
@@ -120,7 +117,6 @@ void ComponentCamera::SetFarPlane(float new_distance)
 	if (new_distance != camera_frustum.FarPlaneDistance() && new_distance > 0 && new_distance > camera_frustum.NearPlaneDistance())
 	{
 		camera_frustum.SetViewPlaneDistances(camera_frustum.NearPlaneDistance(), new_distance);
-		UpdatePlanes();
 	}		
 }
 
@@ -128,20 +124,17 @@ void ComponentCamera::SetFOV(float new_fov)
 {
 	//Should add some limits?
 	camera_frustum.SetVerticalFovAndAspectRatio((new_fov * DEGTORAD), camera_frustum.AspectRatio());
-	UpdatePlanes();
 }
 
 void ComponentCamera::SetAspectRatio(float new_aspect_ratio)
 {
 	//Should add some limits?
 	camera_frustum.SetHorizontalFovAndAspectRatio(camera_frustum.HorizontalFov(), new_aspect_ratio);
-	UpdatePlanes();
 }
 
 void ComponentCamera::SetPos(vec new_position)
 {
 	camera_frustum.SetPos(new_position);
-	UpdatePlanes();
 }
 
 //Could add a SetFrame to optimize setpos setfront and setup
@@ -150,19 +143,16 @@ void ComponentCamera::SetPos(float4x4* transform)
 	vec new_pos = vec::zero;
 	new_pos = transform->TranslatePart();
 	camera_frustum.SetPos(new_pos);
-	UpdatePlanes();
 }
 
 void ComponentCamera::SetFront(float4x4* transform)
 {
 	camera_frustum.SetFront(transform->WorldZ());
-	UpdatePlanes();
 }
 
 void ComponentCamera::SetUp(float4x4* transform)
 {
 	camera_frustum.SetUp(transform->WorldY());
-	UpdatePlanes();
 }
 
 void ComponentCamera::SetFrame(vec new_pos, vec front_dir, vec up_dir)
@@ -173,39 +163,5 @@ void ComponentCamera::SetFrame(vec new_pos, vec front_dir, vec up_dir)
 //Resource used: http://www.flipcode.com/archives/Frustum_Culling.shtml 
 bool ComponentCamera::Intersects(const AABB &aabb)
 {	
-	bool ret = true;
-	
-	vec vertex[8];
-	aabb.GetCornerPoints(vertex);
-
-	for (uint i = 0; i < 6; i++)
-	{
-		uint in_count = 8;
-
-		for (uint j = 0; j < 8; j++)
-		{
-			if (f_planes[i].IsOnPositiveSide(vertex[j]) == true)
-			{
-				in_count--;				
-			}
-		}
-
-		if (in_count == 0)
-		{
-			ret = false;
-			return ret;
-		}
-	}
-
-	return ret;
-}
-
-void ComponentCamera::UpdatePlanes()
-{
-	f_planes[0] = camera_frustum.NearPlane();
-	f_planes[1] = camera_frustum.FarPlane();
-	f_planes[2] = camera_frustum.LeftPlane();
-	f_planes[3] = camera_frustum.RightPlane();
-	f_planes[4] = camera_frustum.BottomPlane();
-	f_planes[5] = camera_frustum.TopPlane();
+	return camera_frustum.Intersects(aabb);
 }

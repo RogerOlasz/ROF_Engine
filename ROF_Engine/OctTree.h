@@ -5,7 +5,26 @@
 #include <vector>
 
 class GameObject;
-class OctTree;
+class OctTreeNode;
+
+class OctTree
+{
+public:
+	OctTree(AABB limits);
+	~OctTree();
+
+	void Clear();
+
+	void Insert(GameObject* go);
+
+	template<class Primitive>
+	void CollectCandidates(std::vector<GameObject*> colliding, Primitive primitive);
+
+public:
+	OctTreeNode* root = nullptr;
+
+	std::vector<OctTreeNode*> tree_struct;
+};
 
 struct OctTreeNode
 {
@@ -24,22 +43,6 @@ struct OctTreeNode
 
 	void AddGO(GameObject* go);
 
-};
-
-class OctTree
-{
-public:
-	OctTree(AABB limits);
-	~OctTree();
-
-	void Clear();
-
-	void Insert(GameObject* go);
-
-public:
-	OctTreeNode* root = nullptr;
-
-	std::vector<OctTreeNode*> tree_struct;
 };
 
 #endif // !__QUADTREE_H__

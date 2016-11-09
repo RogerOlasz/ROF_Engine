@@ -192,7 +192,7 @@ void OctTreeNode::DebugUpdate()
 		DebugDraw(partition, Orange);
 	}	
 
-	if (bucket.size() == 3)
+	if (bucket.size() >= 3)
 	{
 		DebugDraw(partition, Red);
 	}

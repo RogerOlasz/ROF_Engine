@@ -70,12 +70,10 @@ void GameObject::Update()
 	if (static_go == true)
 	{
 		transform->freeze = true;
+		//TODO children can be dynamics
 		if (children.size() != 0)
 		{
-			for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
-			{
-				(*tmp)->static_go = true;
-			}
+			SetChildrenStatic(static_go);
 		}
 	}
 	else
@@ -83,10 +81,7 @@ void GameObject::Update()
 		transform->freeze = false;
 		if (parent != nullptr && children.size() != 0)
 		{
-			for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
-			{
-				(*tmp)->static_go = false;
-			}
+			SetChildrenStatic(static_go);
 		}
 	}
 
@@ -185,6 +180,14 @@ void GameObject::UpdateAABB()
 			bounding_box.SetNegativeInfinity(); //Must be called before Enclose() to ser box at null
 			bounding_box.Enclose(go_obb);
 		}
+	}
+}
+
+void GameObject::SetChildrenStatic(bool static_go)
+{
+	for (std::vector<GameObject*>::iterator tmp = children.begin(); tmp != children.end(); tmp++)
+	{
+		(*tmp)->static_go = static_go;
 	}
 }
 

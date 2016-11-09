@@ -162,8 +162,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		glLoadIdentity();
 		glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
 		//How it works http://www.songho.ca/opengl/gl_transform.html#example1
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 
 		update_proj_matrix = false;
 	}

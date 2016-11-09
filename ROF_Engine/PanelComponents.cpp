@@ -52,6 +52,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		App->camera->LookAt(selected_go->transform->GetPosition());
 	}
+	//TODO Must ask if all children static aswell
 	ImGui::Checkbox("Static test", &selected_go->static_go);
 
 	//If actual game object is diferent of last one it must to set transformation
