@@ -27,6 +27,7 @@ public:
 	const vec GetWorldRight() const;
 	const vec GetUp() const;
 	const vec GetPos() const;
+	const Frustum GetFrustum() const;
 
 	void SetNearPlane(float new_distance);
 	void SetFarPlane(float new_distance);

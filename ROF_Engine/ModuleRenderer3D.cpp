@@ -139,9 +139,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	mesh_trans_matrix.clear();
 	is_wireframe.clear();
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-
 	if (camera_changed)
 	{
 		OnResize(App->window->window_size.x, App->window->window_size.y);
@@ -162,9 +159,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 		glLoadIdentity();
 		glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
 		//How it works http://www.songho.ca/opengl/gl_transform.html#example1
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 
 		update_proj_matrix = false;
 	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(camera->GetViewMatrix());

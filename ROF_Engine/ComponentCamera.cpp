@@ -103,6 +103,11 @@ const vec ComponentCamera::GetPos() const
 	return camera_frustum.Pos();
 }
 
+const Frustum ComponentCamera::GetFrustum() const
+{
+	return camera_frustum;
+}
+
 //Sets-------------------------------------------------------------------------------------
 void ComponentCamera::SetNearPlane(float new_distance)
 {

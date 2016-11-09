@@ -40,7 +40,14 @@ bool ModuleGOManager::Init()
 
 update_status ModuleGOManager::PreUpdate(float dt)
 {
-	CameraCulling();
+	if (go_tree)
+	{
+		//OctTreeCulling();
+	}
+	else
+	{
+		CameraCulling();
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -296,8 +303,12 @@ void ModuleGOManager::OctTreeCulling()
 			if (((ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera))->frustum_culling)
 			{
 				tmp_cam = (ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera);
+				
+				std::vector<GameObject*> candidates;
+				go_tree->CollectCandidates(candidates, tmp_cam->GetFrustum());
 
-
+				std::vector<GameObject*>::iterator tmp_cand = candidates.begin();
+				LOG("Candidates size: %d", candidates.size());
 
 				break; //To works just with the upper hierarchy camera
 			}

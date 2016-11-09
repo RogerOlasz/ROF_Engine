@@ -33,7 +33,7 @@ void OctTreeNode::AddGO(GameObject* go)
 	if (bucket.size() < max_bucket_capacity && children[0] == nullptr)
 	{
 		bucket.push_back(go);
-		LOG("Bucket size: %d", bucket.size());
+		//LOG("Bucket size: %d", bucket.size());
 	}
 	else
 	{
