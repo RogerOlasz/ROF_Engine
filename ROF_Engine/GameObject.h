@@ -49,6 +49,7 @@ public:
 	bool obb_debug = false;
 	bool aabb_debug = false;
 	bool static_go = false;
+	bool static_children = false;
 
 	bool have_camera = false;
 

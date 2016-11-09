@@ -52,8 +52,47 @@ void PanelComponents::Draw(GameObject* selected_go)
 	{
 		App->camera->LookAt(selected_go->transform->GetPosition());
 	}
-	//TODO Must ask if all children static aswell
-	ImGui::Checkbox("Static test", &selected_go->static_go);
+
+	if (ImGui::Checkbox("Static test", &selected_go->static_go))
+	{
+		if (selected_go->children.size() != 0)
+		{
+			static_ask = selected_go->static_go;
+		}
+	}
+
+	if (static_ask)
+	{
+		ImGuiWindowFlags window_flags = (ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
+		ImGui::SetNextWindowPos(ImVec2((App->window->GetWindowSize().x / 2) - 190, (App->window->GetWindowSize().y / 2) - 50));
+		ImGui::Begin("Hierarchy problem", nullptr, window_flags);
+		ImGui::Text("Convert all %s children to static?", selected_go->GetName());
+
+		ImVec2 size = ImVec2(80.0f, 20.0f);
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.5f, 0.0f, 0.75f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.0f, 0.75f, 0.0f, 0.75f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.0f, 0.75f, 0.0f, 1.0f));
+		if (ImGui::Button("Yes", size))
+		{
+			selected_go->static_children = true;
+			static_ask = false;
+		}
+		ImGui::PopStyleColor(3);
+
+		ImGui::SameLine(0.0f, 100.0f);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.0f, 0.0f, 0.75f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.75f, 0.0f, 0.0f, 0.75f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.75f, 0.0f, 0.0f, 1.0f));
+		if (ImGui::Button("No", size))
+		{
+			selected_go->static_children = false;
+			static_ask = false;
+		}
+		ImGui::PopStyleColor(3);
+
+		ImGui::End();
+	}
 
 	//If actual game object is diferent of last one it must to set transformation
 	if (last_go != selected_go || selected_go->static_go == true)

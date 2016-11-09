@@ -29,6 +29,7 @@ private:
 	float aspect_ratio;
 
 	bool render_camera = false;
+	bool static_ask = false;
 };
 
 #endif // !__PANELCOMPONENTS_H__

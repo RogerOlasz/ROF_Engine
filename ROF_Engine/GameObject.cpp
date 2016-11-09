@@ -70,11 +70,14 @@ void GameObject::Update()
 	if (static_go == true)
 	{
 		transform->freeze = true;
-		//TODO children can be dynamics
-		if (children.size() != 0)
+
+		if (static_children)
 		{
-			SetChildrenStatic(static_go);
-		}
+			if (children.size() != 0)
+			{
+				SetChildrenStatic(static_go);
+			}
+		}		
 	}
 	else
 	{
