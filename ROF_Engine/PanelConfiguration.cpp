@@ -196,7 +196,7 @@ void PanelConfiguration::DrawApplication()
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
 		ImGui::TextColored(IMGUI_YELLOW, "%i", max_fps);
-		ImGui::SliderInt("Max FPS", &max_fps, 0, 120);
+		ImGui::SliderInt("Max FPS", &max_fps, 0, 60);
 
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", fps_log[fps_log.size() - 1]);
@@ -219,6 +219,11 @@ void PanelConfiguration::Log(const float* fps, const float ms)
 		ms_log[i] = ms_log[i + 1];
 	}
 	ms_log[ms_log.size() - 1] = ms;
+}
+
+void PanelConfiguration::SetMaxFPS(uint fps)
+{
+	max_fps = fps;
 }
 
 unsigned int PanelConfiguration::GetMaxFPS()

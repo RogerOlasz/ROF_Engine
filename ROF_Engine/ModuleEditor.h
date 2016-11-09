@@ -29,6 +29,7 @@ public:
 
 	void Log(const char* log);
 	void LogFPS(const float* fps, const float ms);
+	void SetMaxFPS(uint new_fps_cap);
 	uint GetMaxFPS() const;
 
 public:

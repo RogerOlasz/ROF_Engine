@@ -158,20 +158,7 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 bool ModuleEditor::Load(pugi::xml_node &config)
 {
-	/*vec tmp;
-	tmp.x = config.child("Position").attribute("X").as_float(20.0f);
-	tmp.y = config.child("Position").attribute("Y").as_float(20.0f);
-	tmp.z = config.child("Position").attribute("Z").as_float(20.0f);
-
-	camera->SetPos(tmp);
-
-	tmp.x = config.child("Reference").attribute("X").as_float(0.0f);
-	tmp.y = config.child("Reference").attribute("Y").as_float(0.0f);
-	tmp.z = config.child("Reference").attribute("Z").as_float(0.0f);
-
-	LookAt(tmp);*/
-
-
+	SetMaxFPS(config.child("Framerate").attribute("Cap_FPS").as_uint(60));
 
 	return true;
 }
@@ -205,6 +192,11 @@ void ModuleEditor::Log(const char* log)
 	{
 		Console->AddLog(log);
 	}	
+}
+
+void ModuleEditor::SetMaxFPS(uint new_fps_cap)
+{
+	Config->SetMaxFPS(new_fps_cap);
 }
 
 void ModuleEditor::LogFPS(const float* fps, const float ms)

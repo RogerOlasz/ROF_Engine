@@ -10,7 +10,6 @@ private:
 	ImVector<char*> Items;
 
 public:
-
 	PanelConsole();
 	virtual ~PanelConsole();
 
