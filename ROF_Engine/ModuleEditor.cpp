@@ -10,6 +10,7 @@
 #include "PanelConfiguration.h"
 #include "PanelHierarchy.h"
 #include "PanelComponents.h"
+#include "PanelTimeControl.h"
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl_gl3.h"
@@ -34,6 +35,7 @@ bool ModuleEditor::Init()
 	panels.push_back(Console = new PanelConsole);
 	panels.push_back(Hierarchy = new PanelHierarchy);
 	panels.push_back(Comp = new PanelComponents);
+	panels.push_back(TimeControl = new PanelTimeControl);
 
 	camera_id = 0;
 
@@ -84,6 +86,7 @@ update_status ModuleEditor::Update(float dt)
 			if (ImGui::MenuItem("Configuration", "C", &Config->active));
 			if (ImGui::MenuItem("Console", "CTR+C", &Console->active));
 			if (ImGui::MenuItem("Hierarchy", "CTR+O", &Hierarchy->active));
+			if (ImGui::MenuItem("Time Controller", "CTR+T", &TimeControl->active));
 
 			ImGui::EndMenu();
 		}

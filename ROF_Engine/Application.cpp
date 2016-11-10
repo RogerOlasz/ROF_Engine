@@ -73,6 +73,8 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	
+
 	// Call Init() in all modules
 	list<Module*>::iterator item = list_modules.begin();
 
@@ -95,6 +97,7 @@ bool Application::Init()
 		item++;
 	}
 
+	time_since_startup.Start();
 	to_fps.Start();
 	ms_timer.Start();
 	return ret;
@@ -176,6 +179,9 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 		++item;
 	}
+
+	time_since_startup.Stop();
+
 	return ret;
 }
 

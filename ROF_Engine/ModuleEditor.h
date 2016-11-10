@@ -10,6 +10,7 @@ class PanelConsole;
 class PanelConfiguration;
 class PanelHierarchy;
 class PanelComponents;
+class PanelTimeControl;
 
 class ModuleEditor : public Module
 {
@@ -37,6 +38,7 @@ public:
 	PanelConfiguration* Config = nullptr;
 	PanelHierarchy* Hierarchy = nullptr;
 	PanelComponents* Comp = nullptr;
+	PanelTimeControl* TimeControl = nullptr;
 
 private:
 	std::vector<Panel*> panels;

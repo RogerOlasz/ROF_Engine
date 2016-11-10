@@ -124,8 +124,6 @@ bool ModuleRenderer3D::Init()
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	last_frame_window_size.x = SCREEN_WIDTH;
-	last_frame_window_size.y = SCREEN_HEIGHT;
 
 	//CreateDebugTexture();
 
@@ -143,14 +141,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	{
 		OnResize(App->window->window_size.x, App->window->window_size.y);
 		update_proj_matrix = true;
-	}
-
-	if (last_frame_window_size.x != App->window->window_size.x || last_frame_window_size.y != App->window->window_size.y)
-	{
-		OnResize(App->window->window_size.x, App->window->window_size.y);
-		update_proj_matrix = true;
-		last_frame_window_size.x = App->window->window_size.x;
-		last_frame_window_size.y = App->window->window_size.y;
 	}
 
 	if (update_proj_matrix)
@@ -224,6 +214,7 @@ bool ModuleRenderer3D::CleanUp()
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
+	camera->SetAspectRatio((float)width / (float)height);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

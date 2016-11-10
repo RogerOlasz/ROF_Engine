@@ -34,13 +34,15 @@ public:
 	ModuleGOManager* go_manager = nullptr;
 	ModuleSceneImporter* importer = nullptr;
 
+	Timer time_since_startup;
+
 private:
 
 	Timer to_fps;
 	float fps;
 	float fps_last_sec;
-	Timer	ms_timer;
-	float	dt;
+	Timer ms_timer;
+	float dt;
 	float max_fps;
 	float capped_ms;
 
@@ -59,7 +61,6 @@ private:
 	std::list<Module*> list_modules;
 
 public:
-
 	Application();
 	~Application();
 

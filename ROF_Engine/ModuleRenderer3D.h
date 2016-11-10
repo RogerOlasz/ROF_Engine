@@ -40,8 +40,6 @@ private:
 	std::vector<bool> is_wireframe;
 	std::vector<const float4x4*> mesh_trans_matrix;
 
-	float2 last_frame_window_size;
-
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
