@@ -224,3 +224,16 @@ void OctTree::Insert(GameObject* go)
 {
 	root->AddGO(go);	
 }
+
+void OctTree::AddCandidate(std::vector<GameObject*> &colliding, GameObject* candidate)
+{
+	for (std::vector<GameObject*>::const_iterator tmp = colliding.begin(); tmp != colliding.end(); tmp++)
+	{
+		if ((*tmp) == candidate)
+		{
+			return;
+		}
+	}
+
+	colliding.push_back(candidate);
+}

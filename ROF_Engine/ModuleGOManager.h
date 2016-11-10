@@ -36,6 +36,7 @@ public:
 
 	void CameraCulling();
 	void OctTreeCulling();
+	void AddCameraCulling(ComponentCamera* cam, bool culling);
 
 private:
 	GameObject* root = nullptr;
@@ -45,6 +46,7 @@ private:
 
 public:
 	bool show_tree = false;
+	std::vector<ComponentCamera*> camera_cullings;
 
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);

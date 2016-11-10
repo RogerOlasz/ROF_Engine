@@ -8,6 +8,7 @@
 #include "ComponentCamera.h"
 #include "ModuleCamera3D.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleGOManager.h"
 #include "Mesh.h"
 #include "ImGui/imgui.h"
 
@@ -182,7 +183,10 @@ void PanelComponents::Draw(GameObject* selected_go)
 				ImGui::Separator();
 				
 				ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
-				ImGui::Checkbox("Camera culling", &((ComponentCamera*)(*tmp))->frustum_culling);
+				if (ImGui::Checkbox("Camera culling", &((ComponentCamera*)(*tmp))->frustum_culling))
+				{
+					App->go_manager->AddCameraCulling(((ComponentCamera*)(*tmp)), ((ComponentCamera*)(*tmp))->frustum_culling);
+				}
 
 				if (ImGui::Checkbox("Use camera", &render_camera))
 				{

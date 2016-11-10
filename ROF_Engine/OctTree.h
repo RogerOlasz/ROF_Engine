@@ -39,6 +39,7 @@ public:
 	void Insert(GameObject* go);
 	template<class Type>
 	void CollectCandidates(std::vector<GameObject*> &colliding, const Type &primitive) const;
+	void AddCandidate(std::vector<GameObject*> &colliding, GameObject* candidate);
 
 public:
 	OctTreeNode* root = nullptr;
@@ -64,7 +65,7 @@ inline void OctTreeNode::CollectCandidates(std::vector<GameObject*> &colliding, 
 		//http://stackoverflow.com/questions/5346890/what-is-the-difference-between-const-iterator-and-iterator
 		for (std::vector<GameObject*>::const_iterator tmp = bucket.begin(); tmp != bucket.end(); tmp++)
 		{
-			colliding.push_back(*tmp);
+			belonging->AddCandidate(colliding, (*tmp));
 		}
 	}
 

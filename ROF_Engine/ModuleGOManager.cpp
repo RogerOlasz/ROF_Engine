@@ -42,7 +42,7 @@ update_status ModuleGOManager::PreUpdate(float dt)
 {
 	if (go_tree)
 	{
-		//OctTreeCulling();
+		OctTreeCulling();
 	}
 	else
 	{
@@ -308,8 +308,25 @@ void ModuleGOManager::OctTreeCulling()
 				go_tree->CollectCandidates(candidates, tmp_cam->GetFrustum());
 
 				std::vector<GameObject*>::iterator tmp_cand = candidates.begin();
-				LOG("Candidates size: %d", candidates.size());
-
+				//LOG("Candidates size: %d", candidates.size());
+				while (tmp_cand != candidates.end())
+				{
+					if (tmp_cam->Intersects(*(*tmp_cand)->GetBoundingBox()) == false)
+					{
+						if ((ComponentMesh*)(*tmp_cand)->GetComponentByType(Component::Type::Geometry))
+						{
+							((ComponentMesh*)(*tmp_cand)->GetComponentByType(Component::Type::Geometry))->active = false;
+						}
+					}
+					else
+					{
+						if ((ComponentMesh*)(*tmp_cand)->GetComponentByType(Component::Type::Geometry))
+						{
+							((ComponentMesh*)(*tmp_cand)->GetComponentByType(Component::Type::Geometry))->active = true;
+						}
+					}
+					tmp_cand++;
+				}
 				break; //To works just with the upper hierarchy camera
 			}
 			else
@@ -327,6 +344,25 @@ void ModuleGOManager::OctTreeCulling()
 			}
 		}
 		tmp++;
+	}
+}
+
+void ModuleGOManager::AddCameraCulling(ComponentCamera* cam, bool culling)
+{
+	if (culling)
+	{
+		camera_cullings.push_back(cam);
+	}
+	else
+	{
+		for (std::vector<ComponentCamera*>::iterator it = camera_cullings.begin(); it != camera_cullings.end(); it++)
+		{
+			if (cam == (*it))
+			{
+				camera_cullings.erase(it);
+				break;
+			}			
+		}
 	}
 }
 

@@ -42,6 +42,7 @@ Component* GameObject::CreateComponent(Component::Type type)
 	case Component::Type::Camera:
 		if(this->GetComponentByType(Component::Type::Camera) == nullptr)
 		{
+			//TODO have camera
 			new_component = new ComponentCamera(this, components.size());
 			this->have_camera = true;
 		}
