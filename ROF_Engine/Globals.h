@@ -25,6 +25,7 @@ enum update_status
 #define SHORT_STRING 128
 #define MEDIUM_STRING 256
 #define LONG_STRING 512
+#define LONG_LONG_STRING 1024
 
 // Deletes a buffer
 #define RELEASE( x )\

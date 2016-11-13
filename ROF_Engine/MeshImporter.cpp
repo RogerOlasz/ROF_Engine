@@ -8,7 +8,17 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
-bool MeshImporter::Import(const aiMesh* ai_mesh, std::string& output_file)
+MeshImporter::MeshImporter() 
+{
+
+}
+
+MeshImporter::~MeshImporter()
+{
+
+}
+
+bool MeshImporter::Import(aiMesh* ai_mesh, std::string& output_file)
 {
 	bool ret = true;
 
@@ -35,6 +45,7 @@ bool MeshImporter::Import(const aiMesh* ai_mesh, std::string& output_file)
 	//Texture coords
 	if (ai_mesh->HasTextureCoords(0))
 	{
+		mesh->num_tex_coord = ai_mesh->mNumVertices;
 		mesh->tex_coord = new float2[mesh->num_tex_coord];
 		memcpy(mesh->tex_coord, ai_mesh->mTextureCoords[0], sizeof(float2) * mesh->num_vertices);
 	}
@@ -96,7 +107,7 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 		size += sizeof(vec) * mesh->num_vertices;
 	}
 
-	LOG("Loading a mesh with %d bytes.", (size * 4));
+	//LOG("Loading a mesh with %d bytes.", (size * 4));
 
 	// Allocate
 	char* data = new char[size]; 

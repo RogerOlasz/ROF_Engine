@@ -4,13 +4,9 @@
 #include "Module.h"
 #include <vector>
 
-#define MAX_STR_LEN 1024
-
 class GameObject;
 class ComponentCamera;
 class OctTree;
-struct aiNode;
-struct aiScene;
 
 class ModuleGOManager : public Module
 {
@@ -27,9 +23,6 @@ public:
 
 	GameObject* GetRootNode() const;
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
-	
-	void LoadFBX(const char* file_path, bool file_system = true);
-	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 
 	void DoOctTree();
 	void ShowAABB(bool showing);

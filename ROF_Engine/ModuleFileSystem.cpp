@@ -179,8 +179,8 @@ int close_sdl_rwops(SDL_RWops *rw)
 uint ModuleFileSystem::Save(const char *file, const char *buffer, uint size) const
 {
 	uint ret = 0;
-
-	PHYSFS_file *file_handle = PHYSFS_openWrite(file);
+	
+	PHYSFS_file* file_handle = PHYSFS_openWrite(file);
 	if (file_handle != NULL)
 	{
 		PHYSFS_sint64 bytes_written = PHYSFS_write(file_handle, (const void*) buffer, 1, size);

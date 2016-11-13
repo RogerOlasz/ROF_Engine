@@ -14,7 +14,33 @@ GameObject::GameObject(const char* name) : name(name)
 
 GameObject::~GameObject()
 {
-	children.clear();
+	if (this->parent != nullptr)
+	{
+		std::vector<GameObject*>::iterator tmp = this->parent->children.begin();
+		while (tmp != this->parent->children.end())
+		{
+			if ((*tmp) == this)
+			{
+				this->parent->children.erase(tmp);
+				break;
+			}
+			tmp++;
+		}
+	}
+
+	if (children.size() != 0)
+	{
+		std::vector<GameObject*>::iterator it = children.begin();
+		while (it != children.end() && children.size() > 0)
+		{
+			RELEASE((*it));
+
+			if (children.size() > 0)
+			{
+				it = children.begin();
+			}
+		}
+	}
 
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())

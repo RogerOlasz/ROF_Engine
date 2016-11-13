@@ -3,7 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleGOManager.h"
+#include "ModuleSceneImporter.h"
 #include "ModuleFileSystem.h"
 
 #include "ImGui/imgui.h"
@@ -117,7 +117,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				char* dropped_filedir = e.drop.file;
 				//Must add any check to see if the dropped file is an .fbx
-				App->go_manager->LoadFBX(dropped_filedir, false);
+				App->importer->LoadFBX(dropped_filedir, false);
 				SDL_free(dropped_filedir);    
 			}
 			break;

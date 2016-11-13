@@ -7,10 +7,13 @@
 class aiMesh;
 class Mesh;
 
-class MeshImporter : public ModuleSceneImporter
+class MeshImporter 
 {
 public:
-	bool Import(const aiMesh* new_mesh, std::string& output_file);
+	MeshImporter();
+	~MeshImporter();
+
+	bool Import(aiMesh* new_mesh, std::string& output_file);
 	bool ToOwnFormat(Mesh* mesh, std::string& output_file);
 
 };
