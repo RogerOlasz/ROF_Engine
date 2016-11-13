@@ -80,6 +80,15 @@ update_status ModuleGOManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+bool ModuleGOManager::Load(pugi::xml_node&)
+{
+
+}
+bool ModuleGOManager::Save(pugi::xml_node&) const
+{
+
+}
+
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
@@ -272,6 +281,20 @@ void ModuleGOManager::AddCameraCulling(ComponentCamera* cam, bool culling)
 				break;
 			}			
 		}
+	}
+}
+
+void ModuleGOManager::FindCandidates(const LineSegment &to_test, std::vector<GameObject*> &candidates)
+{
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		if (to_test.Intersects(*(*tmp)->GetBoundingBox()))
+		{
+			candidates.push_back((*tmp));
+		}
+
+		tmp++;
 	}
 }
 

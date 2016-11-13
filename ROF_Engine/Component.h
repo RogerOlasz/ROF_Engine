@@ -10,7 +10,7 @@ class Component
 public:
 	enum Type
 	{
-		Transformation,
+		Transformation = 0,
 		Geometry,
 		Material,
 		Camera,
@@ -28,6 +28,8 @@ public:
 
 	virtual void Update() {};
 	virtual void CleanUp() {};
+	virtual void OnLoad() {};
+	virtual void OnSave() {};
 
 	Type GetType() const;
 	int GetID() const;

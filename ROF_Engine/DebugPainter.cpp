@@ -78,6 +78,23 @@ void DebugDrawBox(const vec* vertices, Color color)
 	glEnd();
 	glEnable(GL_LIGHTING);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 1.0f); // Set color to white
 }
 
+void DebugDraw(const LineSegment &segment, Color color)
+{
+	glColor3f(color.r, color.g, color.b);
+	glLineWidth(2.0f); // Must be before glBegin()
+	glDisable(GL_LIGHTING);
+
+	glBegin(GL_LINES);
+
+	glVertex3fv((GLfloat*)&segment.a);
+	glVertex3fv((GLfloat*)&segment.b);
+
+	glEnd();
+	glEnable(GL_LIGHTING);
+	glLineWidth(1.0f);
+
+	glColor3f(1.0f, 1.0f, 1.0f); // Set color to white
+}

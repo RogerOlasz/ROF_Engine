@@ -223,6 +223,11 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 }
 
+ComponentCamera* ModuleRenderer3D::GetRenderingCamera()
+{
+	return camera;
+}
+
 void ModuleRenderer3D::AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix)
 {
 	mesh_to_draw.push_back(mesh);

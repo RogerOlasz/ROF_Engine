@@ -211,4 +211,3 @@ uint ModuleEditor::GetMaxFPS() const
 {
 	return Config->GetMaxFPS();
 }
-

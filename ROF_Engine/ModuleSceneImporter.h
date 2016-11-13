@@ -28,7 +28,7 @@ private:
 
 	//http://clb.demon.fi/MathGeoLib/nightly/docs/LCG_summary.php Awesome joke...
 	LCG random;
-	Uint32 UID;
+	Uint32 UUID;
 
 };
 

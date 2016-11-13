@@ -48,7 +48,6 @@ private:
 
 	bool aabb_debug = false;
 	bool octtree_debug = false;
-
 };
 
 #endif // __MODULEEDITOR_H__

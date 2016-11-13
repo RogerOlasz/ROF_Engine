@@ -30,6 +30,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	ComponentCamera* GetRenderingCamera();
+
 	void AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix);
 	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);

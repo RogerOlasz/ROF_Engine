@@ -2,6 +2,7 @@
 #define __MODULEGOMANAGER_H__
 
 #include "Module.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include <vector>
 
 class GameObject;
@@ -21,6 +22,9 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&) const;
+
 	GameObject* GetRootNode() const;
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
 
@@ -30,6 +34,8 @@ public:
 	void CameraCulling();
 	void OctTreeCulling();
 	void AddCameraCulling(ComponentCamera* cam, bool culling);
+
+	void FindCandidates(const LineSegment &to_test, std::vector<GameObject*> &candidates);
 
 private:
 	GameObject* root = nullptr;
