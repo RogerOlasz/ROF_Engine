@@ -37,6 +37,15 @@ enum update_status
        }\
     }
 
+#define RELEASE_ARRAY( x )\
+    {\
+       if( x != nullptr )\
+       {\
+         delete[] x;\
+	     x = nullptr;\
+       }\
+    }
+
 // Configuration -----------
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 1024

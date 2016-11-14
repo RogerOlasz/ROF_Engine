@@ -129,7 +129,7 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 #pragma endregion
 
 #pragma region SetMaterial
-		//Still being bad, ComponentMaterial just loads and save textures (id) but i'm charging textures from struct Mesh
+		//TODO: Still being bad, ComponentMaterial just loads and save textures (id) but i'm charging textures from struct Mesh
 		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);
 #pragma endregion
 
@@ -138,11 +138,11 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 
-			/*char tmp_c[LONG_LONG_STRING];
+			char tmp_c[LONG_STRING];
 			UUID = random.Int();
 			sprintf(tmp_c, "mesh%d.rof", UUID);
 			std::string tmp_s = tmp_c;
-			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);*/
+			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);
 
 			if (tmp != nullptr)
 			{

@@ -37,25 +37,10 @@ struct Mesh
 	// Delete mesh will call structure's destructor.
 	~Mesh()
 	{
-		if (vertices != nullptr)
-		{
-			RELEASE(vertices);
-		}
-		
-		if (tex_coord != nullptr)
-		{
-			RELEASE(tex_coord);
-		}
-
-		if (normals != nullptr)
-		{
-			RELEASE(normals);
-		}
-		
-		if (indices != nullptr)
-		{
-			RELEASE(indices);
-		}
+		RELEASE_ARRAY(vertices);		
+		RELEASE_ARRAY(tex_coord);
+		RELEASE_ARRAY(normals);	
+		RELEASE_ARRAY(indices);
 	}
 };
 

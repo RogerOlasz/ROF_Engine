@@ -82,11 +82,11 @@ update_status ModuleGOManager::PostUpdate(float dt)
 
 bool ModuleGOManager::Load(pugi::xml_node&)
 {
-
+	return true;
 }
 bool ModuleGOManager::Save(pugi::xml_node&) const
 {
-
+	return true;
 }
 
 // Called before quitting
