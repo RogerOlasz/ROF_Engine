@@ -5,7 +5,12 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleGOManager.h"
+#include "ModuleCamera3D.h"
+#include "GameObject.h"
+#include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ModuleEditor.h"
+#include "Mesh.h"
 #include "Primitive.h"
 #include "DebugPainter.h"
 #include "ImGui/imgui.h"
@@ -57,6 +62,38 @@ update_status ModuleScene::Update(float dt)
 		std::vector<GameObject*> candidates;
 		App->go_manager->FindCandidates(picking, candidates);
 		LOG("Candidates: %d", candidates.size());
+
+		Triangle final_tri;
+		float min_dist = App->camera->GetCamera()->GetFarPlane();
+
+		for (uint i = 0; i < candidates.size(); i++)
+		{
+			GameObject* go = candidates[i];
+			ComponentMesh* mesh = (ComponentMesh*)go->GetComponentByType(Component::Type::Geometry);
+
+			for (uint i = 0; i < mesh->GetMesh()->num_indices; i+=3)
+			{
+				uint indice_1 = mesh->GetMesh()->indices[i];
+				uint indice_2 = mesh->GetMesh()->indices[i + 1];
+				uint indice_3 = mesh->GetMesh()->indices[i + 2];
+
+				vec vertex_1 = mesh->GetMesh()->vertices[indice_1];
+				vec vertex_2 = mesh->GetMesh()->vertices[indice_2];
+				vec vertex_3 = mesh->GetMesh()->vertices[indice_3];
+
+				Triangle to_test(vertex_1, vertex_2, vertex_3);
+				float hit_distance = 0;
+				vec hit_point = vec::zero;
+
+				if (to_test.Intersects(picking, &hit_distance, &hit_point))
+				{
+					if (hit_distance < min_dist)
+					{
+						final_tri = to_test;
+					}					
+				}
+			}
+		}
 	}
 
 	DebugDraw(picking, Red);

@@ -293,7 +293,6 @@ void ModuleGOManager::FindCandidates(const LineSegment &to_test, std::vector<Gam
 		{
 			candidates.push_back((*tmp));
 		}
-
 		tmp++;
 	}
 }
