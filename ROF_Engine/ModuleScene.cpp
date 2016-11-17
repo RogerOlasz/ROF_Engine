@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ComponentTransformation.h"
 #include "ModuleEditor.h"
 #include "Mesh.h"
 #include "Primitive.h"
@@ -83,6 +84,7 @@ update_status ModuleScene::Update(float dt)
 				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];
 
 				Triangle to_test(vertex_1, vertex_2, vertex_3);
+				to_test.Transform(go->transform->GetGlobalMatrix());
 				float hit_distance = 0;
 				vec hit_point = vec::zero;
 
