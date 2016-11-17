@@ -62,7 +62,7 @@ update_status ModuleScene::Update(float dt)
 
 		std::vector<GameObject*> candidates;
 		App->go_manager->FindCandidates(picking, candidates);
-		LOG("Candidates: %d", candidates.size());
+		//LOG("Candidates: %d", candidates.size());
 
 		if (candidates.size() == 0)
 		{
@@ -75,7 +75,10 @@ update_status ModuleScene::Update(float dt)
 		for (uint i = 0; i < candidates.size(); i++)
 		{
 			GameObject* go = candidates[i];
+			LineSegment tmp = picking;
 			ComponentMesh* mesh = (ComponentMesh*)go->GetComponentByType(Component::Type::Geometry);
+
+			tmp.Transform(go->transform->GetGlobalMatrix().Inverted());
 
 			for (uint i = 0; i < mesh->GetMesh()->num_indices; i+=3)
 			{
@@ -84,11 +87,10 @@ update_status ModuleScene::Update(float dt)
 				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];
 
 				Triangle to_test(vertex_1, vertex_2, vertex_3);
-				to_test.Transform(go->transform->GetGlobalMatrix());
 				float hit_distance = 0;
 				vec hit_point = vec::zero;
 
-				if (to_test.Intersects(picking, &hit_distance, &hit_point))
+				if (to_test.Intersects(tmp, &hit_distance, &hit_point))
 				{
 					if (hit_distance < min_dist)
 					{
