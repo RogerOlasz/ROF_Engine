@@ -11,6 +11,7 @@ class PanelConfiguration;
 class PanelHierarchy;
 class PanelComponents;
 class PanelTimeControl;
+class GameObject;
 
 class ModuleEditor : public Module
 {
@@ -33,14 +34,15 @@ public:
 	void SetMaxFPS(uint new_fps_cap);
 	uint GetMaxFPS() const;
 
-public:
+	void SetSelectedGO(GameObject* go);
+
+private:
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
 	PanelHierarchy* Hierarchy = nullptr;
 	PanelComponents* Comp = nullptr;
 	PanelTimeControl* TimeControl = nullptr;
 
-private:
 	std::vector<Panel*> panels;
 
 	uint camera_id;

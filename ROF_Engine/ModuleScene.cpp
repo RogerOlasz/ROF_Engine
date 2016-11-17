@@ -63,7 +63,12 @@ update_status ModuleScene::Update(float dt)
 		App->go_manager->FindCandidates(picking, candidates);
 		LOG("Candidates: %d", candidates.size());
 
-		Triangle final_tri;
+		if (candidates.size() == 0)
+		{
+			App->editor->SetSelectedGO(nullptr);
+		}
+
+		GameObject* picked = nullptr;
 		float min_dist = App->camera->GetCamera()->GetFarPlane();
 
 		for (uint i = 0; i < candidates.size(); i++)
@@ -73,13 +78,9 @@ update_status ModuleScene::Update(float dt)
 
 			for (uint i = 0; i < mesh->GetMesh()->num_indices; i+=3)
 			{
-				uint indice_1 = mesh->GetMesh()->indices[i];
-				uint indice_2 = mesh->GetMesh()->indices[i + 1];
-				uint indice_3 = mesh->GetMesh()->indices[i + 2];
-
-				vec vertex_1 = mesh->GetMesh()->vertices[indice_1];
-				vec vertex_2 = mesh->GetMesh()->vertices[indice_2];
-				vec vertex_3 = mesh->GetMesh()->vertices[indice_3];
+				vec vertex_1 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i]];
+				vec vertex_2 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 1]];
+				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];
 
 				Triangle to_test(vertex_1, vertex_2, vertex_3);
 				float hit_distance = 0;
@@ -89,11 +90,13 @@ update_status ModuleScene::Update(float dt)
 				{
 					if (hit_distance < min_dist)
 					{
-						final_tri = to_test;
+						picked = go;
+						min_dist = hit_distance;
 					}					
 				}
 			}
 		}
+		App->editor->SetSelectedGO(picked);
 	}
 
 	DebugDraw(picking, Red);

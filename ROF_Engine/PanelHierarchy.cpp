@@ -48,6 +48,11 @@ GameObject* PanelHierarchy::GetSelectedGO() const
 	return selected_go;
 }
 
+void PanelHierarchy::SetSelectedGO(GameObject* go)
+{
+	selected_go = go;
+}
+
 //Recursive method to create all game objects tree
 void PanelHierarchy::GameObjectsHierarchy(GameObject* node)
 {

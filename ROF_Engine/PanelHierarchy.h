@@ -15,6 +15,7 @@ public:
 	void Draw();
 
 	GameObject* GetSelectedGO() const;
+	void SetSelectedGO(GameObject* go);
 
 private:
 	void GameObjectsHierarchy(GameObject* node);

@@ -129,11 +129,6 @@ update_status ModuleEditor::Update(float dt)
 	 ImGui::EndMainMenuBar();
 	}	
 
-	if (Hierarchy->GetSelectedGO())
-	{
-		Comp->Draw(Hierarchy->GetSelectedGO());
-	}
-
 	//ROF Discomment it to edit ImGuiC Colors
 	//ImGui::ShowStyleEditor();
 
@@ -148,6 +143,7 @@ update_status ModuleEditor::Update(float dt)
 			panel->Draw();
 		}
 	}
+	Comp->Draw(Hierarchy->GetSelectedGO());
 
 	return UPDATE_CONTINUE;
 }
@@ -210,4 +206,9 @@ void ModuleEditor::LogFPS(const float* fps, const float ms)
 uint ModuleEditor::GetMaxFPS() const
 {
 	return Config->GetMaxFPS();
+}
+
+void ModuleEditor::SetSelectedGO(GameObject* go)
+{
+	Hierarchy->SetSelectedGO(go);
 }

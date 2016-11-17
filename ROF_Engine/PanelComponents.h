@@ -17,7 +17,7 @@ public:
 	void Draw(GameObject* selected_go);
 
 private:
-	GameObject* last_go;
+	GameObject* last_go = nullptr;
 
 	vec pos = vec::zero;
 	vec sca = vec::zero;
