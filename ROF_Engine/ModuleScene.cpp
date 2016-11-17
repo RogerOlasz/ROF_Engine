@@ -103,7 +103,8 @@ update_status ModuleScene::Update(float dt)
 		App->editor->SetSelectedGO(picked);
 	}
 
-	DebugDraw(picking, Red);
+	//Debug picking segment draw
+	//DebugDraw(picking, Red);
 
 	return UPDATE_CONTINUE;
 }

@@ -4,6 +4,8 @@
 #include "Component.h"
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "PugiXML/src/pugixml.hpp"
+#include "SDL/include/SDL.h"
 #include <vector>
 
 class ComponentTransformation;
@@ -36,12 +38,14 @@ public:
 	void SetChildrenStatic(bool static_go);
 	bool RemoveGameObject(GameObject* to_delete);
 
+	bool Save(pugi::xml_node&);
+
 private:
 	GameObject* parent = nullptr;
 	std::string name;
 
 	AABB bounding_box;
-	OBB go_obb;	
+	OBB go_obb;		
 
 public:
 	ComponentTransformation* transform = nullptr;
@@ -55,7 +59,8 @@ public:
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
-
+	
+	Uint32 UUID = 0;
 };
 
 #endif // !__GAMEOBJECT_H__

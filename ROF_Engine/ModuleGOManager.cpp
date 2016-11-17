@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleGOManager.h"
 #include "ModuleInput.h"
+#include "ModuleFileSystem.h"
 
 #include "GameObject.h"
 #include "ComponentTransformation.h"
@@ -26,6 +27,8 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
+	LoadScene("SceneSerialitzation.xml");
+	LoadSceneNow();
 
 	return true;
 }
@@ -80,18 +83,12 @@ update_status ModuleGOManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleGOManager::Load(pugi::xml_node&)
-{
-	return true;
-}
-bool ModuleGOManager::Save(pugi::xml_node&) const
-{
-	return true;
-}
-
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
+	SaveScene("SceneSerialitzation.xml");
+	SaveSceneNow();
+
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
 	while (tmp != gos_array.rend())
 	{
@@ -117,6 +114,7 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 {
 	GameObject* new_go = new GameObject(name);
 	SetParent(new_go, parent);
+	new_go->UUID = random.Int();
 
 	gos_array.push_back(new_go);
 
@@ -307,5 +305,70 @@ void ModuleGOManager::SetParent(GameObject* me, GameObject* new_parent)
 	{
 		me->SwitchParent(new_parent);
 	}
+}
+
+void ModuleGOManager::LoadScene(const char* file)
+{
+	char tmp[SHORT_STRING];
+	sprintf(tmp, "%s%s", App->physfs->GetSaveDirectory(), file);
+	//load_scene.assign(tmp);
+	load_scene.assign(file);
+}
+
+void ModuleGOManager::SaveScene(const char* file)
+{
+	save_scene.assign(file);
+}
+
+bool ModuleGOManager::LoadSceneNow()
+{
+	bool ret = true;
+
+	char* buffer;
+	uint size = App->physfs->Load(load_scene.c_str(), &buffer);
+
+	if (size > 0)
+	{
+		pugi::xml_document data;
+		pugi::xml_node root;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != 0)
+		{
+			root = data.child("GameObjects");
+		}
+	}
+
+	return ret;
+}
+
+bool ModuleGOManager::SaveSceneNow()
+{
+	bool ret = true;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("GameObjects");
+
+	std::vector<GameObject*>::iterator item = gos_array.begin();
+	while (item != gos_array.end() && ret == true)
+	{
+		ret = (*item)->Save(root.append_child((*item)->GetName()));
+
+		item++;
+	}
+
+	if (ret == true)
+	{
+		std::stringstream stream;
+		data.save(stream);
+
+		App->physfs->Save(load_scene.c_str(), stream.str().c_str(), stream.str().length());
+	}
+
+	return ret;
 }
 

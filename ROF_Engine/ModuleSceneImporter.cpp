@@ -138,11 +138,11 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 
-			char tmp_c[LONG_STRING];
+			/*char tmp_c[LONG_STRING];
 			UUID = random.Int();
 			sprintf(tmp_c, "mesh%d.rof", UUID);
 			std::string tmp_s = tmp_c;
-			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);
+			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);*/
 
 			if (tmp != nullptr)
 			{

@@ -202,20 +202,6 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
-void Application::LoadScene(const char* file)
-{
-	want_to_load_scene = true;
-	char tmp[SHORT_STRING];
-	sprintf(tmp, "%s%s", physfs->GetSaveDirectory(), file);
-	load_scene.assign(tmp);
-}
-
-void Application::SaveScene(const char* file)
-{
-	want_to_save_scene = true;
-	save_scene.assign(file);
-}
-
 void Application::LoadEditorConfig(const char* file)
 {
 	char tmp[SHORT_STRING];
@@ -227,16 +213,6 @@ void Application::LoadEditorConfig(const char* file)
 void Application::SaveEditorConfig(const char* file)
 {
 	save_editor.assign(file);
-}
-
-bool Application::LoadSceneNow()
-{
-	return true;
-}
-
-bool Application::SaveSceneNow()
-{
-	return true;
 }
 
 bool Application::LoadConfigNow()

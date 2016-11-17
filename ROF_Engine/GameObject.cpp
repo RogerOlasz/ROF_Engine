@@ -246,3 +246,27 @@ bool GameObject::RemoveGameObject(GameObject* to_delete)
 
 	return ret;
 }
+
+bool GameObject::Save(pugi::xml_node &scene)
+{
+	pugi::xml_node tmp_node;
+
+	tmp_node = scene.append_child("Name");
+	tmp_node.text().set(name.c_str());
+
+	tmp_node = scene.append_child("UUID");
+	tmp_node.text().set(UUID);
+
+	tmp_node = scene.append_child("ParentUUID");
+	tmp_node.text().set(parent->UUID);
+
+	tmp_node = scene.append_child("Components");
+
+	tmp_node = tmp_node.append_child("Transformation");
+	tmp_node = tmp_node.append_child("Translate");
+	tmp_node.append_attribute("X") = transform->GetGlobalMatrix().TranslatePart().x;
+	tmp_node.append_attribute("Y") = transform->GetGlobalMatrix().TranslatePart().y;
+	tmp_node.append_attribute("Z") = transform->GetGlobalMatrix().TranslatePart().z;
+
+	return true;
+}

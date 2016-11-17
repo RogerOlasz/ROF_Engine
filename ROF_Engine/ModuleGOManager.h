@@ -22,9 +22,6 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
-
 	GameObject* GetRootNode() const;
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
 
@@ -43,12 +40,26 @@ private:
 
 	OctTree* go_tree = nullptr;
 
+	bool want_to_save_scene;
+	bool want_to_load_scene;
+
+	std::string load_scene;
+	std::string save_scene;
+
+	LCG random;
+
 public:
 	bool show_tree = false;
 	std::vector<ComponentCamera*> camera_cullings;
 
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);
+
+	void LoadScene(const char* file);
+	void SaveScene(const char* file);
+
+	bool LoadSceneNow();
+	bool SaveSceneNow();
 };
 
 #endif // __MODULEGOMANAGER_H__

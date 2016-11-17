@@ -49,12 +49,6 @@ private:
 	char app_name[SHORT_STRING];
 	char organization[SHORT_STRING];
 
-	bool want_to_save_scene;
-	bool want_to_load_scene;
-
-	std::string load_scene;
-	std::string save_scene;
-
 	std::string load_editor;
 	std::string save_editor;
 
@@ -74,9 +68,6 @@ public:
 	bool RequestBrowser(const char* link);
 	void Log(const char* log);
 
-	void LoadScene(const char* file);
-	void SaveScene(const char* file);
-
 	void LoadEditorConfig(const char* file);
 	void SaveEditorConfig(const char* file);
 
@@ -84,9 +75,6 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
-
-	bool LoadSceneNow();
-	bool SaveSceneNow();
 
 	bool LoadConfigNow();
 	bool SaveConfigNow();
