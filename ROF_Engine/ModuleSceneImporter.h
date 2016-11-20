@@ -9,6 +9,7 @@ struct aiNode;
 struct aiScene;
 class GameObject;
 class MeshImporter;
+class MaterialImporter;
 
 class ModuleSceneImporter : public Module
 {
@@ -25,6 +26,7 @@ public:
 
 private:
 	MeshImporter* mesh_importer = nullptr;
+	MaterialImporter* material_importer = nullptr;
 
 	//http://clb.demon.fi/MathGeoLib/nightly/docs/LCG_summary.php Awesome joke...
 	LCG random;

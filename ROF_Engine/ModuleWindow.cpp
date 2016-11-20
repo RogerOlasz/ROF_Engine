@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -95,6 +96,27 @@ bool ModuleWindow::CleanUp()
 
 	//Quit SDL subsystems
 	SDL_Quit();
+	return true;
+}
+
+bool ModuleWindow::Load(pugi::xml_node &config)
+{
+	window_size.x = config.child("WindowSize").attribute("X").as_float(SCREEN_WIDTH);
+	window_size.y = config.child("WindowSize").attribute("Y").as_float(SCREEN_HEIGHT);	
+
+	SDL_SetWindowSize(window, (int)window_size.x, (int)window_size.y);
+	App->renderer3D->OnResize((int)window_size.x, (int)window_size.y);
+
+	return true;
+}
+
+bool ModuleWindow::Save(pugi::xml_node &config) const
+{
+	pugi::xml_node tmp_node = config.append_child("WindowSize");
+
+	tmp_node.append_attribute("X") = window_size.x;
+	tmp_node.append_attribute("Y") = window_size.y;
+
 	return true;
 }
 

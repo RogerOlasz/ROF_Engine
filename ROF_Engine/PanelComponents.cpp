@@ -107,27 +107,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 			rot.Set(selected_go->transform->GetRotation().x, selected_go->transform->GetRotation().y, selected_go->transform->GetRotation().z);
 		}
 
-		if (ImGui::CollapsingHeader(selected_go->transform->name.c_str()))
-		{
-			ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
-			ImGui::SameLine();
-			ImGui::Text("%d", selected_go->transform->GetID());
-			ImGui::Separator();
-
-			if (ImGui::DragFloat3("Postion", pos.ptr()))
-			{
-				selected_go->transform->SetPos(pos.x, pos.y, pos.z);
-			}
-			if (ImGui::DragFloat3("Scale", sca.ptr(), 0.01f))
-			{
-				selected_go->transform->SetScale(sca.x, sca.y, sca.z);
-			}
-			if (ImGui::DragFloat3("Rotation", rot.ptr()))
-			{
-				selected_go->transform->SetRotEuler(rot.x, rot.y, rot.z);
-			}
-
-		}
+		DrawTransformation(selected_go->transform, selected_go);
 
 		for (std::vector<Component*>::iterator tmp = selected_go->components.begin(); tmp != selected_go->components.end(); tmp++)
 		{
@@ -148,112 +128,17 @@ void PanelComponents::Draw(GameObject* selected_go)
 					}
 				}
 
-				if (ImGui::CollapsingHeader(((ComponentMesh*)(*tmp))->name.c_str()))
-				{
-					ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
-					ImGui::SameLine();
-					ImGui::Text("%d", ((ComponentMesh*)(*tmp))->GetID());
-					ImGui::Separator();
-
-					ImGui::SameLine(ImGui::GetWindowWidth() - 105);
-					ImGui::Text("Active:");
-					ImGui::SameLine(ImGui::GetWindowWidth() - 50);
-					ImGui::Checkbox(((ComponentMesh*)(*tmp))->is_active.c_str(), &((ComponentMesh*)(*tmp))->active);
-
-					ImGui::Checkbox(((ComponentMesh*)(*tmp))->wire.c_str(), &((ComponentMesh*)(*tmp))->wirefr);
-
-					ImGui::Checkbox("AABB", &selected_go->aabb_debug);
-					ImGui::Checkbox("OBB", &selected_go->obb_debug);
-					ImGui::Separator();
-
-					ImGui::Text("Number of vertex(Indices): %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_indices);
-					ImGui::Text("Number of vertex in memory: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_vertices);
-					ImGui::Text("Number of normals: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_normals);
-					ImGui::Text("Number of texture coordinates: %d", ((ComponentMesh*)(*tmp))->GetMesh()->num_tex_coord);
-				}
+				DrawMesh(((ComponentMesh*)(*tmp)), selected_go);
 			}
 
 			if ((*tmp)->GetType() == Component::Type::Material)
 			{
-				if (ImGui::CollapsingHeader(((ComponentMaterial*)(*tmp))->name.c_str()))
-				{
-					ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
-					ImGui::SameLine();
-					ImGui::Text("%d", ((ComponentMaterial*)(*tmp))->GetID());
-
-					ImGui::Separator();
-					ImGui::Image((ImTextureID*)((ComponentMaterial*)(*tmp))->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
-					ImGui::Text("%s%s", "Texture path: ", ((ComponentMaterial*)(*tmp))->tex_path.c_str());
-				}
+				DrawMaterial(((ComponentMaterial*)(*tmp)), selected_go);
 			}
 
 			if ((*tmp)->GetType() == Component::Type::Camera)
 			{
-				if (ImGui::CollapsingHeader(((ComponentCamera*)(*tmp))->name.c_str()))
-				{
-					near_plane = ((ComponentCamera*)(*tmp))->GetNearPlane();
-					far_plane = ((ComponentCamera*)(*tmp))->GetFarPlane();
-					field_of_view = ((ComponentCamera*)(*tmp))->GetFOV();
-					aspect_ratio = ((ComponentCamera*)(*tmp))->GetAspectRatio();
-
-					ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
-					ImGui::SameLine();
-					ImGui::Text("%d", ((ComponentCamera*)(*tmp))->GetID());
-					ImGui::Separator();
-
-					ImGui::Checkbox("Camera frustrum", &((ComponentCamera*)(*tmp))->debug_draw);
-					if (ImGui::Checkbox("Camera culling", &((ComponentCamera*)(*tmp))->frustum_culling))
-					{
-						App->go_manager->AddCameraCulling(((ComponentCamera*)(*tmp)), ((ComponentCamera*)(*tmp))->frustum_culling);
-					}
-
-					if (ImGui::Checkbox("Use camera", &render_camera))
-					{
-						App->renderer3D->camera = ((ComponentCamera*)(*tmp));
-						App->renderer3D->update_proj_matrix = true;
-						App->camera->controls_disabled = true;
-					}
-
-					if (render_camera == false)
-					{
-						App->renderer3D->camera = App->camera->GetCamera();
-						App->camera->controls_disabled = false;
-						App->renderer3D->update_proj_matrix = true;
-					}
-
-					if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
-					{
-						((ComponentCamera*)(*tmp))->SetNearPlane(near_plane);
-						if (render_camera)
-						{
-							App->renderer3D->update_proj_matrix = true;
-						}
-					}
-					if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
-					{
-						((ComponentCamera*)(*tmp))->SetFarPlane(far_plane);
-						if (render_camera)
-						{
-							App->renderer3D->update_proj_matrix = true;
-						}
-					}
-					if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
-					{
-						((ComponentCamera*)(*tmp))->SetFOV(field_of_view);
-						if (render_camera)
-						{
-							App->renderer3D->update_proj_matrix = true;
-						}
-					}
-					if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
-					{
-						((ComponentCamera*)(*tmp))->SetAspectRatio(aspect_ratio);
-						if (render_camera)
-						{
-							App->renderer3D->update_proj_matrix = true;
-						}
-					}
-				}
+				DrawCamera(((ComponentCamera*)(*tmp)), selected_go);
 			}
 		}
 		last_go = selected_go;
@@ -269,5 +154,138 @@ void PanelComponents::Draw(GameObject* selected_go)
 			}
 		}
 	}
+}
 
+void PanelComponents::DrawTransformation(ComponentTransformation* go_transform, GameObject* go_selected)
+{
+	if (ImGui::CollapsingHeader(go_transform->name.c_str()))
+	{
+		ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+		ImGui::SameLine();
+		ImGui::Text("%d", go_transform->GetID());
+		ImGui::Separator();
+
+		if (ImGui::DragFloat3("Postion", pos.ptr()))
+		{
+			go_transform->SetPos(pos.x, pos.y, pos.z);
+		}
+		if (ImGui::DragFloat3("Scale", sca.ptr(), 0.01f))
+		{
+			go_transform->SetScale(sca.x, sca.y, sca.z);
+		}
+		if (ImGui::DragFloat3("Rotation", rot.ptr()))
+		{
+			go_transform->SetRotEuler(rot.x, rot.y, rot.z);
+		}
+	}
+}
+
+void PanelComponents::DrawMesh(ComponentMesh* go_mesh, GameObject* go_selected)
+{
+	if (ImGui::CollapsingHeader(go_mesh->name.c_str()))
+	{
+		ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+		ImGui::SameLine();
+		ImGui::Text("%d", (go_mesh->GetID()));
+		ImGui::Separator();
+
+		ImGui::SameLine(ImGui::GetWindowWidth() - 105);
+		ImGui::Text("Active:");
+		ImGui::SameLine(ImGui::GetWindowWidth() - 50);
+		ImGui::Checkbox(go_mesh->is_active.c_str(), &go_mesh->active);
+
+		ImGui::Checkbox(go_mesh->wire.c_str(), &go_mesh->wirefr);
+
+		ImGui::Checkbox("AABB", &go_selected->aabb_debug);
+		ImGui::Checkbox("OBB", &go_selected->obb_debug);
+		ImGui::Separator();
+
+		ImGui::Text("Number of vertex(Indices): %d", go_mesh->GetMesh()->num_indices);
+		ImGui::Text("Number of vertex in memory: %d", go_mesh->GetMesh()->num_vertices);
+		ImGui::Text("Number of normals: %d", go_mesh->GetMesh()->num_normals);
+		ImGui::Text("Number of texture coordinates: %d", go_mesh->GetMesh()->num_tex_coord);
+	}
+}
+
+void PanelComponents::DrawMaterial(ComponentMaterial* go_material, GameObject* go_selected)
+{
+	if (ImGui::CollapsingHeader(go_material->name.c_str()))
+	{
+		ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+		ImGui::SameLine();
+		ImGui::Text("%d", go_material->GetID());
+
+		ImGui::Separator();
+		ImGui::Image((ImTextureID*)go_material->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
+		ImGui::Text("%s%s", "Texture path: ", go_material->tex_path.c_str());
+	}
+}
+
+void PanelComponents::DrawCamera(ComponentCamera* go_camera, GameObject* go_selected)
+{
+	if (ImGui::CollapsingHeader(go_camera->name.c_str()))
+	{
+		near_plane = go_camera->GetNearPlane();
+		far_plane = go_camera->GetFarPlane();
+		field_of_view = go_camera->GetFOV();
+		aspect_ratio = go_camera->GetAspectRatio();
+
+		ImGui::TextColored(ImVec4(1.0f, 0.5, 0.0f, 1.0f), "Component ID: ");
+		ImGui::SameLine();
+		ImGui::Text("%d", go_camera->GetID());
+		ImGui::Separator();
+
+		ImGui::Checkbox("Camera frustrum", &go_camera->debug_draw);
+		if (ImGui::Checkbox("Camera culling", &go_camera->frustum_culling))
+		{
+			App->go_manager->AddCameraCulling(go_camera, go_camera->frustum_culling);
+		}
+
+		if (ImGui::Checkbox("Use camera", &render_camera))
+		{
+			App->renderer3D->camera = go_camera;
+			App->renderer3D->update_proj_matrix = true;
+			App->camera->controls_disabled = true;
+		}
+
+		if (render_camera == false)
+		{
+			App->renderer3D->camera = App->camera->GetCamera();
+			App->camera->controls_disabled = false;
+			App->renderer3D->update_proj_matrix = true;
+		}
+
+		if (ImGui::DragFloat("Near plane", &near_plane, 0.1f))
+		{
+			go_camera->SetNearPlane(near_plane);
+			if (render_camera)
+			{
+				App->renderer3D->update_proj_matrix = true;
+			}
+		}
+		if (ImGui::DragFloat("Far plane", &far_plane, 0.1f))
+		{
+			go_camera->SetFarPlane(far_plane);
+			if (render_camera)
+			{
+				App->renderer3D->update_proj_matrix = true;
+			}
+		}
+		if (ImGui::DragFloat("Field of view", &field_of_view, 0.1f))
+		{
+			go_camera->SetFOV(field_of_view);
+			if (render_camera)
+			{
+				App->renderer3D->update_proj_matrix = true;
+			}
+		}
+		if (ImGui::DragFloat("Aspect ratio", &aspect_ratio, 0.01f))
+		{
+			go_camera->SetAspectRatio(aspect_ratio);
+			if (render_camera)
+			{
+				App->renderer3D->update_proj_matrix = true;
+			}
+		}
+	}
 }

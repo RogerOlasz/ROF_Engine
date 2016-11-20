@@ -26,8 +26,7 @@ ModuleFileSystem::~ModuleFileSystem()
 	if (PHYSFS_isInit() != 0)
 	{
 		PHYSFS_deinit();
-	}
-		
+	}		
 }
 
 bool ModuleFileSystem::Init()
@@ -176,7 +175,7 @@ int close_sdl_rwops(SDL_RWops *rw)
 	return 0;
 }
 
-uint ModuleFileSystem::Save(const char *file, const char *buffer, uint size) const
+uint ModuleFileSystem::Save(const char* file, const void* buffer, uint size) const
 {
 	uint ret = 0;
 	

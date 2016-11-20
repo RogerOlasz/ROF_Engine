@@ -250,7 +250,9 @@ bool GameObject::RemoveGameObject(GameObject* to_delete)
 bool GameObject::Save(pugi::xml_node &scene)
 {
 	pugi::xml_node tmp_node;
+	pugi::xml_node tmp_node_2;
 
+	//Game objects basics
 	tmp_node = scene.append_child("Name");
 	tmp_node.text().set(name.c_str());
 
@@ -260,13 +262,51 @@ bool GameObject::Save(pugi::xml_node &scene)
 	tmp_node = scene.append_child("ParentUUID");
 	tmp_node.text().set(parent->UUID);
 
+	//Components
 	tmp_node = scene.append_child("Components");
 
-	tmp_node = tmp_node.append_child("Transformation");
-	tmp_node = tmp_node.append_child("Translate");
-	tmp_node.append_attribute("X") = transform->GetGlobalMatrix().TranslatePart().x;
-	tmp_node.append_attribute("Y") = transform->GetGlobalMatrix().TranslatePart().y;
-	tmp_node.append_attribute("Z") = transform->GetGlobalMatrix().TranslatePart().z;
+	tmp_node_2 = tmp_node.append_child("Transformation");
+
+	tmp_node_2 = tmp_node.append_child("Translate");
+	tmp_node_2.append_attribute("X") = transform->GetPosition().x;
+	tmp_node_2.append_attribute("Y") = transform->GetPosition().y;
+	tmp_node_2.append_attribute("Z") = transform->GetPosition().z;
+
+	tmp_node_2 = tmp_node.append_child("Scale");
+	tmp_node_2.append_attribute("X") = transform->GetScale().x;
+	tmp_node_2.append_attribute("Y") = transform->GetScale().y;
+	tmp_node_2.append_attribute("Z") = transform->GetScale().z;
+
+	tmp_node_2 = tmp_node.append_child("Rotation");
+	tmp_node_2.append_attribute("X") = transform->GetRotation().x;
+	tmp_node_2.append_attribute("Y") = transform->GetRotation().y;
+	tmp_node_2.append_attribute("Z") = transform->GetRotation().z;
+
+	if (this->GetComponentByType(Component::Type::Geometry))
+	{
+		tmp_node_2 = tmp_node.append_child("Mesh");
+		tmp_node_2 = tmp_node.append_child("Type");
+		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Geometry)->GetType());
+		tmp_node_2 = tmp_node;
+	}
+	
+	if (this->GetComponentByType(Component::Type::Material))
+	{
+		tmp_node_2 = tmp_node.append_child("Material");
+		tmp_node_2 = tmp_node.append_child("Type");
+		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Material)->GetType());
+		tmp_node_2 = tmp_node.append_child("TexturePath");
+		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->tex_path.c_str());
+		tmp_node_2 = tmp_node;
+	}
+
+	if (this->GetComponentByType(Component::Type::Camera))
+	{
+		tmp_node_2 = tmp_node.append_child("Camera");
+		tmp_node_2 = tmp_node.append_child("Type");
+		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Camera)->GetType());
+		tmp_node_2 = tmp_node;
+	}	
 
 	return true;
 }

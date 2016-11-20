@@ -13,6 +13,7 @@
 #include "ComponentCamera.h"
 
 #include "MeshImporter.h"
+#include "MaterialImporter.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -34,6 +35,7 @@ bool ModuleSceneImporter::Init()
 	bool ret = true;
 
 	mesh_importer = new MeshImporter();
+	material_importer = new MaterialImporter();
 	UUID = 0;
 
 	return ret;
@@ -53,6 +55,9 @@ update_status ModuleSceneImporter::Update(float dt)
 bool ModuleSceneImporter::CleanUp()
 {
 	aiDetachAllLogStreams();
+
+	RELEASE(mesh_importer);
+	RELEASE(material_importer);
 
 	return true;
 }

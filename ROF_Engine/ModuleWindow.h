@@ -19,6 +19,9 @@ public:
 	bool Init();
 	bool CleanUp();
 
+	bool Load(pugi::xml_node &config);
+	bool Save(pugi::xml_node &config) const;
+
 	void SetTitle(const char* title);
 
 	float2 GetWindowSize();

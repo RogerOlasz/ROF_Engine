@@ -20,7 +20,7 @@ ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bea
 	sprintf(tmp, "Material##%d", id);
 	name = tmp;
 
-	//Components must have one init, temporal solution
+	//TODO Components must have one init, temporal solution
 	Init();
 }
 
@@ -41,6 +41,10 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 {
 	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
 
+	aiColor4D mat_color;
+	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
+	color.Set(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
+
 	if (tex_num != 0)
 	{
 		aiString path;
@@ -48,7 +52,6 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 
 		tex_path.assign("Assets/Textures/");
 		tex_path.append(App->physfs->GetFileNameFromDirPath(path.data));
-		texture_id = mesh->id_tex_material;
 
 		//Adapt devIL to OpenGL buffer
 		ilutRenderer(ILUT_OPENGL);
@@ -57,13 +60,10 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 		ilLoadImage(tex_path.c_str());
 
 		texture_id = ilutGLBindTexImage();
-
-		mesh->id_tex_material = texture_id;
 	}
 	else
 	{
 		texture_id = 0;
-		mesh->id_tex_material = 0;
 		LOG("[error] aiMaterial couldn't be load.");		
 	}
 
@@ -73,4 +73,9 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 uint ComponentMaterial::GetTexture() const
 {
 	return texture_id;
+}
+
+Color ComponentMaterial::GetMaterialColor() const
+{
+	return color;
 }

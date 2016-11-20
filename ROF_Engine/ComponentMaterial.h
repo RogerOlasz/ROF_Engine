@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "Color.h"
 #include <string>
 
 struct aiMaterial;
@@ -17,15 +18,15 @@ public:
 	void Init();
 
 	void LoadTexture(Mesh* mesh, aiMaterial* ai_material);
-
 	uint GetTexture() const;
+	Color GetMaterialColor() const;
 
 public:
 	std::string tex_path;
 
 private:
-	uint texture_id;
-	
+	uint texture_id = 0;
+	Color color = White;
 
 };
 

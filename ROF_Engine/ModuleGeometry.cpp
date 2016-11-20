@@ -103,6 +103,7 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 
 	//Adding texture to mesh struct (must change it to save tex only on comp material)
 	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
+	mesh->material = material;
 
 	//Copying indicies to mesh (HasFaces() on Assimp)
 	if (ai_mesh->HasFaces())

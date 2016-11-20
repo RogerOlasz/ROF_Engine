@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "ComponentMaterial.h"
 
 //VRAM is graphic target's RAM
 
@@ -19,7 +20,7 @@ struct Mesh
 	float2* tex_coord = nullptr;
 
 	// Material
-	uint id_tex_material;
+	ComponentMaterial* material;
 
 	// Normals
 	uint id_normals = 0; // id in VRAM

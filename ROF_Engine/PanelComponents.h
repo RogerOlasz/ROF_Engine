@@ -6,6 +6,10 @@
 #include "MathGeoLib/include/MathGeoLib.h"
 
 class GameObject;
+class ComponentTransformation;
+class ComponentMesh;
+class ComponentMaterial;
+class ComponentCamera;
 
 class PanelComponents : public Panel
 {
@@ -15,6 +19,10 @@ public:
 	virtual ~PanelComponents();
 
 	void Draw(GameObject* selected_go);
+	void DrawTransformation(ComponentTransformation* go_transform, GameObject* go_selected);
+	void DrawMesh(ComponentMesh* go_mesh, GameObject* go_selected);
+	void DrawMaterial(ComponentMaterial* go_material, GameObject* go_selected);
+	void DrawCamera(ComponentCamera* go_camera, GameObject* go_selected);
 
 private:
 	GameObject* last_go = nullptr;

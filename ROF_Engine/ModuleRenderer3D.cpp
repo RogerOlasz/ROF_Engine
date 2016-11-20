@@ -123,7 +123,7 @@ bool ModuleRenderer3D::Init()
 	camera = App->camera->GetCamera();
 
 	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	OnResize((int)App->window->GetWindowSize().x, (int)App->window->GetWindowSize().y);
 
 	//CreateDebugTexture();
 
@@ -377,10 +377,11 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		if (mesh->num_tex_coord > 0)
 		{
 			//If mesh have any material...
-			if (mesh->id_tex_material != 0)
+			if (mesh->material->GetTexture() != 0)
 			{
-				glBindTexture(GL_TEXTURE_2D, mesh->id_tex_material);
+				glBindTexture(GL_TEXTURE_2D, mesh->material->GetTexture());
 			}
+			glColor4f(mesh->material->GetMaterialColor().r, mesh->material->GetMaterialColor().g, mesh->material->GetMaterialColor().b, mesh->material->GetMaterialColor().a);
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);

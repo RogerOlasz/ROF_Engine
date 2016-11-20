@@ -73,8 +73,6 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	
-
 	// Call Init() in all modules
 	list<Module*>::iterator item = list_modules.begin();
 
@@ -83,7 +81,7 @@ bool Application::Init()
 		ret = (*item)->Init();
 		item++;
 	}
-
+		
 	LoadEditorConfig("Configuration.xml");
 	LoadConfigNow();
 
