@@ -218,6 +218,9 @@ void PanelComponents::DrawMaterial(ComponentMaterial* go_material, GameObject* g
 		ImGui::Separator();
 		ImGui::Image((ImTextureID*)go_material->GetTexture(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
 		ImGui::Text("%s%s", "Texture path: ", go_material->tex_path.c_str());
+		ImGui::Text("Material color:");
+		ImGui::SameLine(120, 0);
+		ImGui::ColorButton(ImVec4(go_material->GetMaterialColor().r, go_material->GetMaterialColor().g, go_material->GetMaterialColor().b, go_material->GetMaterialColor().a));
 	}
 }
 
