@@ -64,6 +64,10 @@ void PanelHierarchy::GameObjectsHierarchy(GameObject* node)
 		//Leaf: The only reason we have a TreeNode at all is to allow selection of the leaf. Otherwise we can use BulletText() or TreeAdvanceToLabelPos()+Text().
 		node_flags += ImGuiTreeNodeFlags_Leaf;
 	}
+	else
+	{
+		
+	}
 
 	if (selected_go == node)
 	{

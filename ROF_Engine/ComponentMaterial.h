@@ -18,6 +18,9 @@ public:
 	void Init();
 
 	void LoadTexture(Mesh* mesh, aiMaterial* ai_material);
+
+	void SetMaterialColor(float r, float g, float b);
+
 	uint GetTexture() const;
 	Color GetMaterialColor() const;
 

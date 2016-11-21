@@ -70,6 +70,11 @@ void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
 	tex_path = tex_path.substr(tex_path.find_first_of("/") + 1);
 }
 
+void ComponentMaterial::SetMaterialColor(float r, float g, float b)
+{
+	color.Set(r, g, b);
+}
+
 uint ComponentMaterial::GetTexture() const
 {
 	return texture_id;

@@ -171,7 +171,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-
 	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
 	{
 		for (uint i = 0; i < mesh_to_draw.size(); i++)

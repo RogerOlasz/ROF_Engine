@@ -29,6 +29,17 @@ void PanelComponents::Draw(GameObject* selected_go)
 {
 	if (selected_go != nullptr)
 	{
+		if (last_go != selected_go)
+		{
+			if (last_go != nullptr)
+			{
+				if (last_go->GetComponentByType(Component::Type::Geometry) != nullptr)
+				{
+					((ComponentMesh*)last_go->GetComponentByType(Component::Type::Geometry))->wirefr = false;
+				}
+			}
+		}
+
 		ImGui::SetNextWindowPos(ImVec2(((App->window->GetWindowSize().x - 335)), 25));
 
 		if (set_size == true)
@@ -220,7 +231,17 @@ void PanelComponents::DrawMaterial(ComponentMaterial* go_material, GameObject* g
 		ImGui::Text("%s%s", "Texture path: ", go_material->tex_path.c_str());
 		ImGui::Text("Material color:");
 		ImGui::SameLine(120, 0);
-		ImGui::ColorButton(ImVec4(go_material->GetMaterialColor().r, go_material->GetMaterialColor().g, go_material->GetMaterialColor().b, go_material->GetMaterialColor().a));
+		ImVec4 color(go_material->GetMaterialColor().r, go_material->GetMaterialColor().g, go_material->GetMaterialColor().b, go_material->GetMaterialColor().a);
+		ImGui::ColorButton(color);
+		if (ImGui::BeginPopupContextItem("Change material color"))
+		{
+			ImGui::Text("Edit color");
+			if (ImGui::ColorEdit3("##edit", (float*)&color))
+			{
+				go_material->SetMaterialColor(color.x, color.y, color.z);
+			}
+			ImGui::EndPopup();
+		}
 	}
 }
 
