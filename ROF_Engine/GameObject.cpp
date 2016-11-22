@@ -3,6 +3,7 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransformation.h"
 #include "ComponentCamera.h"
+#include "RenderComp.h"
 #include "DebugPainter.h"
 #include <list>
 
@@ -10,6 +11,9 @@ GameObject::GameObject(const char* name) : name(name)
 {
 	transform = new ComponentTransformation(this, 0);
 	have_camera = false;
+
+	render_c = new RenderComp();
+	render_c->c_transform = transform;
 }
 
 GameObject::~GameObject()
@@ -61,9 +65,11 @@ Component* GameObject::CreateComponent(Component::Type type)
 	{
 	case Component::Type::Geometry:
 		new_component = new ComponentMesh(this, components.size());
+		render_c->c_mesh = (ComponentMesh*)new_component;
 		break;
 	case Component::Type::Material:
 		new_component = new ComponentMaterial(this, components.size());
+		render_c->c_material = (ComponentMaterial*)new_component;
 		break;
 	case Component::Type::Camera:
 		if(this->GetComponentByType(Component::Type::Camera) == nullptr)

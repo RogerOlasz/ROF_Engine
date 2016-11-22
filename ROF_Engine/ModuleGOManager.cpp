@@ -3,6 +3,7 @@
 #include "ModuleGOManager.h"
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
+#include "ModuleRenderer3D.h"
 
 #include "GameObject.h"
 #include "ComponentTransformation.h"
@@ -115,6 +116,7 @@ GameObject* ModuleGOManager::CreateGameObject(const char* name, GameObject* pare
 	GameObject* new_go = new GameObject(name);
 	SetParent(new_go, parent);
 	new_go->UUID = random.Int();
+	App->renderer3D->AddGOToRender(new_go->render_c);
 
 	gos_array.push_back(new_go);
 

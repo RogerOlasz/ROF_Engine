@@ -9,6 +9,7 @@
 #include <vector>
 
 class ComponentTransformation;
+struct RenderComp;
 
 class GameObject
 {
@@ -59,6 +60,8 @@ public:
 
 	std::vector<GameObject*> children;
 	std::vector<Component*> components;
+
+	RenderComp* render_c = nullptr;
 	
 	Uint32 UUID = 0;
 };

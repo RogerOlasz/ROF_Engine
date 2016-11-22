@@ -133,10 +133,6 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	mesh_to_draw.clear();
-	mesh_trans_matrix.clear();
-	is_wireframe.clear();
-
 	if (camera_changed)
 	{
 		OnResize(App->window->window_size.x, App->window->window_size.y);
@@ -171,21 +167,17 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 //Update: game core cicle
 update_status ModuleRenderer3D::Update(float dt)
 {
-	if (mesh_to_draw.size() == mesh_trans_matrix.size() && is_wireframe.size() == mesh_to_draw.size())
+	for (uint i = 0; i < to_render.size(); i++)
 	{
-		for (uint i = 0; i < mesh_to_draw.size(); i++)
+		glPushMatrix();
+		glMultMatrixf((GLfloat*)to_render[i]->c_transform->GetGlobalMatrixT());
+		
+		if (to_render[i]->c_mesh)
 		{
-			glPushMatrix();
-			glMultMatrixf((GLfloat*)mesh_trans_matrix[i]);
-
-			DrawMesh(mesh_to_draw[i], is_wireframe[i]);
-
-			glPopMatrix();
+			DrawMesh(to_render[i]->c_mesh->GetMesh(), to_render[i]->c_mesh->wirefr);
 		}
-	}
-	else
-	{
-		LOG("[error] Meshes are depracated. Mesh size: %d  Transform matrix size: %d Wireframe size: %d", mesh_to_draw.size(), mesh_trans_matrix.size(), is_wireframe.size());
+
+		glPopMatrix();
 	}
 
 	return UPDATE_CONTINUE;
@@ -227,11 +219,9 @@ ComponentCamera* ModuleRenderer3D::GetRenderingCamera()
 	return camera;
 }
 
-void ModuleRenderer3D::AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix)
+void ModuleRenderer3D::AddGOToRender(RenderComp* go_to_render)
 {
-	mesh_to_draw.push_back(mesh);
-	is_wireframe.push_back(wireframed);
-	mesh_trans_matrix.push_back(trans_matrix);
+	to_render.push_back(go_to_render);
 }
 
 //Create Black/White debug texture

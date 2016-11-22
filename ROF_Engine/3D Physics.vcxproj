@@ -180,6 +180,7 @@
     <ClInclude Include="PugiXML\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXML\src\pugixml.hpp" />
     <ClInclude Include="OctTree.h" />
+    <ClInclude Include="RenderComp.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

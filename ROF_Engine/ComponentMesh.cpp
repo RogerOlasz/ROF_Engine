@@ -46,7 +46,11 @@ void ComponentMesh::Update()
 {
 	if (active)
 	{
-		App->renderer3D->AddMeshToDraw(mesh, wirefr, game_object->GetGlobalMatrixT());
+		game_object->render_c->c_mesh = this;
+	}
+	else
+	{
+		game_object->render_c->c_mesh = nullptr;
 	}
 }
 

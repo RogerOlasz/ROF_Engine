@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "RenderComp.h"
 #include "Light.h"
 #include <vector>
 
@@ -32,15 +33,13 @@ public:
 
 	ComponentCamera* GetRenderingCamera();
 
-	void AddMeshToDraw(const Mesh* mesh, bool wireframed, const float4x4* trans_matrix);
+	void AddGOToRender(RenderComp* go_to_render);
 	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, bool wireframe = false);
 
 private:
-	std::vector<const Mesh*> mesh_to_draw;
-	std::vector<bool> is_wireframe;
-	std::vector<const float4x4*> mesh_trans_matrix;
+	std::vector<RenderComp*> to_render;
 
 public:
 	Light lights[MAX_LIGHTS];
