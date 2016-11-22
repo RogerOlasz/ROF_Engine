@@ -220,6 +220,7 @@ void ModuleGOManager::OctTreeCulling()
 		{
 			if (((ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera))->frustum_culling)
 			{
+				//TODO must change all to false before start with octtree selection
 				tmp_cam = (ComponentCamera*)(*tmp)->GetComponentByType(Component::Type::Camera);
 				
 				std::vector<GameObject*> candidates;

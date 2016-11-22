@@ -16,9 +16,6 @@
     <Filter Include="Sources\Helpers">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Modules\Game">
-      <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources\Panels">
       <UniqueIdentifier>{bc1267b4-2d46-4d95-829d-96591eb9aaa8}</UniqueIdentifier>
     </Filter>
@@ -43,15 +40,15 @@
     <Filter Include="Sources\Libraries\PugiXML">
       <UniqueIdentifier>{d8b58803-9a1d-44bc-9e8e-abca9b5fc1ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Editor">
+      <UniqueIdentifier>{83f46af7-e02f-40c0-9e56-41d76082527b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleAudio.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleCamera3D.h">
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
@@ -104,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="ImGui\stb_truetype.h">
       <Filter>Sources\Libraries\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEditor.h">
-      <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="PanelConsole.h">
       <Filter>Sources\Panels</Filter>
@@ -366,18 +360,21 @@
     <ClInclude Include="Mesh.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleScene.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
     <ClInclude Include="RenderComp.h">
       <Filter>Sources\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneEditor.h">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCamera3D.h">
+      <Filter>Sources\Modules\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleCamera3D.cpp">
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
@@ -424,9 +421,6 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_user2.cpp">
       <Filter>Sources\Libraries\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEditor.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="PanelConsole.cpp">
       <Filter>Sources\Panels</Filter>
@@ -599,8 +593,14 @@
     <ClCompile Include="PanelTimeControl.cpp">
       <Filter>Sources\Panels</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleScene.cpp">
-      <Filter>Sources\Modules\Game</Filter>
+    <ClCompile Include="ModuleSceneEditor.cpp">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCamera3D.cpp">
+      <Filter>Sources\Modules\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

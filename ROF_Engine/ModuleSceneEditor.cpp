@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleScene.h"
+#include "ModuleSceneEditor.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -16,27 +16,30 @@
 #include "DebugPainter.h"
 #include "ImGui/imgui.h"
 
-ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled)
+ModuleSceneEditor::ModuleSceneEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("Scene");
 }
 
-ModuleScene::~ModuleScene()
+ModuleSceneEditor::~ModuleSceneEditor()
 {}
 
 // Load assets
-bool ModuleScene::Start()
+bool ModuleSceneEditor::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	grid.normal.Set(0, 1, 0);
+	grid.constant = 0;
+	grid.axis = true;
 	picking = LineSegment(vec::zero, vec::unitX);
 
 	return ret;
 }
 
 // Load assets
-bool ModuleScene::CleanUp()
+bool ModuleSceneEditor::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
@@ -44,11 +47,9 @@ bool ModuleScene::CleanUp()
 }
 
 // Update
-update_status ModuleScene::Update(float dt)
+update_status ModuleSceneEditor::Update(float dt)
 {
-	Plane_P p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	grid.Render();
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN && ImGui::IsMouseHoveringAnyWindow() == false)
 	{

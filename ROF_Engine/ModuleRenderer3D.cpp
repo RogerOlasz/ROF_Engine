@@ -5,7 +5,6 @@
 #include "ModuleCamera3D.h"
 #include "Mesh.h"
 #include "ComponentCamera.h"
-#include "ComponentMaterial.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
