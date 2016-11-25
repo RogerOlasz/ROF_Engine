@@ -6,8 +6,10 @@
 #include "SDL/include/SDL.h"
 
 struct aiNode;
+struct aiMaterial;
 struct aiScene;
 class GameObject;
+class ComponentMaterial;
 class MeshImporter;
 class MaterialImporter;
 
@@ -23,6 +25,7 @@ public:
 
 	void LoadFBX(const char* file_path, bool file_system = true);
 	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
+	void LoadTexture(ComponentMaterial* material, aiMaterial* ai_material);
 
 private:
 	MeshImporter* mesh_importer = nullptr;

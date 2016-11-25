@@ -20,6 +20,14 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
+#include "Devil/include/il.h"
+#include "Devil/include/ilu.h"
+#include "Devil/include/ilut.h"
+
 ModuleSceneImporter::ModuleSceneImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("SceneImporter");
@@ -33,6 +41,11 @@ ModuleSceneImporter::~ModuleSceneImporter()
 bool ModuleSceneImporter::Init()
 {
 	bool ret = true;
+
+	//Initialize DevIL 
+	ilInit();
+	iluInit();
+	ilutInit();
 
 	mesh_importer = new MeshImporter();
 	material_importer = new MaterialImporter();
@@ -168,5 +181,44 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
 		LOG("I'm %s and my parent is %s", ret->GetName(), ret->GetParent()->GetName());
+	}
+}
+
+void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* ai_material)
+{
+	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
+
+	aiColor4D mat_color;
+	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
+	material->SetMaterialColor(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
+
+	if (tex_num != 0)
+	{
+		aiString path;
+		ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+
+		material->AppendTexturePath("Assets/Textures/");
+		std::string tmp = material->GetTexturePath();
+		material->AppendTexturePath(App->physfs->GetFileNameFromDirPath(path.data).c_str());
+
+		//Adapt devIL to OpenGL buffer
+		ilutRenderer(ILUT_OPENGL);
+		ilGenImages(1, (ILuint*)material->GetTextureId());
+		ilBindImage(material->GetTextureId());
+		ilLoadImage(material->GetTexturePath());
+
+		char tmp_c[LONG_STRING];
+		UUID = random.Int();
+		sprintf(tmp_c, "texture%d.dds", UUID);
+		std::string tmp_s = tmp_c;
+
+		material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
+
+		material->SetTextureId(ilutGLBindTexImage());
+	}
+	else
+	{
+		material->SetTextureId(0);
+		LOG("[error] aiMaterial couldn't be load.");
 	}
 }

@@ -25,9 +25,7 @@ bool MaterialImporter::Import(const char* file, const char* path, std::string& o
 	bool ret = false;
 
 	std::string file_location;
-	char tmp_c[LONG_STRING];
-	sprintf(tmp_c, path, file);
-	file_location = tmp_c;
+	file_location.append(path).append(file);
 
 	char* buffer = nullptr;
 	uint size = App->physfs->Load(file_location.c_str(), &buffer); //Load throw physfs
@@ -42,7 +40,7 @@ bool MaterialImporter::Import(const char* file, const char* path, std::string& o
 	}
 
 	RELEASE_ARRAY(buffer);
-	
+
 	return ret;
 }
 
@@ -72,7 +70,7 @@ bool MaterialImporter::ToOwnFormat(const void* buffer, uint size, std::string& o
 		}
 
 		RELEASE_ARRAY(data);
-	}	
+	}
 
 	return ret;
 }

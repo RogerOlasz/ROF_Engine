@@ -8,7 +8,7 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
-MeshImporter::MeshImporter() 
+MeshImporter::MeshImporter()
 {
 
 }
@@ -78,7 +78,7 @@ bool MeshImporter::Import(aiMesh* ai_mesh, std::string& output_file)
 			}
 		}
 	}
-	
+
 	ret = ToOwnFormat(&mesh, output_file);
 
 	return ret;
@@ -106,11 +106,11 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	}
 
 	// Allocate
-	char* data = new char[size]; 
+	char* data = new char[size];
 	char* pointer = data;
 
 	// Store ranges
-	uint bytes = sizeof(ranges); 
+	uint bytes = sizeof(ranges);
 	memcpy(pointer, ranges, bytes);
 
 	// Store indices
@@ -120,7 +120,7 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 
 	// Store vertices
 	pointer += bytes;
-	bytes = sizeof(uint) * mesh->num_vertices;
+	bytes = sizeof(vec) * mesh->num_vertices;
 	memcpy(pointer, mesh->vertices, bytes);
 
 	if (mesh->colors != nullptr)
@@ -139,6 +139,7 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	{
 		// Because num color size is the same as vertices.
 		pointer += bytes;
+		bytes = sizeof(float2) * mesh->num_tex_coord;
 		memcpy(pointer, mesh->tex_coord, bytes);
 	}
 
@@ -148,5 +149,74 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 		ret = true;
 	}
 
+	RELEASE(data);
+
 	return ret;
+}
+
+Mesh* MeshImporter::Load(const char* path)
+{
+	if (path == nullptr)
+	{
+		return nullptr;
+	}
+	else
+	{
+		char* buffer = nullptr;
+		uint size = App->physfs->Load(path, &buffer);
+
+		if (buffer != nullptr && size > 0)
+		{
+			Mesh* mesh = new Mesh();
+
+			// Amount of indices / vertices / colors / normals / texture_coords 
+			uint ranges[5];
+
+			uint bytes = sizeof(ranges);
+
+			char* pointer = buffer;
+			memcpy(ranges, buffer, bytes);
+			pointer += bytes;
+
+			//Indices (faces)
+			mesh->num_indices = ranges[0];
+			bytes = sizeof(uint) * ranges[0];
+			mesh->indices = new uint[ranges[0]];
+			memcpy(mesh->indices, pointer, bytes);
+			pointer += bytes;
+
+			//Vertices
+			mesh->num_vertices = ranges[1];
+			bytes = sizeof(vec) * ranges[1];
+			mesh->vertices = new vec[ranges[1]];
+			memcpy(mesh->vertices, pointer, bytes);
+			pointer += bytes;
+
+			//Colors
+			bytes = sizeof(vec) * ranges[2];
+			mesh->colors = new vec[ranges[2]];
+			memcpy(mesh->colors, pointer, bytes);
+			pointer += bytes;
+
+			//Normals
+			mesh->num_normals = ranges[3];
+			bytes = sizeof(vec) * ranges[3];
+			mesh->normals = new vec[ranges[3]];
+			memcpy(mesh->normals, pointer, bytes);
+			pointer += bytes;
+
+			//Texture coords
+			mesh->num_tex_coord = ranges[4];
+			bytes = sizeof(float2) * ranges[4];
+			mesh->tex_coord = new float2[ranges[4]];
+			memcpy(mesh->tex_coord, pointer, bytes);
+			pointer += bytes;
+
+			return mesh;
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
 }

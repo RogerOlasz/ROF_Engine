@@ -15,22 +15,21 @@ public:
 	ComponentMaterial(GameObject* bearer, int id);
 	~ComponentMaterial();
 
-	void Init();
+	void SetMaterialColor(float r, float g, float b, float a = 1.0f);
+	void SetTextureId(uint id);
+	void AppendTexturePath(const char* path);
+	void SetTexturePath(const char* path);
 
-	void LoadTexture(Mesh* mesh, aiMaterial* ai_material);
-
-	void SetMaterialColor(float r, float g, float b);
-
-	uint GetTexture() const;
+	uint GetTextureId() const;
+	const char* GetTexturePath() const;
+	std::string GetTexturePathS() const;
+	const char* GetAdaptedTexturePath() const;
 	Color GetMaterialColor() const;
-
-public:
-	std::string tex_path;
-
+	
 private:
 	uint texture_id = 0;
 	Color color = White;
-
+	std::string tex_path;
 };
 
 #endif // !__COMPONENTMATERIAL_H__

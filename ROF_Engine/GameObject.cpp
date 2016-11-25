@@ -302,7 +302,7 @@ bool GameObject::Save(pugi::xml_node &scene)
 		tmp_node_2 = tmp_node.append_child("Type");
 		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Material)->GetType());
 		tmp_node_2 = tmp_node.append_child("TexturePath");
-		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->tex_path.c_str());
+		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->GetTexturePath());
 		tmp_node_2 = tmp_node;
 	}
 

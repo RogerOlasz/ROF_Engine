@@ -4,6 +4,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
+#include "ModuleSceneImporter.h"
 #include "Mesh.h"
 
 #include "GameObject.h"
@@ -101,10 +102,6 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
 
-	//Adding texture to mesh struct (must change it to save tex only on comp material)
-	material->LoadTexture(mesh, scene->mMaterials[ai_mesh->mMaterialIndex]);
-	mesh->material = material;
-
 	//Copying indicies to mesh (HasFaces() on Assimp)
 	if (ai_mesh->HasFaces())
 	{
@@ -125,8 +122,13 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 			}						
 		}
 	}
+
 	if (mesh != nullptr)
 	{
+		//Adding texture to mesh struct (must change it to save tex only on comp material)
+		App->importer->LoadTexture(material, scene->mMaterials[ai_mesh->mMaterialIndex]);
+		mesh->material = material;
+
 		App->renderer3D->LoadMeshBuffers(mesh);
 	}
 	LOG("[end] New mesh ------------------------------------------------------");

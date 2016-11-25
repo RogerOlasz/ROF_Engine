@@ -37,7 +37,7 @@ bool ModuleGOManager::Init()
 update_status ModuleGOManager::PreUpdate(float dt)
 {
 	if (go_tree)
-	{
+	{		
 		OctTreeCulling();
 	}
 	else

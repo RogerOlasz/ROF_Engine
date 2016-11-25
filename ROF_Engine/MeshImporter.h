@@ -5,9 +5,9 @@
 #include <string>
 
 class aiMesh;
-class Mesh;
+struct Mesh;
 
-class MeshImporter 
+class MeshImporter
 {
 public:
 	MeshImporter();
@@ -15,6 +15,6 @@ public:
 
 	bool Import(aiMesh* new_mesh, std::string& output_file);
 	bool ToOwnFormat(Mesh* mesh, std::string& output_file);
-
+	Mesh* Load(const char* path);
 };
 #endif // !__MESHIMPORTER_H__

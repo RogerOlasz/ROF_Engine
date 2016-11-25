@@ -5,23 +5,12 @@
 
 #include "Assimp/include/material.h"
 
-#pragma comment (lib, "Devil/libx86/DevIL.lib")
-#pragma comment (lib, "Devil/libx86/ILU.lib")
-#pragma comment (lib, "Devil/libx86/ILUT.lib")
-
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
-
 ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Type::Material, id)
 {
 	//Component names are to solve problems with ImGui same names
 	char tmp[SHORT_STRING];
 	sprintf(tmp, "Material##%d", id);
 	name = tmp;
-
-	//TODO Components must have one init, temporal solution
-	Init();
 }
 
 ComponentMaterial::~ComponentMaterial()
@@ -29,55 +18,44 @@ ComponentMaterial::~ComponentMaterial()
 
 }
 
-void ComponentMaterial::Init()
+void ComponentMaterial::SetMaterialColor(float r, float g, float b, float a)
 {
-	//Initialize DevIL 
-	ilInit();
-	iluInit();
-	ilutInit();
+	color.Set(r, g, b, a);
 }
 
-void ComponentMaterial::LoadTexture(Mesh* mesh, aiMaterial* ai_material)
+void ComponentMaterial::SetTextureId(uint id)
 {
-	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
-
-	aiColor4D mat_color;
-	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
-	color.Set(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
-
-	if (tex_num != 0)
-	{
-		aiString path;
-		ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-
-		tex_path.assign("Assets/Textures/");
-		tex_path.append(App->physfs->GetFileNameFromDirPath(path.data));
-
-		//Adapt devIL to OpenGL buffer
-		ilutRenderer(ILUT_OPENGL);
-		ilGenImages(1, &texture_id);
-		ilBindImage(texture_id);
-		ilLoadImage(tex_path.c_str());
-
-		texture_id = ilutGLBindTexImage();
-	}
-	else
-	{
-		texture_id = 0;
-		LOG("[error] aiMaterial couldn't be load.");		
-	}
-
-	tex_path = tex_path.substr(tex_path.find_first_of("/") + 1);
+	texture_id = id;
 }
 
-void ComponentMaterial::SetMaterialColor(float r, float g, float b)
+void ComponentMaterial::AppendTexturePath(const char* path)
 {
-	color.Set(r, g, b);
+	tex_path.append(path);
 }
 
-uint ComponentMaterial::GetTexture() const
+void ComponentMaterial::SetTexturePath(const char* path)
+{
+	tex_path = path;
+}
+
+uint ComponentMaterial::GetTextureId() const
 {
 	return texture_id;
+}
+
+const char* ComponentMaterial::GetTexturePath() const
+{
+	return tex_path.c_str();
+}
+
+std::string ComponentMaterial::GetTexturePathS() const
+{
+	return tex_path;
+}
+
+const char* ComponentMaterial::GetAdaptedTexturePath() const
+{
+	return tex_path.substr(tex_path.find_first_of("/") + 1).c_str();
 }
 
 Color ComponentMaterial::GetMaterialColor() const
