@@ -128,9 +128,7 @@ void GameObject::Update()
 		//TODO Mmmm must search other way to to this, this is so dirty
 		if (have_camera)
 		{
-			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetFront(&transform->GetGlobalMatrix());
-			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetUp(&transform->GetGlobalMatrix());
-			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetPos(&transform->GetGlobalMatrix());
+			((ComponentCamera*)GetComponentByType(Component::Type::Camera))->SetFrame(&transform->GetGlobalMatrix());
 		}
 	}
 
@@ -263,10 +261,10 @@ bool GameObject::Save(pugi::xml_node &scene)
 	tmp_node.text().set(name.c_str());
 
 	tmp_node = scene.append_child("UUID");
-	tmp_node.text().set(UUID);
+	tmp_node.append_attribute("Value") = UUID;
 
 	tmp_node = scene.append_child("ParentUUID");
-	tmp_node.text().set(parent->UUID);
+	tmp_node.append_attribute("Value") = parent->UUID;
 
 	//Components
 	tmp_node = scene.append_child("Components");
@@ -292,7 +290,7 @@ bool GameObject::Save(pugi::xml_node &scene)
 	{
 		tmp_node_2 = tmp_node.append_child("Mesh");
 		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Geometry)->GetType());
+		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Geometry)->GetType();
 		tmp_node_2 = tmp_node;
 	}
 	
@@ -300,7 +298,7 @@ bool GameObject::Save(pugi::xml_node &scene)
 	{
 		tmp_node_2 = tmp_node.append_child("Material");
 		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Material)->GetType());
+		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Material)->GetType();
 		tmp_node_2 = tmp_node.append_child("TexturePath");
 		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->GetTexturePath());
 		tmp_node_2 = tmp_node;
@@ -310,7 +308,7 @@ bool GameObject::Save(pugi::xml_node &scene)
 	{
 		tmp_node_2 = tmp_node.append_child("Camera");
 		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.text().set(this->GetComponentByType(Component::Type::Camera)->GetType());
+		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Camera)->GetType();
 		tmp_node_2 = tmp_node;
 	}	
 

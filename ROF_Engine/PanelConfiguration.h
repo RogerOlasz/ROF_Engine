@@ -29,7 +29,7 @@ private:
 public:
 
 	PanelConfiguration();
-	virtual ~PanelConfiguration();
+	~PanelConfiguration();
 
 	void Draw();
 

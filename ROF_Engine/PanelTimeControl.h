@@ -4,15 +4,18 @@
 #include "ImGui/imgui.h"
 #include "Panel.h"
 
+class GameTimeManager;
+
 class PanelTimeControl : public Panel
 {
 public:
 	PanelTimeControl();
-	virtual ~PanelTimeControl();
+	~PanelTimeControl();
 
 	void Draw();
 
 private:
+	float game_time_speed = 0.0f;
 
 };
 

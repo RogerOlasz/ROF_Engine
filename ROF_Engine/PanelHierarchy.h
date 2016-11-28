@@ -10,7 +10,7 @@ class PanelHierarchy : public Panel
 {
 public:
 	PanelHierarchy();
-	virtual ~PanelHierarchy();
+	~PanelHierarchy();
 
 	void Draw();
 

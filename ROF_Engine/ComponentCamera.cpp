@@ -160,6 +160,11 @@ void ComponentCamera::SetUp(float4x4* transform)
 	camera_frustum.SetUp(transform->WorldY());
 }
 
+void ComponentCamera::SetFrame(float4x4* transform)
+{
+	camera_frustum.SetFrame(transform->TranslatePart(), transform->WorldZ(), transform->WorldY());
+}
+
 void ComponentCamera::SetFrame(vec new_pos, vec front_dir, vec up_dir)
 {
 	camera_frustum.SetFrame(new_pos, front_dir, up_dir);

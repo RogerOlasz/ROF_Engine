@@ -18,6 +18,7 @@ class ModuleGeometry;
 class ModuleFileSystem;
 class ModuleGOManager;
 class ModuleSceneImporter;
+class GameTimeManager;
 
 class Application
 {
@@ -35,6 +36,7 @@ public:
 	ModuleSceneImporter* importer = nullptr;
 
 	Timer time_since_startup;
+	GameTimeManager* game_timer = nullptr;
 
 private:
 

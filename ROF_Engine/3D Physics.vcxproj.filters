@@ -372,6 +372,9 @@
     <ClInclude Include="ModuleCamera3D.h">
       <Filter>Sources\Modules\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="GameTimeManager.h">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -600,6 +603,9 @@
       <Filter>Sources\Modules\Editor</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCamera3D.cpp">
+      <Filter>Sources\Modules\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimeManager.cpp">
       <Filter>Sources\Modules\Editor</Filter>
     </ClCompile>
   </ItemGroup>

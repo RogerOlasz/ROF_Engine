@@ -147,7 +147,6 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 #pragma endregion
 
 #pragma region SetMaterial
-		//TODO: Still being bad, ComponentMaterial just loads and save textures (id) but i'm charging textures from struct Mesh
 		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);
 #pragma endregion
 
@@ -212,7 +211,7 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 		sprintf(tmp_c, "texture%d.dds", UUID);
 		std::string tmp_s = tmp_c;
 
-		material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
+		//material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
 
 		material->SetTextureId(ilutGLBindTexImage());
 	}

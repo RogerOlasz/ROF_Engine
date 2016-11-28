@@ -12,6 +12,8 @@
 #include "ModuleGOManager.h"
 #include "ModuleSceneImporter.h"
 
+#include "GameTimeManager.h"
+
 #include "DebugPainter.h"
 #include <iostream>
 #include <sstream>
@@ -32,6 +34,7 @@ Application::Application()
 	go_manager = new ModuleGOManager(this);
 	importer = new ModuleSceneImporter(this);
 
+	game_timer = new GameTimeManager();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -108,6 +111,11 @@ void Application::PrepareUpdate()
 	ms_timer.Start();
 	capped_ms = (1000.f / max_fps);
 	max_fps = App->editor->GetMaxFPS();
+
+	if (game_timer->GetGameState())
+	{
+		game_timer->Tick();
+	}
 }
 
 // ---------------------------------------------

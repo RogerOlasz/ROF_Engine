@@ -11,7 +11,7 @@ private:
 
 public:
 	PanelConsole();
-	virtual ~PanelConsole();
+	~PanelConsole();
 
 	void AddLog(const char* log);
 

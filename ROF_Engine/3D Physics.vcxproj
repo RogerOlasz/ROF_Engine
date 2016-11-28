@@ -169,6 +169,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleSceneImporter.h" />
     <ClInclude Include="ModuleSceneEditor.h" />
+    <ClInclude Include="GameTimeManager.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="PanelComponents.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleSceneImporter.cpp" />
     <ClCompile Include="ModuleSceneEditor.cpp" />
+    <ClCompile Include="GameTimeManager.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PanelComponents.cpp" />

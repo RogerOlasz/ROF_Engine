@@ -16,7 +16,7 @@ class PanelComponents : public Panel
 public:
 
 	PanelComponents();
-	virtual ~PanelComponents();
+	~PanelComponents();
 
 	void Draw(GameObject* selected_go);
 	void DrawTransformation(ComponentTransformation* go_transform, GameObject* go_selected);
