@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Assimp/include/cfileio.h"
 #include <string>
+#include <vector>
 
 struct SDL_RWops;
 int close_sdl_rwops(SDL_RWops *rw);
@@ -21,6 +22,7 @@ public:
 
 	bool AddSearchPath(const char *path_or_zip, const char *mount_point = NULL);
 	bool CreateDir(const char* new_dir);
+	void DiscoverFiles(const char* directory, std::vector<std::string>& file_list, std::vector<std::string>& dir_list) const;
 	const std::string GetFileNameFromDirPath(const std::string path) const;
 
 	bool RemoveAllSearchPaths();

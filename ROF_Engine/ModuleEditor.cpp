@@ -3,6 +3,8 @@
 #include "ModuleEditor.h"
 #include "ModuleWindow.h"
 #include "ModuleGOManager.h"
+#include "ModuleFileSystem.h"
+#include "ModuleSceneImporter.h"
 #include "GameObject.h"
 
 #include "Panel.h"
@@ -12,6 +14,8 @@
 #include "PanelComponents.h"
 #include "PanelTimeControl.h"
 
+#include <algorithm>
+
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_sdl_gl3.h"
 
@@ -20,6 +24,7 @@ using namespace std;
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("Editor");
+	selected_file[0] = '\0';
 }
 
 // Destructor
@@ -86,7 +91,8 @@ update_status ModuleEditor::Update(float dt)
 			if (ImGui::MenuItem("Configuration", "C", &Config->active));
 			if (ImGui::MenuItem("Console", "CTR+C", &Console->active));
 			if (ImGui::MenuItem("Hierarchy", "CTR+O", &Hierarchy->active));
-			if (ImGui::MenuItem("Time Controller", "CTR+T", &TimeControl->active));
+			if (ImGui::MenuItem("Time Controller", "CTR+T", &TimeControl->active)); 
+			if (ImGui::MenuItem("File explorer", "CTR+F", &file_explorer));
 
 			ImGui::EndMenu();
 		}
@@ -144,6 +150,26 @@ update_status ModuleEditor::Update(float dt)
 		}
 	}
 	Comp->Draw(Hierarchy->GetSelectedGO());
+
+	if (file_explorer == true && App->editor->FileDialog(nullptr, "Assets/"))
+	{
+		const char* file = App->editor->CloseFileDialog();
+		if (file != nullptr)
+		{
+			//Must import here
+			App->importer->LoadFBX(file);
+		}
+		file_explorer = false;
+	}
+
+	if (file_dialog == opened)
+	{
+		LoadFile((file_dialog_filter.length() > 0) ? file_dialog_filter.c_str() : nullptr);
+	}
+	else
+	{
+		in_modal = false;
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -211,4 +237,124 @@ uint ModuleEditor::GetMaxFPS() const
 void ModuleEditor::SetSelectedGO(GameObject* go)
 {
 	Hierarchy->SetSelectedGO(go);
+}
+
+void ModuleEditor::LoadFile(const char* filter_extension, const char* from_dir)
+{
+	ImGui::OpenPopup("Load File");
+	if (ImGui::BeginPopupModal("Load File", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		in_modal = true;
+
+		ImGui::PushStyleVar(ImGuiStyleVar_ChildWindowRounding, 5.0f);
+		ImGui::BeginChild("File Browser", ImVec2(0, 300), true);
+
+		DrawDirectoryRecursive(from_dir, filter_extension);
+
+		ImGui::EndChild();
+		ImGui::PopStyleVar();
+
+		ImGui::PushItemWidth(250.f);
+		if (ImGui::InputText("##file_selector", selected_file, FILE_MAX, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		{
+			file_dialog = ready_to_close;
+		}
+
+		ImGui::PopItemWidth();
+		ImGui::SameLine();
+		if (ImGui::Button("Ok", ImVec2(50, 20)))
+		{
+			file_dialog = ready_to_close;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(50, 20)))
+		{
+			file_dialog = ready_to_close;
+			selected_file[0] = '\0';
+		}
+
+		ImGui::EndPopup();
+	}
+	else
+	{
+		in_modal = false;
+	}
+}
+
+void ModuleEditor::DrawDirectoryRecursive(const char* directory, const char* filter_extension)
+{
+	vector<string> files;
+	vector<string> dirs;
+
+	std::string dir((directory) ? directory : "");
+	dir += "/";
+
+	App->physfs->DiscoverFiles(dir.c_str(), files, dirs);
+
+	for (vector<string>::const_iterator it = dirs.begin(); it != dirs.end(); ++it)
+	{
+		if (ImGui::TreeNodeEx((dir + (*it)).c_str(), 0, "%s/", (*it).c_str()))
+		{
+			DrawDirectoryRecursive((dir + (*it)).c_str(), filter_extension);
+			ImGui::TreePop();
+		}
+	}
+
+	std::sort(files.begin(), files.end());
+
+	for (vector<string>::const_iterator it = files.begin(); it != files.end(); ++it)
+	{
+		const string& str = *it;
+
+		bool ok = true;
+
+		if (filter_extension && str.substr(str.find_last_of(".") + 1) != filter_extension)
+		{
+			ok = false;
+		}
+
+		if (ok && ImGui::TreeNodeEx(str.c_str(), ImGuiTreeNodeFlags_Leaf))
+		{
+			if (ImGui::IsItemClicked()) 
+			{
+				sprintf_s(selected_file, FILE_MAX, "%s%s", dir.c_str(), str.c_str());
+
+				if (ImGui::IsMouseDoubleClicked(0))
+				{
+					file_dialog = ready_to_close;
+				}
+			}
+
+			ImGui::TreePop();
+		}
+	}
+}
+
+bool ModuleEditor::FileDialog(const char * extension, const char* from_folder)
+{
+	bool ret = true;
+
+	switch (file_dialog)
+	{
+	case closed:
+		selected_file[0] = '\0';
+		file_dialog_filter = (extension) ? extension : "";
+		file_dialog_origin = (from_folder) ? from_folder : "";
+		file_dialog = opened;
+	case opened:
+		ret = false;
+		break;
+	}
+
+	return ret;
+}
+
+const char * ModuleEditor::CloseFileDialog()
+{
+	if (file_dialog == ready_to_close)
+	{
+		file_dialog = closed;
+		return selected_file[0] ? selected_file : nullptr;
+	}
+	return nullptr;
 }

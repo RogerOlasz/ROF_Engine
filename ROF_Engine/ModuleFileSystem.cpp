@@ -99,6 +99,27 @@ bool ModuleFileSystem::CreateDir(const char* new_dir)
 	return ret;
 }
 
+void ModuleFileSystem::DiscoverFiles(const char* directory, std::vector<std::string> & file_list, std::vector<std::string> & dir_list) const
+{
+	char **rc = PHYSFS_enumerateFiles(directory);
+	char **i;
+
+	std::string dir(directory);
+
+	for (i = rc; *i != nullptr; i++)
+	{
+		if (PHYSFS_isDirectory((dir + *i).c_str()))
+		{
+			dir_list.push_back(*i);
+		}
+		else
+		{
+			file_list.push_back(*i);
+		}
+	}
+	PHYSFS_freeList(rc);
+}
+
 //Clean a path to return the file name, method info: http://www.cplusplus.com/reference/string/string/find_last_of/
 const std::string ModuleFileSystem::GetFileNameFromDirPath(const std::string path) const
 {

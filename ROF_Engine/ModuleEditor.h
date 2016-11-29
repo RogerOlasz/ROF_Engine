@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#define FILE_MAX 250
+
 class Panel;
 class PanelConsole;
 class PanelConfiguration;
@@ -36,6 +38,15 @@ public:
 
 	void SetSelectedGO(GameObject* go);
 
+	//File explorer
+	bool FileDialog(const char* extension = nullptr, const char* from_folder = nullptr);
+	const char* CloseFileDialog();
+
+private:
+	//File explorer
+	void LoadFile(const char* filter_extension = nullptr, const char* from_dir = nullptr);
+	void DrawDirectoryRecursive(const char* directory, const char* filter_extension);
+
 private:
 	PanelConsole* Console = nullptr;
 	PanelConfiguration* Config = nullptr;
@@ -50,6 +61,21 @@ private:
 
 	bool aabb_debug = false;
 	bool octtree_debug = false;
+
+	//File explorer
+	enum file_dialog
+	{
+		closed,
+		opened,
+		ready_to_close
+	} file_dialog = closed;
+
+	std::string file_dialog_filter;
+	std::string file_dialog_origin;
+
+	bool in_modal = false;
+	char selected_file[FILE_MAX];
+	bool file_explorer = false;
 };
 
 #endif // __MODULEEDITOR_H__
