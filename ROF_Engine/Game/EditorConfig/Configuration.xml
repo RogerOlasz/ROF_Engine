@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<EditorConfig>
+	<Editor>
+		<Framerate Cap_FPS="60" />
+	</Editor>
+	<FileSystem />
+	<GOManager />
+	<Window>
+		<WindowSize X="1280" Y="1024" />
+	</Window>
+	<Camera3D>
+		<Position X="109.266747" Y="57.9442825" Z="36.7893486" />
+		<Reference X="83.3105621" Y="38.3566208" Z="24.8478565" />
+	</Camera3D>
+	<Input />
+	<Audio />
+	<Geometry />
+	<SceneImporter />
+	<ResourceManager />
+	<Scene />
+	<Renderer3D />
+</EditorConfig>
