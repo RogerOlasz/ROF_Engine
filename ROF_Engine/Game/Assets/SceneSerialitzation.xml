@@ -1,2 +1,567 @@
 <?xml version="1.0"?>
-<GameObjects />
+<GameObjects>
+	<Sky001>
+		<Name>Sky001</Name>
+		<UUID Value="4386123" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="18.1537323" Y="0" Z="58.9609108" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-180" Y="0" Z="0" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Sky001>
+	<Dummy001>
+		<Name>Dummy001</Name>
+		<UUID Value="423591509" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="0" Y="0" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-89.9999924" Y="0" Z="0" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Dummy001>
+	<City_building_004>
+		<Name>City_building_004</Name>
+		<UUID Value="1619007485" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-41.4758911" Y="21.0140991" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building03_c.tga</TexturePath>
+		</Components>
+	</City_building_004>
+	<City_building_001>
+		<Name>City_building_001</Name>
+		<UUID Value="1945933096" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="17.7071648" Y="20.0532761" Z="2.12107295e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V02_C.png</TexturePath>
+		</Components>
+	</City_building_001>
+	<City_building_007>
+		<Name>City_building_007</Name>
+		<UUID Value="1654721974" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="16.0104923" Y="37.4932861" Z="-1.51068787e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building_016_c.tga</TexturePath>
+		</Components>
+	</City_building_007>
+	<City_building_008>
+		<Name>City_building_008</Name>
+		<UUID Value="1638308539" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="40.9799957" Y="18.2708244" Z="-2.0522466e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building_025_c.tga</TexturePath>
+		</Components>
+	</City_building_008>
+	<Line002>
+		<Name>Line002</Name>
+		<UUID Value="1379850608" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-2.15977192" Y="1.85383821" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Line002>
+	<Plane001>
+		<Name>Plane001</Name>
+		<UUID Value="1045714670" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-0.0286026001" Y="0.0260320902" Z="0" />
+			<Scale X="0.996635258" Y="0.97061646" Z="0.996635258" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Plane001>
+	<City_building_010>
+		<Name>City_building_010</Name>
+		<UUID Value="1857923123" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="25.1540108" Y="-39.1537209" Z="8.55386418e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 01_c.tga</TexturePath>
+		</Components>
+	</City_building_010>
+	<City_building_011>
+		<Name>City_building_011</Name>
+		<UUID Value="1083236632" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="30.1345406" Y="37.4932861" Z="-1.51068787e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building_016_c.tga</TexturePath>
+		</Components>
+	</City_building_011>
+	<City_building_013>
+		<Name>City_building_013</Name>
+		<UUID Value="686841126" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-42.2880554" Y="33.2015762" Z="5.01460704e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 06_ c.tga</TexturePath>
+		</Components>
+	</City_building_013>
+	<City_building_014>
+		<Name>City_building_014</Name>
+		<UUID Value="547665497" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-19.4397068" Y="32.0617294" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-179.999985" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building03_c.tga</TexturePath>
+		</Components>
+	</City_building_014>
+	<City_building_016>
+		<Name>City_building_016</Name>
+		<UUID Value="447414152" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="34.2704239" Y="-41.9727478" Z="8.55386418e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-179.999985" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 01_c.tga</TexturePath>
+		</Components>
+	</City_building_016>
+	<City_building_017>
+		<Name>City_building_017</Name>
+		<UUID Value="170376657" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="44.2600822" Y="-39.1537209" Z="8.55386418e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 01_c.tga</TexturePath>
+		</Components>
+	</City_building_017>
+	<City_building_022>
+		<Name>City_building_022</Name>
+		<UUID Value="1241054616" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-20.8313236" Y="-27.4264889" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="179.999969" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building05 _c.tga</TexturePath>
+		</Components>
+	</City_building_022>
+	<City_building_023>
+		<Name>City_building_023</Name>
+		<UUID Value="1606367138" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="42.1306419" Y="37.4932861" Z="-1.51068787e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building_016_c.tga</TexturePath>
+		</Components>
+	</City_building_023>
+	<City_building_024>
+		<Name>City_building_024</Name>
+		<UUID Value="233146232" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-20.5727711" Y="43.0608292" Z="-0.0691944584" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="179.999985" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building_025_c.tga</TexturePath>
+		</Components>
+	</City_building_024>
+	<City_building_026>
+		<Name>City_building_026</Name>
+		<UUID Value="1192414046" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="31.5118885" Y="-16.4460163" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="179.999985" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building05 _c.tga</TexturePath>
+		</Components>
+	</City_building_026>
+	<City_building_028>
+		<Name>City_building_028</Name>
+		<UUID Value="1782954487" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="13.38799" Y="-33.7550392" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_028>
+	<Object010>
+		<Name>Object010</Name>
+		<UUID Value="77091886" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-2.50335312" Y="15.8008461" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Object010>
+	<City_building_030>
+		<Name>City_building_030</Name>
+		<UUID Value="652561353" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-42.8072395" Y="-41.8355637" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_030>
+	<City_building_031>
+		<Name>City_building_031</Name>
+		<UUID Value="1957404928" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-34.6794815" Y="-41.8355637" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_031>
+	<City_building_032>
+		<Name>City_building_032</Name>
+		<UUID Value="1471220962" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-29.4784031" Y="21.0140991" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building03_c.tga</TexturePath>
+		</Components>
+	</City_building_032>
+	<City_building_033>
+		<Name>City_building_033</Name>
+		<UUID Value="1494568090" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-32.361496" Y="42.3704224" Z="5.01460704e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 06_ c.tga</TexturePath>
+		</Components>
+	</City_building_033>
+	<City_building_034>
+		<Name>City_building_034</Name>
+		<UUID Value="1299845799" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="16.0495167" Y="-16.6968842" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-90.0000076" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building05 _c.tga</TexturePath>
+		</Components>
+	</City_building_034>
+	<City_building_035>
+		<Name>City_building_035</Name>
+		<UUID Value="1603487599" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="13.38799" Y="-40.8025169" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="-0" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_035>
+	<City_building_036>
+		<Name>City_building_036</Name>
+		<UUID Value="1620224331" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-31.2163315" Y="33.2015762" Z="5.01460704e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building 06_ c.tga</TexturePath>
+		</Components>
+	</City_building_036>
+	<City_building_037>
+		<Name>City_building_037</Name>
+		<UUID Value="764622582" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-20.3176937" Y="-16.1636086" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="179.999969" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building05 _c.tga</TexturePath>
+		</Components>
+	</City_building_037>
+	<City_building_038>
+		<Name>City_building_038</Name>
+		<UUID Value="1964139586" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-41.6490021" Y="-16.4953938" Z="0" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-90.0000076" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/building05 _c.tga</TexturePath>
+		</Components>
+	</City_building_038>
+	<City_building_039>
+		<Name>City_building_039</Name>
+		<UUID Value="45926887" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-42.8072395" Y="-30.6438885" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_039>
+	<City_building_040>
+		<Name>City_building_040</Name>
+		<UUID Value="2020133091" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="-34.6794815" Y="-30.6438885" Z="-9.38345181e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="0" Y="0" Z="-89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V01_C.png</TexturePath>
+		</Components>
+	</City_building_040>
+	<City_building_041>
+		<Name>City_building_041</Name>
+		<UUID Value="686919187" />
+		<ParentUUID Value="423591509" />
+		<Components>
+			<Transformation />
+			<Translate X="30.6952782" Y="21.6126461" Z="2.12107295e-07" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-0" Y="0" Z="89.9999924" />
+			<Mesh />
+			<Type Value="1" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath>Assets/Textures/Building_V02_C.png</TexturePath>
+		</Components>
+	</City_building_041>
+	<Camera001>
+		<Name>Camera001</Name>
+		<UUID Value="1687383084" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="-78.3124313" Y="45.2512169" Z="-97.0311127" />
+			<Scale X="1" Y="0.99999994" Z="0.99999994" />
+			<Rotation X="-158.525223" Y="-37.0005112" Z="-166.680023" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Camera001>
+	<Camera001.Target>
+		<Name>Camera001.Target</Name>
+		<UUID Value="1352265676" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="-28.1326218" Y="20.8733292" Z="-35.0642128" />
+			<Scale X="1" Y="0.99999994" Z="1" />
+			<Rotation X="-158.525223" Y="-37.0005302" Z="-166.680023" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Camera001.Target>
+	<Spot001>
+		<Name>Spot001</Name>
+		<UUID Value="405544316" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="-66.7212677" Y="141.934128" Z="6.20413766e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="-89.9999847" Y="64.768631" Z="-89.9999847" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Spot001>
+	<Spot001.Target>
+		<Name>Spot001.Target</Name>
+		<UUID Value="1433317127" />
+		<ParentUUID Value="0" />
+		<Components>
+			<Transformation />
+			<Translate X="28.8909454" Y="-60.9638824" Z="-2.66481584e-06" />
+			<Scale X="1" Y="1" Z="1" />
+			<Rotation X="6.83018834e-06" Y="0" Z="-0" />
+			<Material />
+			<Type Value="2" />
+			<TexturePath></TexturePath>
+		</Components>
+	</Spot001.Target>
+</GameObjects>

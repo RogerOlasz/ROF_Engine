@@ -317,7 +317,7 @@ void ModuleEditor::DrawDirectoryRecursive(const char* directory, const char* fil
 		{
 			if (ImGui::IsItemClicked()) 
 			{
-				sprintf_s(selected_file, FILE_MAX, "%s%s", dir.c_str(), str.c_str());
+				sprintf_s(selected_file, FILE_MAX, "%s%s", dir.substr(1).c_str(), str.c_str()); //Changed dir
 
 				if (ImGui::IsMouseDoubleClicked(0))
 				{
