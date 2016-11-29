@@ -18,6 +18,7 @@ class ModuleGeometry;
 class ModuleFileSystem;
 class ModuleGOManager;
 class ModuleSceneImporter;
+class ModuleResourceManager;
 class GameTimeManager;
 
 class Application
@@ -34,6 +35,7 @@ public:
 	ModuleFileSystem* physfs = nullptr;
 	ModuleGOManager* go_manager = nullptr;
 	ModuleSceneImporter* importer = nullptr;
+	ModuleResourceManager* res_manager = nullptr;
 
 	Timer time_since_startup;
 	GameTimeManager* game_timer = nullptr;

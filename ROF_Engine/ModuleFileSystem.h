@@ -2,6 +2,7 @@
 #define __MODULEFILESYSTEM_H__
 
 #include "Module.h"
+#include "Assimp/include/cfileio.h"
 #include <string>
 
 struct SDL_RWops;
@@ -19,6 +20,7 @@ public:
 	bool CleanUp();
 
 	bool AddSearchPath(const char *path_or_zip, const char *mount_point = NULL);
+	bool CreateDir(const char* new_dir);
 	const std::string GetFileNameFromDirPath(const std::string path) const;
 
 	bool RemoveAllSearchPaths();
@@ -27,10 +29,15 @@ public:
 	SDL_RWops *Load(const char* file) const;
 	uint Save(const char *file, const void *buffer, uint size) const;
 
-	const char *GetSaveDirectory() const;
 	bool IsDirectory(const char *dir) const;
 	bool Exists(const char *file) const;
-	
+
+	aiFileIO * ModuleFileSystem::GetAssimpIO();
+
+private:
+	aiFileIO* AssimpIO = nullptr;
+	void ModuleFileSystem::CreateAssimpIO();
+
 };
 
 

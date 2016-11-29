@@ -18,6 +18,17 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 		SDL_free(base_path);
 
 		AddSearchPath(".");
+		AddSearchPath("Assets");
+		if (PHYSFS_setWriteDir(".") == 0)
+		{
+			LOG("File System error while creating write dir: %s\n", PHYSFS_getLastError());
+		}
+
+		CreateDir("EditorConfig");
+		CreateDir("Library");
+		CreateDir("Library/Meshes");
+		CreateDir("Library/Materials");
+		CreateDir("Library/Textures");
 	}	
 }
 
@@ -35,18 +46,18 @@ bool ModuleFileSystem::Init()
 
 	char* write_dir = SDL_GetPrefPath(App->GetAppName(), App->GetOrganization());
 
-	if (PHYSFS_setWriteDir(write_dir) == 0)
-	{
-		LOG("%s,%s","[error] Error on setting Write Dir. Error:", PHYSFS_getLastError());
-		ret = false;
-	}
-	else
-	{
-		LOG("%s %s", "Write directory is ", write_dir);
-		//AddSearchPath(write_dir, GetSaveDirectory());
-		AddSearchPath(write_dir);
-		AddSearchPath("Assets/Models", "Models");
-	}
+	//if (PHYSFS_setWriteDir(write_dir) == 0)
+	//{
+	//	LOG("%s,%s","[error] Error on setting Write Dir. Error:", PHYSFS_getLastError());
+	//	ret = false;
+	//}
+	//else
+	//{
+	//	LOG("%s %s", "Write directory is ", write_dir);
+	//	//AddSearchPath(write_dir, GetSaveDirectory());
+	//	AddSearchPath(write_dir);
+	//	AddSearchPath("Assets/Models", "Models");
+	//}
 
 	SDL_free(write_dir);
 	
@@ -55,6 +66,7 @@ bool ModuleFileSystem::Init()
 
 bool ModuleFileSystem::CleanUp()
 {
+	RELEASE(AssimpIO);
 	RemoveAllSearchPaths();
 
 	return true;
@@ -70,6 +82,18 @@ bool ModuleFileSystem::AddSearchPath(const char *path_or_zip, const char *mount_
 		LOG("%s %s", "[error] Failure on mounting or adding path", path_or_zip);
 		LOG("%s", "Error:", PHYSFS_getLastError());
 		ret = false;
+	}
+
+	return ret;
+}
+
+bool ModuleFileSystem::CreateDir(const char* new_dir)
+{
+	bool ret = false;
+	if (IsDirectory(new_dir) == false)
+	{
+		PHYSFS_mkdir(new_dir);
+		ret = true;
 	}
 
 	return ret;
@@ -215,7 +239,110 @@ bool ModuleFileSystem::Exists(const char *file) const
 	return (PHYSFS_exists(file) == 0) ? false : true;
 }
 
-const char *ModuleFileSystem::GetSaveDirectory() const
+// -----------------------------------------------------
+// ASSIMP IO
+// -----------------------------------------------------
+
+size_t AssimpWrite(aiFile* file, const char* data, size_t size, size_t chunks)
 {
-	return "EditorConfig/";
+	PHYSFS_sint64 ret = PHYSFS_write((PHYSFS_File*)file->UserData, (void*)data, size, chunks);
+	if (ret == -1)
+		LOG("[error] File System error while WRITE via assimp: %s", PHYSFS_getLastError());
+
+	return (size_t)ret;
+}
+
+size_t AssimpRead(aiFile* file, char* data, size_t size, size_t chunks)
+{
+	PHYSFS_sint64 ret = PHYSFS_read((PHYSFS_File*)file->UserData, (void*)data, size, chunks);
+	if (ret == -1)
+		LOG("[error] File System error while READ via assimp: %s", PHYSFS_getLastError());
+
+	return (size_t)ret;
+}
+
+size_t AssimpTell(aiFile* file)
+{
+	PHYSFS_sint64 ret = PHYSFS_tell((PHYSFS_File*)file->UserData);
+	if (ret == -1)
+		LOG("[error] File System error while TELL via assimp: %s", PHYSFS_getLastError());
+
+	return (size_t)ret;
+}
+
+size_t AssimpSize(aiFile* file)
+{
+	PHYSFS_sint64 ret = PHYSFS_fileLength((PHYSFS_File*)file->UserData);
+	if (ret == -1)
+		LOG("[error] File System error while SIZE via assimp: %s", PHYSFS_getLastError());
+
+	return (size_t)ret;
+}
+
+void AssimpFlush(aiFile* file)
+{
+	if (PHYSFS_flush((PHYSFS_File*)file->UserData) == 0)
+		LOG("[error] File System error while FLUSH via assimp: %s", PHYSFS_getLastError());
+}
+
+aiReturn AssimpSeek(aiFile* file, size_t pos, aiOrigin from)
+{
+	int res = 0;
+
+	switch (from)
+	{
+	case aiOrigin_SET:
+		res = PHYSFS_seek((PHYSFS_File*)file->UserData, pos);
+		break;
+	case aiOrigin_CUR:
+		res = PHYSFS_seek((PHYSFS_File*)file->UserData, PHYSFS_tell((PHYSFS_File*)file->UserData) + pos);
+		break;
+	case aiOrigin_END:
+		res = PHYSFS_seek((PHYSFS_File*)file->UserData, PHYSFS_fileLength((PHYSFS_File*)file->UserData) + pos);
+		break;
+	}
+
+	if (res == 0)
+		LOG("[error] File System error while SEEK via assimp: %s", PHYSFS_getLastError());
+
+	return (res != 0) ? aiReturn_SUCCESS : aiReturn_FAILURE;
+}
+
+aiFile* AssimpOpen(aiFileIO* io, const char* name, const char* format)
+{
+	static aiFile file;
+
+	file.UserData = (char*)PHYSFS_openRead(name);
+	file.ReadProc = AssimpRead;
+	file.WriteProc = AssimpWrite;
+	file.TellProc = AssimpTell;
+	file.FileSizeProc = AssimpSize;
+	file.FlushProc = AssimpFlush;
+	file.SeekProc = AssimpSeek;
+
+	return &file;
+}
+
+void AssimpClose(aiFileIO* io, aiFile* file)
+{
+	if (PHYSFS_close((PHYSFS_File*)file->UserData) == 0)
+		LOG("[error] File System error while CLOSE via assimp: %s", PHYSFS_getLastError());
+}
+
+void ModuleFileSystem::CreateAssimpIO()
+{
+	if (AssimpIO)
+	{
+		delete AssimpIO;
+		AssimpIO = nullptr;
+	}
+
+	AssimpIO = new aiFileIO;
+	AssimpIO->OpenProc = AssimpOpen;
+	AssimpIO->CloseProc = AssimpClose;
+}
+
+aiFileIO * ModuleFileSystem::GetAssimpIO()
+{
+	return AssimpIO;
 }

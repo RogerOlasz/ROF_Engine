@@ -163,10 +163,12 @@
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleGeometry.h" />
     <ClInclude Include="ModuleGOManager.h" />
+    <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleResourceManager.h" />
     <ClInclude Include="ModuleSceneImporter.h" />
     <ClInclude Include="ModuleSceneEditor.h" />
     <ClInclude Include="GameTimeManager.h" />
@@ -182,6 +184,8 @@
     <ClInclude Include="PugiXML\src\pugixml.hpp" />
     <ClInclude Include="OctTree.h" />
     <ClInclude Include="RenderComp.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +251,9 @@
     <ClCompile Include="ModuleGeometry.cpp" />
     <ClCompile Include="ModuleGOManager.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
+    <ClCompile Include="ModuleResourceManager.cpp" />
     <ClCompile Include="ModuleSceneImporter.cpp" />
     <ClCompile Include="ModuleSceneEditor.cpp" />
     <ClCompile Include="GameTimeManager.cpp" />
@@ -261,6 +267,8 @@
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="PugiXML\src\pugixml.cpp" />
     <ClCompile Include="OctTree.cpp" />
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>

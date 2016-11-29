@@ -11,6 +11,7 @@
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
 #include "ModuleSceneImporter.h"
+#include "ModuleResourceManager.h"
 
 #include "GameTimeManager.h"
 
@@ -33,6 +34,7 @@ Application::Application()
 	physfs = new ModuleFileSystem(this);
 	go_manager = new ModuleGOManager(this);
 	importer = new ModuleSceneImporter(this);
+	res_manager = new ModuleResourceManager(this);
 
 	game_timer = new GameTimeManager();
 	// The order of calls is very important!
@@ -49,6 +51,7 @@ Application::Application()
 	AddModule(audio);
 	AddModule(geometry);
 	AddModule(importer);
+	AddModule(res_manager);
 
 	// Scenes
 	AddModule(scene_editor);
@@ -85,7 +88,7 @@ bool Application::Init()
 		item++;
 	}
 		
-	LoadEditorConfig("Configuration.xml");
+	LoadEditorConfig("EditorConfig/Configuration.xml");
 	LoadConfigNow();
 
 	// After all Init calls we call Start() in all modules
@@ -177,7 +180,7 @@ bool Application::CleanUp()
 	bool ret = true;
 	list<Module*>::reverse_iterator item = list_modules.rbegin();
 
-	SaveEditorConfig("Configuration.xml");
+	SaveEditorConfig("EditorConfig/Configuration.xml");
 	SaveConfigNow();
 
 	while (item != list_modules.rend() && ret == true)
@@ -210,9 +213,6 @@ void Application::AddModule(Module* mod)
 
 void Application::LoadEditorConfig(const char* file)
 {
-	char tmp[SHORT_STRING];
-	sprintf(tmp, "%s%s", physfs->GetSaveDirectory(), file);
-	//load_editor.assign(tmp);
 	load_editor.assign(file);
 }
 

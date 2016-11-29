@@ -28,7 +28,7 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Init()
 {
-	LoadScene("SceneSerialitzation.xml");
+	LoadScene("Assets/SceneSerialitzation.xml");
 	LoadSceneNow();
 
 	return true;
@@ -87,7 +87,7 @@ update_status ModuleGOManager::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
-	SaveScene("SceneSerialitzation.xml");
+	SaveScene("Assets/SceneSerialitzation.xml");
 	SaveSceneNow();
 
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
@@ -312,9 +312,6 @@ void ModuleGOManager::SetParent(GameObject* me, GameObject* new_parent)
 
 void ModuleGOManager::LoadScene(const char* file)
 {
-	char tmp[SHORT_STRING];
-	sprintf(tmp, "%s%s", App->physfs->GetSaveDirectory(), file);
-	//load_scene.assign(tmp);
 	load_scene.assign(file);
 }
 
