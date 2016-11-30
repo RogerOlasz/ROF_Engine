@@ -32,6 +32,32 @@ void ComponentTransformation::BuildTransMatrix()
 	UpdateGlobalMatrix();
 }
 
+void ComponentTransformation::OnSave(pugi::xml_node &scene)
+{
+	scene = scene.append_child("Transformation");
+
+	scene.append_child("Type").append_attribute("Value") = this->GetType();
+
+	scene = scene.append_child("Translate");
+	AddXMLVector3(scene, position);
+	scene = scene.parent();
+
+	scene = scene.append_child("Scale");
+	AddXMLVector3(scene, scale);
+	scene = scene.parent();
+
+	scene = scene.append_child("Rotation");
+	AddXMLVector3(scene, GetRotation());
+	scene = scene.parent().parent();
+}
+
+void ComponentTransformation::OnLoad(pugi::xml_node &scene)
+{
+	SetPos(GetXMLVector3(scene.child("Transformation"), "Translate"));
+	SetScale(GetXMLVector3(scene.child("Transformation"), "Scale"));
+	SetRotEuler(GetXMLVector3(scene.child("Transformation"), "Rotation"));
+}
+
 vec ComponentTransformation::GetPosition() const
 {
 	return position;

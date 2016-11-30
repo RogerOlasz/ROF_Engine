@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "Mesh.h"
+#include "ModuleSceneImporter.h"
+#include "MaterialImporter.h"
 
 #include "Assimp/include/material.h"
 
@@ -16,6 +18,22 @@ ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bea
 ComponentMaterial::~ComponentMaterial()
 {
 
+}
+
+void ComponentMaterial::OnSave(pugi::xml_node &scene)
+{
+	scene = scene.append_child("Material");
+
+	scene.append_child("Type").append_attribute("Value") = this->GetType();
+
+	scene.append_child("Path").text().set(path.c_str());
+
+	scene = scene.parent();
+}
+
+void ComponentMaterial::OnLoad(pugi::xml_node &scene)
+{
+	App->importer->material_importer->Load(scene.child("Material").child("Path").text().get(), tex_path, color, texture_id);
 }
 
 void ComponentMaterial::SetMaterialColor(float r, float g, float b, float a)

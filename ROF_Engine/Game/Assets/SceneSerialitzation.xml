@@ -2,1554 +2,734 @@
 <GameObjects>
 	<GameObject>
 		<Name>Sky001</Name>
-		<UUID Value="14481168" />
+		<UUID Value="18031839" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="18.1537323" Y="0" Z="58.9609108" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-180" Y="0" Z="0" />
+				<Rotation X="179.999985" Y="-0" Z="-0" />
 			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Dummy001</Name>
-		<UUID Value="1023566885" />
+		<UUID Value="1264213171" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="0" Y="0" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-89.9999924" Y="0" Z="0" />
+				<Rotation X="-89.9999847" Y="0" Z="0" />
 			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_004</Name>
-		<UUID Value="1800242184" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1167905896" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-41.4758911" Y="21.0140991" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1023566885.rof</Path>
+				<Path>Library/Meshes/mesh1264213171.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_001</Name>
-		<UUID Value="1073002403" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="603059055" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="17.7071648" Y="20.0532761" Z="2.12107295e-07" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1073002403.rof</Path>
+				<Path>Library/Meshes/mesh603059055.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_007</Name>
-		<UUID Value="1134154721" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="121685658" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="16.0104923" Y="37.4932861" Z="-1.51068787e-06" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh159614198.rof</Path>
+				<Path>Library/Meshes/mesh54208203.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_008</Name>
-		<UUID Value="159614198" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="54208203" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="40.9799957" Y="18.2708244" Z="-2.0522466e-06" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="89.9999924" />
+				<Rotation X="-0" Y="0" Z="89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh111988158.rof</Path>
+				<Path>Library/Meshes/mesh242691199.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Line002</Name>
-		<UUID Value="1419689380" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="900533284" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-2.15977192" Y="1.85383821" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1361909508.rof</Path>
+				<Path>Library/Meshes/mesh2630983.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Plane001</Name>
-		<UUID Value="111988158" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="242691199" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-0.0286026001" Y="0.0260320902" Z="0" />
 				<Scale X="0.996635258" Y="0.97061646" Z="0.996635258" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1803874124.rof</Path>
+				<Path>Library/Meshes/mesh635557448.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_010</Name>
-		<UUID Value="1361909508" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="2630983" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="25.1540108" Y="-39.1537209" Z="8.55386418e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="89.9999924" />
+				<Rotation X="-0" Y="0" Z="89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1920308429.rof</Path>
+				<Path>Library/Meshes/mesh646322821.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_011</Name>
-		<UUID Value="1803874124" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="635557448" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="30.1345406" Y="37.4932861" Z="-1.51068787e-06" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh313788497.rof</Path>
+				<Path>Library/Meshes/mesh91318245.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_013</Name>
-		<UUID Value="529226797" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1392024420" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-42.2880554" Y="33.2015762" Z="5.01460704e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="89.9999924" />
+				<Rotation X="-0" Y="0" Z="89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh803839681.rof</Path>
+				<Path>Library/Meshes/mesh1197099359.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_014</Name>
-		<UUID Value="921902358" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="342639357" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-19.4397068" Y="32.0617294" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-179.999985" />
+				<Rotation X="0" Y="0" Z="-179.999969" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh330392045.rof</Path>
+				<Path>Library/Meshes/mesh648863767.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_016</Name>
-		<UUID Value="1920308429" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="646322821" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="34.2704239" Y="-41.9727478" Z="8.55386418e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-179.999985" />
+				<Rotation X="0" Y="0" Z="-179.999969" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1417661036.rof</Path>
+				<Path>Library/Meshes/mesh650221031.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_017</Name>
-		<UUID Value="51207777" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1416265250" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="44.2600822" Y="-39.1537209" Z="8.55386418e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="89.9999924" />
+				<Rotation X="-0" Y="0" Z="89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh2144070737.rof</Path>
+				<Path>Library/Meshes/mesh1048843213.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_022</Name>
-		<UUID Value="313788497" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="91318245" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-20.8313236" Y="-27.4264889" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="179.999969" />
+				<Rotation X="-0" Y="0" Z="179.999954" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1156605909.rof</Path>
+				<Path>Library/Meshes/mesh934299191.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_023</Name>
-		<UUID Value="2065292353" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1115940025" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="42.1306419" Y="37.4932861" Z="-1.51068787e-06" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh724068215.rof</Path>
+				<Path>Library/Meshes/mesh2109563723.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_024</Name>
-		<UUID Value="803839681" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1197099359" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-20.5727711" Y="43.0608292" Z="-0.0691944584" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="179.999985" />
+				<Rotation X="-0" Y="0" Z="179.999969" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh738500450.rof</Path>
+				<Path>Library/Meshes/mesh1146712773.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_026</Name>
-		<UUID Value="698590081" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1561616516" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="31.5118885" Y="-16.4460163" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="179.999985" />
+				<Rotation X="-0" Y="0" Z="179.999969" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1173814143.rof</Path>
+				<Path>Library/Meshes/mesh1926224169.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_028</Name>
-		<UUID Value="330392045" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="648863767" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="13.38799" Y="-33.7550392" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1475288132.rof</Path>
+				<Path>Library/Meshes/mesh474191273.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Object010</Name>
-		<UUID Value="527221928" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="78324015" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-2.50335312" Y="15.8008461" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1187169256.rof</Path>
+				<Path>Library/Meshes/mesh404512202.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_030</Name>
-		<UUID Value="927354764" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="535268582" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-42.8072395" Y="-41.8355637" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1450601260.rof</Path>
+				<Path>Library/Meshes/mesh360855845.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_031</Name>
-		<UUID Value="1417661036" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="650221031" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-34.6794815" Y="-41.8355637" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1140571128.rof</Path>
+				<Path>Library/Meshes/mesh676870671.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_032</Name>
-		<UUID Value="630571236" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="83120491" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-29.4784031" Y="21.0140991" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1772670118.rof</Path>
+				<Path>Library/Meshes/mesh245671479.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_033</Name>
-		<UUID Value="2139309582" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1610758893" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-32.361496" Y="42.3704224" Z="5.01460704e-07" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh362564951.rof</Path>
+				<Path>Library/Meshes/mesh1989804739.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_034</Name>
-		<UUID Value="2144070737" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1048843213" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="16.0495167" Y="-16.6968842" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="0" Y="0" Z="-90.0000076" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh248898183.rof</Path>
+				<Path>Library/Meshes/mesh1022312505.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_035</Name>
-		<UUID Value="760477707" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="626883332" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="13.38799" Y="-40.8025169" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="-0" Y="0" Z="-0" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh2088805826.rof</Path>
+				<Path>Library/Meshes/mesh845810043.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_036</Name>
-		<UUID Value="1156605909" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="934299191" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-31.2163315" Y="33.2015762" Z="5.01460704e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1362842347.rof</Path>
+				<Path>Library/Meshes/mesh55414750.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_037</Name>
-		<UUID Value="2013162577" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1711792628" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-20.3176937" Y="-16.1636086" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="179.999969" />
+				<Rotation X="-0" Y="0" Z="179.999954" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh892218626.rof</Path>
+				<Path>Library/Meshes/mesh842548314.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_038</Name>
-		<UUID Value="724068215" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="2109563723" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-41.6490021" Y="-16.4953938" Z="0" />
 				<Scale X="1" Y="1" Z="1" />
 				<Rotation X="0" Y="0" Z="-90.0000076" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh13439381.rof</Path>
+				<Path>Library/Meshes/mesh171601223.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_039</Name>
-		<UUID Value="322066837" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1381857006" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-42.8072395" Y="-30.6438885" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh482429869.rof</Path>
+				<Path>Library/Meshes/mesh1498944295.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_040</Name>
-		<UUID Value="738500450" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="1146712773" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-34.6794815" Y="-30.6438885" Z="-9.38345181e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="0" Y="0" Z="-89.9999924" />
+				<Rotation X="0" Y="0" Z="-89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1549275504.rof</Path>
+				<Path>Library/Meshes/mesh1268381741.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_041</Name>
-		<UUID Value="86352976" />
-		<ParentUUID Value="1023566885" />
+		<UUID Value="437908161" />
+		<ParentUUID Value="1264213171" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="30.6952782" Y="21.6126461" Z="2.12107295e-07" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="89.9999924" />
+				<Rotation X="-0" Y="0" Z="89.9999847" />
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1316239506.rof</Path>
+				<Path>Library/Meshes/mesh709771653.rof</Path>
 			</Mesh>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Camera001</Name>
-		<UUID Value="1173814143" />
+		<UUID Value="1926224169" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-78.3124313" Y="45.2512169" Z="-97.0311127" />
 				<Scale X="1" Y="0.99999994" Z="0.99999994" />
-				<Rotation X="-158.525223" Y="-37.0005112" Z="-166.680023" />
+				<Rotation X="-158.525208" Y="-37.0005074" Z="-166.680008" />
 			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Camera001.Target</Name>
-		<UUID Value="1771746865" />
+		<UUID Value="1741565740" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-28.1326218" Y="20.8733292" Z="-35.0642128" />
 				<Scale X="1" Y="0.99999994" Z="1" />
-				<Rotation X="-158.525223" Y="-37.0005302" Z="-166.680023" />
+				<Rotation X="-158.525208" Y="-37.0005302" Z="-166.680008" />
 			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Spot001</Name>
-		<UUID Value="1475288132" />
+		<UUID Value="474191273" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="-66.7212677" Y="141.934128" Z="6.20413766e-06" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-89.9999847" Y="64.768631" Z="-89.9999847" />
+				<Rotation X="-89.9999771" Y="64.7686234" Z="-89.9999771" />
 			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Spot001.Target</Name>
-		<UUID Value="1187169256" />
+		<UUID Value="404512202" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
+				<Type Value="0" />
 				<Translate X="28.8909454" Y="-60.9638824" Z="-2.66481584e-06" />
 				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="6.83018834e-06" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Base</Name>
-		<UUID Value="1707649887" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform33</Name>
-		<UUID Value="1450601260" />
-		<ParentUUID Value="1707649887" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BLightL</Name>
-		<UUID Value="449371344" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform39</Name>
-		<UUID Value="1140571128" />
-		<ParentUUID Value="449371344" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BLightLG</Name>
-		<UUID Value="199687369" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform40</Name>
-		<UUID Value="1772670118" />
-		<ParentUUID Value="199687369" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BLightR</Name>
-		<UUID Value="1328575835" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform41</Name>
-		<UUID Value="362564951" />
-		<ParentUUID Value="1328575835" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BLightRG</Name>
-		<UUID Value="611666733" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform38</Name>
-		<UUID Value="248898183" />
-		<ParentUUID Value="611666733" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Body</Name>
-		<UUID Value="494851000" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform34</Name>
-		<UUID Value="2088805826" />
-		<ParentUUID Value="494851000" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BrakeFL</Name>
-		<UUID Value="1452804400" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.26298547" Y="0.839206159" Z="3.20801997" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-90.0000076" Y="-0.999987006" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform35</Name>
-		<UUID Value="1362842347" />
-		<ParentUUID Value="1452804400" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BrakeFR</Name>
-		<UUID Value="177065086" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.26298499" Y="0.839211822" Z="3.20801973" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform17</Name>
-		<UUID Value="892218626" />
-		<ParentUUID Value="177065086" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BrakeRL</Name>
-		<UUID Value="1188471271" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.46636701" Y="0.839208186" Z="-3.58394003" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-90.0000076" Y="-0.999987006" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform18</Name>
-		<UUID Value="13439381" />
-		<ParentUUID Value="1188471271" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BrakeRR</Name>
-		<UUID Value="1507758156" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.46636677" Y="0.839198709" Z="-3.58394003" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform19</Name>
-		<UUID Value="482429869" />
-		<ParentUUID Value="1507758156" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BumperF</Name>
-		<UUID Value="605670569" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform36</Name>
-		<UUID Value="1549275504" />
-		<ParentUUID Value="605670569" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BumperR</Name>
-		<UUID Value="448726115" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform37</Name>
-		<UUID Value="1316239506" />
-		<ParentUUID Value="448726115" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BumperRB</Name>
-		<UUID Value="488462442" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform1</Name>
-		<UUID Value="1840124237" />
-		<ParentUUID Value="488462442" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>DoorL</Name>
-		<UUID Value="1005058745" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform2</Name>
-		<UUID Value="1735215444" />
-		<ParentUUID Value="1005058745" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>DoorLine</Name>
-		<UUID Value="741864739" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform15</Name>
-		<UUID Value="235799922" />
-		<ParentUUID Value="741864739" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>DoorR</Name>
-		<UUID Value="1261371894" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform16</Name>
-		<UUID Value="923855403" />
-		<ParentUUID Value="1261371894" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Exhaust</Name>
-		<UUID Value="454300966" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform3</Name>
-		<UUID Value="748400870" />
-		<ParentUUID Value="454300966" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>HLightL</Name>
-		<UUID Value="21243109" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform4</Name>
-		<UUID Value="1497742553" />
-		<ParentUUID Value="21243109" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>HLightLG</Name>
-		<UUID Value="1118318681" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform5</Name>
-		<UUID Value="1445267916" />
-		<ParentUUID Value="1118318681" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>HLightR</Name>
-		<UUID Value="651299651" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform6</Name>
-		<UUID Value="15795866" />
-		<ParentUUID Value="651299651" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>HLightRG</Name>
-		<UUID Value="212359522" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform7</Name>
-		<UUID Value="1404855214" />
-		<ParentUUID Value="212359522" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Interior</Name>
-		<UUID Value="282151279" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform26</Name>
-		<UUID Value="621276150" />
-		<ParentUUID Value="282151279" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>MirrorL</Name>
-		<UUID Value="1398704923" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform27</Name>
-		<UUID Value="1589470968" />
-		<ParentUUID Value="1398704923" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>MirrorR</Name>
-		<UUID Value="725933218" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform24</Name>
-		<UUID Value="1316421880" />
-		<ParentUUID Value="725933218" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Roof</Name>
-		<UUID Value="300620814" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform25</Name>
-		<UUID Value="146067832" />
-		<ParentUUID Value="300620814" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>RotorFL</Name>
-		<UUID Value="1053463127" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.26298547" Y="0.839205921" Z="3.20801997" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-90.0000076" Y="-0.999987006" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform32</Name>
-		<UUID Value="147368876" />
-		<ParentUUID Value="1053463127" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>RotorFR</Name>
-		<UUID Value="1439134277" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.26293039" Y="0.839210451" Z="3.20801973" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform28</Name>
-		<UUID Value="970464585" />
-		<ParentUUID Value="1439134277" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>RotorRL</Name>
-		<UUID Value="584370371" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.46636701" Y="0.839208126" Z="-3.58394003" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-90.0000076" Y="-0.999987006" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform29</Name>
-		<UUID Value="371906976" />
-		<ParentUUID Value="584370371" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>RotorRR</Name>
-		<UUID Value="325244217" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.46761751" Y="0.839220643" Z="-3.58394003" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform30</Name>
-		<UUID Value="760057789" />
-		<ParentUUID Value="325244217" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Skirt</Name>
-		<UUID Value="1986265889" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform31</Name>
-		<UUID Value="755493151" />
-		<ParentUUID Value="1986265889" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>TireFL</Name>
-		<UUID Value="2019183447" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.35693717" Y="0.841627121" Z="3.20918751" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="-1.00000072" Z="-89.9999847" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform8</Name>
-		<UUID Value="1143747320" />
-		<ParentUUID Value="2019183447" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>TireFR</Name>
-		<UUID Value="138534960" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.35633254" Y="0.841622114" Z="3.20918727" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform9</Name>
-		<UUID Value="593391483" />
-		<ParentUUID Value="138534960" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>TireRL</Name>
-		<UUID Value="1365520604" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="2.56031919" Y="0.841629386" Z="-3.5828166" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="-1.00000072" Z="-89.9999847" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform11</Name>
-		<UUID Value="1956402041" />
-		<ParentUUID Value="1365520604" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>TireRR</Name>
-		<UUID Value="368701839" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="-2.56075335" Y="0.841627717" Z="-3.58281612" />
-				<Scale X="2.53999996" Y="2.5400002" Z="2.5400002" />
-				<Rotation X="-89.9999924" Y="1.00000072" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform10</Name>
-		<UUID Value="518700428" />
-		<ParentUUID Value="368701839" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindF</Name>
-		<UUID Value="357489836" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform14</Name>
-		<UUID Value="1611887073" />
-		<ParentUUID Value="357489836" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindFL</Name>
-		<UUID Value="136968054" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform12</Name>
-		<UUID Value="1025494854" />
-		<ParentUUID Value="136968054" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindFR</Name>
-		<UUID Value="735902172" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform13</Name>
-		<UUID Value="1727750333" />
-		<ParentUUID Value="735902172" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindR</Name>
-		<UUID Value="704414382" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform22</Name>
-		<UUID Value="2097126330" />
-		<ParentUUID Value="704414382" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindRL</Name>
-		<UUID Value="914028694" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform23</Name>
-		<UUID Value="1356277070" />
-		<ParentUUID Value="914028694" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>WindRR</Name>
-		<UUID Value="509931880" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.295670986" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform20</Name>
-		<UUID Value="1915248923" />
-		<ParentUUID Value="509931880" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>Hood Carbon</Name>
-		<UUID Value="2138142306" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="4.16338452e-07" Y="0.294640005" Z="-0.0347707123" />
-				<Scale X="2.53999996" Y="2.53999996" Z="2.53999996" />
-				<Rotation X="-90" Y="0" Z="90" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>transform21</Name>
-		<UUID Value="334043280" />
-		<ParentUUID Value="2138142306" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-		</Components>
-	</GameObject>
-	<GameObject>
-		<Name>BLightR1</Name>
-		<UUID Value="1326783517" />
-		<ParentUUID Value="0" />
-		<Components>
-			<Transformation>
-				<Translate X="0" Y="0" Z="0" />
-				<Scale X="1" Y="1" Z="1" />
-				<Rotation X="-0" Y="0" Z="-0" />
-			</Transformation>
-			<Mesh>
-				<Type Value="1" />
-				<Path>Library/Meshes/mesh488462442.rof</Path>
-			</Mesh>
+				<Rotation X="6.83018789e-06" Y="0" Z="-0" />
+			</Transformation>
+			<Material>
+				<Type Value="2" />
+				<Path></Path>
+			</Material>
 		</Components>
 	</GameObject>
 </GameObjects>

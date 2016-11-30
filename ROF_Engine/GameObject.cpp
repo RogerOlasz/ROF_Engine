@@ -269,36 +269,20 @@ bool GameObject::Save(pugi::xml_node &scene)
 	//Components
 	scene = scene.append_child("Components");
 
-	scene = scene.append_child("Transformation");
-
-	scene = scene.append_child("Translate");
-	AddXMLVector3(scene, transform->GetPosition());
-	scene = scene.parent();
-
-	scene = scene.append_child("Scale");
-	AddXMLVector3(scene, transform->GetScale());
-	scene = scene.parent();
-
-	scene = scene.append_child("Rotation");
-	AddXMLVector3(scene, transform->GetRotation());
-	scene = scene.parent().parent();
+	transform->OnSave(scene);
+	
 
 	if (this->GetComponentByType(Component::Type::Geometry))
 	{
 		((ComponentMesh*)this->GetComponentByType(Component::Type::Geometry))->OnSave(scene);
 	}
 	
-	/*if (this->GetComponentByType(Component::Type::Material))
+	if (this->GetComponentByType(Component::Type::Material))
 	{
-		tmp_node_2 = tmp_node.append_child("Material");
-		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Material)->GetType();
-		tmp_node_2 = tmp_node.append_child("Path");
-		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->GetTexturePath());
-		tmp_node_2 = tmp_node;
+		((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->OnSave(scene);
 	}
 
-	if (this->GetComponentByType(Component::Type::Camera))
+	/*if (this->GetComponentByType(Component::Type::Camera))
 	{
 		tmp_node_2 = tmp_node.append_child("Camera");
 		tmp_node_2 = tmp_node.append_child("Type");
@@ -321,13 +305,16 @@ bool GameObject::Load(pugi::xml_node &scene, std::map<Uint32, GameObject*> &tmp)
 	//Components
 	scene = scene.child("Components");
 
-	transform->SetPos(GetXMLVector3(scene.child("Transformation"), "Translate"));
-	transform->SetScale(GetXMLVector3(scene.child("Transformation"), "Scale"));
-	transform->SetRotEuler(GetXMLVector3(scene.child("Transformation"), "Rotation"));
+	transform->OnLoad(scene);
 
 	if (scene.child("Mesh"))
 	{
 		CreateComponent(Component::Type::Geometry)->OnLoad(scene);
+	}
+
+	if (scene.child("Material"))
+	{
+		CreateComponent(Component::Type::Material)->OnLoad(scene);
 	}
 	scene = scene.parent();
 

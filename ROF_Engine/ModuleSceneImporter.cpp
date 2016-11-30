@@ -159,6 +159,7 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 			UUID = random.Int();
 			sprintf(tmp_c, "Library/Meshes/mesh%d.rof", UUID);
 			std::string tmp_s = tmp_c;
+
 			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);
 
 			if (tmp != nullptr)
@@ -211,10 +212,11 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 
 			char tmp_c[LONG_STRING];
 			UUID = random.Int();
-			sprintf(tmp_c, "texture%d.dds", UUID);
+			sprintf(tmp_c, "Library/Textures/texture%d.rof", UUID);
 			std::string tmp_s = tmp_c;
+			material->path = tmp_s;
 
-			//material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
+			material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);
 
 			material->SetTextureId(ilutGLBindTexImage());
 		}		
@@ -223,5 +225,19 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 	{
 		material->SetTextureId(0);
 		LOG("[error] aiMaterial couldn't be load.");
+	}
+}
+
+void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint buffer_id)
+{
+	if (App->physfs->Exists(path))
+	{
+		//Adapt devIL to OpenGL buffer
+		ilutRenderer(ILUT_OPENGL);
+		ilGenImages(1, (ILuint*)buffer_id);
+		ilBindImage(buffer_id);
+		ilLoadImage(path);
+
+		buffer_id = ilutGLBindTexImage();
 	}
 }

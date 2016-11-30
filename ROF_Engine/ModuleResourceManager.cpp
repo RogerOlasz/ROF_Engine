@@ -88,6 +88,7 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 		return r_mesh;
 	}
 
+	//If doesn't exist, import it
 	r_mesh = mesh_loader->MeshImport(ai_mesh, next_id++, origin_file, resource_name);
 	if (r_mesh)
 	{

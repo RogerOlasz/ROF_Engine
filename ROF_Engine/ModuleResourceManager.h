@@ -48,6 +48,7 @@ private:
 	std::map<Uint32, Resource*> resources_on_memory;
 	std::map<Uint32, ResourceData> imported_resources;
 
+	//Must take it from sceneimporter
 	MeshLoader* mesh_loader = nullptr;
 
 	Uint32 next_id = 0;

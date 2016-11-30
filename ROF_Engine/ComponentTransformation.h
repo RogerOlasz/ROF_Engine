@@ -14,6 +14,9 @@ public:
 
 	void BuildTransMatrix();
 
+	void OnSave(pugi::xml_node&);
+	void OnLoad(pugi::xml_node&);
+
 	vec GetPosition() const;
 	vec GetScale() const;
 	vec GetRotation() const;

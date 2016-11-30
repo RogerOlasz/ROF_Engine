@@ -87,10 +87,6 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	uint ranges[5] = { mesh->num_indices, mesh->num_vertices, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
 
 	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(vec) * mesh->num_vertices;
-	if (mesh->colors != nullptr)
-	{
-		size += sizeof(vec) * mesh->num_vertices;
-	}
 	if (mesh->normals != nullptr)
 	{
 		size += sizeof(vec) * mesh->num_vertices;

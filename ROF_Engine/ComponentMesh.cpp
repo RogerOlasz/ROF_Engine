@@ -39,7 +39,9 @@ void ComponentMesh::CleanUp()
 void ComponentMesh::OnSave(pugi::xml_node &scene)
 {
 	scene = scene.append_child("Mesh");
+
 	scene.append_child("Type").append_attribute("Value") = this->GetType();
+
 	scene.append_child("Path").text().set(path.c_str());
 	scene = scene.parent();
 }
@@ -47,8 +49,6 @@ void ComponentMesh::OnSave(pugi::xml_node &scene)
 void ComponentMesh::OnLoad(pugi::xml_node &scene)
 {
 	//TODO
-	pugi::xml_node tmp = scene.child("Mesh");
-	pugi::xml_node tmp2 = tmp.child("Path");
 	LoadMesh(App->importer->mesh_importer->Load(scene.child("Mesh").child("Path").text().get()), scene.child("Mesh").child_value("Path"));
 }
 
