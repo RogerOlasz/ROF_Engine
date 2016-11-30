@@ -2,6 +2,7 @@
 #define __COMPONENT_H__
 
 #include <string>
+#include "XMLUtilities.h"
 
 class GameObject;
 
@@ -28,7 +29,8 @@ public:
 
 	virtual void Update() {};
 	virtual void CleanUp() {};
-	virtual void OnLoad() {};
+
+	virtual void OnLoad(pugi::xml_node&) {};
 	virtual void OnSave() {};
 
 	Type GetType() const;

@@ -4,6 +4,9 @@
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
 
+#include "MeshImporter.h"
+#include "ModuleSceneImporter.h"
+
 ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Type::Geometry, id)
 {
 	//Component names are to solve problems with ImGui same names
@@ -33,9 +36,29 @@ void ComponentMesh::CleanUp()
 	RELEASE(mesh);
 }
 
-void ComponentMesh::LoadMesh(Mesh* recived_mesh)
+void ComponentMesh::OnSave(pugi::xml_node &scene)
+{
+	scene = scene.append_child("Mesh");
+	scene.append_child("Type").append_attribute("Value") = this->GetType();
+	scene.append_child("Path").text().set(path.c_str());
+	scene = scene.parent();
+}
+
+void ComponentMesh::OnLoad(pugi::xml_node &scene)
+{
+	//TODO
+	pugi::xml_node tmp = scene.child("Mesh");
+	pugi::xml_node tmp2 = tmp.child("Path");
+	LoadMesh(App->importer->mesh_importer->Load(scene.child("Mesh").child("Path").text().get()), scene.child("Mesh").child_value("Path"));
+}
+
+void ComponentMesh::LoadMesh(Mesh* recived_mesh, const char* path)
 {
 	mesh = recived_mesh;
+	if (path)
+	{
+		this->path = path;
+	}
 
 	//Setting bounding box
 	bounding_box.SetNegativeInfinity(); //Must be called before Enclose() to ser box at null
@@ -62,5 +85,10 @@ Mesh* ComponentMesh::GetMesh()
 const AABB* ComponentMesh::GetBoundingBox() const
 {
 	return &bounding_box;
+}
+
+const char* ComponentMesh::GetPath() const
+{
+	return path.c_str();
 }
 

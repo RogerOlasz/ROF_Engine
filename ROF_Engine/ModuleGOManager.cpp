@@ -13,11 +13,14 @@
 
 #include "OctTree.h"
 
+#include <map>
+
 ModuleGOManager::ModuleGOManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("GOManager");
 
 	root = new GameObject("Root");
+	root->UUID = 0;
 }
 
 ModuleGOManager::~ModuleGOManager()
@@ -26,10 +29,10 @@ ModuleGOManager::~ModuleGOManager()
 }
 
 // Called before render is available
-bool ModuleGOManager::Init()
+bool ModuleGOManager::Start()
 {
-	LoadScene("Assets/SceneSerialitzation.xml");
-	LoadSceneNow();
+	//LoadScene("Assets/SceneSerialitzation.xml");
+	//LoadSceneNow();
 
 	return true;
 }
@@ -337,7 +340,16 @@ bool ModuleGOManager::LoadSceneNow()
 
 		if (result != 0)
 		{
+			std::map<Uint32, GameObject*> tmp_map;
+			tmp_map[this->root->UUID] = this->root;
 			root = data.child("GameObjects");
+			for (pugi::xml_node node = root.child("GameObject"); node != nullptr; node = node.next_sibling("GameObject"))
+			{
+				GameObject* tmp_go = CreateGameObject("", nullptr);
+				tmp_go->Load(node, tmp_map);
+				tmp_map[tmp_go->UUID] =  tmp_go;
+			}
+			tmp_map.clear();
 		}
 	}
 
@@ -356,7 +368,7 @@ bool ModuleGOManager::SaveSceneNow()
 	std::vector<GameObject*>::iterator item = gos_array.begin();
 	while (item != gos_array.end() && ret == true)
 	{
-		ret = (*item)->Save(root.append_child((*item)->GetName()));
+		ret = (*item)->Save(root.append_child("GameObject"));
 
 		item++;
 	}
@@ -366,7 +378,7 @@ bool ModuleGOManager::SaveSceneNow()
 		std::stringstream stream;
 		data.save(stream);
 
-		App->physfs->Save(load_scene.c_str(), stream.str().c_str(), stream.str().length());
+		App->physfs->Save(save_scene.c_str(), stream.str().c_str(), stream.str().length());
 	}
 
 	return ret;

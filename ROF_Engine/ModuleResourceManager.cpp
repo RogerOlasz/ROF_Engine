@@ -3,7 +3,6 @@
 #include "Globals.h"
 
 #include "MeshLoader.h"
-
 #include "ResourceMesh.h"
 
 ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module(app, start_enabled)

@@ -4,9 +4,10 @@
 #include "Component.h"
 #include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
-#include "PugiXML/src/pugixml.hpp"
+#include "XMLUtilities.h"
 #include "SDL/include/SDL.h"
 #include <vector>
+#include <map>
 
 class ComponentTransformation;
 struct RenderComp;
@@ -40,6 +41,7 @@ public:
 	bool RemoveGameObject(GameObject* to_delete);
 
 	bool Save(pugi::xml_node&);
+	bool Load(pugi::xml_node&, std::map<Uint32, GameObject*> &tmp);
 
 private:
 	GameObject* parent = nullptr;

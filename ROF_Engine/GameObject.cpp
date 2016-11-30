@@ -253,53 +253,47 @@ bool GameObject::RemoveGameObject(GameObject* to_delete)
 
 bool GameObject::Save(pugi::xml_node &scene)
 {
-	pugi::xml_node tmp_node;
-	pugi::xml_node tmp_node_2;
-
 	//Game objects basics
-	tmp_node = scene.append_child("Name");
-	tmp_node.text().set(name.c_str());
+	scene = scene.append_child("Name");
+	scene.text().set(name.c_str());
+	scene = scene.parent();
 
-	tmp_node = scene.append_child("UUID");
-	tmp_node.append_attribute("Value") = UUID;
+	scene = scene.append_child("UUID");
+	scene.append_attribute("Value") = UUID;
+	scene = scene.parent();
 
-	tmp_node = scene.append_child("ParentUUID");
-	tmp_node.append_attribute("Value") = parent->UUID;
+	scene = scene.append_child("ParentUUID");
+	scene.append_attribute("Value") = parent->UUID;
+	scene = scene.parent();
 
 	//Components
-	tmp_node = scene.append_child("Components");
+	scene = scene.append_child("Components");
 
-	tmp_node_2 = tmp_node.append_child("Transformation");
+	scene = scene.append_child("Transformation");
 
-	tmp_node_2 = tmp_node.append_child("Translate");
-	tmp_node_2.append_attribute("X") = transform->GetPosition().x;
-	tmp_node_2.append_attribute("Y") = transform->GetPosition().y;
-	tmp_node_2.append_attribute("Z") = transform->GetPosition().z;
+	scene = scene.append_child("Translate");
+	AddXMLVector3(scene, transform->GetPosition());
+	scene = scene.parent();
 
-	tmp_node_2 = tmp_node.append_child("Scale");
-	tmp_node_2.append_attribute("X") = transform->GetScale().x;
-	tmp_node_2.append_attribute("Y") = transform->GetScale().y;
-	tmp_node_2.append_attribute("Z") = transform->GetScale().z;
+	scene = scene.append_child("Scale");
+	AddXMLVector3(scene, transform->GetScale());
+	scene = scene.parent();
 
-	tmp_node_2 = tmp_node.append_child("Rotation");
-	tmp_node_2.append_attribute("X") = transform->GetRotation().x;
-	tmp_node_2.append_attribute("Y") = transform->GetRotation().y;
-	tmp_node_2.append_attribute("Z") = transform->GetRotation().z;
+	scene = scene.append_child("Rotation");
+	AddXMLVector3(scene, transform->GetRotation());
+	scene = scene.parent().parent();
 
 	if (this->GetComponentByType(Component::Type::Geometry))
 	{
-		tmp_node_2 = tmp_node.append_child("Mesh");
-		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Geometry)->GetType();
-		tmp_node_2 = tmp_node;
+		((ComponentMesh*)this->GetComponentByType(Component::Type::Geometry))->OnSave(scene);
 	}
 	
-	if (this->GetComponentByType(Component::Type::Material))
+	/*if (this->GetComponentByType(Component::Type::Material))
 	{
 		tmp_node_2 = tmp_node.append_child("Material");
 		tmp_node_2 = tmp_node.append_child("Type");
 		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Material)->GetType();
-		tmp_node_2 = tmp_node.append_child("TexturePath");
+		tmp_node_2 = tmp_node.append_child("Path");
 		tmp_node_2.text().set(((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->GetTexturePath());
 		tmp_node_2 = tmp_node;
 	}
@@ -310,7 +304,32 @@ bool GameObject::Save(pugi::xml_node &scene)
 		tmp_node_2 = tmp_node.append_child("Type");
 		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Camera)->GetType();
 		tmp_node_2 = tmp_node;
-	}	
+	}	*/
+
+	return true;
+}
+
+bool GameObject::Load(pugi::xml_node &scene, std::map<Uint32, GameObject*> &tmp)
+{
+	//Game objects basics
+	name = scene.child("Name").text().get();
+
+	UUID = scene.child("UUID").attribute("Value").as_llong();
+
+	SwitchParent(tmp.find(scene.child("ParentUUID").attribute("Value").as_llong())->second);
+
+	//Components
+	scene = scene.child("Components");
+
+	transform->SetPos(GetXMLVector3(scene.child("Transformation"), "Translate"));
+	transform->SetScale(GetXMLVector3(scene.child("Transformation"), "Scale"));
+	transform->SetRotEuler(GetXMLVector3(scene.child("Transformation"), "Rotation"));
+
+	if (scene.child("Mesh"))
+	{
+		CreateComponent(Component::Type::Geometry)->OnLoad(scene);
+	}
+	scene = scene.parent();
 
 	return true;
 }

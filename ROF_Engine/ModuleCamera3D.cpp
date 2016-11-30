@@ -45,37 +45,19 @@ bool ModuleCamera3D::CleanUp()
 
 bool ModuleCamera3D::Load(pugi::xml_node &config)
 {
-	vec tmp;
-	tmp.x = config.child("Position").attribute("X").as_float(20.0f);
-	tmp.y = config.child("Position").attribute("Y").as_float(20.0f);
-	tmp.z = config.child("Position").attribute("Z").as_float(20.0f);
-
-	camera->SetPos(tmp);
-
-	tmp.x = config.child("Reference").attribute("X").as_float(0.0f);
-	tmp.y = config.child("Reference").attribute("Y").as_float(0.0f);
-	tmp.z = config.child("Reference").attribute("Z").as_float(0.0f);
-
-	LookAt(tmp);
+	camera->SetPos(GetXMLVector3(config, "Position", 20.0f));
+	LookAt(GetXMLVector3(config, "Reference", 0.0f));
 
 	return true;
 }
 
 bool ModuleCamera3D::Save(pugi::xml_node &config) const
 {
-	vec tmp = camera->GetPos();
-
 	pugi::xml_node tmp_node = config.append_child("Position");
-
-	tmp_node.append_attribute("X") = tmp.x;
-	tmp_node.append_attribute("Y") = tmp.y;
-	tmp_node.append_attribute("Z") = tmp.z;
+	AddXMLVector3(tmp_node, camera->GetPos());
 
 	tmp_node = config.append_child("Reference");
-
-	tmp_node.append_attribute("X") = reference.x;
-	tmp_node.append_attribute("Y") = reference.y;
-	tmp_node.append_attribute("Z") = reference.z;
+	AddXMLVector3(tmp_node, reference);
 
 	return true;
 }

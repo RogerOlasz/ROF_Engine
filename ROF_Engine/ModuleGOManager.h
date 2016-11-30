@@ -16,7 +16,7 @@ public:
 	ModuleGOManager(Application* app, bool start_enabled = true);
 	~ModuleGOManager();
 
-	bool Init();
+	bool Start();
 	bool CleanUp();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);

@@ -84,6 +84,11 @@ void ComponentTransformation::SetPos(float x, float y, float z)
 	}	
 }
 
+void ComponentTransformation::SetPos(vec new_pos)
+{
+	SetPos(new_pos.x, new_pos.y, new_pos.z);
+}
+
 void ComponentTransformation::SetRot(float x, float y, float z, float w)
 {
 	if (freeze == false)
@@ -107,6 +112,11 @@ void ComponentTransformation::SetRotEuler(float x, float y, float z)
 	}
 }
 
+void ComponentTransformation::SetRotEuler(vec new_rot)
+{
+	SetRotEuler(new_rot.x, new_rot.y, new_rot.z);
+}
+
 void ComponentTransformation::SetScale(float x, float y, float z)
 {
 	if (freeze == false)
@@ -118,4 +128,9 @@ void ComponentTransformation::SetScale(float x, float y, float z)
 
 		BuildTransMatrix();
 	}
+}
+
+void ComponentTransformation::SetScale(vec new_sca)
+{
+	SetScale(new_sca.x, new_sca.y, new_sca.z);
 }

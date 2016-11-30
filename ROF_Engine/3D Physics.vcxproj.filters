@@ -390,6 +390,9 @@
     <ClInclude Include="MeshLoader.h">
       <Filter>Sources\Modules\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="XMLUtilities.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -634,6 +637,9 @@
     </ClCompile>
     <ClCompile Include="MeshLoader.cpp">
       <Filter>Sources\Modules\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLUtilities.cpp">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

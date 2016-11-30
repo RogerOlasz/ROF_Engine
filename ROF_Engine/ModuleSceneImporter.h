@@ -27,7 +27,8 @@ public:
 	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void LoadTexture(ComponentMaterial* material, aiMaterial* ai_material);
 
-private:
+	//TODO
+public:
 	MeshImporter* mesh_importer = nullptr;
 	MaterialImporter* material_importer = nullptr;
 

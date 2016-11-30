@@ -2,7 +2,7 @@
 #define __MODULE_H__
 
 #include "Globals.h"
-#include "PugiXML/src/pugixml.hpp"
+#include "XMLUtilities.h"
 #include <string>
 
 class Application;

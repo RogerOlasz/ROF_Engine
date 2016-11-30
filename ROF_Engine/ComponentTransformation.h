@@ -25,9 +25,12 @@ public:
 	void UpdateGlobalMatrix();
 
 	void SetPos(float x, float y, float z);
+	void SetPos(vec new_pos);
 	void SetRot(float x, float y, float z, float w);
 	void SetRotEuler(float x, float y, float z);
+	void SetRotEuler(vec new_rot);
 	void SetScale(float x, float y, float z);
+	void SetScale(vec new_sca);
 
 private:
 	Quat rotation = Quat::identity;

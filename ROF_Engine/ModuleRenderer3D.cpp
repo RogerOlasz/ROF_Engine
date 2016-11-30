@@ -365,11 +365,14 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 		if (mesh->num_tex_coord > 0)
 		{
 			//If mesh have any material...
-			if (mesh->material->GetTextureId() != 0)
+			if (mesh->material)
 			{
-				glBindTexture(GL_TEXTURE_2D, mesh->material->GetTextureId());
+				if (mesh->material->GetTextureId() != 0)
+				{
+					glBindTexture(GL_TEXTURE_2D, mesh->material->GetTextureId());
+				}
+				glColor4f(mesh->material->GetMaterialColor().r, mesh->material->GetMaterialColor().g, mesh->material->GetMaterialColor().b, mesh->material->GetMaterialColor().a);
 			}
-			glColor4f(mesh->material->GetMaterialColor().r, mesh->material->GetMaterialColor().g, mesh->material->GetMaterialColor().b, mesh->material->GetMaterialColor().a);
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);

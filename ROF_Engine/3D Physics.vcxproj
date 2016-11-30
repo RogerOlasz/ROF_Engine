@@ -187,6 +187,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="XMLUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -270,6 +271,7 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="XMLUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl" />

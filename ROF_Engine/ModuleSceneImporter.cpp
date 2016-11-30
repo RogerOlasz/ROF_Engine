@@ -155,15 +155,16 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 		{
 			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 
-			/*char tmp_c[LONG_STRING];
+			char tmp_c[LONG_STRING];
 			UUID = random.Int();
-			sprintf(tmp_c, "mesh%d.rof", UUID);
+			sprintf(tmp_c, "Library/Meshes/mesh%d.rof", UUID);
 			std::string tmp_s = tmp_c;
-			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);*/
+			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);
 
 			if (tmp != nullptr)
 			{
-				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
+				//((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
+				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp, tmp_s.c_str());
 			}
 		}
 #pragma endregion
@@ -200,20 +201,23 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 		std::string tmp = material->GetTexturePath();
 		material->AppendTexturePath(App->physfs->GetFileNameFromDirPath(path.data).c_str());
 
-		//Adapt devIL to OpenGL buffer
-		ilutRenderer(ILUT_OPENGL);
-		ilGenImages(1, (ILuint*)material->GetTextureId());
-		ilBindImage(material->GetTextureId());
-		ilLoadImage(material->GetTexturePath());
+		if (App->physfs->Exists(material->GetTexturePath()))
+		{
+			//Adapt devIL to OpenGL buffer
+			ilutRenderer(ILUT_OPENGL);
+			ilGenImages(1, (ILuint*)material->GetTextureId());
+			ilBindImage(material->GetTextureId());
+			ilLoadImage(material->GetTexturePath());
 
-		char tmp_c[LONG_STRING];
-		UUID = random.Int();
-		sprintf(tmp_c, "texture%d.dds", UUID);
-		std::string tmp_s = tmp_c;
+			char tmp_c[LONG_STRING];
+			UUID = random.Int();
+			sprintf(tmp_c, "texture%d.dds", UUID);
+			std::string tmp_s = tmp_c;
 
-		//material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
+			//material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), tmp_s);
 
-		material->SetTextureId(ilutGLBindTexImage());
+			material->SetTextureId(ilutGLBindTexImage());
+		}		
 	}
 	else
 	{

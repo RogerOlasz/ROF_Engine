@@ -3,6 +3,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
+#include "ModuleRenderer3D.h"
+
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
@@ -51,13 +53,6 @@ bool MeshImporter::Import(aiMesh* ai_mesh, std::string& output_file)
 		memcpy(mesh.tex_coord, ai_mesh->mTextureCoords[0], sizeof(float2) * mesh.num_vertices);
 	}
 
-	//Colors
-	if (ai_mesh->HasVertexColors(0))
-	{
-		mesh.colors = new vec[mesh.num_vertices];
-		memcpy(mesh.colors, ai_mesh->mColors, sizeof(vec) * mesh.num_vertices);
-	}
-
 	//Indices (faces)
 	if (ai_mesh->HasFaces())
 	{
@@ -88,8 +83,8 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 {
 	bool ret = false;
 
-	// Amount of indices / vertices / colors / normals / texture_coords 
-	uint ranges[5] = { mesh->num_indices, mesh->num_vertices, (mesh->colors) ? mesh->num_vertices : 0, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
+	// Amount of indices / vertices / normals / texture_coords 
+	uint ranges[5] = { mesh->num_indices, mesh->num_vertices, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
 
 	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(vec) * mesh->num_vertices;
 	if (mesh->colors != nullptr)
@@ -123,12 +118,6 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	bytes = sizeof(vec) * mesh->num_vertices;
 	memcpy(pointer, mesh->vertices, bytes);
 
-	if (mesh->colors != nullptr)
-	{
-		// Because num color size is the same as vertices.
-		pointer += bytes;
-		memcpy(pointer, mesh->colors, bytes);
-	}
 	if (mesh->normals != nullptr)
 	{
 		// Because num color size is the same as vertices.
@@ -169,7 +158,7 @@ Mesh* MeshImporter::Load(const char* path)
 		{
 			Mesh* mesh = new Mesh();
 
-			// Amount of indices / vertices / colors / normals / texture_coords 
+			// Amount of indices / vertices / normals / texture_coords 
 			uint ranges[5];
 
 			uint bytes = sizeof(ranges);
@@ -192,25 +181,21 @@ Mesh* MeshImporter::Load(const char* path)
 			memcpy(mesh->vertices, pointer, bytes);
 			pointer += bytes;
 
-			//Colors
-			bytes = sizeof(vec) * ranges[2];
-			mesh->colors = new vec[ranges[2]];
-			memcpy(mesh->colors, pointer, bytes);
-			pointer += bytes;
-
 			//Normals
-			mesh->num_normals = ranges[3];
-			bytes = sizeof(vec) * ranges[3];
-			mesh->normals = new vec[ranges[3]];
+			mesh->num_normals = ranges[2];
+			bytes = sizeof(vec) * ranges[2];
+			mesh->normals = new vec[ranges[2]];
 			memcpy(mesh->normals, pointer, bytes);
 			pointer += bytes;
 
 			//Texture coords
-			mesh->num_tex_coord = ranges[4];
-			bytes = sizeof(float2) * ranges[4];
-			mesh->tex_coord = new float2[ranges[4]];
+			mesh->num_tex_coord = ranges[3];
+			bytes = sizeof(float2) * ranges[3];
+			mesh->tex_coord = new float2[ranges[3]];
 			memcpy(mesh->tex_coord, pointer, bytes);
 			pointer += bytes;
+
+			App->renderer3D->LoadMeshBuffers(mesh);
 
 			return mesh;
 		}
