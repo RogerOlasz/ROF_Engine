@@ -27,7 +27,7 @@ bool ModuleResourceManager::CleanUp()
 	std::map<Uint32, Resource*>::iterator it = resources_on_memory.begin(); 
 	while(it != resources_on_memory.end())
 	{
-		it->second->FreeMemory();
+		it->second->UnloadFromMemory();
 		RELEASE(it->second);
 		it = resources_on_memory.erase(it);
 	}
@@ -89,7 +89,7 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 	}
 
 	//If doesn't exist, import it
-	r_mesh = mesh_loader->MeshImport(ai_mesh, next_id++, origin_file, resource_name);
+	r_mesh = mesh_loader->MeshImport(ai_mesh, last_id++, origin_file, resource_name);
 	if (r_mesh)
 	{
 		imported_resources[r_mesh->ID] = CreateResourceData(r_mesh);

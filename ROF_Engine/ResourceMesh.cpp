@@ -73,7 +73,7 @@ void ResourceMesh::LoadOnMemory()
 	}
 }
 
-void ResourceMesh::FreeMemory()
+void ResourceMesh::UnloadFromMemory()
 {
 	if (id_indices != 0)
 	{

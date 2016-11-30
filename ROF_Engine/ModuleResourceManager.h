@@ -19,6 +19,8 @@ struct ResourceData
 	std::string resource_name;
 	std::string origin_file;	
 
+	//Should save Resource UUID on this struct data?
+
 	bool CompareResource(const char* file, const char* name)
 	{
 		return (origin_file == file && resource_name == name);
@@ -51,7 +53,7 @@ private:
 	//Must take it from sceneimporter
 	MeshLoader* mesh_loader = nullptr;
 
-	Uint32 next_id = 0;
+	Uint32 last_id = 0;
 };
 
 #endif // !__MOUDLERESOURCEMANAGER_H__

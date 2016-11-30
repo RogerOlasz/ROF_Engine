@@ -14,7 +14,7 @@ public:
 	void CreateAABB();
 
 	void LoadOnMemory() override;
-	void FreeMemory() override;
+	void UnloadFromMemory() override;
 
 public:
 	// Vertices

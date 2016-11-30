@@ -29,7 +29,7 @@ public:
 	const char* GetResourceFile() const;
 
 	virtual void LoadOnMemory() {};
-	virtual void FreeMemory() {};
+	virtual void UnloadFromMemory() {};
 
 protected:
 	Uint32 ID;

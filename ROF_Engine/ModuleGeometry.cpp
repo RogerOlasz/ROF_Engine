@@ -108,7 +108,7 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	if (mesh != nullptr)
 	{
 		//Adding texture to mesh struct (must change it to save tex only on comp material)
-		App->importer->LoadTexture(material, scene->mMaterials[ai_mesh->mMaterialIndex]);
+		//App->importer->LoadTexture(material, scene->mMaterials[ai_mesh->mMaterialIndex]);
 		mesh->material = material;
 
 		App->renderer3D->LoadMeshBuffers(mesh);
