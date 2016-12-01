@@ -49,22 +49,25 @@ bool MaterialImporter::Import(const char* file, const char* path, Color s_color,
 bool MaterialImporter::ToOwnFormat(Color s_color, std::string &output_file)
 {
 	bool ret = false;
-	
+	std::string tmp = output_file;
+	tmp.append(".dds");
 	// Binary file import
-	uint size_m = sizeof(char) * output_file.size() + sizeof(float4); 
+	uint size_m = sizeof(char) + sizeof(char) * tmp.size() + sizeof(float4);
 
 	// Allocate 
 	char* data_m = new char[size_m];
 	char* pointer = data_m;
 
+	
+
 	// Store texture path 
 	uint bytes = sizeof(char);
-	uint path_size = output_file.size();
+	uint path_size = tmp.size();
 	memcpy(pointer, &path_size, bytes);
 	pointer += bytes;
 
-	bytes = output_file.size();
-	memcpy(pointer, output_file.c_str(), bytes);
+	bytes = tmp.size();
+	memcpy(pointer, tmp.c_str(), bytes);
 	pointer += bytes;
 
 	float4 color(s_color.r, s_color.g, s_color.b, s_color.a);
@@ -86,7 +89,8 @@ bool MaterialImporter::ToOwnFormat(Color s_color, std::string &output_file)
 		data = new ILubyte[il_size]; // Allocate data buffer
 		if (ilSaveL(IL_DDS, data, il_size) > 0) // Save to buffer with the ilSaveL function
 		{
-			ret = App->physfs->Save(output_file.append(".dds").c_str(), data, il_size);
+			output_file.append(".dds");
+			ret = App->physfs->Save(output_file.c_str(), data, il_size);
 		}
 
 		RELEASE_ARRAY(data);
@@ -95,7 +99,7 @@ bool MaterialImporter::ToOwnFormat(Color s_color, std::string &output_file)
 	return ret;
 }
 
-void MaterialImporter::Load(const char* path, std::string &mat_tex_path, Color mat_color, uint buff_id)
+void MaterialImporter::Load(const char* path, std::string &mat_tex_path, Color &mat_color, uint &buff_id)
 {
 	if (path == nullptr)
 	{

@@ -36,7 +36,7 @@ public:
 	void AddGOToRender(RenderComp* go_to_render);
 	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
-	void DrawMesh(const Mesh* mesh, bool wireframe = false);
+	void DrawMesh(const Mesh* mesh, ComponentMaterial* material, bool wireframe = false);
 
 private:
 	std::vector<RenderComp*> to_render;

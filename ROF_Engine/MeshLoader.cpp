@@ -100,7 +100,7 @@ bool MeshLoader::MeshToOwnFormat(ResourceMesh* r_mesh)
 	}
 	if (r_mesh->tex_coord != nullptr)
 	{
-		size += sizeof(vec) * r_mesh->num_vertices;
+		size += sizeof(float2) * r_mesh->num_vertices;
 	}
 
 	// Allocate

@@ -31,8 +31,8 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Start()
 {
-	LoadScene("Assets/SceneSerialitzation.xml");
-	LoadSceneNow();
+	//LoadScene("Assets/SceneSerialitzation.xml");
+	//LoadSceneNow();
 
 	return true;
 }

@@ -173,7 +173,7 @@ update_status ModuleRenderer3D::Update(float dt)
 		
 		if (to_render[i]->c_mesh)
 		{
-			DrawMesh(to_render[i]->c_mesh->GetMesh(), to_render[i]->c_mesh->wirefr);
+			DrawMesh(to_render[i]->c_mesh->GetMesh(), to_render[i]->c_material,to_render[i]->c_mesh->wirefr);
 		}
 
 		glPopMatrix();
@@ -326,7 +326,7 @@ void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
 	}
 }
 
-void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
+void ModuleRenderer3D::DrawMesh(const Mesh* mesh, ComponentMaterial* material, bool wireframe)
 {	
 	if (mesh != nullptr)
 	{
@@ -360,19 +360,18 @@ void ModuleRenderer3D::DrawMesh(const Mesh* mesh, bool wireframe)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glColor3f(1.0f, 1.0f, 1.0f);
 		}	
-
-		//If mesh have UV coords...
-		if (mesh->num_tex_coord > 0)
-		{
-			//If mesh have any material...
-			if (mesh->material)
+		
+		//If mesh have any material...
+		if (material)
+		{		//If mesh have UV coords...
+			if (mesh->num_tex_coord > 0)
 			{
-				if (mesh->material->GetTextureId() != 0)
+				if (material->GetTextureId() != 0)
 				{
-					glBindTexture(GL_TEXTURE_2D, mesh->material->GetTextureId());
-				}
-				glColor4f(mesh->material->GetMaterialColor().r, mesh->material->GetMaterialColor().g, mesh->material->GetMaterialColor().b, mesh->material->GetMaterialColor().a);
+					glBindTexture(GL_TEXTURE_2D, material->GetTextureId());
+				}				
 			}
+			glColor4f(material->GetMaterialColor().r, material->GetMaterialColor().g, material->GetMaterialColor().b, material->GetMaterialColor().a);
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);

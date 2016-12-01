@@ -228,7 +228,7 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 	}
 }
 
-void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint buffer_id)
+void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint &buffer_id)
 {
 	if (App->physfs->Exists(path))
 	{

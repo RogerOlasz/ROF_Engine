@@ -84,7 +84,7 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	bool ret = false;
 
 	// Amount of indices / vertices / normals / texture_coords 
-	uint ranges[5] = { mesh->num_indices, mesh->num_vertices, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
+	uint ranges[4] = { mesh->num_indices, mesh->num_vertices, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
 
 	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(vec) * mesh->num_vertices;
 	if (mesh->normals != nullptr)
@@ -93,7 +93,7 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	}
 	if (mesh->tex_coord != nullptr)
 	{
-		size += sizeof(vec) * mesh->num_vertices;
+		size += sizeof(float2) * mesh->num_vertices;
 	}
 
 	// Allocate

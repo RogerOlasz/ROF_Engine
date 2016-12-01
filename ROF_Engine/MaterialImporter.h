@@ -15,6 +15,6 @@ public:
 
 	bool Import(const char* file, const char* path, Color s_color, std::string &output_file);
 	bool ToOwnFormat(Color s_color, std::string &output_file);
-	void Load(const char* path, std::string &mat_tex_path, Color mat_color, uint buff_id);
+	void Load(const char* path, std::string &mat_tex_path, Color &mat_color, uint &buff_id);
 };
 #endif // !__MATERIALIMPORTER_H__
