@@ -47,7 +47,12 @@ ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const cha
 	{
 		r_mesh->num_tex_coord = ai_mesh->mNumVertices;
 		r_mesh->tex_coord = new float2[r_mesh->num_tex_coord];
-		memcpy(r_mesh->tex_coord, ai_mesh->mTextureCoords[0], sizeof(float2) * r_mesh->num_vertices);
+
+		for (int i = 0; i < r_mesh->num_tex_coord; i++)
+		{
+			r_mesh->tex_coord[i].x = ai_mesh->mTextureCoords[0][i].x;
+			r_mesh->tex_coord[i].y = ai_mesh->mTextureCoords[0][i].y;
+		}
 	}
 
 	//Indices (faces)
@@ -75,7 +80,7 @@ ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const cha
 	r_mesh->ID = ID;
 	r_mesh->name = resource_name;
 
-	std::string path("/Library/Meshes/");
+	std::string path("Library/Meshes/");
 	path.append(std::to_string(ID)).append(".rof");
 
 	r_mesh->resource_file = path;
@@ -91,17 +96,9 @@ bool MeshLoader::MeshToOwnFormat(ResourceMesh* r_mesh)
 	bool ret = false;
 
 	// Amount of indices / vertices / normals / texture_coords 
-	uint ranges[4] = { r_mesh->num_indices, r_mesh->num_vertices, (r_mesh->normals) ? r_mesh->num_vertices : 0, (r_mesh->tex_coord) ? r_mesh->num_vertices : 0 };
+	uint ranges[4] = { r_mesh->num_indices, r_mesh->num_vertices, r_mesh->num_normals, r_mesh->num_tex_coord };
 
-	uint size = sizeof(ranges) + sizeof(uint) * r_mesh->num_indices + sizeof(vec) * r_mesh->num_vertices;
-	if (r_mesh->normals != nullptr)
-	{
-		size += sizeof(vec) * r_mesh->num_vertices;
-	}
-	if (r_mesh->tex_coord != nullptr)
-	{
-		size += sizeof(float2) * r_mesh->num_vertices;
-	}
+	uint size = sizeof(ranges) + sizeof(uint) * r_mesh->num_indices + sizeof(vec) * r_mesh->num_vertices + sizeof(vec) * r_mesh->num_normals + sizeof(float2) * r_mesh->num_tex_coord;
 
 	// Allocate
 	char* data = new char[size];
@@ -146,7 +143,7 @@ bool MeshLoader::MeshToOwnFormat(ResourceMesh* r_mesh)
 
 ResourceMesh* MeshLoader::MeshLoad(Uint32 ID)
 {
-	std::string path = "/Library/Meshes/";
+	std::string path = "Library/Meshes/";
 	path.append(std::to_string(ID)); //Unique UUID for each resource file
 
 	char* buffer = nullptr;
