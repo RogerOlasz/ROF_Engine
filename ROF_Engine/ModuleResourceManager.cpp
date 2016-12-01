@@ -37,7 +37,7 @@ bool ModuleResourceManager::CleanUp()
 	return true;
 }
 
-Resource* ModuleResourceManager::GetResource(Uint32 ID, Resource::ResType type)
+Resource* ModuleResourceManager::LoadResource(Uint32 ID, Resource::ResType type)
 {
 	Resource* ret = nullptr;
 
@@ -88,11 +88,12 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 		return r_mesh;
 	}
 
-	//If doesn't exist, import it
+	//If doesn't exist, import it -> it should be a method from scene importer
 	r_mesh = mesh_loader->MeshImport(ai_mesh, last_id++, origin_file, resource_name);
 	if (r_mesh)
 	{
 		imported_resources[r_mesh->ID] = CreateResourceData(r_mesh);
+		//GetResource(r_mesh->ID, Resource::ResType::Mesh);
 	}
 
 	return r_mesh;
@@ -104,7 +105,7 @@ Resource* ModuleResourceManager::SearchResource(const char* origin_file, const c
 	{
 		if (tmp->second.CompareResource(origin_file, resource_name))
 		{
-			return GetResource(tmp->first, type);
+			return LoadResource(tmp->first, type);
 		}
 	}
 
@@ -116,8 +117,32 @@ ResourceData ModuleResourceManager::CreateResourceData(Resource* resource)
 	ResourceData ret;
 
 	ret.origin_file = resource->origin_file;
+	ret.resource_file = resource->resource_file;
 	ret.resource_name = resource->name;
 	ret.type = resource->type;
 
 	return ret;
+}
+
+const ResourceData* ModuleResourceManager::GetResourceData(const char* origin_file, const char* resource_name, Resource::ResType type) 
+{
+	for (std::map<Uint32, ResourceData>::iterator tmp = imported_resources.begin(); tmp != imported_resources.end(); tmp++)
+	{
+		if (tmp->second.CompareResource(origin_file, resource_name))
+		{
+			return &tmp->second;
+		}
+	}
+}
+
+const ResourceData* ModuleResourceManager::GetResourceData(Uint32 ID)
+{
+	std::map<Uint32, ResourceData>::iterator tmp = imported_resources.find(ID);
+
+	if (tmp != imported_resources.end())
+	{
+		return &tmp->second;
+	}
+
+	return nullptr;
 }

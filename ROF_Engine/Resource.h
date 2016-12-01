@@ -26,6 +26,8 @@ public:
 	ResType GetType() const;
 	Uint32 GetID() const;
 
+	virtual bool IsOnMemory();
+
 	const char* GetResourceFile() const;
 
 	virtual void LoadOnMemory() {};
@@ -34,6 +36,8 @@ public:
 protected:
 	Uint32 ID;
 	ResType type;
+
+	bool loaded_on_memory = false;
 
 	std::string resource_file;
 	std::string origin_file;

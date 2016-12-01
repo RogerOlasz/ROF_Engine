@@ -24,6 +24,8 @@ void ResourceMesh::CreateAABB()
 
 void ResourceMesh::LoadOnMemory()
 {
+	loaded_on_memory = true;
+
 	//Loading vertices
 	if (num_vertices > 0)
 	{
@@ -75,6 +77,8 @@ void ResourceMesh::LoadOnMemory()
 
 void ResourceMesh::UnloadFromMemory()
 {
+	loaded_on_memory = false;
+
 	if (id_indices != 0)
 	{
 		glDeleteBuffers(1, &id_indices);
