@@ -30,35 +30,26 @@ bool MaterialImporter::Import(const char* file, const char* path, Color s_color,
 	file_location.append(path).append(file);
 
 	char* buffer = nullptr;
-	uint size = App->physfs->Load(file_location.c_str(), &buffer); 
+	uint size = App->physfs->Load(file_location.c_str(), &buffer);
 
-	if (buffer != nullptr)
-	{
-		ret = ToOwnFormat(s_color, output_file);
-	}
-	else
-	{
-		LOG("[warning] Buffer is empty, texture couldn't import to own format.");
-	}
-
-	RELEASE_ARRAY(buffer);
+	ret = ToOwnFormat(size, buffer,s_color, output_file);
 
 	return ret;
 }
 
-bool MaterialImporter::ToOwnFormat(Color s_color, std::string &output_file)
+bool MaterialImporter::ToOwnFormat(uint size, char* buffer, Color s_color, std::string &output_file)
 {
 	bool ret = false;
+
 	std::string tmp = output_file;
 	tmp.append(".dds");
+
 	// Binary file import
 	uint size_m = sizeof(char) + sizeof(char) * tmp.size() + sizeof(float4);
 
 	// Allocate 
 	char* data_m = new char[size_m];
 	char* pointer = data_m;
-
-	
 
 	// Store texture path 
 	uint bytes = sizeof(char);
@@ -77,23 +68,26 @@ bool MaterialImporter::ToOwnFormat(Color s_color, std::string &output_file)
 
 	App->physfs->Save(output_file.c_str(), data_m, size_m);
 
-	// DDS import
-	ILuint il_size;
-	ILubyte* data;
-	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
-
-	// More help about DevIL Save methods: http://openil.sourceforge.net/docs/DevIL%20Manual.pdf
-	il_size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
-	if (il_size > 0)
+	if (ilLoadL(IL_TYPE_UNKNOWN, (const void*)buffer, size))
 	{
-		data = new ILubyte[il_size]; // Allocate data buffer
-		if (ilSaveL(IL_DDS, data, il_size) > 0) // Save to buffer with the ilSaveL function
-		{
-			output_file.append(".dds");
-			ret = App->physfs->Save(output_file.c_str(), data, il_size);
-		}
+		// DDS import
+		ILuint il_size;
+		ILubyte* data;
+		ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
 
-		RELEASE_ARRAY(data);
+											  // More help about DevIL Save methods: http://openil.sourceforge.net/docs/DevIL%20Manual.pdf
+		il_size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+		if (il_size > 0)
+		{
+			data = new ILubyte[il_size]; // Allocate data buffer
+			if (ilSaveL(IL_DDS, data, il_size) > 0) // Save to buffer with the ilSaveL function
+			{
+				output_file.append(".dds");
+				ret = App->physfs->Save(output_file.c_str(), data, il_size);
+			}
+
+			RELEASE_ARRAY(data);
+		}
 	}
 
 	return ret;

@@ -84,17 +84,9 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 	bool ret = false;
 
 	// Amount of indices / vertices / normals / texture_coords 
-	uint ranges[4] = { mesh->num_indices, mesh->num_vertices, (mesh->normals) ? mesh->num_vertices : 0, (mesh->tex_coord) ? mesh->num_vertices : 0 };
-
-	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(vec) * mesh->num_vertices;
-	if (mesh->normals != nullptr)
-	{
-		size += sizeof(vec) * mesh->num_vertices;
-	}
-	if (mesh->tex_coord != nullptr)
-	{
-		size += sizeof(float2) * mesh->num_vertices;
-	}
+	uint ranges[4] = { mesh->num_indices, mesh->num_vertices, mesh->num_normals, mesh->num_tex_coord };
+	
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->num_indices + sizeof(vec) * mesh->num_vertices + sizeof(vec) * mesh->num_normals + sizeof(float2) * mesh->num_tex_coord;
 
 	// Allocate
 	char* data = new char[size];
@@ -116,13 +108,11 @@ bool MeshImporter::ToOwnFormat(Mesh* mesh, std::string& output_file)
 
 	if (mesh->normals != nullptr)
 	{
-		// Because num color size is the same as vertices.
 		pointer += bytes;
 		memcpy(pointer, mesh->normals, bytes);
 	}
 	if (mesh->tex_coord != nullptr)
 	{
-		// Because num color size is the same as vertices.
 		pointer += bytes;
 		bytes = sizeof(float2) * mesh->num_tex_coord;
 		memcpy(pointer, mesh->tex_coord, bytes);
@@ -155,7 +145,7 @@ Mesh* MeshImporter::Load(const char* path)
 			Mesh* mesh = new Mesh();
 
 			// Amount of indices / vertices / normals / texture_coords 
-			uint ranges[5];
+			uint ranges[4];
 
 			uint bytes = sizeof(ranges);
 

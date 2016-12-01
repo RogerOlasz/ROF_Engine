@@ -32,11 +32,11 @@ public:
 private:
 	uint texture_id = 0;
 	Color color = White;
-	std::string tex_path;
+	std::string tex_path = "";
 
 	//TODO temporaly public
 public:
-	std::string path;
+	std::string path = "";
 };
 
 #endif // !__COMPONENTMATERIAL_H__
