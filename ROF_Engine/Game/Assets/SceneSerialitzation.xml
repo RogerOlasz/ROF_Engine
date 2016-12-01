@@ -2,7 +2,7 @@
 <GameObjects>
 	<GameObject>
 		<Name>Sky001</Name>
-		<UUID Value="3759534" />
+		<UUID Value="18171081" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
@@ -19,7 +19,7 @@
 	</GameObject>
 	<GameObject>
 		<Name>Dummy001</Name>
-		<UUID Value="1896995327" />
+		<UUID Value="220962218" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
@@ -36,8 +36,8 @@
 	</GameObject>
 	<GameObject>
 		<Name>City_building_004</Name>
-		<UUID Value="467370567" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1185215917" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -47,18 +47,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1896995327.rof</Path>
+				<Path>Library/Meshes/mesh220962218.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture3759534.rof</Path>
+				<Path>Library/Textures/texture18171081.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_001</Name>
-		<UUID Value="134025763" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1005705129" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -68,18 +68,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh134025763.rof</Path>
+				<Path>Library/Meshes/mesh1005705129.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture467370567.rof</Path>
+				<Path>Library/Textures/texture1185215917.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_007</Name>
-		<UUID Value="191199608" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1639959321" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -89,18 +89,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1404264462.rof</Path>
+				<Path>Library/Meshes/mesh344827292.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture191199608.rof</Path>
+				<Path>Library/Textures/texture1639959321.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_008</Name>
-		<UUID Value="1404264462" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="344827292" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -110,18 +110,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh896326860.rof</Path>
+				<Path>Library/Meshes/mesh37279196.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture2103079227.rof</Path>
+				<Path>Library/Textures/texture501206519.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Line002</Name>
-		<UUID Value="2103079227" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="501206519" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -131,18 +131,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1542055298.rof</Path>
+				<Path>Library/Meshes/mesh1726644215.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1592505534.rof</Path>
+				<Path>Library/Textures/texture1254659140.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Plane001</Name>
-		<UUID Value="896326860" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="37279196" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -152,18 +152,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh776210947.rof</Path>
+				<Path>Library/Meshes/mesh1962116538.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture281937587.rof</Path>
+				<Path>Library/Textures/texture1004784396.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_010</Name>
-		<UUID Value="1592505534" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1254659140" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -173,18 +173,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh143410965.rof</Path>
+				<Path>Library/Meshes/mesh1766894821.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1066387269.rof</Path>
+				<Path>Library/Textures/texture1932979663.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_011</Name>
-		<UUID Value="1542055298" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1726644215" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -194,18 +194,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1426973140.rof</Path>
+				<Path>Library/Meshes/mesh1886241667.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture763319362.rof</Path>
+				<Path>Library/Textures/texture826065387.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_013</Name>
-		<UUID Value="281937587" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1004784396" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -215,18 +215,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1221463325.rof</Path>
+				<Path>Library/Meshes/mesh1250858169.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture408502426.rof</Path>
+				<Path>Library/Textures/texture1258600510.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_014</Name>
-		<UUID Value="776210947" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1962116538" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -236,18 +236,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1479688437.rof</Path>
+				<Path>Library/Meshes/mesh1783118328.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1293212272.rof</Path>
+				<Path>Library/Textures/texture1239730805.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_016</Name>
-		<UUID Value="1303847979" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="933222781" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -257,18 +257,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1587841741.rof</Path>
+				<Path>Library/Meshes/mesh1590031415.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1567829917.rof</Path>
+				<Path>Library/Textures/texture1493307599.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_017</Name>
-		<UUID Value="1066387269" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1932979663" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -278,18 +278,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh775196956.rof</Path>
+				<Path>Library/Meshes/mesh883473758.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1374417942.rof</Path>
+				<Path>Library/Textures/texture200569112.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_022</Name>
-		<UUID Value="143410965" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1766894821" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -299,18 +299,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh456414704.rof</Path>
+				<Path>Library/Meshes/mesh774348638.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1575740919.rof</Path>
+				<Path>Library/Textures/texture99888344.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_023</Name>
-		<UUID Value="763319362" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="826065387" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -320,18 +320,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh811192515.rof</Path>
+				<Path>Library/Meshes/mesh699538352.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1880066172.rof</Path>
+				<Path>Library/Textures/texture497051910.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_024</Name>
-		<UUID Value="1426973140" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1886241667" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -341,18 +341,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh2059895114.rof</Path>
+				<Path>Library/Meshes/mesh2082053012.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1509138009.rof</Path>
+				<Path>Library/Textures/texture1925457926.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_026</Name>
-		<UUID Value="408502426" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1258600510" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -362,18 +362,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh961176170.rof</Path>
+				<Path>Library/Meshes/mesh1066545410.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture852301487.rof</Path>
+				<Path>Library/Textures/texture1614059599.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_028</Name>
-		<UUID Value="1221463325" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1250858169" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -383,18 +383,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh51003439.rof</Path>
+				<Path>Library/Meshes/mesh604430563.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture308207403.rof</Path>
+				<Path>Library/Textures/texture415927291.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Object010</Name>
-		<UUID Value="1293212272" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1239730805" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -404,18 +404,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1768574212.rof</Path>
+				<Path>Library/Meshes/mesh1389829868.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1119958128.rof</Path>
+				<Path>Library/Textures/texture1118163658.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_030</Name>
-		<UUID Value="1479688437" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1783118328" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -425,18 +425,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh2096081154.rof</Path>
+				<Path>Library/Meshes/mesh1541124323.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1782829260.rof</Path>
+				<Path>Library/Textures/texture27073502.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_031</Name>
-		<UUID Value="450642140" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="746447912" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -446,18 +446,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1521904956.rof</Path>
+				<Path>Library/Meshes/mesh913423013.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1162274396.rof</Path>
+				<Path>Library/Textures/texture2038520169.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_032</Name>
-		<UUID Value="1567829917" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1493307599" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -467,18 +467,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh798913412.rof</Path>
+				<Path>Library/Meshes/mesh282275413.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1849282343.rof</Path>
+				<Path>Library/Textures/texture2137833109.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_033</Name>
-		<UUID Value="1587841741" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1590031415" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -488,18 +488,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh624044082.rof</Path>
+				<Path>Library/Meshes/mesh868729416.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1324199552.rof</Path>
+				<Path>Library/Textures/texture673674776.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_034</Name>
-		<UUID Value="1114153542" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1090108159" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -509,18 +509,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1863889821.rof</Path>
+				<Path>Library/Meshes/mesh1492608037.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture831370465.rof</Path>
+				<Path>Library/Textures/texture81237228.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_035</Name>
-		<UUID Value="1374417942" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="200569112" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -530,18 +530,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1408794981.rof</Path>
+				<Path>Library/Meshes/mesh1440466624.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture2026374219.rof</Path>
+				<Path>Library/Textures/texture130465647.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_036</Name>
-		<UUID Value="775196956" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="883473758" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -551,18 +551,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh576980882.rof</Path>
+				<Path>Library/Meshes/mesh1357085165.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1842246417.rof</Path>
+				<Path>Library/Textures/texture1387998251.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_037</Name>
-		<UUID Value="1575740919" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="99888344" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -572,18 +572,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh804414838.rof</Path>
+				<Path>Library/Meshes/mesh1024693521.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1304368587.rof</Path>
+				<Path>Library/Textures/texture935739053.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_038</Name>
-		<UUID Value="456414704" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="774348638" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -593,18 +593,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1210334340.rof</Path>
+				<Path>Library/Meshes/mesh1554982016.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture2086889932.rof</Path>
+				<Path>Library/Textures/texture780872201.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_039</Name>
-		<UUID Value="1880066172" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="497051910" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -614,18 +614,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh963100333.rof</Path>
+				<Path>Library/Meshes/mesh717931590.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1723744154.rof</Path>
+				<Path>Library/Textures/texture457323372.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_040</Name>
-		<UUID Value="811192515" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="699538352" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -635,18 +635,18 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1737425100.rof</Path>
+				<Path>Library/Meshes/mesh1955103709.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture1126373512.rof</Path>
+				<Path>Library/Textures/texture433343465.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>City_building_041</Name>
-		<UUID Value="1509138009" />
-		<ParentUUID Value="1896995327" />
+		<UUID Value="1925457926" />
+		<ParentUUID Value="220962218" />
 		<Components>
 			<Transformation>
 				<Type Value="0" />
@@ -656,17 +656,17 @@
 			</Transformation>
 			<Mesh>
 				<Type Value="1" />
-				<Path>Library/Meshes/mesh1974785854.rof</Path>
+				<Path>Library/Meshes/mesh239035824.rof</Path>
 			</Mesh>
 			<Material>
 				<Type Value="2" />
-				<Path>Library/Textures/texture2108986178.rof</Path>
+				<Path>Library/Textures/texture171842841.rof</Path>
 			</Material>
 		</Components>
 	</GameObject>
 	<GameObject>
 		<Name>Camera001</Name>
-		<UUID Value="2059895114" />
+		<UUID Value="2082053012" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
@@ -683,7 +683,7 @@
 	</GameObject>
 	<GameObject>
 		<Name>Camera001.Target</Name>
-		<UUID Value="852301487" />
+		<UUID Value="1614059599" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
@@ -700,7 +700,7 @@
 	</GameObject>
 	<GameObject>
 		<Name>Spot001</Name>
-		<UUID Value="961176170" />
+		<UUID Value="1066545410" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>
@@ -717,7 +717,7 @@
 	</GameObject>
 	<GameObject>
 		<Name>Spot001.Target</Name>
-		<UUID Value="308207403" />
+		<UUID Value="415927291" />
 		<ParentUUID Value="0" />
 		<Components>
 			<Transformation>

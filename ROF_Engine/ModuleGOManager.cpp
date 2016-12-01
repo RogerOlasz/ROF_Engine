@@ -31,8 +31,8 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Start()
 {
-	//LoadScene("Assets/SceneSerialitzation.xml");
-	//LoadSceneNow();
+	LoadScene("Assets/SceneSerialitzation.xml");
+	LoadSceneNow();
 
 	return true;
 }
@@ -90,8 +90,8 @@ update_status ModuleGOManager::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
-	SaveScene("Assets/SceneSerialitzation.xml");
-	SaveSceneNow();
+	//SaveScene("Assets/SceneSerialitzation.xml");
+	//SaveSceneNow();
 
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
 	while (tmp != gos_array.rend())

@@ -50,7 +50,12 @@ bool MeshImporter::Import(aiMesh* ai_mesh, std::string& output_file)
 	{
 		mesh.num_tex_coord = ai_mesh->mNumVertices;
 		mesh.tex_coord = new float2[mesh.num_tex_coord];
-		memcpy(mesh.tex_coord, ai_mesh->mTextureCoords[0], sizeof(float2) * mesh.num_vertices);
+
+		for (int i = 0; i < mesh.num_tex_coord; i++)
+		{
+			mesh.tex_coord[i].x = ai_mesh->mTextureCoords[0][i].x;
+			mesh.tex_coord[i].y = ai_mesh->mTextureCoords[0][i].y;
+		}
 	}
 
 	//Indices (faces)
@@ -177,11 +182,12 @@ Mesh* MeshImporter::Load(const char* path)
 			//Texture coords
 			mesh->num_tex_coord = ranges[3];
 			bytes = sizeof(float2) * ranges[3];
-			mesh->tex_coord = new float2[ranges[3]];
+ 			mesh->tex_coord = new float2[ranges[3]];
 			memcpy(mesh->tex_coord, pointer, bytes);
-			pointer += bytes;
 
 			App->renderer3D->LoadMeshBuffers(mesh);
+
+			RELEASE_ARRAY(buffer);
 
 			return mesh;
 		}

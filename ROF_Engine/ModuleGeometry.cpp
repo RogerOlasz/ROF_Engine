@@ -70,16 +70,15 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 	}	
 
 	//Copying texture coords to mesh
-	uint tmp_UV_index = 0;
-	if (ai_mesh->HasTextureCoords(tmp_UV_index))
+	if (ai_mesh->HasTextureCoords(0))
 	{
 		mesh->num_tex_coord = ai_mesh->mNumVertices;
 		mesh->tex_coord = new float2[mesh->num_tex_coord];
 
 		for (int i = 0; i < mesh->num_tex_coord; i++)
 		{
-			mesh->tex_coord[i].x = ai_mesh->mTextureCoords[tmp_UV_index][i].x;
-			mesh->tex_coord[i].y = ai_mesh->mTextureCoords[tmp_UV_index][i].y;
+			mesh->tex_coord[i].x = ai_mesh->mTextureCoords[0][i].x;
+			mesh->tex_coord[i].y = ai_mesh->mTextureCoords[0][i].y;
 		}
 		LOG("New mesh with %d texture coords", mesh->num_tex_coord);							
 	}
