@@ -349,6 +349,7 @@ bool ModuleGOManager::LoadSceneNow()
 		}
 		gos_array.clear();
 		App->renderer3D->CleanToRender();
+		App->editor->SetSelectedGO(nullptr);
 		loaded_scene = false;
 	}
 
@@ -380,6 +381,8 @@ bool ModuleGOManager::LoadSceneNow()
 					tmp_map[tmp_go->UUID] = tmp_go;
 				}
 				tmp_map.clear();
+
+				save_scene = load_scene;
 				ret = true;
 			}
 		}

@@ -110,7 +110,7 @@ Mesh* ModuleGeometry::LoadGeometry(const aiMesh* ai_mesh, const aiScene* scene, 
 		App->importer->LoadTexture(material, scene->mMaterials[ai_mesh->mMaterialIndex]);
 		mesh->material = material;
 
-		App->renderer3D->LoadMeshBuffers(mesh);
+		//App->renderer3D->LoadMeshBuffers(mesh);
 	}
 	LOG("[end] New mesh ------------------------------------------------------");
 

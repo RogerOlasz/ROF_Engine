@@ -24,7 +24,7 @@ public:
 	bool CleanUp();
 
 	void LoadFBX(const char* file_path, bool file_system = true);
-	void LoadGameObjectFromFBX(const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
+	void LoadGameObjectFromFBX(const char* file_path, const aiNode* hierarchy_to_load, const aiScene* scene, GameObject* parent = nullptr);
 	void LoadTexture(ComponentMaterial* material, aiMaterial* ai_material);
 	void LoadTextureBuffer(const char* path, uint &buffer_id);
 

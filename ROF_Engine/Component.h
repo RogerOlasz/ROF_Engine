@@ -5,6 +5,7 @@
 #include "XMLUtilities.h"
 
 class GameObject;
+class Resource;
 
 class Component
 {
@@ -35,6 +36,10 @@ public:
 
 	Type GetType() const;
 	int GetID() const;
+	const Resource* GetResource() const;
+
+	void SetResource(Resource* resource);
+	
 
 private:
 	Type type = Type::Unknown;
@@ -42,6 +47,8 @@ private:
 
 protected:
 	GameObject* game_object = nullptr;
+
+	Resource* resource = nullptr;
 	
 };
 

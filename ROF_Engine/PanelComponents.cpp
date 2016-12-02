@@ -10,6 +10,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleGOManager.h"
 #include "Mesh.h"
+#include "ResourceMesh.h"
 #include "ImGui/imgui.h"
 
 PanelComponents::PanelComponents() : Panel("Components")
@@ -211,10 +212,10 @@ void PanelComponents::DrawMesh(ComponentMesh* go_mesh, GameObject* go_selected)
 		ImGui::Checkbox("OBB", &go_selected->obb_debug);
 		ImGui::Separator();
 
-		ImGui::Text("Number of vertex(Indices): %d", go_mesh->GetMesh()->num_indices);
-		ImGui::Text("Number of vertex in memory: %d", go_mesh->GetMesh()->num_vertices);
-		ImGui::Text("Number of normals: %d", go_mesh->GetMesh()->num_normals);
-		ImGui::Text("Number of texture coordinates: %d", go_mesh->GetMesh()->num_tex_coord);
+		ImGui::Text("Number of vertex(Indices): %d", ((ResourceMesh*)go_mesh->GetResource())->num_indices);
+		ImGui::Text("Number of vertex in memory: %d", ((ResourceMesh*)go_mesh->GetResource())->num_vertices);
+		ImGui::Text("Number of normals: %d", ((ResourceMesh*)go_mesh->GetResource())->num_normals);
+		ImGui::Text("Number of texture coordinates: %d", ((ResourceMesh*)go_mesh->GetResource())->num_tex_coord);
 	}
 }
 

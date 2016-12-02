@@ -15,6 +15,7 @@
 #include "Primitive.h"
 #include "DebugPainter.h"
 #include "ImGui/imgui.h"
+#include "ResourceMesh.h"
 
 ModuleSceneEditor::ModuleSceneEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -81,11 +82,15 @@ update_status ModuleSceneEditor::Update(float dt)
 
 			tmp.Transform(go->transform->GetGlobalMatrix().Inverted());
 
-			for (uint i = 0; i < mesh->GetMesh()->num_indices; i+=3)
+			for (uint i = 0; i < ((ResourceMesh*)mesh->GetResource())->num_indices; i+=3)
 			{
-				vec vertex_1 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i]];
+				/*vec vertex_1 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i]];
 				vec vertex_2 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 1]];
-				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];
+				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];*/
+
+				vec vertex_1 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i]];
+				vec vertex_2 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 1]];
+				vec vertex_3 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 2]];
 
 				Triangle to_test(vertex_1, vertex_2, vertex_3);
 				float hit_distance = 0;

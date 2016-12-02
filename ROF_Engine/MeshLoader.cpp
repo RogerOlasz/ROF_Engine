@@ -20,14 +20,14 @@ MeshLoader::~MeshLoader()
 
 }
 
-ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const char* resource_name, const char* origin_file)
+ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const char* origin_file, const char* resource_name)
 {
 	if (ai_mesh == nullptr)
 	{
 		return nullptr;
 	}
 
-	ResourceMesh* r_mesh;
+	ResourceMesh* r_mesh = new ResourceMesh();
 
 	//Vertices
 	r_mesh->num_vertices = ai_mesh->mNumVertices;
@@ -80,7 +80,7 @@ ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const cha
 	r_mesh->ID = ID;
 	r_mesh->name = resource_name;
 
-	std::string path("Library/Meshes/");
+	std::string path = "Library/Meshes/";
 	path.append(std::to_string(ID)).append(".rof");
 
 	r_mesh->resource_file = path;
@@ -144,7 +144,7 @@ bool MeshLoader::MeshToOwnFormat(ResourceMesh* r_mesh)
 ResourceMesh* MeshLoader::MeshLoad(Uint32 ID)
 {
 	std::string path = "Library/Meshes/";
-	path.append(std::to_string(ID)); //Unique UUID for each resource file
+	path.append(std::to_string(ID)).append(".rof"); //Unique UUID for each resource file
 
 	char* buffer = nullptr;
 	uint size = App->physfs->Load(path.c_str(), &buffer);

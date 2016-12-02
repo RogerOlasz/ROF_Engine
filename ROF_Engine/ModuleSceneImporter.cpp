@@ -5,12 +5,15 @@
 #include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
 #include "ModuleInput.h"
+#include "ModuleResourceManager.h"
 
 #include "GameObject.h"
 #include "ComponentTransformation.h"
 #include "ComponentMesh.h"
 #include "ComponentMaterial.h"
 #include "ComponentCamera.h"
+
+#include "ResourceMesh.h"
 
 #include "MeshImporter.h"
 #include "MaterialImporter.h"
@@ -87,7 +90,7 @@ void ModuleSceneImporter::LoadFBX(const char* file_path, bool file_system)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		LoadGameObjectFromFBX(scene->mRootNode, scene, App->go_manager->GetRootNode());
+		LoadGameObjectFromFBX(file_path, scene->mRootNode, scene, App->go_manager->GetRootNode());
 
 		if (scene)
 		{
@@ -100,7 +103,7 @@ void ModuleSceneImporter::LoadFBX(const char* file_path, bool file_system)
 	}
 }
 
-void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
+void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
 {
 	GameObject* ret = nullptr;
 
@@ -144,13 +147,21 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 #pragma endregion
 
 #pragma region SetMaterial
-		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);
+		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);		
 #pragma endregion
 
 #pragma region SetMesh
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
-			Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
+			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, scene->mMeshes[node_to_load->mMeshes[i]]->mName.C_Str());
+			if (r_mesh)
+			{
+				LoadTexture(material, scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex]);
+				ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
+				r_mesh->LoadOnMemory();
+			}
+
+			/*Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
 
 			char tmp_c[LONG_STRING];
 			UUID = random.Int();
@@ -161,9 +172,9 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 
 			if (tmp != nullptr)
 			{
-				//((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
+				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
 				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp, tmp_s.c_str());
-			}
+			}*/
 		}
 #pragma endregion
 	}
@@ -171,7 +182,7 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const aiNode* node_to_load, cons
 	//Loading children nodes (do this in recursive to load all tree node)
 	for (int j = 0; j < node_to_load->mNumChildren; j++)
 	{
-		LoadGameObjectFromFBX(node_to_load->mChildren[j], scene, ret);
+		LoadGameObjectFromFBX(file_path, node_to_load->mChildren[j], scene, ret);
 	}
 
 	if (ret != nullptr)
@@ -218,13 +229,13 @@ void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* a
 		LOG("[error] aiMaterial couldn't be load.");
 	}
 	
-	char tmp_c[LONG_STRING];
+	/*char tmp_c[LONG_STRING];
 	UUID = random.Int();
 	sprintf(tmp_c, "Library/Textures/texture%d.rof", UUID);
 	tmp_s = tmp_c;
 	material->path = tmp_s;
 
-	material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);
+	material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);*/
 }
 
 void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint &buffer_id)

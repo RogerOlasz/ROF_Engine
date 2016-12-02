@@ -29,7 +29,7 @@ public:
 	std::string wire;
 	std::string is_active;
 
-private:
+public:
 	Mesh* mesh;
 	// Linear bounding box / Take a look: http://clb.demon.fi/MathGeoLib/nightly/docs/AABB_summary.php
 	AABB bounding_box;

@@ -13,7 +13,7 @@ public:
 	MeshLoader();
 	~MeshLoader();
 
-	ResourceMesh* MeshImport(const aiMesh* new_mesh, Uint32 ID, const char* resource_name, const char* origin_file);
+	ResourceMesh* MeshImport(const aiMesh* new_mesh, Uint32 ID, const char* origin_file, const char* resource_name);
 	bool MeshToOwnFormat(ResourceMesh* mesh);
 
 	ResourceMesh* MeshLoad(Uint32 ID);

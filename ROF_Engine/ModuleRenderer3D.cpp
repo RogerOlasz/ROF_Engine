@@ -3,8 +3,9 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
-#include "Mesh.h"
 #include "ComponentCamera.h"
+
+#include "ResourceMesh.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
@@ -173,7 +174,7 @@ update_status ModuleRenderer3D::Update(float dt)
 		
 		if (to_render[i]->c_mesh)
 		{
-			DrawMesh(to_render[i]->c_mesh->GetMesh(), to_render[i]->c_material,to_render[i]->c_mesh->wirefr);
+			DrawMesh((ResourceMesh*)to_render[i]->c_mesh->GetResource(), to_render[i]->c_material,to_render[i]->c_mesh->wirefr);
 		}
 
 		glPopMatrix();
@@ -257,81 +258,81 @@ void ModuleRenderer3D::CreateDebugTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
-{
-	//Loading vertices
-	if (mesh->num_vertices > 0)
-	{
-		glGenBuffers(1, (GLuint*)&mesh->id_vertices);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
-	}
-	else
-	{
-		LOG("[warning] This mesh have no vertices, buffer couldn't be load.");
-	}	
+//void ModuleRenderer3D::LoadMeshBuffers(const Mesh* mesh)
+//{
+//	//Loading vertices
+//	if (mesh->num_vertices > 0)
+//	{
+//		glGenBuffers(1, (GLuint*)&mesh->id_vertices);
+//		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+//	}
+//	else
+//	{
+//		LOG("[warning] This mesh have no vertices, buffer couldn't be load.");
+//	}	
+//
+//	//Loading normals
+//	if (mesh->num_normals > 0)
+//	{
+//		glGenBuffers(1, (GLuint*)&mesh->id_normals);
+//		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
+//	}
+//	else
+//	{
+//		LOG("[warning] This mesh have no normals, buffer couldn't be load.");
+//	}
+//
+//	//Loading texture coords (texture buffer load on ComponentMaterial)
+//	if (mesh->num_tex_coord > 0)
+//	{
+//		glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
+//		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
+//		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
+//	}	
+//	else 
+//	{
+//		LOG("[warning] This mesh have no UV coords, buffer couldn't be load.");
+//	}
+//
+//	//Loading indices
+//	if (mesh->num_indices > 0)
+//	{
+//		glGenBuffers(1, (GLuint*)&mesh->id_indices);
+//		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+//		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+//	}
+//	else
+//	{
+//		LOG("[warning] This mesh have no indices (faces), buffer couldn't be load.");
+//	}
+//}
 
-	//Loading normals
-	if (mesh->num_normals > 0)
-	{
-		glGenBuffers(1, (GLuint*)&mesh->id_normals);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_normals);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_normals * 3, mesh->normals, GL_STATIC_DRAW);
-	}
-	else
-	{
-		LOG("[warning] This mesh have no normals, buffer couldn't be load.");
-	}
+//void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
+//{
+//	if (mesh->id_indices != 0)
+//	{
+//		glDeleteBuffers(1, &mesh->id_indices);
+//	}
+//
+//	if (mesh->id_normals != 0)
+//	{
+//		glDeleteBuffers(1, &mesh->id_normals);
+//	}
+//
+//	if (mesh->id_tex_coord != 0)
+//	{
+//		glDeleteBuffers(1, &mesh->id_tex_coord);
+//	}
+//
+//	if (mesh->id_vertices != 0)
+//	{
+//		glDeleteBuffers(1, &mesh->id_vertices);
+//	}
+//}
 
-	//Loading texture coords (texture buffer load on ComponentMaterial)
-	if (mesh->num_tex_coord > 0)
-	{
-		glGenBuffers(1, (GLuint*)&mesh->id_tex_coord);
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->id_tex_coord);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * mesh->num_tex_coord * 2, mesh->tex_coord, GL_STATIC_DRAW);		
-	}	
-	else 
-	{
-		LOG("[warning] This mesh have no UV coords, buffer couldn't be load.");
-	}
-
-	//Loading indices
-	if (mesh->num_indices > 0)
-	{
-		glGenBuffers(1, (GLuint*)&mesh->id_indices);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
-	}
-	else
-	{
-		LOG("[warning] This mesh have no indices (faces), buffer couldn't be load.");
-	}
-}
-
-void ModuleRenderer3D::RemoveMeshBuffers(Mesh* mesh)
-{
-	if (mesh->id_indices != 0)
-	{
-		glDeleteBuffers(1, &mesh->id_indices);
-	}
-
-	if (mesh->id_normals != 0)
-	{
-		glDeleteBuffers(1, &mesh->id_normals);
-	}
-
-	if (mesh->id_tex_coord != 0)
-	{
-		glDeleteBuffers(1, &mesh->id_tex_coord);
-	}
-
-	if (mesh->id_vertices != 0)
-	{
-		glDeleteBuffers(1, &mesh->id_vertices);
-	}
-}
-
-void ModuleRenderer3D::DrawMesh(const Mesh* mesh, ComponentMaterial* material, bool wireframe)
+void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ComponentMaterial* material, bool wireframe)
 {	
 	if (mesh != nullptr)
 	{

@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
+#include "Resource.h"
 
 #include "MeshImporter.h"
 #include "ModuleSceneImporter.h"
@@ -32,8 +33,10 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::CleanUp()
 {
-	App->renderer3D->RemoveMeshBuffers(mesh);
-	RELEASE(mesh);
+	//App->renderer3D->RemoveMeshBuffers(mesh);
+	//resource->UnloadFromMemory();
+	//RELEASE(resource);
+	//RELEASE(mesh);
 }
 
 void ComponentMesh::OnSave(pugi::xml_node &scene)

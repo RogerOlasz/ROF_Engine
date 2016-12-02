@@ -185,7 +185,7 @@ Mesh* MeshImporter::Load(const char* path)
  			mesh->tex_coord = new float2[ranges[3]];
 			memcpy(mesh->tex_coord, pointer, bytes);
 
-			App->renderer3D->LoadMeshBuffers(mesh);
+			//App->renderer3D->LoadMeshBuffers(mesh);
 
 			RELEASE_ARRAY(buffer);
 

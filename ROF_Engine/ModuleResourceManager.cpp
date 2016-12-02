@@ -24,12 +24,15 @@ bool ModuleResourceManager::Init()
 
 bool ModuleResourceManager::CleanUp()
 {
-	std::map<Uint32, Resource*>::iterator it = resources_on_memory.begin(); 
-	while(it != resources_on_memory.end())
+	std::map<Uint32, Resource*>::iterator it = resources.begin(); 
+	while(it != resources.end())
 	{
-		it->second->UnloadFromMemory();
+		if (it->second->IsOnMemory())
+		{
+			it->second->UnloadFromMemory();
+		}
 		RELEASE(it->second);
-		it = resources_on_memory.erase(it);
+		it = resources.erase(it);
 	}
 
 	RELEASE(mesh_loader);
@@ -41,10 +44,38 @@ Resource* ModuleResourceManager::LoadResource(Uint32 ID, Resource::ResType type)
 {
 	Resource* ret = nullptr;
 
-	std::map<Uint32, Resource*>::iterator it = resources_on_memory.find(ID);
-	if (it != resources_on_memory.end())
+	std::map<Uint32, Resource*>::iterator it = resources.find(ID);
+	if (it != resources.end())
 	{
+		if (!it->second->IsOnMemory())
+		{
+			ret->LoadOnMemory();
+		}
 		ret = it->second;
+	}
+	else
+	{
+		LOG("Resource must have been imported before load on memory.");
+	}
+	
+	return ret;
+}
+
+Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type)
+{
+	Resource* ret = nullptr;
+
+	std::map<Uint32, Resource*>::iterator it = resources.find(ID);
+	if (it != resources.end())
+	{
+		LOG("Resource is already imported.");
+
+		ret = it->second;
+
+		if (ret != nullptr)
+		{
+			ret->LoadOnMemory();
+		}
 	}
 	else
 	{
@@ -92,56 +123,41 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 	r_mesh = mesh_loader->MeshImport(ai_mesh, last_id++, origin_file, resource_name);
 	if (r_mesh)
 	{
-		imported_resources[r_mesh->ID] = CreateResourceData(r_mesh);
-		//GetResource(r_mesh->ID, Resource::ResType::Mesh);
+		resources[r_mesh->ID] = r_mesh;
 	}
 
 	return r_mesh;
 }
 
+bool ModuleResourceManager::CompareResource(Resource* res, const char* o_file, const char* r_name)
+{
+	return (res->origin_file == o_file && res->resource_file == r_name);
+}
+
+bool ModuleResourceManager::CompareResource(Resource* res, Resource::ResType type)
+{
+	return (res->GetType() == type);
+}
+
 Resource* ModuleResourceManager::SearchResource(const char* origin_file, const char* resource_name, Resource::ResType type)
 {
-	for (std::map<Uint32, ResourceData>::iterator tmp = imported_resources.begin(); tmp != imported_resources.end(); tmp++)
+	for (std::map<Uint32, Resource*>::iterator tmp = resources.begin(); tmp != resources.end(); tmp++)
 	{
-		if (tmp->second.CompareResource(origin_file, resource_name))
+		if (CompareResource(tmp->second, origin_file, resource_name) && CompareResource(tmp->second, type))
 		{
-			return LoadResource(tmp->first, type);
+			return tmp->second;
 		}
 	}
 
 	return nullptr;
 }
 
-ResourceData ModuleResourceManager::CreateResourceData(Resource* resource)
+Resource* ModuleResourceManager::SearchResource(Uint32 ID)
 {
-	ResourceData ret;
-
-	ret.origin_file = resource->origin_file;
-	ret.resource_file = resource->resource_file;
-	ret.resource_name = resource->name;
-	ret.type = resource->type;
-
-	return ret;
-}
-
-const ResourceData* ModuleResourceManager::GetResourceData(const char* origin_file, const char* resource_name, Resource::ResType type) 
-{
-	for (std::map<Uint32, ResourceData>::iterator tmp = imported_resources.begin(); tmp != imported_resources.end(); tmp++)
+	std::map<Uint32, Resource*>::iterator tmp = resources.find(ID);
+	if (tmp != resources.end())
 	{
-		if (tmp->second.CompareResource(origin_file, resource_name))
-		{
-			return &tmp->second;
-		}
-	}
-}
-
-const ResourceData* ModuleResourceManager::GetResourceData(Uint32 ID)
-{
-	std::map<Uint32, ResourceData>::iterator tmp = imported_resources.find(ID);
-
-	if (tmp != imported_resources.end())
-	{
-		return &tmp->second;
+		return tmp->second;
 	}
 
 	return nullptr;
