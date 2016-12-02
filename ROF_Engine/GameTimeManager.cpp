@@ -18,6 +18,8 @@ GameTimeManager::~GameTimeManager()
 
 void GameTimeManager::Start()
 {
+	App->go_manager->SaveSceneNow();
+
 	global_game_time.Start();
 	ticker.Start();
 	game_time = 0.0f;
@@ -36,6 +38,8 @@ void GameTimeManager::Stop()
 {
 	global_game_time.Stop();
 	game_started = false;
+	
+	App->go_manager->LoadSceneNow();
 }
 
 void GameTimeManager::SetTimeSpeed(float new_speed)

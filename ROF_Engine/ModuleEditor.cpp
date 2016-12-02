@@ -70,6 +70,14 @@ update_status ModuleEditor::Update(float dt)
 			{
 				return UPDATE_STOP;
 			}
+			if (ImGui::MenuItem("Load Scene...", nullptr, &file_explorer))
+			{
+				loading_scene = true;
+			}
+			if (ImGui::MenuItem("Save Scene...", nullptr, &file_explorer))
+			{
+				saving_scene = true;
+			}
 			
 		 ImGui::EndMenu();
 		}
@@ -154,11 +162,22 @@ update_status ModuleEditor::Update(float dt)
 	if (file_explorer == true && App->editor->FileDialog(nullptr, "Assets/"))
 	{
 		const char* file = App->editor->CloseFileDialog();
-		if (file != nullptr)
+		if (file != nullptr && loading_scene)
 		{
-			//Must import here
-			App->importer->LoadFBX(file);
+			App->go_manager->LoadScene(file);
+			App->go_manager->want_to_load_scene = true;
+			loading_scene = false;
 		}
+
+		if (file != nullptr && saving_scene)
+		{
+			std::string tmp = file;
+			tmp.append(".xml");
+			App->go_manager->SaveScene(tmp.c_str());
+			App->go_manager->want_to_save_scene = true;
+			saving_scene = false;
+		}
+
 		file_explorer = false;
 	}
 
@@ -255,7 +274,7 @@ void ModuleEditor::LoadFile(const char* filter_extension, const char* from_dir)
 		ImGui::PopStyleVar();
 
 		ImGui::PushItemWidth(250.f);
-		if (ImGui::InputText("##file_selector", selected_file, FILE_MAX, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+		if (ImGui::InputText("##file_selector", selected_file, MEDIUM_STRING, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 		{
 			file_dialog = ready_to_close;
 		}
@@ -317,7 +336,7 @@ void ModuleEditor::DrawDirectoryRecursive(const char* directory, const char* fil
 		{
 			if (ImGui::IsItemClicked()) 
 			{
-				sprintf_s(selected_file, FILE_MAX, "%s%s", dir.substr(1).c_str(), str.c_str()); //Changed dir
+				sprintf_s(selected_file, MEDIUM_STRING, "%s%s", dir.substr(1).c_str(), str.c_str()); //Changed dir
 
 				if (ImGui::IsMouseDoubleClicked(0))
 				{

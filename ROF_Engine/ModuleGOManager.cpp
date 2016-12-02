@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleFileSystem.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleEditor.h"
 
 #include "GameObject.h"
 #include "ComponentTransformation.h"
@@ -31,9 +32,6 @@ ModuleGOManager::~ModuleGOManager()
 // Called before render is available
 bool ModuleGOManager::Start()
 {
-	LoadScene("Assets/SceneSerialitzation.xml");
-	LoadSceneNow();
-
 	return true;
 }
 
@@ -84,15 +82,24 @@ update_status ModuleGOManager::Update(float dt)
 
 update_status ModuleGOManager::PostUpdate(float dt)
 {
+	if (want_to_load_scene && want_to_save_scene == false)
+	{
+		LoadSceneNow();
+		want_to_load_scene = false;
+	}
+
+	if (want_to_save_scene && want_to_load_scene == false)
+	{
+		SaveSceneNow();
+		want_to_save_scene = false;
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
-	//SaveScene("Assets/SceneSerialitzation.xml");
-	//SaveSceneNow();
-
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
 	while (tmp != gos_array.rend())
 	{
@@ -327,31 +334,51 @@ bool ModuleGOManager::LoadSceneNow()
 {
 	bool ret = true;
 
-	char* buffer;
-	uint size = App->physfs->Load(load_scene.c_str(), &buffer);
-
-	if (size > 0)
-	{
-		pugi::xml_document data;
-		pugi::xml_node root;
-
-		pugi::xml_parse_result result = data.load_buffer(buffer, size);
-		RELEASE(buffer);
-
-		if (result != 0)
+	if (loaded_scene == true)
+	{		
+		std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
+		while (tmp != gos_array.rend())
 		{
-			std::map<Uint32, GameObject*> tmp_map;
-			tmp_map[this->root->UUID] = this->root;
-			root = data.child("GameObjects");
-			for (pugi::xml_node node = root.child("GameObject"); node != nullptr; node = node.next_sibling("GameObject"))
-			{
-				GameObject* tmp_go = CreateGameObject("", nullptr);
-				tmp_go->Load(node, tmp_map);
-				tmp_map[tmp_go->UUID] =  tmp_go;
-			}
-			tmp_map.clear();
+			RELEASE((*tmp));
+			tmp++;
 		}
+		gos_array.clear();
+		App->renderer3D->CleanToRender();
+		loaded_scene = false;
 	}
+
+	if (loaded_scene == false)
+	{
+		char* buffer;
+		uint size = App->physfs->Load(load_scene.c_str(), &buffer);
+
+		if (size > 0)
+		{
+			LOG("Loading scene %s...", load_scene.c_str());
+
+			pugi::xml_document data;
+			pugi::xml_node root;
+
+			pugi::xml_parse_result result = data.load_buffer(buffer, size);
+			RELEASE(buffer);
+
+			if (result != 0)
+			{
+				std::map<Uint32, GameObject*> tmp_map;
+				tmp_map[this->root->UUID] = this->root;
+				root = data.child("GameObjects");
+				for (pugi::xml_node node = root.child("GameObject"); node != nullptr; node = node.next_sibling("GameObject"))
+				{
+					GameObject* tmp_go = CreateGameObject("", nullptr);
+					tmp_go->Load(node, tmp_map);
+					tmp_map[tmp_go->UUID] = tmp_go;
+				}
+				tmp_map.clear();
+				ret = true;
+			}
+		}
+	 loaded_scene = true;
+	}		
 
 	return ret;
 }
@@ -384,3 +411,7 @@ bool ModuleGOManager::SaveSceneNow()
 	return ret;
 }
 
+void ModuleGOManager::CleanScene()
+{
+
+}

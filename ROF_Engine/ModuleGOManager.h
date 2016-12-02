@@ -34,17 +34,24 @@ public:
 
 	void FindCandidates(const LineSegment &to_test, std::vector<GameObject*> &candidates);
 
+	void LoadScene(const char* file);
+	void SaveScene(const char* file);
+
+	bool LoadSceneNow();
+	bool SaveSceneNow();
+
+	void CleanScene();
+
 private:
 	GameObject* root = nullptr;
 	std::vector<GameObject*> gos_array;
 
 	OctTree* go_tree = nullptr;
 
-	bool want_to_save_scene;
-	bool want_to_load_scene;
+	std::string load_scene = "";
+	std::string save_scene = "";
 
-	std::string load_scene;
-	std::string save_scene;
+	bool loaded_scene = false;
 
 	LCG random;
 
@@ -52,14 +59,13 @@ public:
 	bool show_tree = false;
 	std::vector<ComponentCamera*> camera_cullings;
 
+	bool want_to_save_scene = false;
+	bool want_to_load_scene = false;
+
 private:
 	void SetParent(GameObject* me, GameObject* new_parent);
+	
 
-	void LoadScene(const char* file);
-	void SaveScene(const char* file);
-
-	bool LoadSceneNow();
-	bool SaveSceneNow();
 };
 
 #endif // __MODULEGOMANAGER_H__

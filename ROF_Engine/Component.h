@@ -31,7 +31,7 @@ public:
 	virtual void CleanUp() {};
 
 	virtual void OnLoad(pugi::xml_node&) {};
-	virtual void OnSave() {};
+	virtual void OnSave(pugi::xml_node&) {};
 
 	Type GetType() const;
 	int GetID() const;

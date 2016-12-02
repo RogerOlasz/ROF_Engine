@@ -34,6 +34,7 @@ public:
 	ComponentCamera* GetRenderingCamera();
 
 	void AddGOToRender(RenderComp* go_to_render);
+	void CleanToRender();
 	void LoadMeshBuffers(const Mesh* mesh);
 	void RemoveMeshBuffers(Mesh* mesh);
 	void DrawMesh(const Mesh* mesh, ComponentMaterial* material, bool wireframe = false);

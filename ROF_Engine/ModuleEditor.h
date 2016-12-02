@@ -2,10 +2,9 @@
 #define __MODULEEDITOR_H__
 
 #include "Module.h"
+#include "Globals.h"
 #include <vector>
 #include <string>
-
-#define FILE_MAX 250
 
 class Panel;
 class PanelConsole;
@@ -38,7 +37,7 @@ public:
 
 	void SetSelectedGO(GameObject* go);
 
-	//File explorer
+	//File explorer (all related to file explorer is done by Ric)
 	bool FileDialog(const char* extension = nullptr, const char* from_folder = nullptr);
 	const char* CloseFileDialog();
 
@@ -62,6 +61,9 @@ private:
 	bool aabb_debug = false;
 	bool octtree_debug = false;
 
+	bool loading_scene = false;
+	bool saving_scene = false;
+
 	//File explorer
 	enum file_dialog
 	{
@@ -74,7 +76,7 @@ private:
 	std::string file_dialog_origin;
 
 	bool in_modal = false;
-	char selected_file[FILE_MAX];
+	char selected_file[MEDIUM_STRING];
 	bool file_explorer = false;
 };
 

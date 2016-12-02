@@ -223,6 +223,11 @@ void ModuleRenderer3D::AddGOToRender(RenderComp* go_to_render)
 	to_render.push_back(go_to_render);
 }
 
+void ModuleRenderer3D::CleanToRender()
+{
+	to_render.clear();
+}
+
 //Create Black/White debug texture
 void ModuleRenderer3D::CreateDebugTexture() 
 {

@@ -55,6 +55,7 @@ GameObject::~GameObject()
 	}
 
 	RELEASE(transform);
+	RELEASE(render_c);
 }
 
 Component* GameObject::CreateComponent(Component::Type type)
@@ -270,16 +271,12 @@ bool GameObject::Save(pugi::xml_node &scene)
 	scene = scene.append_child("Components");
 
 	transform->OnSave(scene);
-	
 
-	if (this->GetComponentByType(Component::Type::Geometry))
+	std::vector<Component*>::iterator comp = components.begin();
+	while (comp != components.end())
 	{
-		((ComponentMesh*)this->GetComponentByType(Component::Type::Geometry))->OnSave(scene);
-	}
-	
-	if (this->GetComponentByType(Component::Type::Material))
-	{
-		((ComponentMaterial*)this->GetComponentByType(Component::Type::Material))->OnSave(scene);
+		(*comp)->OnSave(scene);
+		comp++;
 	}
 
 	/*if (this->GetComponentByType(Component::Type::Camera))
