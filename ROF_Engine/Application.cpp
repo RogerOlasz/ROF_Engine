@@ -73,6 +73,8 @@ Application::~Application()
 		delete (*item);
 		item++;
 	}
+
+	RELEASE(game_timer);
 }
 
 bool Application::Init()

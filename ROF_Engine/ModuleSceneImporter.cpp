@@ -56,11 +56,6 @@ bool ModuleSceneImporter::Init()
 
 update_status ModuleSceneImporter::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-	{
-		LoadFBX("Assets/Models/Street environment_V01.fbx");
-	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -68,6 +63,8 @@ update_status ModuleSceneImporter::Update(float dt)
 bool ModuleSceneImporter::CleanUp()
 {
 	aiDetachAllLogStreams();
+
+
 
 	RELEASE(mesh_importer);
 	RELEASE(material_importer);

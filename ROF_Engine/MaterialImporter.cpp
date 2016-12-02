@@ -34,6 +34,8 @@ bool MaterialImporter::Import(const char* file, const char* path, Color s_color,
 
 	ret = ToOwnFormat(size, buffer,s_color, output_file);
 
+	RELEASE_ARRAY(buffer);
+
 	return ret;
 }
 
@@ -67,6 +69,8 @@ bool MaterialImporter::ToOwnFormat(uint size, char* buffer, Color s_color, std::
 	pointer += bytes;
 
 	App->physfs->Save(output_file.c_str(), data_m, size_m);
+
+	RELEASE_ARRAY(data_m);
 
 	if (ilLoadL(IL_TYPE_UNKNOWN, (const void*)buffer, size))
 	{

@@ -207,7 +207,14 @@ OctTree::OctTree(AABB limit)
 
 OctTree::~OctTree()
 {
+	std::vector<OctTreeNode*>::reverse_iterator tmp = tree_struct.rbegin();
+	while (tmp != tree_struct.rend())
+	{
+		RELEASE((*tmp));
+		tmp++;
+	}
 
+	RELEASE(root);
 }
 
 void OctTree::Clear()

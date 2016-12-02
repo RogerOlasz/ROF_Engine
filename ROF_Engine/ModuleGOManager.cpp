@@ -100,6 +100,11 @@ update_status ModuleGOManager::PostUpdate(float dt)
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
+	if (go_tree)
+	{
+		RELEASE(go_tree);
+	}
+
 	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
 	while (tmp != gos_array.rend())
 	{
@@ -371,6 +376,7 @@ bool ModuleGOManager::LoadSceneNow()
 				{
 					GameObject* tmp_go = CreateGameObject("", nullptr);
 					tmp_go->Load(node, tmp_map);
+					LOG("%s loaded.", tmp_go->GetName());
 					tmp_map[tmp_go->UUID] = tmp_go;
 				}
 				tmp_map.clear();
