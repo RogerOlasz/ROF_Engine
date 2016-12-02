@@ -7,6 +7,7 @@
 
 #include "MeshImporter.h"
 #include "ModuleSceneImporter.h"
+#include "ModuleResourceManager.h"
 
 ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Type::Geometry, id)
 {
@@ -45,14 +46,15 @@ void ComponentMesh::OnSave(pugi::xml_node &scene)
 
 	scene.append_child("Type").append_attribute("Value") = this->GetType();
 
-	scene.append_child("Path").text().set(path.c_str());
+	scene.append_child("ResourceID").append_attribute("Value") = resource->GetID();
 	scene = scene.parent();
 }
 
 void ComponentMesh::OnLoad(pugi::xml_node &scene)
 {
 	//TODO
-	LoadMesh(App->importer->mesh_importer->Load(scene.child("Mesh").child("Path").text().get()), scene.child("Mesh").child_value("Path"));
+	//LoadMesh(App->importer->mesh_importer->Load(scene.child("Mesh").child("Path").text().get()), scene.child("Mesh").child_value("Path"));
+	resource = App->res_manager->LoadResource(scene.child("Mesh").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Mesh);
 }
 
 void ComponentMesh::LoadMesh(Mesh* recived_mesh, const char* path)

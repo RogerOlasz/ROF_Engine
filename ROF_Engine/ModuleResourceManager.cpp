@@ -1,6 +1,8 @@
 #include "ModuleResourceManager.h"
 #include "Application.h"
+#include "ModuleFileSystem.h"
 #include "Globals.h"
+#include "XMLUtilities.h"
 
 #include "MeshLoader.h"
 #include "ResourceMesh.h"
@@ -24,6 +26,8 @@ bool ModuleResourceManager::Init()
 
 bool ModuleResourceManager::CleanUp()
 {
+	SaveResourcesData();
+
 	std::map<Uint32, Resource*>::iterator it = resources.begin(); 
 	while(it != resources.end())
 	{
@@ -109,6 +113,58 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 	return ret;
 }
 
+void ModuleResourceManager::SaveResourcesData()
+{
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("Resources");
+
+	std::map<Uint32, Resource*>::iterator it = resources.begin(); 
+	while (it != resources.end())
+	{
+		root = root.append_child("Resource");
+		root.append_child("ID").append_attribute("Value") = it->second->ID;
+		root.append_child("Name").text().set(it->second->name.c_str());
+		root.append_child("Type").append_attribute("Value") = it->second->GetType();
+		root.append_child("OriginalFile").text().set(it->second->origin_file.c_str());
+		root.append_child("ResourceFile").text().set(it->second->resource_file.c_str());
+		root = root.parent();
+		it++;
+	}
+
+	root.append_child("LastID").append_attribute("Value") = next_id;
+
+	std::stringstream stream;
+	data.save(stream);
+	App->physfs->Save("Library/Resources.xml", stream.str().c_str(), stream.str().length());
+
+}
+
+void ModuleResourceManager::LoadResourcesData()
+{
+	char* buffer;
+	uint size = App->physfs->Load("Library/Resources.xml", &buffer);
+
+	if (size > 0)
+	{
+		pugi::xml_document data;
+		pugi::xml_node root;
+
+		pugi::xml_parse_result result = data.load_buffer(buffer, size);
+		RELEASE(buffer);
+
+		if (result != 0)
+		{
+			root = data.child("Resources");
+			for (pugi::xml_node node = root.child("Resource"); node != nullptr; node = node.next_sibling("Resource"))
+			{
+				//Create resources with recived data
+			}
+		}
+	}
+}
+
 ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, const char* origin_file, const char* resource_name)
 {
 	ResourceMesh* r_mesh = nullptr;
@@ -120,7 +176,7 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 	}
 
 	//If doesn't exist, import it -> it should be a method from scene importer
-	r_mesh = mesh_loader->MeshImport(ai_mesh, last_id++, origin_file, resource_name);
+	r_mesh = mesh_loader->MeshImport(ai_mesh, next_id++, origin_file, resource_name);
 	if (r_mesh)
 	{
 		resources[r_mesh->ID] = r_mesh;

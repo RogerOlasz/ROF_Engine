@@ -153,7 +153,7 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 #pragma region SetMesh
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
-			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, scene->mMeshes[node_to_load->mMeshes[i]]->mName.C_Str());
+			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str()); // scene->mMeshes[node_to_load->mMeshes[i]]->mName.C_Str()
 			if (r_mesh)
 			{
 				LoadTexture(material, scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex]);

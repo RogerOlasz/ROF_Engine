@@ -85,7 +85,8 @@ ResourceMesh* MeshLoader::MeshImport(const aiMesh* ai_mesh, Uint32 ID, const cha
 
 	r_mesh->resource_file = path;
 	r_mesh->origin_file = origin_file;
-
+	std::size_t tmp_pos = r_mesh->origin_file.rfind("Assets");
+	r_mesh->origin_file = r_mesh->origin_file.substr(tmp_pos);
 	MeshToOwnFormat(r_mesh);
 
 	return r_mesh;

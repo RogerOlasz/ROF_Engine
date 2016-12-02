@@ -51,10 +51,10 @@ update_status ModuleGOManager::PreUpdate(float dt)
 
 update_status ModuleGOManager::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
 		DoOctTree();
-	}
+	}*/
 
 	root->Update();
 
