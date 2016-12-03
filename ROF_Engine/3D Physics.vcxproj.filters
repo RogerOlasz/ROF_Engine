@@ -46,6 +46,9 @@
     <Filter Include="Sources\Modules\Resources">
       <UniqueIdentifier>{e5ad677d-4323-4a1e-9714-b9557928d1f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\Resources\Loaders">
+      <UniqueIdentifier>{c9b6df6d-ecd0-4feb-818b-13bfa642e517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -345,9 +348,6 @@
     <ClInclude Include="ModuleSceneImporter.h">
       <Filter>Sources\Modules\Importer</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialImporter.h">
-      <Filter>Sources\Modules\Importer</Filter>
-    </ClInclude>
     <ClInclude Include="OctTree.h">
       <Filter>Sources\Tools</Filter>
     </ClInclude>
@@ -378,9 +378,6 @@
     <ClInclude Include="ResourceMesh.h">
       <Filter>Sources\Modules\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="MeshLoader.h">
-      <Filter>Sources\Modules\Resources</Filter>
-    </ClInclude>
     <ClInclude Include="XMLUtilities.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
@@ -390,11 +387,14 @@
     <ClInclude Include="ResourceTexture.h">
       <Filter>Sources\Modules\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="TextureLoader.h">
-      <Filter>Sources\Modules\Resources</Filter>
+    <ClInclude Include="MeshLoader.h">
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="MaterialLoader.h">
-      <Filter>Sources\Modules\Resources</Filter>
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -602,9 +602,6 @@
     <ClCompile Include="ModuleSceneImporter.cpp">
       <Filter>Sources\Modules\Importer</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialImporter.cpp">
-      <Filter>Sources\Modules\Importer</Filter>
-    </ClCompile>
     <ClCompile Include="OctTree.cpp">
       <Filter>Sources\Tools</Filter>
     </ClCompile>
@@ -632,9 +629,6 @@
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Sources\Modules\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="MeshLoader.cpp">
-      <Filter>Sources\Modules\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="XMLUtilities.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
@@ -644,11 +638,14 @@
     <ClCompile Include="ResourceTexture.cpp">
       <Filter>Sources\Modules\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoader.cpp">
-      <Filter>Sources\Modules\Resources</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialLoader.cpp">
-      <Filter>Sources\Modules\Resources</Filter>
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLoader.cpp">
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Sources\Modules\Resources\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -74,10 +74,12 @@ update_status ModuleEditor::Update(float dt)
 			if (ImGui::MenuItem("Load Scene...", nullptr, &file_explorer))
 			{
 				loading_scene = true;
+				frame_name = "Load File";
 			}
 			if (ImGui::MenuItem("Save Scene...", nullptr, &file_explorer))
 			{
 				saving_scene = true;
+				frame_name = "Save File";
 			}
 			
 		 ImGui::EndMenu();
@@ -166,7 +168,6 @@ update_status ModuleEditor::Update(float dt)
 		{
 			App->go_manager->LoadScene(file);
 			App->go_manager->want_to_load_scene = true;
-			loading_scene = false;
 		}
 
 		if (file != nullptr && saving_scene)
@@ -175,9 +176,10 @@ update_status ModuleEditor::Update(float dt)
 			tmp.append(".xml");
 			App->go_manager->SaveScene(tmp.c_str());
 			App->go_manager->want_to_save_scene = true;
-			saving_scene = false;
 		}
 
+		loading_scene = false;
+		saving_scene = false;
 		file_explorer = false;
 	}
 
@@ -260,8 +262,8 @@ void ModuleEditor::SetSelectedGO(GameObject* go)
 
 void ModuleEditor::LoadFile(const char* filter_extension, const char* from_dir)
 {
-	ImGui::OpenPopup("Load File");
-	if (ImGui::BeginPopupModal("Load File", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	ImGui::OpenPopup(frame_name.c_str());
+	if (ImGui::BeginPopupModal(frame_name.c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		in_modal = true;
 

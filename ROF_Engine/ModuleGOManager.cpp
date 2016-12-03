@@ -385,6 +385,7 @@ bool ModuleGOManager::LoadSceneNow()
 				save_scene = load_scene;
 				ret = true;
 			}
+			LOG("[succes] Scene %s loaded correctly.", load_scene.c_str());
 		}
 	 loaded_scene = true;
 	}		

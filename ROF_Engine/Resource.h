@@ -31,6 +31,7 @@ public:
 	virtual bool IsOnMemory();
 
 	const char* GetResourceFile() const;
+	const char* GetOriginFile() const;
 
 	virtual void LoadOnMemory() {};
 	virtual void UnloadFromMemory() {};

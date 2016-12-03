@@ -10,9 +10,17 @@
 #include "Devil/include/ilu.h"
 #include "Devil/include/ilut.h"
 
+#pragma comment (lib, "Devil/libx86/DevIL.lib")
+#pragma comment (lib, "Devil/libx86/ILU.lib")
+#pragma comment (lib, "Devil/libx86/ILUT.lib")
+
 TextureLoader::TextureLoader()
 {
-
+	//Initialize DevIL 
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
 }
 
 TextureLoader::~TextureLoader()

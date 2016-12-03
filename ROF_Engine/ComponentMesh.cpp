@@ -31,12 +31,6 @@ ComponentMesh::~ComponentMesh()
 	
 }
 
-void ComponentMesh::CleanUp()
-{
-	//TODO communicate to res manager to remove this component from using a resource
-	resource = nullptr;
-}
-
 void ComponentMesh::OnSave(pugi::xml_node &scene)
 {
 	scene = scene.append_child("Mesh");
@@ -62,11 +56,6 @@ void ComponentMesh::Update()
 	{
 		game_object->render_c->c_mesh = nullptr;
 	}
-}
-
-const char* ComponentMesh::GetPath() const
-{
-	return path.c_str();
 }
 
 AABB* ComponentMesh::GetBoundingBox() const

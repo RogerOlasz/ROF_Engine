@@ -29,3 +29,8 @@ const char* Resource::GetResourceFile() const
 {
 	return resource_file.c_str();
 }
+
+const char* Resource::GetOriginFile() const
+{
+	return origin_file.c_str();
+}

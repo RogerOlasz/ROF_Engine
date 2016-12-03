@@ -9,7 +9,7 @@ Component::Component(GameObject* bearer, Component::Type type, int id) : game_ob
 
 Component::~Component()
 {
-
+	resource = nullptr;
 }
 
 bool Component::IsActive() const

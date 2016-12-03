@@ -64,6 +64,8 @@ private:
 	bool loading_scene = false;
 	bool saving_scene = false;
 
+	std::string frame_name;
+
 	//File explorer
 	enum file_dialog
 	{
@@ -78,6 +80,7 @@ private:
 	bool in_modal = false;
 	char selected_file[MEDIUM_STRING];
 	bool file_explorer = false;
+	
 };
 
 #endif // __MODULEEDITOR_H__

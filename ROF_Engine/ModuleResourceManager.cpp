@@ -79,11 +79,6 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 		LOG("Resource is already imported.");
 
 		ret = it->second;
-
-		/*if (ret != nullptr)
-		{
-			ret->LoadOnMemory();
-		}*/
 	}
 	else
 	{
@@ -104,16 +99,11 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 				ret = App->importer->mat_loader->MaterialLoad(ID);
 				break;
 			}
-			case (Resource::ResType::Prefab) :
-			{
-				break;
-			}
 		}
 
 		if (ret != nullptr)
 		{
 			resources[ID] = ret;
-			//ret->LoadOnMemory();
 		}
 	}
 
@@ -140,7 +130,7 @@ void ModuleResourceManager::SaveResourcesData()
 		it++;
 	}
 
-	root.append_child("LastID").append_attribute("Value") = next_id;
+	root.append_child("NextID").append_attribute("Value") = next_id;
 
 	std::stringstream stream;
 	data.save(stream);
@@ -171,6 +161,7 @@ void ModuleResourceManager::LoadResourcesData()
 				tmp->name = node.child("Name").text().get();
 				tmp->origin_file = node.child("OriginalFile").text().get();
 			}
+			next_id = root.child("NextID").attribute("Value").as_ullong();
 		}
 	}
 }

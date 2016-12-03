@@ -44,29 +44,3 @@ void ComponentMaterial::OnLoad(pugi::xml_node &scene)
 		}
 	}
 }
-	
-
-void ComponentMaterial::AppendTexturePath(const char* path)
-{
-	tex_path.append(path);
-}
-
-void ComponentMaterial::SetTexturePath(const char* path)
-{
-	tex_path = path;
-}
-
-const char* ComponentMaterial::GetTexturePath() const
-{
-	return tex_path.c_str();
-}
-
-std::string ComponentMaterial::GetTexturePathS() const
-{
-	return tex_path;
-}
-
-const char* ComponentMaterial::GetAdaptedTexturePath() const
-{
-	return tex_path.substr(tex_path.find_first_of("/") + 1).c_str();
-}

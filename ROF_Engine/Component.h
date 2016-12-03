@@ -29,7 +29,6 @@ public:
 	bool IsActive() const;
 
 	virtual void Update() {};
-	virtual void CleanUp() {};
 
 	virtual void OnLoad(pugi::xml_node&) {};
 	virtual void OnSave(pugi::xml_node&) {};

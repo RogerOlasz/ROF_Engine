@@ -19,22 +19,12 @@
 #include "TextureLoader.h"
 #include "MaterialLoader.h"
 
-#include "MaterialImporter.h"
-
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
-
-#pragma comment (lib, "Devil/libx86/DevIL.lib")
-#pragma comment (lib, "Devil/libx86/ILU.lib")
-#pragma comment (lib, "Devil/libx86/ILUT.lib")
-
-#include "Devil/include/il.h"
-#include "Devil/include/ilu.h"
-#include "Devil/include/ilut.h"
 
 ModuleSceneImporter::ModuleSceneImporter(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -50,18 +40,9 @@ bool ModuleSceneImporter::Init()
 {
 	bool ret = true;
 
-	//Initialize DevIL 
-	ilInit();
-	iluInit();
-	ilutInit();
-	ilutRenderer(ILUT_OPENGL);
-
 	mesh_loader = new MeshLoader();
 	tex_loader = new TextureLoader();
 	mat_loader = new MaterialLoader();
-
-	material_importer = new MaterialImporter();
-	UUID = 0;
 
 	return ret;
 }
@@ -79,8 +60,6 @@ bool ModuleSceneImporter::CleanUp()
 	RELEASE(mesh_loader);
 	RELEASE(tex_loader);
 	RELEASE(mat_loader);
-
-	RELEASE(material_importer);
 
 	return true;
 }
@@ -163,10 +142,9 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 			std::size_t tmp_pos = file_path_string.rfind("Assets");
 			file_path_string = file_path_string.substr(tmp_pos);
 
-			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str()); // scene->mMeshes[node_to_load->mMeshes[i]]->mName.C_Str()
+			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str()); 
 			if (r_mesh)
 			{
-				//LoadTexture(material, scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex]);
 				ResourceMaterial* r_mat = App->res_manager->ImportMaterialResource(scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex], file_path_string.c_str(), node_to_load->mName.C_Str());
 
 				ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
@@ -195,62 +173,5 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 		LOG("I'm %s and i have %d children.", ret->GetName(), ret->children.size());
 		LOG("I'm %s and i have %d components.", ret->GetName(), ret->components.size());
 		LOG("I'm %s and my parent is %s", ret->GetName(), ret->GetParent()->GetName());
-	}
-}
-
-//void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* ai_material)
-//{
-//	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
-//
-//	aiColor4D mat_color;
-//	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
-//	material->SetMaterialColor(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
-//
-//	aiString path;
-//	ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-//
-//	material->AppendTexturePath("Assets/Textures/");
-//	std::string tmp = material->GetTexturePath();
-//	material->AppendTexturePath(App->physfs->GetFileNameFromDirPath(path.data).c_str());
-//
-//	std::string tmp_s = "";
-//
-//	if (tex_num != 0)
-//	{		
-//		if (App->physfs->Exists(material->GetTexturePath()))
-//		{
-//			//Adapt devIL to OpenGL buffer
-//			ilGenImages(1, (ILuint*)material->GetTextureId());
-//			ilBindImage(material->GetTextureId());
-//			ilLoadImage(material->GetTexturePath());
-//			
-//			material->SetTextureId(ilutGLBindTexImage());
-//		}			
-//	}
-//	else
-//	{
-//		material->SetTextureId(0);
-//		LOG("[error] aiMaterial couldn't be load.");
-//	}
-//	
-//	/*char tmp_c[LONG_STRING];
-//	UUID = random.Int();
-//	sprintf(tmp_c, "Library/Textures/texture%d.rof", UUID);
-//	tmp_s = tmp_c;
-//	material->path = tmp_s;
-//
-//	material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);*/
-//}
-
-void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint &buffer_id)
-{
-	if (App->physfs->Exists(path))
-	{
-		//Adapt devIL to OpenGL buffer
-		ilGenImages(1, (ILuint*)buffer_id);
-		ilBindImage(buffer_id);
-		ilLoadImage(path);
-
-		buffer_id = ilutGLBindTexImage();
 	}
 }
