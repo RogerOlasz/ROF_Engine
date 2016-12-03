@@ -14,7 +14,7 @@ class Resource
 public:
 	enum ResType
 	{
-		Mesh,
+		Mesh = 0,
 		Texture,
 		Material,
 		Prefab, // ?? prefab/scene

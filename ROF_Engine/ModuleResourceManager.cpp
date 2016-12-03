@@ -20,6 +20,7 @@ ModuleResourceManager::~ModuleResourceManager()
 bool ModuleResourceManager::Init()
 {
 	mesh_loader = new MeshLoader();
+	LoadResourcesData();
 
 	return true;
 }
@@ -51,11 +52,11 @@ Resource* ModuleResourceManager::LoadResource(Uint32 ID, Resource::ResType type)
 	std::map<Uint32, Resource*>::iterator it = resources.find(ID);
 	if (it != resources.end())
 	{
+		ret = it->second;
 		if (!it->second->IsOnMemory())
 		{
 			ret->LoadOnMemory();
-		}
-		ret = it->second;
+		}		
 	}
 	else
 	{
@@ -76,10 +77,10 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 
 		ret = it->second;
 
-		if (ret != nullptr)
+		/*if (ret != nullptr)
 		{
 			ret->LoadOnMemory();
-		}
+		}*/
 	}
 	else
 	{
@@ -106,7 +107,8 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 
 		if (ret != nullptr)
 		{
-			ret->LoadOnMemory();
+			resources[ID] = ret;
+			//ret->LoadOnMemory();
 		}
 	}
 
@@ -160,6 +162,9 @@ void ModuleResourceManager::LoadResourcesData()
 			for (pugi::xml_node node = root.child("Resource"); node != nullptr; node = node.next_sibling("Resource"))
 			{
 				//Create resources with recived data
+				Resource* tmp = CreateAndLoad(node.child("ID").attribute("Value").as_ullong(), (Resource::ResType)node.child("Type").attribute("Value").as_int());
+				tmp->name = node.child("Name").text().get();
+				tmp->origin_file = node.child("OriginalFile").text().get();
 			}
 		}
 	}
