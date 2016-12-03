@@ -2,7 +2,11 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "ModuleSceneImporter.h"
-#include "MaterialImporter.h"
+#include "ModuleResourceManager.h"
+
+#include "Resource.h"
+#include "ResourceMaterial.h"
+#include "ResourceTexture.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Type::Material, id)
 {
@@ -23,15 +27,22 @@ void ComponentMaterial::OnSave(pugi::xml_node &scene)
 
 	scene.append_child("Type").append_attribute("Value") = this->GetType();
 
-	scene.append_child("Path").text().set(path.c_str());
+	scene.append_child("ResourceID").append_attribute("Value") = resource->GetID();
 
 	scene = scene.parent();
 }
 
 void ComponentMaterial::OnLoad(pugi::xml_node &scene)
 {
-	//App->importer->material_importer->Load(scene.child("Material").child("Path").text().get(), tex_path, color, texture_id);
-
+	resource = App->res_manager->LoadResource(scene.child("Material").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Material);
+	if (((ResourceMaterial*)resource)->have_texture)
+	{
+		((ResourceMaterial*)resource)->texture = (ResourceTexture*)App->res_manager->GetResource(((ResourceMaterial*)resource)->resource_texture_id);
+		if (!((ResourceMaterial*)resource)->texture->IsOnMemory())
+		{
+			((ResourceMaterial*)resource)->texture->LoadOnMemory();
+		}
+	}
 }
 	
 

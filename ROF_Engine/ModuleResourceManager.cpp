@@ -25,7 +25,7 @@ ModuleResourceManager::~ModuleResourceManager()
 
 bool ModuleResourceManager::Init()
 {
-	//LoadResourcesData();
+	LoadResourcesData();
 
 	return true;
 }
@@ -101,6 +101,7 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 			}
 			case (Resource::ResType::Material) :
 			{
+				ret = App->importer->mat_loader->MaterialLoad(ID);
 				break;
 			}
 			case (Resource::ResType::Prefab) :
@@ -244,6 +245,17 @@ bool ModuleResourceManager::CompareResource(Resource* res, Resource::ResType typ
 	return (res->GetType() == type);
 }
 
+Resource* ModuleResourceManager::GetResource(Uint32 ID)
+{
+	std::map<Uint32, Resource*>::iterator tmp = resources.find(ID);
+	if (tmp != resources.end())
+	{
+		return tmp->second;
+	}
+
+	return nullptr;
+}
+
 Resource* ModuleResourceManager::SearchResource(const char* origin_file, const char* resource_name, Resource::ResType type)
 {
 	for (std::map<Uint32, Resource*>::iterator tmp = resources.begin(); tmp != resources.end(); tmp++)
@@ -252,17 +264,6 @@ Resource* ModuleResourceManager::SearchResource(const char* origin_file, const c
 		{
 			return tmp->second;
 		}
-	}
-
-	return nullptr;
-}
-
-Resource* ModuleResourceManager::SearchResource(Uint32 ID)
-{
-	std::map<Uint32, Resource*>::iterator tmp = resources.find(ID);
-	if (tmp != resources.end())
-	{
-		return tmp->second;
 	}
 
 	return nullptr;

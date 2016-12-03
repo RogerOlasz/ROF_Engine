@@ -14,6 +14,7 @@ public:
 	~ResourceMaterial();
 
 public:
+	bool have_texture = false;
 	ResourceTexture* texture = nullptr;
 	Uint32 resource_texture_id = 0;
 	Color diffuse_color = White;

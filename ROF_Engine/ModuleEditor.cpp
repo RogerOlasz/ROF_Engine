@@ -5,6 +5,7 @@
 #include "ModuleGOManager.h"
 #include "ModuleFileSystem.h"
 #include "ModuleSceneImporter.h"
+#include "ModuleCamera3D.h"
 #include "GameObject.h"
 
 #include "Panel.h"
@@ -352,6 +353,8 @@ bool ModuleEditor::FileDialog(const char * extension, const char* from_folder)
 {
 	bool ret = true;
 
+	App->camera->controls_disabled = true;
+
 	switch (file_dialog)
 	{
 	case closed:
@@ -369,6 +372,8 @@ bool ModuleEditor::FileDialog(const char * extension, const char* from_folder)
 
 const char * ModuleEditor::CloseFileDialog()
 {
+	App->camera->controls_disabled = false;
+
 	if (file_dialog == ready_to_close)
 	{
 		file_dialog = closed;

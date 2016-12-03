@@ -65,10 +65,9 @@ void MaterialLoader::MaterialToOwnFormat(ResourceMaterial* r_mat)
 {
 	// Binary file import
 	uint size = sizeof(float4) + sizeof(bool);
-	bool have_tex = false;
 	if (r_mat->texture)
 	{
-		have_tex = true;
+		r_mat->have_texture = true;
 		size += sizeof(Uint32);
 	}
 
@@ -82,7 +81,7 @@ void MaterialLoader::MaterialToOwnFormat(ResourceMaterial* r_mat)
 	pointer += bytes;
 
 	bytes = sizeof(bool);
-	memcpy(pointer, &have_tex, bytes);
+	memcpy(pointer, &r_mat->have_texture, bytes);
 	pointer += bytes;
 
 	if (r_mat->texture)
@@ -121,10 +120,9 @@ ResourceMaterial* MaterialLoader::MaterialLoad(Uint32 ID)
 		pointer += bytes;
 
 		bytes = sizeof(bool);
-		bool have_tex;
-		memcpy(&have_tex, pointer, bytes);
+		memcpy(&r_mat->have_texture, pointer, bytes);
 
-		if (have_tex)
+		if (r_mat->have_texture)
 		{
 			pointer += bytes;
 			bytes = sizeof(Uint32);
