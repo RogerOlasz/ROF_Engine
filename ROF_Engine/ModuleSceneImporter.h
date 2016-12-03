@@ -32,6 +32,7 @@ public:
 	TextureLoader* tex_loader = nullptr;
 	MaterialLoader* mat_loader = nullptr;
 
+	bool fbx_is_loaded = false;
 };
 
 #endif // !__MODULESCENEIMPORTER_H__

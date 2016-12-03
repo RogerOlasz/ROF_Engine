@@ -57,9 +57,21 @@ Resource* ModuleResourceManager::LoadResource(Uint32 ID, Resource::ResType type)
 	{
 		ret = it->second;
 		if (!it->second->IsOnMemory())
-		{
+		{			
 			ret->LoadOnMemory();
-		}		
+		}	
+
+		if (type == Resource::ResType::Material)
+		{
+			if (((ResourceMaterial*)it->second)->resource_texture_id != 0)
+			{
+				((ResourceMaterial*)it->second)->texture = (ResourceTexture*)GetResource(((ResourceMaterial*)it->second)->resource_texture_id);
+				if (!((ResourceMaterial*)it->second)->texture->IsOnMemory())
+				{
+					((ResourceMaterial*)it->second)->texture->LoadOnMemory();
+				}
+			}
+		}
 	}
 	else
 	{
@@ -245,6 +257,18 @@ Resource* ModuleResourceManager::GetResource(Uint32 ID)
 	}
 
 	return nullptr;
+}
+
+bool ModuleResourceManager::SearchForOriginFile(const char* origin_file)
+{
+	for (std::map<Uint32, Resource*>::iterator tmp = resources.begin(); tmp != resources.end(); tmp++)
+	{
+		if (tmp->second->origin_file == origin_file)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 Resource* ModuleResourceManager::SearchResource(const char* origin_file, const char* resource_name, Resource::ResType type)

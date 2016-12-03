@@ -68,9 +68,18 @@ void ModuleSceneImporter::LoadFBX(const char* file_path, bool file_system)
 {
 	const aiScene* scene = nullptr;
 
+	std::string file_path_string = file_path;
+	std::size_t tmp_pos = file_path_string.rfind("Assets");
+	file_path_string = file_path_string.substr(tmp_pos);
+
+	if (App->res_manager->SearchForOriginFile(file_path_string.c_str()))
+	{
+		fbx_is_loaded = true;
+	}
+
 	if (file_system)
 	{
-		scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, nullptr);
+		scene = aiImportFileEx(file_path, aiProcessPreset_TargetRealtime_MaxQuality, App->physfs->GetAssimpIO());
 	}
 	else
 	{
@@ -89,7 +98,7 @@ void ModuleSceneImporter::LoadFBX(const char* file_path, bool file_system)
 	else
 	{
 		LOG("[error] Error loading scene %s %s", file_path, aiGetErrorString());
-	}
+	}	
 }
 
 void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiNode* node_to_load, const aiScene* scene, GameObject* parent)
@@ -142,21 +151,30 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 			std::size_t tmp_pos = file_path_string.rfind("Assets");
 			file_path_string = file_path_string.substr(tmp_pos);
 
-			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str()); 
-			if (r_mesh)
+			if (fbx_is_loaded == false)
 			{
-				ResourceMaterial* r_mat = App->res_manager->ImportMaterialResource(scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex], file_path_string.c_str(), node_to_load->mName.C_Str());
-
-				ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
-				ret->CreateComponent(Component::Type::Material)->SetResource(r_mat);
-				r_mesh->LoadOnMemory();
-				if (r_mat->texture)
+				ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str());
+				if (r_mesh)
 				{
-					if (!r_mat->texture->IsOnMemory())
-					{
-						r_mat->texture->LoadOnMemory();
-					}
+					ResourceMaterial* r_mat = App->res_manager->ImportMaterialResource(scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex], file_path_string.c_str(), node_to_load->mName.C_Str());
+
+					ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
+					ret->CreateComponent(Component::Type::Material)->SetResource(r_mat);
+
+					App->res_manager->LoadResource(r_mesh->GetID(), Resource::ResType::Mesh);
+					App->res_manager->LoadResource(r_mat->texture->GetID(), Resource::ResType::Texture);
 				}
+			}
+			else
+			{
+				ComponentMesh* cmesh = (ComponentMesh*)ret->CreateComponent(Component::Type::Geometry);
+				cmesh->SetResource(App->res_manager->SearchResource(file_path_string.c_str(), node_to_load->mName.C_Str(), Resource::ResType::Mesh));
+
+				ComponentMaterial* cmat = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);
+				cmat->SetResource(App->res_manager->SearchResource(file_path_string.c_str(), node_to_load->mName.C_Str(), Resource::ResType::Material));
+
+				App->res_manager->LoadResource(cmesh->GetResource()->GetID(), Resource::ResType::Mesh);
+				App->res_manager->LoadResource(cmat->GetResource()->GetID(), Resource::ResType::Material);
 			}
 		}
 #pragma endregion

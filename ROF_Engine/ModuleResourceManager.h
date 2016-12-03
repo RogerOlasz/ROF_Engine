@@ -36,10 +36,10 @@ public:
 	bool CompareResource(Resource* res, const char* o_file, const char* r_name);
 	bool CompareResource(Resource* res, Resource::ResType type);
 
-	Resource* GetResource(Uint32 ID);
-
-private:
+	bool SearchForOriginFile(const char* origin_file);
 	Resource* SearchResource(const char* origin_file, const char* resource_name, Resource::ResType type);
+
+	Resource* GetResource(Uint32 ID);
 	
 private:
 	std::map<Uint32, Resource*> resources;
