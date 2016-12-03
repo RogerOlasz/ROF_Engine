@@ -11,6 +11,8 @@
 #define MAX_LIGHTS 8
 
 class ResourceMesh;
+class ResourceMaterial;
+class ResourceTexture;
 class ComponentCamera;
 
 class ModuleRenderer3D : public Module
@@ -35,7 +37,7 @@ public:
 
 	void AddGOToRender(RenderComp* go_to_render);
 	void CleanToRender();
-	void DrawMesh(const ResourceMesh* mesh, ComponentMaterial* material, bool wireframe = false);
+	void DrawMesh(const ResourceMesh* mesh, ResourceMaterial* material, ResourceTexture* texture, bool wireframe = false);
 
 private:
 	std::vector<RenderComp*> to_render;

@@ -150,9 +150,11 @@ ResourceMesh* MeshLoader::MeshLoad(Uint32 ID)
 	char* buffer = nullptr;
 	uint size = App->physfs->Load(path.c_str(), &buffer);
 
+	ResourceMesh* r_mesh = nullptr;
+
 	if (buffer != nullptr && size > 0)
 	{
-		ResourceMesh* r_mesh = new ResourceMesh();
+		r_mesh = new ResourceMesh();
 
 		// Amount of indices / vertices / normals / texture_coords 
 		uint ranges[4];
@@ -196,12 +198,7 @@ ResourceMesh* MeshLoader::MeshLoad(Uint32 ID)
 		r_mesh->resource_file = path;
 
 		RELEASE(buffer);
-
-		return r_mesh;
-	}
-	else
-	{
-		return nullptr;
 	}
 
+	return r_mesh;
 }

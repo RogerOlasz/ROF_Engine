@@ -6,8 +6,11 @@
 #include <map>
 
 class ResourceMesh;
+class ResourceMaterial;
+class ResourceTexture;
 
 struct aiMesh;
+struct aiMaterial;
 
 class ModuleResourceManager : public Module
 {
@@ -27,6 +30,9 @@ public:
 
 	//Should have an unique import for all res types?
 	ResourceMesh* ImportMeshResource(const aiMesh* ai_mesh, const char* origin_file, const char* resource_name);
+	ResourceMaterial* ImportMaterialResource(const aiMaterial* ai_material, const char* origin_file, const char* resource_name);
+	ResourceTexture* ImportTextureResource(const aiMaterial* ai_material, const char* origin_file, const char* resource_name);
+
 	bool CompareResource(Resource* res, const char* o_file, const char* r_name);
 	bool CompareResource(Resource* res, Resource::ResType type);
 

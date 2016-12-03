@@ -9,6 +9,8 @@ class Resource
 {
 	//To let Loaders use protected attributes
 	friend class MeshLoader;
+	friend class MaterialLoader;
+	friend class TextureLoader;
 	friend class ModuleResourceManager;
 
 public:

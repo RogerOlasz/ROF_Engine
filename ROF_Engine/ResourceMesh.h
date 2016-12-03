@@ -1,5 +1,5 @@
-#ifndef __RESOURCEMESH__
-#define __RESOURCEMESH__
+#ifndef __RESOURCEMESH_H__
+#define __RESOURCEMESH_H__
 
 #include "Resource.h"
 #include "Globals.h"
@@ -40,4 +40,4 @@ public:
 	AABB bounding_box;
 };
 
-#endif // !__RESOURCEMESH__
+#endif // !__RESOURCEMESH_H__

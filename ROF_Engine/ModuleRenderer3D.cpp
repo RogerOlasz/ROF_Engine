@@ -6,6 +6,8 @@
 #include "ComponentCamera.h"
 
 #include "ResourceMesh.h"
+#include "ResourceMaterial.h"
+#include "ResourceTexture.h"
 
 #include "Glew/include/glew.h"
 #include "SDL/include/SDL_opengl.h"
@@ -174,7 +176,7 @@ update_status ModuleRenderer3D::Update(float dt)
 		
 		if (to_render[i]->c_mesh)
 		{
-			DrawMesh((ResourceMesh*)to_render[i]->c_mesh->GetResource(), to_render[i]->c_material,to_render[i]->c_mesh->wirefr);
+			DrawMesh((ResourceMesh*)to_render[i]->c_mesh->GetResource(), (ResourceMaterial*)to_render[i]->c_material->GetResource(), ((ResourceMaterial*)to_render[i]->c_material->GetResource())->texture,to_render[i]->c_mesh->wirefr);
 		}
 
 		glPopMatrix();
@@ -258,7 +260,7 @@ void ModuleRenderer3D::CreateDebugTexture()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ComponentMaterial* material, bool wireframe)
+void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ResourceMaterial* material, ResourceTexture* texture, bool wireframe)
 {	
 	if (mesh != nullptr)
 	{
@@ -298,12 +300,15 @@ void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ComponentMaterial* mat
 		{		//If mesh have UV coords...
 			if (mesh->num_tex_coord > 0)
 			{
-				if (material->GetTextureId() != 0)
+				if (texture)
 				{
-					glBindTexture(GL_TEXTURE_2D, material->GetTextureId());
-				}				
+					if (texture->id_texture != 0)
+					{
+						glBindTexture(GL_TEXTURE_2D, texture->id_texture);
+					}
+				}
 			}
-			glColor4f(material->GetMaterialColor().r, material->GetMaterialColor().g, material->GetMaterialColor().b, material->GetMaterialColor().a);
+			glColor4f(material->diffuse_color.r, material->diffuse_color.g, material->diffuse_color.b, material->diffuse_color.a);
 		}
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);

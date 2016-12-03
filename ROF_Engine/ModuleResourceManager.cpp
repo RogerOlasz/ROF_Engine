@@ -5,8 +5,13 @@
 #include "Globals.h"
 #include "XMLUtilities.h"
 
-#include "MeshLoader.h"
 #include "ResourceMesh.h"
+#include "ResourceTexture.h"
+#include "ResourceMaterial.h"
+
+#include "MeshLoader.h"
+#include "TextureLoader.h"
+#include "MaterialLoader.h"
 
 ModuleResourceManager::ModuleResourceManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,7 +25,7 @@ ModuleResourceManager::~ModuleResourceManager()
 
 bool ModuleResourceManager::Init()
 {
-	LoadResourcesData();
+	//LoadResourcesData();
 
 	return true;
 }
@@ -91,6 +96,7 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 			}
 			case (Resource::ResType::Texture) :
 			{
+				ret = App->importer->tex_loader->TextureLoad(ID);
 				break;
 			}
 			case (Resource::ResType::Material) :
@@ -188,9 +194,49 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 	return r_mesh;
 }
 
+ResourceMaterial* ModuleResourceManager::ImportMaterialResource(const aiMaterial* ai_material, const char* origin_file, const char* resource_name)
+{
+	ResourceMaterial* r_mat = nullptr;
+
+	r_mat = (ResourceMaterial*)SearchResource(origin_file, resource_name, Resource::ResType::Material);
+	if (r_mat != nullptr)
+	{
+		return r_mat;
+	}
+
+	//If doesn't exist, import it -> it should be a method from scene importer
+	r_mat = App->importer->mat_loader->MaterialImport(ai_material, next_id++, origin_file, resource_name);
+	if (r_mat)
+	{
+		resources[r_mat->ID] = r_mat;
+	}
+
+	return r_mat;
+}
+
+ResourceTexture* ModuleResourceManager::ImportTextureResource(const aiMaterial* ai_material, const char* origin_file, const char* resource_name)
+{
+	ResourceTexture* r_tex = nullptr;
+
+	r_tex = (ResourceTexture*)SearchResource(origin_file, resource_name, Resource::ResType::Texture);
+	if (r_tex != nullptr)
+	{
+		return r_tex;
+	}
+
+	//If doesn't exist, import it -> it should be a method from scene importer
+	r_tex = App->importer->tex_loader->TextureImport(ai_material, next_id++, resource_name);
+	if (r_tex)
+	{
+		resources[r_tex->ID] = r_tex;
+	}
+
+	return r_tex;
+}
+
 bool ModuleResourceManager::CompareResource(Resource* res, const char* o_file, const char* r_name)
 {
-	return (res->origin_file == o_file && res->resource_file == r_name);
+	return (res->origin_file == o_file && res->name == r_name);
 }
 
 bool ModuleResourceManager::CompareResource(Resource* res, Resource::ResType type)

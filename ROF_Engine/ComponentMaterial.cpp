@@ -4,8 +4,6 @@
 #include "ModuleSceneImporter.h"
 #include "MaterialImporter.h"
 
-#include "Assimp/include/material.h"
-
 ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bearer, Type::Material, id)
 {
 	//Component names are to solve problems with ImGui same names
@@ -32,18 +30,10 @@ void ComponentMaterial::OnSave(pugi::xml_node &scene)
 
 void ComponentMaterial::OnLoad(pugi::xml_node &scene)
 {
-	App->importer->material_importer->Load(scene.child("Material").child("Path").text().get(), tex_path, color, texture_id);
-}
+	//App->importer->material_importer->Load(scene.child("Material").child("Path").text().get(), tex_path, color, texture_id);
 
-void ComponentMaterial::SetMaterialColor(float r, float g, float b, float a)
-{
-	color.Set(r, g, b, a);
 }
-
-void ComponentMaterial::SetTextureId(uint id)
-{
-	texture_id = id;
-}
+	
 
 void ComponentMaterial::AppendTexturePath(const char* path)
 {
@@ -53,11 +43,6 @@ void ComponentMaterial::AppendTexturePath(const char* path)
 void ComponentMaterial::SetTexturePath(const char* path)
 {
 	tex_path = path;
-}
-
-uint ComponentMaterial::GetTextureId() const
-{
-	return texture_id;
 }
 
 const char* ComponentMaterial::GetTexturePath() const
@@ -73,9 +58,4 @@ std::string ComponentMaterial::GetTexturePathS() const
 const char* ComponentMaterial::GetAdaptedTexturePath() const
 {
 	return tex_path.substr(tex_path.find_first_of("/") + 1).c_str();
-}
-
-Color ComponentMaterial::GetMaterialColor() const
-{
-	return color;
 }

@@ -100,7 +100,6 @@ update_status ModuleEditor::Update(float dt)
 			if (ImGui::MenuItem("Console", "CTR+C", &Console->active));
 			if (ImGui::MenuItem("Hierarchy", "CTR+O", &Hierarchy->active));
 			if (ImGui::MenuItem("Time Controller", "CTR+T", &TimeControl->active)); 
-			if (ImGui::MenuItem("File explorer", "CTR+F", &file_explorer));
 
 			ImGui::EndMenu();
 		}

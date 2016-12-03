@@ -13,7 +13,11 @@
 #include "ComponentCamera.h"
 
 #include "ResourceMesh.h"
+#include "ResourceMaterial.h"
+#include "ResourceTexture.h"
 #include "MeshLoader.h"
+#include "TextureLoader.h"
+#include "MaterialLoader.h"
 
 #include "MaterialImporter.h"
 
@@ -50,8 +54,12 @@ bool ModuleSceneImporter::Init()
 	ilInit();
 	iluInit();
 	ilutInit();
+	ilutRenderer(ILUT_OPENGL);
 
 	mesh_loader = new MeshLoader();
+	tex_loader = new TextureLoader();
+	mat_loader = new MaterialLoader();
+
 	material_importer = new MaterialImporter();
 	UUID = 0;
 
@@ -69,6 +77,9 @@ bool ModuleSceneImporter::CleanUp()
 	aiDetachAllLogStreams();
 
 	RELEASE(mesh_loader);
+	RELEASE(tex_loader);
+	RELEASE(mat_loader);
+
 	RELEASE(material_importer);
 
 	return true;
@@ -145,19 +156,29 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 		ret->transform->SetRot(rot.x, rot.y, rot.z, rot.w);
 #pragma endregion
 
-#pragma region SetMaterial
-		ComponentMaterial* material = (ComponentMaterial*)ret->CreateComponent(Component::Type::Material);		
-#pragma endregion
-
-#pragma region SetMesh
+#pragma region SetMeshAndMaterial
 		for (uint i = 0; i < node_to_load->mNumMeshes; ++i)
 		{
+			std::string file_path_string = file_path;
+			std::size_t tmp_pos = file_path_string.rfind("Assets");
+			file_path_string = file_path_string.substr(tmp_pos);
+
 			ResourceMesh* r_mesh = App->res_manager->ImportMeshResource(scene->mMeshes[node_to_load->mMeshes[i]], file_path, node_to_load->mName.C_Str()); // scene->mMeshes[node_to_load->mMeshes[i]]->mName.C_Str()
 			if (r_mesh)
 			{
-				LoadTexture(material, scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex]);
+				//LoadTexture(material, scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex]);
+				ResourceMaterial* r_mat = App->res_manager->ImportMaterialResource(scene->mMaterials[scene->mMeshes[node_to_load->mMeshes[i]]->mMaterialIndex], file_path_string.c_str(), node_to_load->mName.C_Str());
+
 				ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
+				ret->CreateComponent(Component::Type::Material)->SetResource(r_mat);
 				r_mesh->LoadOnMemory();
+				if (r_mat->texture)
+				{
+					if (!r_mat->texture->IsOnMemory())
+					{
+						r_mat->texture->LoadOnMemory();
+					}
+				}
 			}
 		}
 #pragma endregion
@@ -177,57 +198,55 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 	}
 }
 
-void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* ai_material)
-{
-	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
-
-	aiColor4D mat_color;
-	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
-	material->SetMaterialColor(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
-
-	aiString path;
-	ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-
-	material->AppendTexturePath("Assets/Textures/");
-	std::string tmp = material->GetTexturePath();
-	material->AppendTexturePath(App->physfs->GetFileNameFromDirPath(path.data).c_str());
-
-	std::string tmp_s = "";
-
-	if (tex_num != 0)
-	{		
-		if (App->physfs->Exists(material->GetTexturePath()))
-		{
-			//Adapt devIL to OpenGL buffer
-			ilutRenderer(ILUT_OPENGL);
-			ilGenImages(1, (ILuint*)material->GetTextureId());
-			ilBindImage(material->GetTextureId());
-			ilLoadImage(material->GetTexturePath());
-			
-			material->SetTextureId(ilutGLBindTexImage());
-		}			
-	}
-	else
-	{
-		material->SetTextureId(0);
-		LOG("[error] aiMaterial couldn't be load.");
-	}
-	
-	/*char tmp_c[LONG_STRING];
-	UUID = random.Int();
-	sprintf(tmp_c, "Library/Textures/texture%d.rof", UUID);
-	tmp_s = tmp_c;
-	material->path = tmp_s;
-
-	material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);*/
-}
+//void ModuleSceneImporter::LoadTexture(ComponentMaterial* material, aiMaterial* ai_material)
+//{
+//	uint tex_num = ai_material->GetTextureCount(aiTextureType_DIFFUSE);
+//
+//	aiColor4D mat_color;
+//	ai_material->Get(AI_MATKEY_COLOR_DIFFUSE, mat_color);
+//	material->SetMaterialColor(mat_color.r, mat_color.g, mat_color.b, mat_color.a);
+//
+//	aiString path;
+//	ai_material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+//
+//	material->AppendTexturePath("Assets/Textures/");
+//	std::string tmp = material->GetTexturePath();
+//	material->AppendTexturePath(App->physfs->GetFileNameFromDirPath(path.data).c_str());
+//
+//	std::string tmp_s = "";
+//
+//	if (tex_num != 0)
+//	{		
+//		if (App->physfs->Exists(material->GetTexturePath()))
+//		{
+//			//Adapt devIL to OpenGL buffer
+//			ilGenImages(1, (ILuint*)material->GetTextureId());
+//			ilBindImage(material->GetTextureId());
+//			ilLoadImage(material->GetTexturePath());
+//			
+//			material->SetTextureId(ilutGLBindTexImage());
+//		}			
+//	}
+//	else
+//	{
+//		material->SetTextureId(0);
+//		LOG("[error] aiMaterial couldn't be load.");
+//	}
+//	
+//	/*char tmp_c[LONG_STRING];
+//	UUID = random.Int();
+//	sprintf(tmp_c, "Library/Textures/texture%d.rof", UUID);
+//	tmp_s = tmp_c;
+//	material->path = tmp_s;
+//
+//	material_importer->Import(App->physfs->GetFileNameFromDirPath(path.data).c_str(), tmp.c_str(), material->GetMaterialColor(), tmp_s);*/
+//}
 
 void ModuleSceneImporter::LoadTextureBuffer(const char* path, uint &buffer_id)
 {
 	if (App->physfs->Exists(path))
 	{
 		//Adapt devIL to OpenGL buffer
-		ilutRenderer(ILUT_OPENGL);
 		ilGenImages(1, (ILuint*)buffer_id);
 		ilBindImage(buffer_id);
 		ilLoadImage(path);
