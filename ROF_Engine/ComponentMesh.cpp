@@ -1,11 +1,10 @@
 #include "ComponentMesh.h"
 #include "Application.h"
-#include "Mesh.h"
 #include "ModuleRenderer3D.h"
 #include "GameObject.h"
 #include "Resource.h"
 
-#include "MeshImporter.h"
+#include "ResourceMesh.h"
 #include "ModuleSceneImporter.h"
 #include "ModuleResourceManager.h"
 
@@ -34,10 +33,8 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::CleanUp()
 {
-	//App->renderer3D->RemoveMeshBuffers(mesh);
-	//resource->UnloadFromMemory();
-	//RELEASE(resource);
-	//RELEASE(mesh);
+	//TODO communicate to res manager to remove this component from using a resource
+	resource = nullptr;
 }
 
 void ComponentMesh::OnSave(pugi::xml_node &scene)
@@ -52,22 +49,7 @@ void ComponentMesh::OnSave(pugi::xml_node &scene)
 
 void ComponentMesh::OnLoad(pugi::xml_node &scene)
 {
-	//TODO
-	//LoadMesh(App->importer->mesh_importer->Load(scene.child("Mesh").child("Path").text().get()), scene.child("Mesh").child_value("Path"));
 	resource = App->res_manager->LoadResource(scene.child("Mesh").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Mesh);
-}
-
-void ComponentMesh::LoadMesh(Mesh* recived_mesh, const char* path)
-{
-	mesh = recived_mesh;
-	if (path)
-	{
-		this->path = path;
-	}
-
-	//Setting bounding box
-	bounding_box.SetNegativeInfinity(); //Must be called before Enclose() to ser box at null
-	bounding_box.Enclose(mesh->vertices, mesh->num_vertices);
 }
 
 void ComponentMesh::Update()
@@ -82,18 +64,12 @@ void ComponentMesh::Update()
 	}
 }
 
-Mesh* ComponentMesh::GetMesh()
-{
-	return mesh;
-}
-
-const AABB* ComponentMesh::GetBoundingBox() const
-{
-	return &bounding_box;
-}
-
 const char* ComponentMesh::GetPath() const
 {
 	return path.c_str();
 }
 
+AABB* ComponentMesh::GetBoundingBox() const
+{
+	return &((ResourceMesh*)resource)->bounding_box;
+}

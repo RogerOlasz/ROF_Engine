@@ -9,12 +9,11 @@
 		<WindowSize X="1280" Y="1024" />
 	</Window>
 	<Camera3D>
-		<Position X="117.448364" Y="108.935669" Z="-10.7051086" />
-		<Reference X="94.9463196" Y="83.7826462" Z="-2.89591002" />
+		<Position X="106.830307" Y="101.60936" Z="-38.5700417" />
+		<Reference X="84.6254578" Y="76.7249069" Z="-29.2048149" />
 	</Camera3D>
 	<Input />
 	<Audio />
-	<Geometry />
 	<SceneImporter />
 	<ResourceManager />
 	<Scene />

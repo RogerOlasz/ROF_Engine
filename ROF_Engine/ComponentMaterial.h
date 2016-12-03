@@ -7,7 +7,6 @@
 #include <string>
 
 struct aiMaterial;
-struct Mesh;
 
 class ComponentMaterial : public Component
 {

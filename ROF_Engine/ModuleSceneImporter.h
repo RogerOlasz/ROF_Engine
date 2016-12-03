@@ -10,8 +10,8 @@ struct aiMaterial;
 struct aiScene;
 class GameObject;
 class ComponentMaterial;
-class MeshImporter;
 class MaterialImporter;
+class MeshLoader;
 
 class ModuleSceneImporter : public Module
 {
@@ -28,9 +28,8 @@ public:
 	void LoadTexture(ComponentMaterial* material, aiMaterial* ai_material);
 	void LoadTextureBuffer(const char* path, uint &buffer_id);
 
-	//TODO
 public:
-	MeshImporter* mesh_importer = nullptr;
+	MeshLoader* mesh_loader = nullptr;
 	MaterialImporter* material_importer = nullptr;
 
 	//http://clb.demon.fi/MathGeoLib/nightly/docs/LCG_summary.php Awesome joke...

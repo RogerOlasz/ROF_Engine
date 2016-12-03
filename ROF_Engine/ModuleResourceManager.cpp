@@ -1,6 +1,7 @@
 #include "ModuleResourceManager.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
+#include "ModuleSceneImporter.h"
 #include "Globals.h"
 #include "XMLUtilities.h"
 
@@ -19,7 +20,6 @@ ModuleResourceManager::~ModuleResourceManager()
 
 bool ModuleResourceManager::Init()
 {
-	mesh_loader = new MeshLoader();
 	LoadResourcesData();
 
 	return true;
@@ -39,8 +39,6 @@ bool ModuleResourceManager::CleanUp()
 		RELEASE(it->second);
 		it = resources.erase(it);
 	}
-
-	RELEASE(mesh_loader);
 
 	return true;
 }
@@ -88,7 +86,7 @@ Resource* ModuleResourceManager::CreateAndLoad(Uint32 ID, Resource::ResType type
 		{
 			case (Resource::ResType::Mesh) :
 			{
-				ret = mesh_loader->MeshLoad(ID);
+				ret = App->importer->mesh_loader->MeshLoad(ID);
 				break;
 			}
 			case (Resource::ResType::Texture) :
@@ -181,7 +179,7 @@ ResourceMesh* ModuleResourceManager::ImportMeshResource(const aiMesh* ai_mesh, c
 	}
 
 	//If doesn't exist, import it -> it should be a method from scene importer
-	r_mesh = mesh_loader->MeshImport(ai_mesh, next_id++, origin_file, resource_name);
+	r_mesh = App->importer->mesh_loader->MeshImport(ai_mesh, next_id++, origin_file, resource_name);
 	if (r_mesh)
 	{
 		resources[r_mesh->ID] = r_mesh;

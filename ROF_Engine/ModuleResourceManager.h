@@ -6,7 +6,6 @@
 #include <map>
 
 class ResourceMesh;
-class MeshLoader;
 
 struct aiMesh;
 
@@ -21,7 +20,6 @@ public:
 
 	//Load resource if it is not loaded on memory
 	Resource* LoadResource(Uint32 ID, Resource::ResType type);
-
 	Resource* CreateAndLoad(Uint32 ID, Resource::ResType type);
 
 	void SaveResourcesData();
@@ -38,9 +36,6 @@ private:
 
 private:
 	std::map<Uint32, Resource*> resources;
-
-	//Must take it from sceneimporter
-	MeshLoader* mesh_loader = nullptr;
 
 public:
 	Uint32 next_id = 0;

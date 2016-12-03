@@ -7,7 +7,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleEditor.h"
-#include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
 #include "ModuleGOManager.h"
 #include "ModuleSceneImporter.h"
@@ -30,7 +29,6 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	editor = new ModuleEditor(this);
-	geometry = new ModuleGeometry(this);
 	physfs = new ModuleFileSystem(this);
 	go_manager = new ModuleGOManager(this);
 	importer = new ModuleSceneImporter(this);
@@ -49,7 +47,6 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(geometry);
 	AddModule(importer);
 	AddModule(res_manager);
 

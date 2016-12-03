@@ -2,7 +2,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleGOManager.h"
-#include "ModuleGeometry.h"
 #include "ModuleFileSystem.h"
 #include "ModuleInput.h"
 #include "ModuleResourceManager.h"
@@ -14,14 +13,16 @@
 #include "ComponentCamera.h"
 
 #include "ResourceMesh.h"
+#include "MeshLoader.h"
 
-#include "MeshImporter.h"
 #include "MaterialImporter.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
+
+#pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 #pragma comment (lib, "Devil/libx86/DevIL.lib")
 #pragma comment (lib, "Devil/libx86/ILU.lib")
@@ -50,7 +51,7 @@ bool ModuleSceneImporter::Init()
 	iluInit();
 	ilutInit();
 
-	mesh_importer = new MeshImporter();
+	mesh_loader = new MeshLoader();
 	material_importer = new MaterialImporter();
 	UUID = 0;
 
@@ -67,9 +68,7 @@ bool ModuleSceneImporter::CleanUp()
 {
 	aiDetachAllLogStreams();
 
-
-
-	RELEASE(mesh_importer);
+	RELEASE(mesh_loader);
 	RELEASE(material_importer);
 
 	return true;
@@ -160,21 +159,6 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 				ret->CreateComponent(Component::Type::Geometry)->SetResource(r_mesh);
 				r_mesh->LoadOnMemory();
 			}
-
-			/*Mesh* tmp = App->geometry->LoadGeometry(scene->mMeshes[node_to_load->mMeshes[i]], scene, material);
-
-			char tmp_c[LONG_STRING];
-			UUID = random.Int();
-			sprintf(tmp_c, "Library/Meshes/mesh%d.rof", UUID);
-			std::string tmp_s = tmp_c;
-
-			mesh_importer->Import(scene->mMeshes[node_to_load->mMeshes[i]], tmp_s);
-
-			if (tmp != nullptr)
-			{
-				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp);
-				((ComponentMesh*)ret->CreateComponent(Component::Type::Geometry))->LoadMesh(tmp, tmp_s.c_str());
-			}*/
 		}
 #pragma endregion
 	}

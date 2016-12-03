@@ -5,7 +5,6 @@
 #include "ComponentCamera.h"
 #include "RenderComp.h"
 #include "DebugPainter.h"
-#include "ResourceMesh.h"
 #include <list>
 
 GameObject::GameObject(const char* name) : name(name)
@@ -208,7 +207,7 @@ void GameObject::UpdateAABB()
 	{
 		if ((*tmp)->GetType() == Component::Type::Geometry)
 		{
-			const AABB aabb = ((ResourceMesh*)(*tmp))->bounding_box; // it gives a wrong aabb cause of casts, must solve TODO
+			const AABB aabb = *((ComponentMesh*)(*tmp))->GetBoundingBox();
 
 			go_obb = aabb.ToOBB();
 			go_obb.Transform(transform->GetGlobalMatrix());

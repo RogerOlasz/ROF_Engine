@@ -1,7 +1,6 @@
 #include "ComponentMaterial.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
-#include "Mesh.h"
 #include "ModuleSceneImporter.h"
 #include "MaterialImporter.h"
 

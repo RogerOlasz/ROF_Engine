@@ -11,7 +11,6 @@
 #include "ComponentCamera.h"
 #include "ComponentTransformation.h"
 #include "ModuleEditor.h"
-#include "Mesh.h"
 #include "Primitive.h"
 #include "DebugPainter.h"
 #include "ImGui/imgui.h"
@@ -84,10 +83,6 @@ update_status ModuleSceneEditor::Update(float dt)
 
 			for (uint i = 0; i < ((ResourceMesh*)mesh->GetResource())->num_indices; i+=3)
 			{
-				/*vec vertex_1 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i]];
-				vec vertex_2 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 1]];
-				vec vertex_3 = mesh->GetMesh()->vertices[mesh->GetMesh()->indices[i + 2]];*/
-
 				vec vertex_1 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i]];
 				vec vertex_2 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 1]];
 				vec vertex_3 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 2]];

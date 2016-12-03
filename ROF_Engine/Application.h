@@ -14,7 +14,6 @@ class ModuleSceneEditor;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleEditor;
-class ModuleGeometry;
 class ModuleFileSystem;
 class ModuleGOManager;
 class ModuleSceneImporter;
@@ -31,7 +30,6 @@ public:
 	ModuleRenderer3D* renderer3D = nullptr;
 	ModuleCamera3D* camera = nullptr;
 	ModuleEditor* editor = nullptr;
-	ModuleGeometry* geometry = nullptr;
 	ModuleFileSystem* physfs = nullptr;
 	ModuleGOManager* go_manager = nullptr;
 	ModuleSceneImporter* importer = nullptr;
