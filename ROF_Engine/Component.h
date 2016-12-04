@@ -1,6 +1,7 @@
 #ifndef __COMPONENT_H__
 #define __COMPONENT_H__
 
+#include "Globals.h"
 #include <string>
 #include "XMLUtilities.h"
 
@@ -35,10 +36,12 @@ public:
 
 	Type GetType() const;
 	int GetID() const;
-	const Resource* GetResource() const;
+	Resource* GetResource() const;
+	uint GetResourceOnUse() const;
 
 	void SetResource(Resource* resource);
-	void UnsetResource(Resource* resource);	
+	virtual void UnsetResource(Resource* resource);	
+	virtual void UpdateResourceInfo() {};
 
 private:
 	Type type = Type::Unknown;

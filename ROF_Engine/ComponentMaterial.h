@@ -12,6 +12,8 @@ public:
 
 	void OnSave(pugi::xml_node&);
 	void OnLoad(pugi::xml_node&);
+
+	void UpdateResourceInfo() override;
 	
 };
 

@@ -1,6 +1,9 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "Resource.h"
+#include "ResourceMaterial.h"
+#include "ResourceTexture.h"
+#include "ResourceMesh.h"
 
 Component::Component(GameObject* bearer, Component::Type type, int id) : game_object(bearer), type(type), id(id)
 {
@@ -27,9 +30,14 @@ int Component::GetID() const
 	return id;
 }
 
-const Resource* Component::GetResource() const
+Resource* Component::GetResource() const
 {
 	return resource;
+}
+
+uint Component::GetResourceOnUse() const
+{
+	return resource->on_use;
 }
 
 void Component::SetResource(Resource* resource)

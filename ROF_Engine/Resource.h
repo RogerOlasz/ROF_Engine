@@ -41,13 +41,14 @@ protected:
 	Uint32 ID;
 	ResType type;
 
-	uint on_use = 0;
-
 	bool loaded_on_memory = false;
 
 	std::string resource_file;
 	std::string origin_file;
 	std::string name;
+
+public:
+	uint on_use = 0;
 
 };
 

@@ -2,6 +2,7 @@
 #define __COMPONENTMESH_H__
 
 #include "Component.h"
+#include "Globals.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 #include <string>
 
@@ -15,6 +16,8 @@ public:
 
 	void OnSave(pugi::xml_node&);
 	void OnLoad(pugi::xml_node&);
+
+	void UpdateResourceInfo() override;
 
 	AABB* GetBoundingBox() const;
 

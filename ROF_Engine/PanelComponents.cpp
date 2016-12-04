@@ -252,6 +252,8 @@ void PanelComponents::DrawMaterial(ComponentMaterial* go_material, GameObject* g
 		{
 			ImGui::Image((ImTextureID*)((ResourceMaterial*)go_material->GetResource())->texture->id_texture, ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.0f, 0.6f, 0.6f, 1.0f));
 			ImGui::Text("%s%s", "Texture path: ", ((ResourceMaterial*)go_material->GetResource())->texture->GetOriginFile());
+
+			ImGui::Text("Materials using this texture: %d", ((ResourceMaterial*)go_material->GetResource())->texture->on_use);
 		}
 		ImGui::Text("Material color:");
 		ImGui::SameLine(120, 0);

@@ -64,6 +64,7 @@ private:
 
 	bool loading_scene = false;
 	bool saving_scene = false;
+	bool importing_scene = false;
 
 	std::string frame_name;
 

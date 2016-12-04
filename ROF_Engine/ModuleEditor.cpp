@@ -80,6 +80,11 @@ update_status ModuleEditor::Update(float dt)
 				saving_scene = true;
 				frame_name = "Save File";
 			}
+			if (ImGui::MenuItem("Import FBX", nullptr, &file_explorer))
+			{
+				importing_scene = true;
+				frame_name = "Import File";
+			}
 			
 		 ImGui::EndMenu();
 		}
@@ -94,6 +99,10 @@ update_status ModuleEditor::Update(float dt)
 
 				App->go_manager->CreateGameObject(go_name.c_str(), nullptr);
 				go_id++;
+			}
+			if (ImGui::MenuItem("Create OctTree"))
+			{
+				App->go_manager->DoOctTree();
 			}
 			ImGui::EndMenu();
 		}
@@ -179,6 +188,12 @@ update_status ModuleEditor::Update(float dt)
 			App->go_manager->want_to_save_scene = true;
 		}
 
+		if (file != nullptr && importing_scene)
+		{
+			App->importer->LoadFBX(file);
+		}
+
+		importing_scene = false;
 		loading_scene = false;
 		saving_scene = false;
 		file_explorer = false;
