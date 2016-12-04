@@ -12,6 +12,11 @@
 #include "ComponentMaterial.h"
 #include "ComponentCamera.h"
 
+#include "Resource.h"
+#include "ResourceMaterial.h"
+#include "ResourceMesh.h"
+#include "ResourceTexture.h"
+
 #include "OctTree.h"
 
 #include <map>
@@ -112,6 +117,24 @@ void ModuleGOManager::DeleteGO(GameObject* go)
 			}			
 			gos_array.erase(tmp);
 			App->renderer3D->DeleteGOToRender(go->render_c);
+			std::vector<Component*>::iterator comp = go->components.begin();
+			while (comp != go->components.end())
+			{
+				(*comp)->UpdateResourceInfo();
+				if ((*comp)->GetResourceOnUse() == 0)
+				{
+					if ((*comp)->GetResource()->IsOnMemory())
+					{
+						(*comp)->GetResource()->UnloadFromMemory();
+
+						if ((*comp)->GetResource()->GetType() == Resource::ResType::Material)
+						{
+							((ResourceMaterial*)(*comp)->GetResource())->texture->UnloadFromMemory();
+						}
+					}
+				}
+				comp++;
+			}
 			RELEASE(go);
 			return;
 		}

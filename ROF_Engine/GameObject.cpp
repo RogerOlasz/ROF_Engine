@@ -38,19 +38,6 @@ GameObject::~GameObject()
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())
 	{
-		/*(*comp)->UpdateResourceInfo();
-		if ((*comp)->GetResourceOnUse() == 0)
-		{
-			if ((*comp)->GetResource()->IsOnMemory())
-			{
-				(*comp)->GetResource()->UnloadFromMemory();
-
-				if ((*comp)->GetResource()->GetType() == Resource::ResType::Material)
-				{
-					((ResourceMaterial*)(*comp)->GetResource())->texture->UnloadFromMemory();
-				}
-			}
-		}*/
 		RELEASE(*comp);
 		comp++;
 	}
