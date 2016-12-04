@@ -421,7 +421,7 @@ bool ModuleGOManager::LoadSceneNow()
 			pugi::xml_node root;
 
 			pugi::xml_parse_result result = data.load_buffer(buffer, size);
-			RELEASE(buffer);
+			RELEASE_ARRAY(buffer);
 
 			if (result != 0)
 			{
