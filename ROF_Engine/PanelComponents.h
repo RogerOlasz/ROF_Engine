@@ -26,9 +26,10 @@ public:
 
 	void CheckTransformation(GameObject* selected_go);
 
-private:
+public:
 	GameObject* last_go = nullptr;
 
+private:
 	vec pos = vec::zero;
 	vec sca = vec::zero;
 	vec rot = vec::zero;

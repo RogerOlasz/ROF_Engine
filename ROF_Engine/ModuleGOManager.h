@@ -28,6 +28,8 @@ public:
 	void DoOctTree();
 	void ShowAABB(bool showing);
 
+	OctTree* GetOctree();
+
 	void CameraCulling();
 	void OctTreeCulling();
 	void AddCameraCulling(ComponentCamera* cam, bool culling);

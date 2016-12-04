@@ -43,9 +43,8 @@ public:
 	
 private:
 	std::map<Uint32, Resource*> resources;
-
-public:
 	Uint32 next_id = 0;
+
 };
 
 #endif // !__MOUDLERESOURCEMANAGER_H__

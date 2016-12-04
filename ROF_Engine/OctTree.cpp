@@ -19,9 +19,12 @@ OctTreeNode::~OctTreeNode()
 {
 	bucket.clear();
 
-	for (uint i = 0; i < 8; i++)
+	if (children[0])
 	{
-		children[i] = nullptr;
+		for (uint i = 0; i < 8; i++)
+		{
+			children[i] = nullptr;
+		}
 	}
 
 	belonging = nullptr;
@@ -213,8 +216,6 @@ OctTree::~OctTree()
 		RELEASE((*tmp));
 		tmp++;
 	}
-
-	RELEASE(root);
 }
 
 void OctTree::Clear()

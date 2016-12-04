@@ -36,6 +36,7 @@ public:
 	uint GetMaxFPS() const;
 
 	void SetSelectedGO(GameObject* go);
+	void SetLastGO(GameObject* go);
 
 	//File explorer (all related to file explorer is done by Ric)
 	bool FileDialog(const char* extension = nullptr, const char* from_folder = nullptr);

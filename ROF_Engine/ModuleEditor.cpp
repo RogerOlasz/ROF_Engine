@@ -264,6 +264,11 @@ void ModuleEditor::SetSelectedGO(GameObject* go)
 	Hierarchy->SetSelectedGO(go);
 }
 
+void ModuleEditor::SetLastGO(GameObject* go)
+{
+	Comp->last_go = go;
+}
+
 void ModuleEditor::LoadFile(const char* filter_extension, const char* from_dir)
 {
 	ImGui::OpenPopup(frame_name.c_str());

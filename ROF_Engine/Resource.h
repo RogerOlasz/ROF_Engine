@@ -7,6 +7,7 @@
 
 class Resource
 {
+private:
 	//To let Loaders use protected attributes (prefered to getters/setters)
 	friend class Component;
 	friend class MeshLoader;
@@ -20,7 +21,6 @@ public:
 		Mesh = 0,
 		Texture,
 		Material,
-		Prefab, // ?? prefab/scene
 	};
 
 	Resource(ResType type);

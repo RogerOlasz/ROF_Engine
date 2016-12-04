@@ -171,6 +171,11 @@ void ModuleGOManager::ShowAABB(bool showing)
 	}
 }
 
+OctTree* ModuleGOManager::GetOctree()
+{
+	return go_tree;
+}
+
 void ModuleGOManager::CameraCulling()
 {
 	//It works with preferences so if there are more than one camera the first one added will determine the culling
@@ -423,5 +428,6 @@ void ModuleGOManager::CleanScene()
 	gos_array.clear();
 	App->renderer3D->CleanToRender();
 	App->editor->SetSelectedGO(nullptr);
+	App->editor->SetLastGO(nullptr);
 	loaded_scene = false;
 }

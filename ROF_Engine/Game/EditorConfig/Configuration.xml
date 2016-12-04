@@ -6,11 +6,11 @@
 	<FileSystem />
 	<GOManager />
 	<Window>
-		<WindowSize X="1313" Y="963" />
+		<WindowSize X="1313" Y="1007" />
 	</Window>
 	<Camera3D>
-		<Position X="-119.055252" Y="64.8159866" Z="27.8436565" />
-		<Reference X="-89.7484589" Y="44.9357986" Z="17.4995651" />
+		<Position X="-21.2127533" Y="88.933197" Z="145.13945" />
+		<Reference X="-3.32306671" Y="68.3514481" Z="120.290611" />
 	</Camera3D>
 	<Input />
 	<Audio />

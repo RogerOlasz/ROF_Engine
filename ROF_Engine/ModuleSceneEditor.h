@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "Timer.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
 class Primitive;
@@ -18,10 +19,14 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void Picking();
+	void TreePicking();
+
 private:
 	LineSegment picking;
 	Plane_P grid;
 
+	Timer tester;
 };
 
 #endif // !__MODULESCENEEDITOR_H__
