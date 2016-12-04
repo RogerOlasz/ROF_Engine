@@ -81,23 +81,26 @@ update_status ModuleSceneEditor::Update(float dt)
 
 			tmp.Transform(go->transform->GetGlobalMatrix().Inverted());
 
-			for (uint i = 0; i < ((ResourceMesh*)mesh->GetResource())->num_indices; i+=3)
+			if (mesh)
 			{
-				vec vertex_1 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i]];
-				vec vertex_2 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 1]];
-				vec vertex_3 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 2]];
-
-				Triangle to_test(vertex_1, vertex_2, vertex_3);
-				float hit_distance = 0;
-				vec hit_point = vec::zero;
-
-				if (to_test.Intersects(tmp, &hit_distance, &hit_point))
+				for (uint i = 0; i < ((ResourceMesh*)mesh->GetResource())->num_indices; i += 3)
 				{
-					if (hit_distance < min_dist)
+					vec vertex_1 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i]];
+					vec vertex_2 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 1]];
+					vec vertex_3 = ((ResourceMesh*)mesh->GetResource())->vertices[((ResourceMesh*)mesh->GetResource())->indices[i + 2]];
+
+					Triangle to_test(vertex_1, vertex_2, vertex_3);
+					float hit_distance = 0;
+					vec hit_point = vec::zero;
+
+					if (to_test.Intersects(tmp, &hit_distance, &hit_point))
 					{
-						picked = go;
-						min_dist = hit_distance;
-					}					
+						if (hit_distance < min_dist)
+						{
+							picked = go;
+							min_dist = hit_distance;
+						}
+					}
 				}
 			}
 		}

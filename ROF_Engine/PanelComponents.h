@@ -24,6 +24,8 @@ public:
 	void DrawMaterial(ComponentMaterial* go_material, GameObject* go_selected);
 	void DrawCamera(ComponentCamera* go_camera, GameObject* go_selected);
 
+	void CheckTransformation(GameObject* selected_go);
+
 private:
 	GameObject* last_go = nullptr;
 

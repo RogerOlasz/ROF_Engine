@@ -28,7 +28,7 @@ ComponentMesh::ComponentMesh(GameObject* bearer, int id) : Component(bearer, Typ
 
 ComponentMesh::~ComponentMesh()
 {
-	
+	UnsetResource(resource);
 }
 
 void ComponentMesh::OnSave(pugi::xml_node &scene)

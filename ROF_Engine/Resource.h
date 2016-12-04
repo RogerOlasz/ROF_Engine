@@ -7,7 +7,8 @@
 
 class Resource
 {
-	//To let Loaders use protected attributes
+	//To let Loaders use protected attributes (prefered to getters/setters)
+	friend class Component;
 	friend class MeshLoader;
 	friend class MaterialLoader;
 	friend class TextureLoader;
@@ -39,6 +40,8 @@ public:
 protected:
 	Uint32 ID;
 	ResType type;
+
+	uint on_use = 0;
 
 	bool loaded_on_memory = false;
 

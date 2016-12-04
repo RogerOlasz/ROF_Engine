@@ -112,13 +112,7 @@ void PanelComponents::Draw(GameObject* selected_go)
 			ImGui::End();
 		}
 
-		//If actual game object is diferent of last one it must to set transformation
-		if (last_go != selected_go || selected_go->static_go == true)
-		{
-			pos.Set(selected_go->transform->GetPosition().x, selected_go->transform->GetPosition().y, selected_go->transform->GetPosition().z);
-			sca.Set(selected_go->transform->GetScale().x, selected_go->transform->GetScale().y, selected_go->transform->GetScale().z);
-			rot.Set(selected_go->transform->GetRotation().x, selected_go->transform->GetRotation().y, selected_go->transform->GetRotation().z);
-		}
+		CheckTransformation(selected_go);
 
 		DrawTransformation(selected_go->transform, selected_go);
 
@@ -316,5 +310,16 @@ void PanelComponents::DrawCamera(ComponentCamera* go_camera, GameObject* go_sele
 				App->renderer3D->update_proj_matrix = true;
 			}
 		}
+	}
+}
+
+void PanelComponents::CheckTransformation(GameObject* selected_go)
+{
+	//If actual game object is diferent of last one it must update transformation
+	if (last_go != selected_go || selected_go->static_go == true)
+	{
+		pos.Set(selected_go->transform->GetPosition().x, selected_go->transform->GetPosition().y, selected_go->transform->GetPosition().z);
+		sca.Set(selected_go->transform->GetScale().x, selected_go->transform->GetScale().y, selected_go->transform->GetScale().z);
+		rot.Set(selected_go->transform->GetRotation().x, selected_go->transform->GetRotation().y, selected_go->transform->GetRotation().z);
 	}
 }

@@ -12,7 +12,10 @@ ResourceMesh::ResourceMesh() : Resource(ResType::Mesh)
 
 ResourceMesh::~ResourceMesh()
 {
-
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(tex_coord);
+	RELEASE_ARRAY(normals);
+	RELEASE_ARRAY(indices);
 }
 
 void ResourceMesh::CreateAABB()

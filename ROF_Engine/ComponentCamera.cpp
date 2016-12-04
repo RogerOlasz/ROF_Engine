@@ -24,7 +24,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 
 ComponentCamera::~ComponentCamera()
 {
-
+	UnsetResource(resource);
 }
 
 void ComponentCamera::Update()

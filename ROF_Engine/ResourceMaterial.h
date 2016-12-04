@@ -13,6 +13,9 @@ public:
 	ResourceMaterial();
 	~ResourceMaterial();
 
+	void LoadOnMemory() override;
+	void UnloadFromMemory() override;
+
 public:
 	bool have_texture = false;
 	ResourceTexture* texture = nullptr;

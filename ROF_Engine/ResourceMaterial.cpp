@@ -10,3 +10,13 @@ ResourceMaterial::~ResourceMaterial()
 {
 
 }
+
+void ResourceMaterial::LoadOnMemory()
+{
+
+}
+
+void ResourceMaterial::UnloadFromMemory()
+{
+
+}

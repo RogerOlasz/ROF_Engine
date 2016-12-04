@@ -48,8 +48,8 @@ private:
 
 	OctTree* go_tree = nullptr;
 
-	std::string load_scene = "";
-	std::string save_scene = "";
+	std::string load_scene = "Assets/TemporalScene.xml";
+	std::string save_scene = "Assets/TemporalScene.xml";
 
 	bool loaded_scene = false;
 

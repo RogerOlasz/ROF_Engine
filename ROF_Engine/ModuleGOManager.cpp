@@ -51,10 +51,10 @@ update_status ModuleGOManager::PreUpdate(float dt)
 
 update_status ModuleGOManager::Update(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
 		DoOctTree();
-	}*/
+	}
 
 	root->Update();
 
@@ -327,12 +327,12 @@ void ModuleGOManager::SetParent(GameObject* me, GameObject* new_parent)
 
 void ModuleGOManager::LoadScene(const char* file)
 {
-	load_scene.assign(file);
+	load_scene = file;
 }
 
 void ModuleGOManager::SaveScene(const char* file)
 {
-	save_scene.assign(file);
+	save_scene = file;
 }
 
 bool ModuleGOManager::LoadSceneNow()

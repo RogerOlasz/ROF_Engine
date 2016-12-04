@@ -66,6 +66,7 @@ Resource* ModuleResourceManager::LoadResource(Uint32 ID, Resource::ResType type)
 			if (((ResourceMaterial*)it->second)->resource_texture_id != 0)
 			{
 				((ResourceMaterial*)it->second)->texture = (ResourceTexture*)GetResource(((ResourceMaterial*)it->second)->resource_texture_id);
+				((ResourceMaterial*)it->second)->texture->on_use++;
 				if (!((ResourceMaterial*)it->second)->texture->IsOnMemory())
 				{
 					((ResourceMaterial*)it->second)->texture->LoadOnMemory();

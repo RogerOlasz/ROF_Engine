@@ -137,7 +137,7 @@ bool MeshLoader::MeshToOwnFormat(ResourceMesh* r_mesh)
 		ret = true;
 	}
 
-	RELEASE(data);
+	RELEASE_ARRAY(data);
 
 	return ret;
 }
@@ -197,7 +197,7 @@ ResourceMesh* MeshLoader::MeshLoad(Uint32 ID)
 		r_mesh->CreateAABB();
 		r_mesh->resource_file = path;
 
-		RELEASE(buffer);
+		RELEASE_ARRAY(buffer);
 	}
 
 	return r_mesh;

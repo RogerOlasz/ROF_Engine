@@ -9,7 +9,7 @@ Component::Component(GameObject* bearer, Component::Type type, int id) : game_ob
 
 Component::~Component()
 {
-	resource = nullptr;
+
 }
 
 bool Component::IsActive() const
@@ -35,4 +35,14 @@ const Resource* Component::GetResource() const
 void Component::SetResource(Resource* resource)
 {
 	this->resource = resource;
+	this->resource->on_use++;
+}
+
+void Component::UnsetResource(Resource* resource)
+{
+	if (resource)
+	{
+		resource->on_use--;
+		resource = nullptr;
+	}
 }
