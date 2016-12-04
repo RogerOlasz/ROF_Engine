@@ -71,6 +71,10 @@ update_status ModuleEditor::Update(float dt)
 			{
 				return UPDATE_STOP;
 			}
+			if (ImGui::MenuItem("New Scene..."))
+			{
+				App->go_manager->CleanScene();
+			}
 			if (ImGui::MenuItem("Load Scene...", nullptr, &file_explorer))
 			{
 				loading_scene = true;

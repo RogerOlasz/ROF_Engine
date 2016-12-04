@@ -162,7 +162,7 @@ void ModuleSceneImporter::LoadGameObjectFromFBX(const char* file_path, const aiN
 					ret->CreateComponent(Component::Type::Material)->SetResource(r_mat);
 
 					App->res_manager->LoadResource(r_mesh->GetID(), Resource::ResType::Mesh);
-					App->res_manager->LoadResource(r_mat->texture->GetID(), Resource::ResType::Texture);
+					App->res_manager->LoadResource(r_mat->GetID(), Resource::ResType::Material);
 				}
 			}
 			else

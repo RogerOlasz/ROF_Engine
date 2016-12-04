@@ -38,8 +38,7 @@ public:
 	const Resource* GetResource() const;
 
 	void SetResource(Resource* resource);
-	void UnsetResource(Resource* resource);
-	
+	void UnsetResource(Resource* resource);	
 
 private:
 	Type type = Type::Unknown;

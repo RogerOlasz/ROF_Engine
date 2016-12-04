@@ -18,7 +18,7 @@ ComponentMaterial::ComponentMaterial(GameObject* bearer, int id) : Component(bea
 
 ComponentMaterial::~ComponentMaterial()
 {
-	UnsetResource(resource);
+	//UnsetResource(resource);
 }
 
 void ComponentMaterial::OnSave(pugi::xml_node &scene)
@@ -35,8 +35,4 @@ void ComponentMaterial::OnSave(pugi::xml_node &scene)
 void ComponentMaterial::OnLoad(pugi::xml_node &scene)
 {
 	SetResource(App->res_manager->LoadResource(scene.child("Material").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Material));
-	if (((ResourceMaterial*)resource)->have_texture)
-	{
-		((ResourceMaterial*)resource)->texture = (ResourceTexture*)App->res_manager->GetResource(((ResourceMaterial*)resource)->resource_texture_id);
-	}
 }

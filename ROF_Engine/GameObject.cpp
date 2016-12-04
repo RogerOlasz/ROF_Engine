@@ -278,14 +278,6 @@ bool GameObject::Save(pugi::xml_node &scene)
 		comp++;
 	}
 
-	/*if (this->GetComponentByType(Component::Type::Camera))
-	{
-		tmp_node_2 = tmp_node.append_child("Camera");
-		tmp_node_2 = tmp_node.append_child("Type");
-		tmp_node_2.append_attribute("Value") = this->GetComponentByType(Component::Type::Camera)->GetType();
-		tmp_node_2 = tmp_node;
-	}	*/
-
 	return true;
 }
 
@@ -311,6 +303,11 @@ bool GameObject::Load(pugi::xml_node &scene, std::map<Uint32, GameObject*> &tmp)
 	if (scene.child("Material"))
 	{
 		CreateComponent(Component::Type::Material)->OnLoad(scene);
+	}
+
+	if (scene.child("Camera"))
+	{
+		CreateComponent(Component::Type::Camera)->OnLoad(scene);
 	}
 	scene = scene.parent();
 

@@ -3,10 +3,6 @@
 
 #include "Globals.h"
 #include "Component.h"
-#include "Color.h"
-#include <string>
-
-struct aiMaterial;
 
 class ComponentMaterial : public Component
 {

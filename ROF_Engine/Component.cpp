@@ -40,6 +40,7 @@ void Component::SetResource(Resource* resource)
 
 void Component::UnsetResource(Resource* resource)
 {
+	//Sometimes recive from some c mesh a wrong pointer and crashes
 	if (resource)
 	{
 		resource->on_use--;

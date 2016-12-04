@@ -14,6 +14,9 @@ public:
 
 	void Update();
 
+	void OnSave(pugi::xml_node&);
+	void OnLoad(pugi::xml_node&);
+
 	void LookAt(const vec &position);
 
 	const float* GetViewMatrix() const;

@@ -23,6 +23,7 @@ ComponentTransformation::ComponentTransformation(GameObject* bearer, int id) : C
 
 ComponentTransformation::~ComponentTransformation()
 {
+
 }
 
 void ComponentTransformation::BuildTransMatrix()

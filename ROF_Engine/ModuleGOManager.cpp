@@ -341,16 +341,7 @@ bool ModuleGOManager::LoadSceneNow()
 
 	if (loaded_scene == true)
 	{		
-		std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
-		while (tmp != gos_array.rend())
-		{
-			RELEASE((*tmp));
-			tmp++;
-		}
-		gos_array.clear();
-		App->renderer3D->CleanToRender();
-		App->editor->SetSelectedGO(nullptr);
-		loaded_scene = false;
+		CleanScene();
 	}
 
 	if (loaded_scene == false)
@@ -423,5 +414,14 @@ bool ModuleGOManager::SaveSceneNow()
 
 void ModuleGOManager::CleanScene()
 {
-
+	std::vector<GameObject*>::reverse_iterator tmp = gos_array.rbegin();
+	while (tmp != gos_array.rend())
+	{
+		RELEASE((*tmp));
+		tmp++;
+	}
+	gos_array.clear();
+	App->renderer3D->CleanToRender();
+	App->editor->SetSelectedGO(nullptr);
+	loaded_scene = false;
 }

@@ -24,7 +24,7 @@ ComponentCamera::ComponentCamera(GameObject* bearer, int id) : Component(bearer,
 
 ComponentCamera::~ComponentCamera()
 {
-	UnsetResource(resource);
+
 }
 
 void ComponentCamera::Update()
@@ -34,6 +34,32 @@ void ComponentCamera::Update()
 	{
 		DebugDraw(camera_frustum, Blue);
 	}	
+}
+
+void ComponentCamera::OnSave(pugi::xml_node &scene)
+{
+	scene = scene.append_child("Camera");
+
+	scene.append_child("Type").append_attribute("Value") = this->GetType();
+
+	scene.append_child("NearPlane").append_attribute("Value") = this->GetNearPlane();
+	scene.append_child("FarPlane").append_attribute("Value") = this->GetFarPlane();
+	scene.append_child("FieldOfView").append_attribute("Value") = this->GetFOV();
+	scene.append_child("AspectRatio").append_attribute("Value") = this->GetAspectRatio();
+
+	scene = scene.parent();
+}
+
+void ComponentCamera::OnLoad(pugi::xml_node &scene)
+{
+	scene = scene.child("Camera");
+
+	SetNearPlane(scene.child("NearPlane").attribute("Value").as_float());
+	SetFarPlane(scene.child("FarPlane").attribute("Value").as_float());
+	SetFOV(scene.child("FieldOfView").attribute("Value").as_float());
+	SetAspectRatio(scene.child("AspectRatio").attribute("Value").as_float());
+
+	scene = scene.parent();
 }
 
 void ComponentCamera::LookAt(const vec &position)
