@@ -22,6 +22,9 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	void DeleteGO(GameObject* go);
+	void RemoveFromArray(GameObject* go);
+
 	GameObject* GetRootNode() const;
 	GameObject* CreateGameObject(const char* name, GameObject* parent);
 

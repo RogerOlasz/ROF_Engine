@@ -36,6 +36,7 @@ public:
 	ComponentCamera* GetRenderingCamera();
 
 	void AddGOToRender(RenderComp* go_to_render);
+	void DeleteGOToRender(RenderComp* go_to_delete);
 	void CleanToRender();
 	void DrawMesh(const ResourceMesh* mesh, ResourceMaterial* material, ResourceTexture* texture, bool wireframe = false);
 

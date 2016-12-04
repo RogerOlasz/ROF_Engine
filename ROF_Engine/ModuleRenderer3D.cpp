@@ -226,6 +226,21 @@ void ModuleRenderer3D::AddGOToRender(RenderComp* go_to_render)
 	to_render.push_back(go_to_render);
 }
 
+void ModuleRenderer3D::DeleteGOToRender(RenderComp* go_to_delete)
+{
+	std::vector<RenderComp*>::iterator tmp = to_render.begin();
+	while (tmp != to_render.end())
+	{
+		if ((*tmp) == go_to_delete)
+		{
+			to_render.erase(tmp);
+			return;
+		}
+
+		tmp++;
+	}
+}
+
 void ModuleRenderer3D::CleanToRender()
 {
 	to_render.clear();

@@ -56,8 +56,8 @@ private:
 
 	std::vector<Panel*> panels;
 
-	uint camera_id;
-	std::string camera_name;
+	uint go_id;
+	std::string go_name;
 
 	bool aabb_debug = false;
 	bool octtree_debug = false;

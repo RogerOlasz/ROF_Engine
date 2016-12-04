@@ -9,6 +9,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleGOManager.h"
+#include "ModuleEditor.h"
 #include "ResourceMesh.h"
 #include "ResourceMaterial.h"
 #include "ResourceTexture.h"
@@ -58,6 +59,14 @@ void PanelComponents::Draw(GameObject* selected_go)
 
 		if (ImGui::BeginMenu("Add component"))
 		{
+			/*if (ImGui::MenuItem("Mesh"))
+			{
+				selected_go->CreateComponent(Component::Type::Geometry);
+			}
+			if (ImGui::MenuItem("Material"))
+			{
+				selected_go->CreateComponent(Component::Type::Material);
+			}*/
 			if (ImGui::MenuItem("Camera"))
 			{
 				selected_go->CreateComponent(Component::Type::Camera);
@@ -66,6 +75,22 @@ void PanelComponents::Draw(GameObject* selected_go)
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::Button("Delete"))
+		{
+			if (selected_go->children.empty())
+			{
+				App->go_manager->DeleteGO(selected_go);
+				App->editor->SetSelectedGO(nullptr);
+				last_go = nullptr;
+				ImGui::End();
+				return;
+			}
+			else
+			{
+				LOG("Still have bugs, you can't delete a game object with children, just... delete one by one? :D");
+			}
+		}
+		ImGui::SameLine();
 		if (ImGui::Button("Center view"))
 		{
 			App->camera->LookAt(selected_go->transform->GetPosition());

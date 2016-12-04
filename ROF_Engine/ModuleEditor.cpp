@@ -43,7 +43,7 @@ bool ModuleEditor::Init()
 	panels.push_back(Comp = new PanelComponents);
 	panels.push_back(TimeControl = new PanelTimeControl);
 
-	camera_id = 0;
+	go_id = 0;
 
 	return true;
 }
@@ -51,11 +51,6 @@ bool ModuleEditor::Init()
 update_status ModuleEditor::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
-	
-	//TODO so temporal, is horrible have this here...
-	char tmp[SHORT_STRING];
-	sprintf(tmp, "Camera%d", camera_id);
-	camera_name = tmp;
 
 	return UPDATE_CONTINUE;
 }
@@ -71,7 +66,7 @@ update_status ModuleEditor::Update(float dt)
 			{
 				return UPDATE_STOP;
 			}
-			if (ImGui::MenuItem("New Scene..."))
+			if (ImGui::MenuItem("New Scene"))
 			{
 				App->go_manager->CleanScene();
 			}
@@ -91,12 +86,14 @@ update_status ModuleEditor::Update(float dt)
 
 		if (ImGui::BeginMenu("Edit"))
 		{
-			if (ImGui::MenuItem("Create Camera"))
+			if (ImGui::MenuItem("Create GameObject"))
 			{
-				GameObject* tmp_go;
-				tmp_go = App->go_manager->CreateGameObject(camera_name.c_str(), nullptr);
-				tmp_go->CreateComponent(Component::Type::Camera);
-				camera_id++;
+				char tmp[SHORT_STRING];
+				sprintf(tmp, "GameObject%d", go_id);
+				go_name = tmp;
+
+				App->go_manager->CreateGameObject(go_name.c_str(), nullptr);
+				go_id++;
 			}
 			ImGui::EndMenu();
 		}

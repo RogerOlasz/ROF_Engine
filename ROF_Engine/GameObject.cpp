@@ -32,26 +32,29 @@ GameObject::~GameObject()
 		}
 	}
 
-	if (children.size() != 0)
-	{
-		std::vector<GameObject*>::iterator it = children.begin();
-		while (it != children.end() && children.size() > 0)
-		{
-			RELEASE((*it));
-
-			if (children.size() > 0)
-			{
-				it = children.begin();
-			}
-		}
-	}
-
 	std::vector<Component*>::iterator comp = components.begin();
 	while (comp != components.end())
 	{
 		RELEASE(*comp);
 		comp++;
 	}
+	components.clear();
+
+	if (children.size() > 0)
+	{
+		std::vector<GameObject*>::iterator it = children.begin();
+		while (it != children.end() && children.size() > 0)
+		{
+			RELEASE(*it);
+
+			if (children.size() > 0)
+			{
+				it = children.begin();
+			}
+		}
+	 children.clear();
+	}
+	
 
 	RELEASE(transform);
 	RELEASE(render_c);

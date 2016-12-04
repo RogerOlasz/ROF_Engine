@@ -97,6 +97,47 @@ update_status ModuleGOManager::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleGOManager::DeleteGO(GameObject* go)
+{
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		if ((*tmp) == go)
+		{
+			if (go->children.size() != 0)
+			{
+				std::vector<GameObject*>::iterator it = go->children.begin();
+				while (it != go->children.end())
+				{					
+					GameObject* child = (*it);					
+					App->renderer3D->DeleteGOToRender(child->render_c);
+					RemoveFromArray(child);
+					it++;
+				}
+			}			
+			gos_array.erase(tmp);
+			App->renderer3D->DeleteGOToRender(go->render_c);
+			RELEASE(go);
+			return;
+		}
+		tmp++;
+	}
+}
+
+void ModuleGOManager::RemoveFromArray(GameObject* go)
+{
+	std::vector<GameObject*>::iterator tmp = gos_array.begin();
+	while (tmp != gos_array.end())
+	{
+		if ((*tmp) == go)
+		{
+			gos_array.erase(tmp);
+			break;
+		}
+		tmp++;
+	}
+}
+
 // Called before quitting
 bool ModuleGOManager::CleanUp()
 {
