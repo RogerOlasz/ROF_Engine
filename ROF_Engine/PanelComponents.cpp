@@ -262,12 +262,14 @@ void PanelComponents::DrawMaterial(ComponentMaterial* go_material, GameObject* g
 		if (ImGui::BeginPopupContextItem("Change material color"))
 		{
 			ImGui::Text("Edit color");
-			if (ImGui::ColorEdit3("##edit", (float*)&color))
+			if (ImGui::ColorEdit4("##edit", (float*)&color))
 			{
-				((ResourceMaterial*)go_material->GetResource())->diffuse_color.Set(color.x, color.y, color.z);
+				((ResourceMaterial*)go_material->GetResource())->diffuse_color.Set(color.x, color.y, color.z, color.w);
 			}
 			ImGui::EndPopup();
 		}
+		alpha_test = ((ResourceMaterial*)go_material->GetResource())->alpha_test;
+		ImGui::Checkbox("Alpha test", &alpha_test);
 	}
 }
 

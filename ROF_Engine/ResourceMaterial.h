@@ -18,6 +18,8 @@ public:
 
 public:
 	bool have_texture = false;
+	bool alpha_test = false;
+	float alpha_float = 0.0f;
 	ResourceTexture* texture = nullptr;
 	Uint32 resource_texture_id = 0;
 	Color diffuse_color = White;

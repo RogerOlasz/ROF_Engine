@@ -41,6 +41,8 @@ private:
 
 	bool render_camera = false;
 	bool static_ask = false;
+
+	bool alpha_test = false;
 };
 
 #endif // !__PANELCOMPONENTS_H__

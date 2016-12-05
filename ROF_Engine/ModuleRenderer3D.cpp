@@ -108,6 +108,13 @@ bool ModuleRenderer3D::Init()
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
+
+		lights[1].ref = GL_LIGHT0;
+
+		lights[1].ambient.Set(0.6f, 0.6f, 0.6f, 1.0f);
+		lights[1].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+		lights[1].SetPos(0.0f, 100.0f, 0.0f);
+		lights[1].Init();
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
@@ -119,6 +126,7 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		lights[0].Active(true);
+		lights[1].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 	}
@@ -162,6 +170,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->GetCamera()->GetPos().x, App->camera->GetCamera()->GetPos().y, App->camera->GetCamera()->GetPos().z);
 	lights[0].Render();
+	lights[1].Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -319,6 +328,11 @@ void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ResourceMaterial* mate
 				{
 					if (texture->id_texture != 0)
 					{
+						if (material->alpha_test)
+						{
+							glEnable(GL_ALPHA_TEST);
+							glAlphaFunc(GL_GREATER, material->alpha_float);
+						}
 						glBindTexture(GL_TEXTURE_2D, texture->id_texture);
 					}
 				}
@@ -335,5 +349,10 @@ void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ResourceMaterial* mate
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+		if (material->alpha_test)
+		{
+			glDisable(GL_ALPHA_TEST);
+		}
 	}
 }
