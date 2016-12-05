@@ -111,7 +111,7 @@ bool ModuleRenderer3D::Init()
 
 		lights[1].ref = GL_LIGHT0;
 
-		lights[1].ambient.Set(0.6f, 0.6f, 0.6f, 1.0f);
+		lights[1].ambient.Set(0.5f, 0.5f, 0.5f, 1.0f);
 		lights[1].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[1].SetPos(0.0f, 100.0f, 0.0f);
 		lights[1].Init();
@@ -319,9 +319,8 @@ void ModuleRenderer3D::DrawMesh(const ResourceMesh* mesh, ResourceMaterial* mate
 			glColor3f(1.0f, 1.0f, 1.0f);
 		}	
 		
-		//If mesh have any material...
 		if (material)
-		{		//If mesh have UV coords...
+		{	
 			if (mesh->num_tex_coord > 0)
 			{
 				if (texture)
