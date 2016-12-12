@@ -130,6 +130,7 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 	}
+
 	camera = App->camera->GetCamera();
 
 	// Projection matrix for

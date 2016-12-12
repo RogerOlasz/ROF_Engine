@@ -34,7 +34,7 @@ public:
 	bool IsDirectory(const char *dir) const;
 	bool Exists(const char *file) const;
 
-	aiFileIO * ModuleFileSystem::GetAssimpIO();
+	aiFileIO* ModuleFileSystem::GetAssimpIO();
 
 private:
 	aiFileIO* AssimpIO = nullptr;

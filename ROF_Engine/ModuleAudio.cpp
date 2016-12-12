@@ -20,6 +20,7 @@ bool ModuleAudio::Init()
 {
 	LOG("Loading Audio Mixer");
 	bool ret = true;
+
 	SDL_Init(0);
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
