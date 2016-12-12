@@ -120,16 +120,19 @@ void ModuleGOManager::DeleteGO(GameObject* go)
 			std::vector<Component*>::iterator comp = go->components.begin();
 			while (comp != go->components.end())
 			{
-				(*comp)->UpdateResourceInfo();
-				if ((*comp)->GetResourceOnUse() == 0)
+				if ((*comp)->using_resource)
 				{
-					if ((*comp)->GetResource()->IsOnMemory())
+					(*comp)->UpdateResourceInfo();
+					if ((*comp)->GetResourceOnUse() == 0)
 					{
-						(*comp)->GetResource()->UnloadFromMemory();
-
-						if ((*comp)->GetResource()->GetType() == Resource::ResType::Material)
+						if ((*comp)->GetResource()->IsOnMemory())
 						{
-							((ResourceMaterial*)(*comp)->GetResource())->texture->UnloadFromMemory();
+							(*comp)->GetResource()->UnloadFromMemory();
+
+							if ((*comp)->GetResource()->GetType() == Resource::ResType::Material)
+							{
+								((ResourceMaterial*)(*comp)->GetResource())->texture->UnloadFromMemory();
+							}
 						}
 					}
 				}

@@ -44,4 +44,5 @@ void ComponentMaterial::UpdateResourceInfo()
 	{
 		((ResourceMaterial*)resource)->texture->on_use--;
 	}
+	using_resource = false;
 }

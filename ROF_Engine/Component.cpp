@@ -44,6 +44,7 @@ void Component::SetResource(Resource* resource)
 {
 	this->resource = resource;
 	this->resource->on_use++;
+	using_resource = true;
 }
 
 void Component::UnsetResource(Resource* resource)

@@ -22,6 +22,7 @@ public:
 
 	std::string name;
 	bool active = false;
+	bool using_resource = false;
 
 public:
 	Component(GameObject* bearer, Type type, int id);

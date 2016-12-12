@@ -43,12 +43,13 @@ void ComponentMesh::OnSave(pugi::xml_node &scene)
 
 void ComponentMesh::OnLoad(pugi::xml_node &scene)
 {
-	resource = App->res_manager->LoadResource(scene.child("Mesh").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Mesh);
+	SetResource(App->res_manager->LoadResource(scene.child("Mesh").child("ResourceID").attribute("Value").as_ullong(), Resource::ResType::Mesh));
 }
 
 void ComponentMesh::UpdateResourceInfo()
 {
 	resource->on_use--;
+	using_resource = false;
 }
 
 void ComponentMesh::Update()
