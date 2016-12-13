@@ -363,7 +363,7 @@ void ModuleFileSystem::CreateAssimpIO()
 	AssimpIO->CloseProc = AssimpClose;
 }
 
-aiFileIO * ModuleFileSystem::GetAssimpIO()
+aiFileIO* ModuleFileSystem::GetAssimpIO()
 {
 	return AssimpIO;
 }

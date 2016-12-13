@@ -2,12 +2,9 @@
 #define __MODULEAUDIO_H__
 
 #include "Module.h"
-#include "SDL_mixer/include/SDL_mixer.h"
 
 #include <AK/SoundEngine/Common/AkSoundEngine.h>
 #include <AK/IBytes.h>
-
-#define DEFAULT_MUSIC_FADE_TIME 2.0f
 
 class ModuleAudio : public Module
 {
@@ -19,19 +16,14 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	// Play a music file
-	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
+	void* ModuleAudio::AllocHook(size_t in_size);
+	void ModuleAudio::FreeHook(void* in_ptr);
 
-	// Load a WAV in memory
-	unsigned int LoadFx(const char* path);
-
-	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	void* ModuleAudio::VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect);
+	void ModuleAudio::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType);
 
 private:
 
-	Mix_Music*			music;
-	std::list<Mix_Chunk*>	fx;
 };
 
 #endif // !__MODULEAUDIO_H__

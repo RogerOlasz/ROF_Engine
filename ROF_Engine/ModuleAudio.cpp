@@ -2,11 +2,10 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
-#pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
+#include <AK/SoundEngine/Common/AkMemoryMgr.h> // Memory Manager
+#include <AK/SoundEngine/Common/AkModule.h>    // Default memory and stream managers
 
-using namespace std;
-
-ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled), music(NULL)
+ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("Audio");
 }
@@ -18,33 +17,17 @@ ModuleAudio::~ModuleAudio()
 // Called before render is available
 bool ModuleAudio::Init()
 {
-	LOG("Loading Audio Mixer");
+	LOG("Loading Audio Engine");
 	bool ret = true;
 
-	SDL_Init(0);
+	AkMemSettings memory_settings;
+	memory_settings.uMaxNumPools = 20;
 
-	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
+	/*if (AK::MemoryMgr::Init(&memory_settings) != AK_Success)
 	{
-		LOG("[error] SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
+		LOG("Could not create the audio memory manager.");
 		ret = false;
-	}
-
-	// load support for the OGG format
-	int flags = MIX_INIT_OGG;
-	int init = Mix_Init(flags);
-
-	if((init & flags) != flags)
-	{
-		LOG("[error] Could not initialize Mixer lib. Mix_Init: %s", Mix_GetError());
-		ret = false;
-	}
-
-	//Initialize SDL_mixer
-	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
-	{
-		LOG("[error] SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
-		ret = false;
-	}
+	}*/
 
 	return ret;
 }
@@ -54,111 +37,27 @@ bool ModuleAudio::CleanUp()
 {
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if(music != NULL)
-	{
-		Mix_FreeMusic(music);
-	}
 
-	list<Mix_Chunk*>::iterator item = fx.begin();
 
-	while(item != fx.end())
-	{
-		Mix_FreeChunk(*item);
-		++item;
-	}
-
-	fx.clear();
-	Mix_CloseAudio();
-	Mix_Quit();
-	SDL_QuitSubSystem(SDL_INIT_AUDIO);
 	return true;
 }
 
-// Play a music file
-bool ModuleAudio::PlayMusic(const char* path, float fade_time)
+void* ModuleAudio::AllocHook(size_t in_size)
 {
-	bool ret = true;
-	
-	if(music != NULL)
-	{
-		if(fade_time > 0.0f)
-		{
-			Mix_FadeOutMusic((int) (fade_time * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
-
-		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
-	}
-
-	music = Mix_LoadMUS(path);
-
-	if(music == NULL)
-	{
-		LOG("[error] Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-		ret = false;
-	}
-	else
-	{
-		if(fade_time > 0.0f)
-		{
-			if(Mix_FadeInMusic(music, -1, (int) (fade_time * 1000.0f)) < 0)
-			{
-				LOG("[error] Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-		else
-		{
-			if(Mix_PlayMusic(music, -1) < 0)
-			{
-				LOG("[error] Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
-			}
-		}
-	}
-
-	LOG("Successfully playing %s", path);
-	return ret;
+	return malloc(in_size);
 }
 
-// Load WAV
-unsigned int ModuleAudio::LoadFx(const char* path)
+void ModuleAudio::FreeHook(void* in_ptr)
 {
-	unsigned int ret = 0;
-
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
-
-	if(chunk == NULL)
-	{
-		LOG("[error] Cannot load wav %s. Mix_GetError(): %s", path, Mix_GetError());
-	}
-	else
-	{
-		fx.push_back(chunk);
-		ret = fx.size();
-	}
-
-	return ret;
+	free(in_ptr);
 }
 
-// Play WAV
-bool ModuleAudio::PlayFx(unsigned int id, int repeat)
+void* ModuleAudio::VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect)
 {
-	bool ret = false;
+	return VirtualAlloc(in_pMemAddress, in_size, in_dwAllocationType, in_dwProtect);
+}
 
-	list<Mix_Chunk*>::iterator chunk = fx.begin();
-
-	advance(chunk, id - 1);
-	
-	if(chunk != fx.end())
-	{
-		Mix_PlayChannel(-1, *chunk, repeat);
-		ret = true;
-	}
-
-	return ret;
+void ModuleAudio::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType)
+{
+	VirtualFree(in_pMemAddress, in_size, in_dwFreeType);
 }
