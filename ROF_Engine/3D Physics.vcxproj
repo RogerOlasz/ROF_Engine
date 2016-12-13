@@ -47,7 +47,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>"$(WWISESDK)\include" </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"Wwise/SDK/Include/"</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,6 +64,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>"Wwise/SDK/Include/"</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
