@@ -29,9 +29,9 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 private:
-
 	Mix_Music*			music;
 	std::list<Mix_Chunk*>	fx;
+
 };
 
 #endif // !__MODULEAUDIO_H__

@@ -6,7 +6,7 @@
 	<FileSystem />
 	<GOManager />
 	<Window>
-		<WindowSize X="1274" Y="1002" />
+		<WindowSize X="1274" Y="841" />
 	</Window>
 	<Camera3D>
 		<Position X="36.8239632" Y="36.8664474" Z="54.0516701" />
