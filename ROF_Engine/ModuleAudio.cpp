@@ -5,6 +5,19 @@
 #include <AK/SoundEngine/Common/AkMemoryMgr.h> // Memory Manager
 #include <AK/SoundEngine/Common/AkModule.h>    // Default memory and stream managers
 
+#ifdef _DEBUG
+#pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkSoundEngine.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkMemoryMgr.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkStreamMgr.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkMusicEngine.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/CommunicationCentral.lib")
+#else
+#pragma comment (lib, "Wwise/Win32(140)/Release(StaticCRT)/lib/AkSoundEngine.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Release(StaticCRT)/lib/AkMemoryMgr.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Release(StaticCRT)/lib/AkStreamMgr.lib")
+#pragma comment (lib, "Wwise/Win32(140)/Release(StaticCRT)/lib/AkMusicEngine.lib")
+#endif
+
 ModuleAudio::ModuleAudio(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name.assign("Audio");
