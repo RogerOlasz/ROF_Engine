@@ -49,6 +49,9 @@
     <Filter Include="Sources\Modules\Resources\Loaders">
       <UniqueIdentifier>{c9b6df6d-ecd0-4feb-818b-13bfa642e517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Libraries\Wwise">
+      <UniqueIdentifier>{8fea3fbb-810e-478c-9394-60b9d84a6ae4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">

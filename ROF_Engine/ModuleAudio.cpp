@@ -2,8 +2,11 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
-#include <AK/SoundEngine/Common/AkMemoryMgr.h> // Memory Manager
-#include <AK/SoundEngine/Common/AkModule.h>    // Default memory and stream managers
+#include <AK/SoundEngine/Common/AkMemoryMgr.h>  // Memory Manager
+#include <AK/SoundEngine/Common/AkModule.h>     // Default memory and stream managers
+#include <AK/SoundEngine/Common/IAkStreamMgr.h> // Streaming Manager
+#include <AK/Tools/Common/AkPlatformFuncs.h>    // Thread defines
+#include "Wwise/SDK/samples/SoundEngine/POSIX/AkFilePackageLowLevelIOBlocking.h" // Sample low-level I/O implementation
 
 #ifdef _DEBUG
 #pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkSoundEngine.lib")
@@ -33,14 +36,41 @@ bool ModuleAudio::Init()
 	LOG("Loading Audio Engine");
 	bool ret = true;
 
+	CAkFilePackageLowLevelIOBlocking low_level_IO;
+
 	AkMemSettings memory_settings;
 	memory_settings.uMaxNumPools = 20;
 
-	/*if (AK::MemoryMgr::Init(&memory_settings) != AK_Success)
+	if (AK::MemoryMgr::Init(&memory_settings) != AK_Success)
 	{
 		LOG("Could not create the audio memory manager.");
+		assert(!"Could not create the Streaming Manager");
 		ret = false;
-	}*/
+	}
+
+	AkStreamMgrSettings stream_Settings;
+	AK::StreamMgr::GetDefaultSettings(stream_Settings);
+
+	// Customize the Stream Manager settings here.
+
+	if (!AK::StreamMgr::Create(stream_Settings))
+	{
+		LOG("Could not create the Streaming Manager.");
+		assert(!"Could not create the Streaming Manager.");
+		ret = false;
+	}
+
+	AkDeviceSettings device_settings;
+	AK::StreamMgr::GetDefaultDeviceSettings(device_settings);
+
+	// Customize the streaming device settings here.
+
+	if (low_level_IO.Init(device_settings) != AK_Success)
+	{
+		LOG("Could not create the streaming device and Low-Level I/O system.");
+		assert(!"Could not create the streaming device and Low-Level I/O system.");
+		ret = false;
+	}
 
 	return ret;
 }
@@ -50,27 +80,52 @@ bool ModuleAudio::CleanUp()
 {
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-
-
 	return true;
 }
 
-void* ModuleAudio::AllocHook(size_t in_size)
+void* AK::AllocHook(size_t in_size)
 {
 	return malloc(in_size);
 }
 
-void ModuleAudio::FreeHook(void* in_ptr)
+void AK::FreeHook(void* in_ptr)
 {
 	free(in_ptr);
 }
 
-void* ModuleAudio::VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect)
+void* AK::VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect)
 {
 	return VirtualAlloc(in_pMemAddress, in_size, in_dwAllocationType, in_dwProtect);
 }
 
-void ModuleAudio::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType)
+void AK::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType)
 {
 	VirtualFree(in_pMemAddress, in_size, in_dwFreeType);
 }
+
+//namespace AK
+//{
+//#ifdef WIN32
+//
+//	void* AllocHook(size_t in_size)
+//	{
+//		return malloc(in_size);
+//	}
+//	
+//	void FreeHook(void* in_ptr)
+//	{
+//		free(in_ptr);
+//	}
+//	
+//	void* VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect)
+//	{
+//		return VirtualAlloc(in_pMemAddress, in_size, in_dwAllocationType, in_dwProtect);
+//	}
+//	
+//	void VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType)
+//	{
+//		VirtualFree(in_pMemAddress, in_size, in_dwFreeType);
+//	}
+//	
+//#endif
+//}

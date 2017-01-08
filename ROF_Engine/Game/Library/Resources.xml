@@ -1,4 +1,480 @@
 <?xml version="1.0"?>
 <Resources>
-	<NextID Value="0" />
+	<Resource>
+		<ID Value="0" />
+		<Name>City_building_004</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/0.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="1" />
+		<Name>City_building_004</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/1.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="2" />
+		<Name>building03_c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building03_c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/2.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="3" />
+		<Name>City_building_001</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/3.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="4" />
+		<Name>City_building_001</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/4.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="5" />
+		<Name>Building_V02_C</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/Building_V02_C.png</OriginalFile>
+		<ResourceFile>Library/Textures/5.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="6" />
+		<Name>City_building_007</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/6.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="7" />
+		<Name>City_building_007</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/7.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="8" />
+		<Name>building_016_c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building_016_c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/8.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="9" />
+		<Name>City_building_008</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/9.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="10" />
+		<Name>City_building_008</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/10.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="11" />
+		<Name>building_025_c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building_025_c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/11.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="12" />
+		<Name>Line002</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/12.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="13" />
+		<Name>Line002</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/13.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="14" />
+		<Name>Plane001</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/14.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="15" />
+		<Name>Plane001</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/15.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="17" />
+		<Name>City_building_010</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/17.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="18" />
+		<Name>City_building_010</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/18.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="19" />
+		<Name>building 01_c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building 01_c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/19.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="20" />
+		<Name>City_building_011</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/20.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="21" />
+		<Name>City_building_011</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/21.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="22" />
+		<Name>City_building_013</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/22.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="23" />
+		<Name>City_building_013</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/23.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="24" />
+		<Name>building 06_ c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building 06_ c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/24.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="25" />
+		<Name>City_building_014</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/25.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="26" />
+		<Name>City_building_014</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/26.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="28" />
+		<Name>City_building_016</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/28.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="29" />
+		<Name>City_building_016</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/29.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="31" />
+		<Name>City_building_017</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/31.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="32" />
+		<Name>City_building_017</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/32.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="33" />
+		<Name>City_building_022</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/33.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="34" />
+		<Name>City_building_022</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/34.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="35" />
+		<Name>building05 _c</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/building05 _c.tga</OriginalFile>
+		<ResourceFile>Library/Textures/35.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="36" />
+		<Name>City_building_023</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/36.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="37" />
+		<Name>City_building_023</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/37.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="38" />
+		<Name>City_building_024</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/38.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="39" />
+		<Name>City_building_024</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/39.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="40" />
+		<Name>City_building_026</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/40.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="41" />
+		<Name>City_building_026</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/41.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="42" />
+		<Name>City_building_028</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/42.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="43" />
+		<Name>City_building_028</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/43.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="44" />
+		<Name>Building_V01_C</Name>
+		<Type Value="1" />
+		<OriginalFile>Assets/Textures/Building_V01_C.png</OriginalFile>
+		<ResourceFile>Library/Textures/44.dds</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="45" />
+		<Name>Object010</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/45.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="46" />
+		<Name>Object010</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/46.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="47" />
+		<Name>City_building_030</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/47.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="48" />
+		<Name>City_building_030</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/48.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="49" />
+		<Name>City_building_031</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/49.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="50" />
+		<Name>City_building_031</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/50.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="51" />
+		<Name>City_building_032</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/51.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="52" />
+		<Name>City_building_032</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/52.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="53" />
+		<Name>City_building_033</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/53.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="54" />
+		<Name>City_building_033</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/54.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="55" />
+		<Name>City_building_034</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/55.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="56" />
+		<Name>City_building_034</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/56.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="57" />
+		<Name>City_building_035</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/57.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="58" />
+		<Name>City_building_035</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/58.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="59" />
+		<Name>City_building_036</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/59.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="60" />
+		<Name>City_building_036</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/60.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="61" />
+		<Name>City_building_037</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/61.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="62" />
+		<Name>City_building_037</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/62.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="63" />
+		<Name>City_building_038</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/63.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="64" />
+		<Name>City_building_038</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/64.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="65" />
+		<Name>City_building_039</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/65.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="66" />
+		<Name>City_building_039</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/66.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="67" />
+		<Name>City_building_040</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/67.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="68" />
+		<Name>City_building_040</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/68.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="69" />
+		<Name>City_building_041</Name>
+		<Type Value="0" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Meshes/69.rof</ResourceFile>
+	</Resource>
+	<Resource>
+		<ID Value="70" />
+		<Name>City_building_041</Name>
+		<Type Value="2" />
+		<OriginalFile>Assets/Models/Street environment_V01.FBX</OriginalFile>
+		<ResourceFile>Library/Materials/70.rof</ResourceFile>
+	</Resource>
+	<NextID Value="71" />
 </Resources>

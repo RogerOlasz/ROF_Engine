@@ -28,7 +28,7 @@ public:
 	bool RemoveAllSearchPaths();
 	bool RemovePath(const char *path_or_zip);
 	uint Load(const char* file, char **buffer) const;
-	SDL_RWops *Load(const char* file) const;
+	SDL_RWops* Load(const char* file) const;
 	uint Save(const char *file, const void *buffer, uint size) const;
 
 	bool IsDirectory(const char *dir) const;

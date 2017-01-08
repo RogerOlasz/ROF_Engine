@@ -3,9 +3,6 @@
 
 #include "Module.h"
 
-#include <AK/SoundEngine/Common/AkSoundEngine.h>
-#include <AK/IBytes.h>
-
 class ModuleAudio : public Module
 {
 public:
@@ -16,14 +13,14 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	void* ModuleAudio::AllocHook(size_t in_size);
+	/*void* AllocHook(size_t in_size);
 	void ModuleAudio::FreeHook(void* in_ptr);
 
 	void* ModuleAudio::VirtualAllocHook(void* in_pMemAddress, size_t in_size, DWORD in_dwAllocationType, DWORD in_dwProtect);
-	void ModuleAudio::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType);
+	void ModuleAudio::VirtualFreeHook(void* in_pMemAddress, size_t in_size, DWORD in_dwFreeType);*/
 
 private:
-
+	
 };
 
 #endif // !__MODULEAUDIO_H__

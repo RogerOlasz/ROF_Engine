@@ -30,6 +30,8 @@ ModuleFileSystem::ModuleFileSystem(Application* app, bool start_enabled) : Modul
 		CreateDir("Library/Materials");
 		CreateDir("Library/Textures");
 	}	
+
+	CreateAssimpIO();
 }
 
 ModuleFileSystem::~ModuleFileSystem()
@@ -68,6 +70,8 @@ bool ModuleFileSystem::CleanUp()
 {
 	RELEASE(AssimpIO);
 	RemoveAllSearchPaths();
+
+	PHYSFS_deinit();
 
 	return true;
 }
