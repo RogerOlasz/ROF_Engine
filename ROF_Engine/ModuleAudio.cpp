@@ -4,9 +4,12 @@
 
 #include <AK/SoundEngine/Common/AkMemoryMgr.h>  // Memory Manager
 #include <AK/SoundEngine/Common/AkModule.h>     // Default memory and stream managers
+
 #include <AK/SoundEngine/Common/IAkStreamMgr.h> // Streaming Manager
 #include <AK/Tools/Common/AkPlatformFuncs.h>    // Thread defines
-#include "Wwise/SDK/samples/SoundEngine/POSIX/AkFilePackageLowLevelIOBlocking.h" // Sample low-level I/O implementation
+
+#include <AK/SoundEngine/Common/AkSoundEngine.h>// Sound Engine
+#include <AK/MusicEngine/Common/AkMusicEngine.h>// Music Engine
 
 #ifdef _DEBUG
 #pragma comment (lib, "Wwise/Win32(140)/Debug(StaticCRT)/lib/AkSoundEngine.lib")
@@ -36,8 +39,6 @@ bool ModuleAudio::Init()
 	LOG("Loading Audio Engine");
 	bool ret = true;
 
-	CAkFilePackageLowLevelIOBlocking low_level_IO;
-
 	AkMemSettings memory_settings;
 	memory_settings.uMaxNumPools = 20;
 
@@ -48,29 +49,54 @@ bool ModuleAudio::Init()
 		ret = false;
 	}
 
-	AkStreamMgrSettings stream_Settings;
-	AK::StreamMgr::GetDefaultSettings(stream_Settings);
+	////STREAM MANAGER INITIALITZATION
+	//AkStreamMgrSettings stream_Settings;
+	//AK::StreamMgr::GetDefaultSettings(stream_Settings);
 
-	// Customize the Stream Manager settings here.
+	//// Customize the Stream Manager settings here.
 
-	if (!AK::StreamMgr::Create(stream_Settings))
-	{
-		LOG("Could not create the Streaming Manager.");
-		assert(!"Could not create the Streaming Manager.");
-		ret = false;
-	}
+	//if (!AK::StreamMgr::Create(stream_Settings))
+	//{
+	//	LOG("Could not create the Streaming Manager.");
+	//	assert(!"Could not create the Streaming Manager.");
+	//	ret = false;
+	//}
 
-	AkDeviceSettings device_settings;
-	AK::StreamMgr::GetDefaultDeviceSettings(device_settings);
+	//AkDeviceSettings device_settings;
+	//AK::StreamMgr::GetDefaultDeviceSettings(device_settings);
 
-	// Customize the streaming device settings here.
+	//// Customize the streaming device settings here.
 
-	if (low_level_IO.Init(device_settings) != AK_Success)
-	{
-		LOG("Could not create the streaming device and Low-Level I/O system.");
-		assert(!"Could not create the streaming device and Low-Level I/O system.");
-		ret = false;
-	}
+	//if (low_level_IO.Init(device_settings) != AK_Success)
+	//{
+	//	LOG("Could not create the streaming device and Low-Level I/O system.");
+	//	assert(!"Could not create the streaming device and Low-Level I/O system.");
+	//	ret = false;
+	//}
+
+	////SOUND INITIALITZATION
+	//AkInitSettings init_settings;
+	//AkPlatformInitSettings platform_init_settings;
+	//AK::SoundEngine::GetDefaultInitSettings(init_settings);
+	//AK::SoundEngine::GetDefaultPlatformInitSettings(platform_init_settings);
+
+	//if (AK::SoundEngine::Init(&init_settings, &platform_init_settings) != AK_Success)
+	//{
+	//	LOG("Could not initialize the Sound Engine.");
+	//	assert(!"Could not initialize the Sound Engine.");
+	//	return false;
+	//}
+
+	////MUSIC INITIALITZATION
+	//AkMusicSettings music_init;
+	//AK::MusicEngine::GetDefaultInitSettings(music_init);
+
+	//if (AK::MusicEngine::Init(&music_init) != AK_Success)
+	//{
+	//	LOG("Could not initialize the Music Engine.");
+	//	assert(!"Could not initialize the Music Engine.");
+	//	return false;
+	//}
 
 	return ret;
 }
